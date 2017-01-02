@@ -7,11 +7,10 @@ import view.View;
  * Class Controller
  *
  */
-
 public class Controller implements ViewObserver {
 	
-	private Model m;
-	private View v;
+	private Model model;
+	private View view;
 	
 	/**
 	 * Constructor
@@ -22,8 +21,8 @@ public class Controller implements ViewObserver {
 
 	@Override
 	public void rollDice() {
-		int value = m.getRandomNumber();
-		v.setDiceValue(value);
+		int value = model.getRandomNumber();
+		view.setDiceValue(value);
 
 	}
 
@@ -34,19 +33,19 @@ public class Controller implements ViewObserver {
 
 	@Override
 	public void quit() {
-		m.reset();
+		model.reset();
 
 	}
 
 	@Override
 	public void resetGame() {
-		m.reset();
+		model.reset();
 
 	}
 
 	@Override
 	public void play() {
-		m.newGame();
+		model.newGame();
 
 	}
 
