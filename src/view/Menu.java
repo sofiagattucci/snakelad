@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 /**
  * This class creates and initializes the main menu scene. 
+ * It' s built using a Singleton pattern.
  */
 public final class Menu extends Scene {
 
@@ -28,6 +29,7 @@ public final class Menu extends Scene {
     private final Button quit = new Button(QUIT);
     private final Text title = new Text(TITLE);
     private final VBox box = new VBox(play, instructions, quit);
+    private static final Menu MENU_SCENE = new Menu();
 
     private Menu() {
         super(new BorderPane());
@@ -50,5 +52,14 @@ public final class Menu extends Scene {
         BorderPane.setAlignment(title, Pos.CENTER);
         title.setFont(new Font(FONT_SIZE));
         title.setTranslateY(TITLE_TOP_PADDING);
+    }
+
+    /**
+     * Getter of the scene.
+     * @return
+     *     The menu scene
+     */
+    public static Menu getScene() {
+        return MENU_SCENE;
     }
 }

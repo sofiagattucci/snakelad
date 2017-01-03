@@ -19,13 +19,13 @@ public class MainFrame extends Application {
     @Override
     public void start(final Stage defaultStage) {
 
-        mainSt = defaultStage;
-        mainSt.setTitle(TITLE);
-        mainSt.setHeight(Toolkit.getDefaultToolkit().getScreenSize().getHeight() * SCREEN_H_PERC);
-        mainSt.setWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * SCREEN_W_PERC);
-        mainSt.centerOnScreen();
-        mainSt.setResizable(false);
-
-        mainSt.show();
+        this.mainSt = defaultStage;
+        this.mainSt.setTitle(TITLE);
+        this.mainSt.setHeight(Toolkit.getDefaultToolkit().getScreenSize().getHeight() * SCREEN_H_PERC);
+        this.mainSt.setWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * SCREEN_W_PERC);
+        this.mainSt.centerOnScreen();
+        this.mainSt.setResizable(false);
+        this.mainSt.setScene(Menu.getScene());
+        this.mainSt.show();
     }
 }
