@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 /**
  * This class creates and initializes the main menu scene. 
  * It' s built using a Singleton pattern.
@@ -30,6 +31,7 @@ public final class Menu extends Scene {
     private final Text title = new Text(TITLE);
     private final VBox box = new VBox(play, instructions, quit);
     private static final Menu MENU_SCENE = new Menu();
+    private static Stage menuStage;
 
     private Menu() {
         super(new BorderPane());
@@ -38,7 +40,7 @@ public final class Menu extends Scene {
 
         this.play.setOnAction(e -> { });
 
-        this.instructions.setOnAction(e -> { });
+        this.instructions.setOnAction(e -> menuStage.setScene(Instructions.getScene(menuStage)));
 
         this.quit.setOnAction(e -> { });
 
@@ -56,10 +58,13 @@ public final class Menu extends Scene {
 
     /**
      * Getter of the scene.
+     * @param stage
+     *     The stage that will be linked to the one of this class 
      * @return
      *     The menu scene
      */
-    public static Menu getScene() {
+    public static Menu getScene(final Stage stage) {
+        menuStage = stage;
         return MENU_SCENE;
     }
 }
