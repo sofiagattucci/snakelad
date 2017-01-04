@@ -2,7 +2,6 @@ package view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -13,7 +12,7 @@ import javafx.stage.Stage;
  * This class creates and initializes the main menu scene. 
  * It' s built using a Singleton pattern.
  */
-public final class Menu extends Scene {
+public final class Menu extends BasicScene {
 
     private static final String PLAY = "PLAY";
     private static final String INSTRUCTIONS = "INSTRUCTIONS";
@@ -24,7 +23,6 @@ public final class Menu extends Scene {
     private static final double BOX_INSETS = 100;
     private static final double BOX_SPACING = 20;
 
-    private final BorderPane bp = new BorderPane();
     private final Button play = new Button(PLAY);
     private final Button instructions = new Button(INSTRUCTIONS);
     private final Button quit = new Button(QUIT);
@@ -34,9 +32,6 @@ public final class Menu extends Scene {
     private static Stage menuStage;
 
     private Menu() {
-        super(new BorderPane());
-
-        this.setRoot(this.bp);
 
         this.play.setOnAction(e -> { });
 
@@ -44,13 +39,13 @@ public final class Menu extends Scene {
 
         this.quit.setOnAction(e -> { });
 
-        this.bp.setCenter(box);
+        this.getDefaultLayout().setCenter(box);
 
         box.setAlignment(Pos.CENTER);
         box.setSpacing(BOX_SPACING);
         box.setPadding(new Insets(BOX_INSETS)); 
 
-        this.bp.setTop(title);
+        this.getDefaultLayout().setTop(title);
         BorderPane.setAlignment(title, Pos.CENTER);
         title.setFont(new Font(FONT_SIZE));
         title.setTranslateY(TITLE_TOP_PADDING);
