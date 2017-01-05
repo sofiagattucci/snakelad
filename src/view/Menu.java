@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -33,11 +34,14 @@ public final class Menu extends BasicScene {
 
     private Menu() {
 
-        this.play.setOnAction(e -> { });
+        this.play.setOnAction(e -> {
+            ViewImpl.setPlayScene(Play.getScene(menuStage));
+            menuStage.setScene(Play.getScene(menuStage));
+        });
 
         this.instructions.setOnAction(e -> menuStage.setScene(Instructions.getScene(menuStage)));
 
-        this.quit.setOnAction(e -> { });
+        this.quit.setOnAction(e -> Platform.exit());
 
         this.getDefaultLayout().setCenter(box);
 
