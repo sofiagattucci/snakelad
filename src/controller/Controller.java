@@ -12,15 +12,13 @@ import view.ViewImpl;
 public class Controller implements ViewObserver {
     private Model model;
     private View view;
-    private ViewObserver controller;
 
     /**.
      * Constructor
      */
     public Controller() {
-        controller = new Controller();
-        model = new ModelImpl();
-        view = new ViewImpl(controller);
+        this.model = new ModelImpl();
+        this.view = new ViewImpl(new Controller());
     }
 
     @Override
@@ -48,7 +46,7 @@ public class Controller implements ViewObserver {
         model.newGame();
     }
 
-    private void startApplication() {
+    public void startApplication() {
         view.start();
     }
 
