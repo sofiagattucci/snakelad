@@ -9,6 +9,8 @@ public class ClassicDice implements Dice {
 
     private final int numberOfSides = NUMBER_OF_SIDES;
 
+    // we use default contructor
+
     @Override
     public int roll() {
         return this.numberOfSides;
