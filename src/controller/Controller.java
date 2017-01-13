@@ -1,7 +1,7 @@
 package controller;
 
 import model.Model;
-import model.ModelImpl;
+import model.GameImpl;
 import view.View;
 import view.ViewImpl;
 
@@ -17,7 +17,7 @@ public class Controller implements ViewObserver {
      * Constructor
      */
     public Controller() {
-        this.model = new ModelImpl();
+        this.model = new GameImpl();
         this.view = new ViewImpl(this);
     }
 
