@@ -10,7 +10,7 @@ public class Application {
 
     private Application() {
         this.controller = new Controller();
-        controller.startApplication();
+        this.controller.startApplication();
     }
 
     /**.

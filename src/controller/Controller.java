@@ -18,13 +18,13 @@ public class Controller implements ViewObserver {
      */
     public Controller() {
         this.model = new ModelImpl();
-        this.view = new ViewImpl(new Controller());
+        this.view = new ViewImpl(this);
     }
 
     @Override
     public void rollDice() {
-        int value = model.getRandomNumber();
-        view.setDiceValue(value);
+        int value = this.model.getRandomNumber();
+        this.view.setDiceValue(value);
     }
 
     @Override
@@ -33,21 +33,21 @@ public class Controller implements ViewObserver {
 
     @Override
     public void quit() {
-        model.reset();
+        this.model.reset();
     }
 
     @Override
     public void resetGame() {
-        model.reset();
+        this.model.reset();
     }
 
     @Override
     public void play() {
-        model.newGame();
+        this.model.newGame();
     }
 
     public void startApplication() {
-        view.start();
+        this.view.start();
     }
 
 }
