@@ -1,5 +1,7 @@
 package model.entities;
 
+import java.util.Random;
+
 /**
  * Defines a ClassicDice class which represents a dice with six sides. 
  */
@@ -13,7 +15,8 @@ public class ClassicDice implements Dice {
 
     @Override
     public int roll() {
-        return this.numberOfSides;
+        final Random randomNumber = new Random();
+        return randomNumber.nextInt(this.numberOfSides + 1);
     }
 
 }

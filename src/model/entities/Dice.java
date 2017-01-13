@@ -1,7 +1,8 @@
 package model.entities;
 
 /** 
- * Interface of a generic Dice. Defines default methods for all dices inside the model.
+ * Interface of a generic Dice. 
+ * Defines default dice's methods inside the model.
  */
 public interface Dice {
 

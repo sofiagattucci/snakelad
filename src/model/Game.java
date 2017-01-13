@@ -1,7 +1,7 @@
 package model;
 
 /**
- * It represents the Model interface in MVC pattern, the interface of the game.
+ * It represents the model interface in MVC pattern, the interface of the game.
  * Defines the main methods of the Model class.
  */
 public interface Game {
