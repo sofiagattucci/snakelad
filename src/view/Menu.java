@@ -48,6 +48,7 @@ public final class Menu extends BasicScene {
 
         this.quit.setOnAction(e -> {
             final Alert confirmationBox = new Alert(AlertType.CONFIRMATION);
+            confirmationBox.initOwner(menuStage);
             confirmationBox.setTitle("Quitting...");
             confirmationBox.setHeaderText("Do you really want to quit?");
             final Optional<ButtonType> result = confirmationBox.showAndWait();
