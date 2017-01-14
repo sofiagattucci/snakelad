@@ -11,7 +11,6 @@ public class BasicButton extends Button {
 
     private static final double BUTTON_WIDTH_PERC = 0.25;
     private static final double BUTTON_HEIGHT_PERC = 0.044;
-    private static final double STAGE_DIM = 0.9;
 
     BasicButton(final String s) {
         super(s);
@@ -19,8 +18,8 @@ public class BasicButton extends Button {
     }
 
     private void setDimension() {
-        this.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * STAGE_DIM * BUTTON_WIDTH_PERC);
-        this.setPrefHeight(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * STAGE_DIM * BUTTON_HEIGHT_PERC);
+        this.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_W_PERC * BUTTON_WIDTH_PERC);
+        this.setPrefHeight(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_H_PERC * BUTTON_HEIGHT_PERC);
     } 
 
 }

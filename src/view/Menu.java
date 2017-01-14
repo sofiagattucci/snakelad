@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.Toolkit;
-
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

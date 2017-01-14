@@ -1,5 +1,6 @@
 package view;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -13,19 +14,27 @@ public final class Play extends BasicScene {
     private static final String BACK = "Back";
     private static final String ROLL = "Roll";
     private static final int DICE_DEFAULT_VALUE = 0;
+    private static final double BOX_SPACING = 20;
+    private static final double BOX_INSETS = 100;
 
     private static Play playScene = new Play();
     private static Stage playStage;
 
-    private final Button back = new Button(BACK);
-    private final Button roll = new Button(ROLL); 
+    private final Button back = new BasicButton(BACK);
+    private final Button roll = new BasicButton(ROLL); 
     private final Label diceValue = new Label(String.valueOf(DICE_DEFAULT_VALUE));
     private final VBox box = new VBox(diceValue, roll, back);
 
     private Play() {
 
         this.getDefaultLayout().setRight(this.box);
+
+        this.box.setSpacing(BOX_SPACING);
+        this.box.setTranslateY(100);
+        box.setPadding(new Insets(BOX_INSETS));
+
         back.setOnAction(e -> playStage.setScene(Menu.getScene(playStage)));
+
         roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
     }
 
