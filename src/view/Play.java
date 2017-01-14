@@ -1,9 +1,13 @@
 package view;
 
+import java.awt.Toolkit;
+
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -15,7 +19,11 @@ public final class Play extends BasicScene {
     private static final String ROLL = "Roll";
     private static final int DICE_DEFAULT_VALUE = 0;
     private static final double BOX_SPACING = 20;
-    private static final double BOX_INSETS = 100;
+    private static final double BOX_INSETS = 60;
+    private static final double BOX_W_PERC = 0.20;
+    private static final double BUTTON_WIDTH = 150;
+    private static final double BUTTON_HEIGHT = 40;
+    private static final int FONT_SIZE = 30;
 
     private static Play playScene = new Play();
     private static Stage playStage;
@@ -29,9 +37,17 @@ public final class Play extends BasicScene {
 
         this.getDefaultLayout().setRight(this.box);
 
+        box.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_W_PERC * BOX_W_PERC);
         this.box.setSpacing(BOX_SPACING);
-        this.box.setTranslateY(100);
         box.setPadding(new Insets(BOX_INSETS));
+
+        diceValue.setFont(new Font(FONT_SIZE));
+
+        roll.setPrefWidth(BUTTON_WIDTH);
+        roll.setPrefHeight(BUTTON_HEIGHT);
+
+        back.setPrefWidth(BUTTON_WIDTH);
+        back.setPrefHeight(BUTTON_HEIGHT);
 
         back.setOnAction(e -> playStage.setScene(Menu.getScene(playStage)));
 

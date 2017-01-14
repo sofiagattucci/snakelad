@@ -3,6 +3,7 @@ package view;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -12,7 +13,8 @@ import javafx.stage.Stage;
 public final class Instructions extends BasicScene {
 
     private static final String BACK = "Back";
-    private static final double BOX_SPACING = 20;
+    private static final double BOX_SPACING = 30;
+    private static final int FONT_SIZE = 20;
 
     private static Stage instrStage;
     private static Instructions instructionsScene = new Instructions();
@@ -29,6 +31,7 @@ public final class Instructions extends BasicScene {
 
         this.back.setOnAction(e -> instrStage.setScene(Menu.getScene(instrStage)));
 
+        this.instr.setFont(new Font(FONT_SIZE));
     }
 
     /**
