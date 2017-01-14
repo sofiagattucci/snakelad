@@ -1,9 +1,14 @@
 package view;
 
+import java.util.Optional;
+
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -41,7 +46,15 @@ public final class Menu extends BasicScene {
 
         this.instructions.setOnAction(e -> menuStage.setScene(Instructions.getScene(menuStage)));
 
-        this.quit.setOnAction(e -> Platform.exit());
+        this.quit.setOnAction(e -> {
+            final Alert confirmationBox = new Alert(AlertType.CONFIRMATION);
+            confirmationBox.setTitle("Quitting...");
+            confirmationBox.setHeaderText("Do you really want to quit?");
+            final Optional<ButtonType> result = confirmationBox.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Platform.exit();
+            }
+        });
 
         this.getDefaultLayout().setCenter(box);
 
