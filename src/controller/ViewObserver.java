@@ -12,10 +12,10 @@ public interface ViewObserver {
          */
         void rollDice();
 
-        /**
-         * 
+        /**.
+         * Get Text file of instruction
          */
-        void instruction();
+        void getInstructions();
 
         /**.
          * Quit game
@@ -25,7 +25,7 @@ public interface ViewObserver {
         /**.
          * Reset all game
          */
-        void resetGame();
+        void restart();
 
         /**.
          * Start new game

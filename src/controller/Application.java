@@ -4,7 +4,7 @@ package controller;
  *Class that contain main method
  *
  */
-public class Application {
+public final class Application {
 
     private final Controller controller;
 
@@ -15,10 +15,10 @@ public class Application {
 
     /**.
      * Main method
-     * @param args
+     * @param args arguments of main method
      */
     public static void main(final String[] args) {
-        final Application startGame = new Application();
+        final Application application = new Application();
     }
 
 }

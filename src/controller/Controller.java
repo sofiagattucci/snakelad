@@ -1,6 +1,6 @@
 package controller;
 
-import model.Model;
+import model.Game;
 import model.GameImpl;
 import view.View;
 import view.ViewImpl;
@@ -10,42 +10,44 @@ import view.ViewImpl;
  *
  */
 public class Controller implements ViewObserver {
-    private Model model;
+    private Game game;
     private View view;
 
     /**.
      * Constructor
      */
     public Controller() {
-        this.model = new GameImpl();
+        this.game = new GameImpl();
         this.view = new ViewImpl(this);
     }
 
     @Override
     public void rollDice() {
-        int value = this.model.getRandomNumber();
+        int value = this.game.getNumberFromDice();
         this.view.setDiceValue(value);
     }
 
     @Override
-        public void instruction() {
+        public void getInstructions() {
     }
 
     @Override
     public void quit() {
-        this.model.reset();
+        this.game.giveUpGame();
     }
 
     @Override
-    public void resetGame() {
-        this.model.reset();
+    public void restart() {
+        this.game.restartGame();
     }
 
     @Override
     public void play() {
-        this.model.newGame();
+        this.game.startGame();
     }
-
+    /**.
+     * Start the view
+     */
     public void startApplication() {
         this.view.start();
     }
