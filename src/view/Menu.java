@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Toolkit;
+
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,9 +26,9 @@ public final class Menu extends BasicScene {
     private static final double BOX_INSETS = 100;
     private static final double BOX_SPACING = 20;
 
-    private final Button play = new Button(PLAY);
-    private final Button instructions = new Button(INSTRUCTIONS);
-    private final Button quit = new Button(QUIT);
+    private final Button play = new BasicButton(PLAY);
+    private final Button instructions = new BasicButton(INSTRUCTIONS);
+    private final Button quit = new BasicButton(QUIT);
     private final Text title = new Text(TITLE);
     private final VBox box = new VBox(play, instructions, quit);
     private static final Menu MENU_SCENE = new Menu();
