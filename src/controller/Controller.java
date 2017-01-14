@@ -10,8 +10,8 @@ import view.ViewImpl;
  *
  */
 public class Controller implements ViewObserver {
-    private Game game;
-    private View view;
+    private final Game game;
+    private final View view;
 
     /**.
      * Constructor
@@ -23,7 +23,7 @@ public class Controller implements ViewObserver {
 
     @Override
     public void rollDice() {
-        int value = this.game.getNumberFromDice();
+        final int value = this.game.getNumberFromDice();
         this.view.setDiceValue(value);
     }
 
@@ -48,7 +48,7 @@ public class Controller implements ViewObserver {
     /**.
      * Start the view
      */
-    public void startApplication() {
+    public void start() {
         this.view.start();
     }
 

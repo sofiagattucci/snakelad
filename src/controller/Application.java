@@ -10,15 +10,22 @@ public final class Application {
 
     private Application() {
         this.controller = new Controller();
-        this.controller.startApplication();
+    }
+
+    /**
+     * Start the application
+     */
+    private void startApplication() {
+        this.controller.start();
     }
 
     /**.
      * Main method
-     * @param args arguments of main method
+     * @param args ignored
      */
     public static void main(final String[] args) {
         final Application application = new Application();
+        application.startApplication();
     }
 
 }
