@@ -4,9 +4,14 @@ package view;
  */
 public final class Dimension {
 
-    /* Package scope */
-    static final double SCREEN_W_PERC = 0.9;
-    static final double SCREEN_H_PERC = 0.9;
+    /**
+     * Width of the window in proportion to the screen. 
+     */
+    public static final double SCREEN_W_PERC = 0.9;
+    /**
+     * Height of the window in proportion to the screen. 
+     */
+    public static final double SCREEN_H_PERC = 0.9;
 
 private Dimension() { }
 }

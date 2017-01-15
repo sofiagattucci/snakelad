@@ -30,17 +30,31 @@ public class ViewImpl implements View {
     }
 
     /*Package visibility*/
-    static void setPlayScene(final Play scene) {
+    /**
+     * It links a Play scene to this class.
+     * @param scene
+     *     The scene to link.
+     */
+    protected static void setPlayScene(final Play scene) {
         playScene = scene;
     }
 
     /*Package visibility*/
-    static ViewObserver getObserver() {
+    /**
+     * Getter of the observer.
+     * @return
+     *     The observer linked to this class
+     */
+    protected static ViewObserver getObserver() {
         return observer;
     }
 
     private static void setObserver(final ViewObserver obs) {
         observer = obs;
+    }
+    @Override
+    public void showTurn(final String turn) {
+        playScene.setTurn(turn);
     }
 } 
 
