@@ -16,6 +16,7 @@ public class Controller implements ViewObserver {
     private final Game game;
     private final View view;
     private String turn;
+    private static final String FILE_NAME = "./res/Instructions.txt";
 
     /**
      * Constructor.
@@ -35,7 +36,7 @@ public class Controller implements ViewObserver {
 
     @Override
         public void getInstructions() {
-        FileManager.get().read(new File("/res/Instructions.txt"));
+        this.view.setInstructions(FileManager.get().read(new File(FILE_NAME)));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package controller;
 
-/**.
- *Class that contain main method
+/**
+ *Class that contain main method.
  *
  */
 public final class Application {
@@ -13,15 +13,15 @@ public final class Application {
     }
 
     /**
-     * Start the application
+     * Start the application.
      */
     private void startApplication() {
         this.controller.start();
     }
 
-    /**.
+    /**
      * Main method
-     * @param args ignored
+     * @param args ignored.
      */
     public static void main(final String[] args) {
         final Application application = new Application();
