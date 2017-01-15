@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.File;
+
 import model.Game;
 import model.GameImpl;
 import view.View;
@@ -31,6 +33,7 @@ public class Controller implements ViewObserver {
 
     @Override
         public void getInstructions() {
+        FileManager.get().read(new File("/res/Instructions.txt"));
     }
 
     @Override
