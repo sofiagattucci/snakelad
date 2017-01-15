@@ -16,7 +16,7 @@ public class ClassicDice implements Dice {
     @Override
     public int roll() {
         final Random randomNumber = new Random();
-        return randomNumber.nextInt(this.numberOfSides + 1);
+        return randomNumber.nextInt(this.numberOfSides) + 1;
     }
 
 }
