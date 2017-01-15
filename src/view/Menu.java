@@ -23,13 +23,14 @@ public final class Menu extends BasicScene {
     private static final double BOX_INSETS = 100;
     private static final double BOX_SPACING = 20;
 
+    private static final Menu MENU_SCENE = new Menu();
+    private static Stage menuStage;
     private final Button play = new BasicButton(PLAY);
     private final Button instructions = new BasicButton(INSTRUCTIONS);
     private final Button quit = new BasicButton(QUIT);
     private final Text title = new Text(TITLE);
     private final VBox box = new VBox(play, instructions, quit);
-    private static final Menu MENU_SCENE = new Menu();
-    private static Stage menuStage;
+    private final ClosureHandler closure = new ClosureHandler(menuStage);
 
     private Menu() {
 
@@ -40,7 +41,7 @@ public final class Menu extends BasicScene {
 
         this.instructions.setOnAction(e -> menuStage.setScene(Instructions.getScene(menuStage)));
 
-        this.quit.setOnAction(e -> ClosureHandler.get().close());
+        this.quit.setOnAction(e -> this.closure.close());
 
         this.getDefaultLayout().setCenter(box);
 

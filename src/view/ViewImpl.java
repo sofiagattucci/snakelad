@@ -12,7 +12,7 @@ public class ViewImpl implements View {
     private static ViewObserver observer;
 
     /**
-     * Builder of this class; It sets up the observer.
+     * Constructor of this class; It sets up the observer.
      * @param obs
      *     The observer to link to this class
      */
