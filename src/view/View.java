@@ -1,7 +1,5 @@
 package view;
 
-import controller.Turn;
-
 /**
  * Interface for the View.
  */
@@ -24,5 +22,5 @@ public interface View {
      * @param turn
      *     the new turn.
      */
-    void showTurn(Turn turn);
+    void showTurn(String turn);
 }
