@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Toolkit;
 
-import controller.Turn;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,8 +30,8 @@ public final class Play extends BasicScene {
     private final Button back = new BasicButton(BACK);
     private final Button roll = new BasicButton(ROLL); 
     private final Label diceValue = new Label(String.valueOf(DICE_DEFAULT_VALUE));
-    private final VBox box = new VBox(diceValue, roll, back);
-    private final Label turn = new Label(); 
+    private final Label turn = new Label("Turn..."); 
+    private final VBox box = new VBox(turn, diceValue, roll, back);
 
     private Play() {
 
@@ -43,6 +42,7 @@ public final class Play extends BasicScene {
         box.setPadding(new Insets(BOX_INSETS));
 
         diceValue.setFont(new Font(FONT_SIZE));
+        turn.setFont(new Font(FONT_SIZE));
 
         roll.setPrefWidth(BUTTON_WIDTH);
         roll.setPrefHeight(BUTTON_HEIGHT);
@@ -81,7 +81,7 @@ public final class Play extends BasicScene {
      * @param turn
      *     The new turn
      */
-    public void setTurn(final Turn turn) {
-        this.turn.setText(turn.name());
+    public void setTurn(final String turn) {
+        this.turn.setText(turn);
     }
 }

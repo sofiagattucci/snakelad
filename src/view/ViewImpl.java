@@ -1,6 +1,5 @@
 package view;
 
-import controller.Turn;
 import controller.ViewObserver;
 import javafx.application.Application;
 
@@ -31,12 +30,22 @@ public class ViewImpl implements View {
     }
 
     /*Package visibility*/
-    static void setPlayScene(final Play scene) {
+    /**
+     * It links a Play scene to this class.
+     * @param scene
+     *     The scene to link.
+     */
+    protected static void setPlayScene(final Play scene) {
         playScene = scene;
     }
 
     /*Package visibility*/
-    static ViewObserver getObserver() {
+    /**
+     * Getter of the observer.
+     * @return
+     *     The observer linked to this class
+     */
+    protected static ViewObserver getObserver() {
         return observer;
     }
 
@@ -44,7 +53,7 @@ public class ViewImpl implements View {
         observer = obs;
     }
     @Override
-    public void showTurn(final Turn turn) {
+    public void showTurn(final String turn) {
         playScene.setTurn(turn);
     }
 } 
