@@ -13,5 +13,6 @@ public final class Dimension {
      */
     public static final double SCREEN_H_PERC = 0.9;
 
-private Dimension() { }
+    private Dimension() { }
+
 }

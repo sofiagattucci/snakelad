@@ -20,7 +20,7 @@ public final class Application {
     }
 
     /**
-     * Main method
+     * Main method.
      * @param args ignored.
      */
     public static void main(final String[] args) {

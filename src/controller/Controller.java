@@ -4,7 +4,7 @@ import java.io.File;
 
 import model.Game;
 import model.GameImpl;
-import utility.FileManager;
+import utilities.FileManager;
 import view.View;
 import view.ViewImpl;
 

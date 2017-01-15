@@ -1,4 +1,4 @@
-package utility;
+package utilities;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,7 +42,7 @@ public final class FileManager {
                 line = bf.readLine();
             }
         } catch (IOException e) {
-            Log.get().print("Error...Failed to load instructions from file");
+            ConsoleLog.get().print("Error...Failed to load instructions from file");
         }
         return text;
     }

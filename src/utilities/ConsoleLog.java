@@ -1,22 +1,22 @@
-package utility;
+package utilities;
 
 /**
  * This class is used to print strings in the console. Used in some circumstances but mostly for 
  * debug tests.
  * Used Singleton Pattern.
  */
-public final class Log {
+public final class ConsoleLog {
 
-    private static final Log SINGLETON_LOG = new Log();
+    private static final ConsoleLog SINGLETON_LOG = new ConsoleLog();
 
-    private Log() { }
+    private ConsoleLog() { }
 
     /**
      * Getter of the Log.
      * @return
      *     The log
      */
-    public static Log get() {
+    public static ConsoleLog get() {
         return SINGLETON_LOG;
     }
 
