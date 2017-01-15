@@ -1,5 +1,6 @@
 package view;
 
+import controller.Turn;
 import controller.ViewObserver;
 import javafx.application.Application;
 
@@ -41,6 +42,10 @@ public class ViewImpl implements View {
 
     private static void setObserver(final ViewObserver obs) {
         observer = obs;
+    }
+    @Override
+    public void showTurn(final Turn turn) {
+        playScene.setTurn(turn);
     }
 } 
 

@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Toolkit;
 
+import controller.Turn;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,6 +32,7 @@ public final class Play extends BasicScene {
     private final Button roll = new BasicButton(ROLL); 
     private final Label diceValue = new Label(String.valueOf(DICE_DEFAULT_VALUE));
     private final VBox box = new VBox(diceValue, roll, back);
+    private final Label turn = new Label(); 
 
     private Play() {
 
@@ -72,5 +74,14 @@ public final class Play extends BasicScene {
      */
     public void updateDiceValue(final int newValue) {
         this.diceValue.setText(String.valueOf(newValue));
+    }
+
+    /**
+     * It changes the turn shown in the GUI.
+     * @param turn
+     *     The new turn
+     */
+    public void setTurn(final Turn turn) {
+        this.turn.setText(turn.name());
     }
 }
