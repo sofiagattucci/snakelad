@@ -33,13 +33,13 @@ public final class FileManager {
      */
     public String read(final File f) {
 
-        final String text = new String();
+        String text = "";
         try (BufferedReader bf = new BufferedReader(new FileReader(f))) {
             String line = null;
-            String tmp;
-            while ((line = bf.readLine()) != null) {
-                tmp = text.toString();
-                text.concat(tmp + line + "\n");
+            line = bf.readLine();
+            while (line != null) {
+                text = text.concat(line + "\n");
+                line = bf.readLine();
             }
         } catch (IOException e) {
             Log.get().print("Error...Failed to load instructions from file");

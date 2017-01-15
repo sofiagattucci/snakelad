@@ -29,6 +29,7 @@ public class Controller implements ViewObserver {
     public void rollDice() {
         final int value = this.game.getNumberFromDice();
         this.view.setDiceValue(value);
+        changeTurn();
     }
 
     @Override
