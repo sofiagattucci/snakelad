@@ -5,20 +5,22 @@ import model.GameImpl;
 import view.View;
 import view.ViewImpl;
 
-/**.
- * Class Controller
+/**
+ * Class Controller.
  *
  */
 public class Controller implements ViewObserver {
     private final Game game;
     private final View view;
+    private String turn;
 
-    /**.
-     * Constructor
+    /**
+     * Constructor.
      */
     public Controller() {
         this.game = new GameImpl();
         this.view = new ViewImpl(this);
+        this.turn = Turn.PLAYER1.toString();
     }
 
     @Override
@@ -45,11 +47,26 @@ public class Controller implements ViewObserver {
     public void play() {
         this.game.startGame();
     }
-    /**.
-     * Start the view
+
+    @Override
+    public void giveUp() {
+        this.game.giveUpGame();
+    }
+    /**
+     * Start the view.
      */
     public void start() {
         this.view.start();
     }
-
+    /**
+     * Switch the turn of game.
+     */
+    private void changeTurn() {
+        if (this.turn.equals(Turn.COMPUTER.toString())) {
+            this.turn = Turn.PLAYER1.toString();
+        } else {
+            this.turn = Turn.COMPUTER.toString();
+        }
+        this.view.showTurn(this.turn);
+    }
 }
