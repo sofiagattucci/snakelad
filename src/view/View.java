@@ -23,4 +23,11 @@ public interface View {
      *     the new turn.
      */
     void showTurn(String turn);
+
+    /**
+     * It sets the instructions' text shown in the GUI.
+     * @param text
+     *     The text to set.
+     */
+    void setInstructions(final String text);
 }

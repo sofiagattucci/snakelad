@@ -9,6 +9,7 @@ import javafx.application.Application;
 public class ViewImpl implements View {
 
     private static Play playScene;
+    private static Instructions instrScene;
     private static ViewObserver observer;
 
     /**
@@ -41,6 +42,16 @@ public class ViewImpl implements View {
 
     /*Package visibility*/
     /**
+     * It links a Play scene to this class.
+     * @param scene
+     *     The scene to link.
+     */
+    protected static void setInstrScene(final Instructions scene) {
+        instrScene = scene;
+    }
+
+    /*Package visibility*/
+    /**
      * Getter of the observer.
      * @return
      *     The observer linked to this class
@@ -55,6 +66,16 @@ public class ViewImpl implements View {
     @Override
     public void showTurn(final String turn) {
         playScene.setTurn(turn);
+    }
+
+    /**
+     * It sets the instructions text in the Instructions Scene.
+     * @param text
+     *     The text to be set in the Instruction Scene
+     */
+    @Override
+    public void setInstructions(final String text) {
+        instrScene.setInstructions(text);
     }
 } 
 

@@ -45,4 +45,13 @@ public final class Instructions extends BasicScene {
         instrStage = stage;
         return instructionsScene;
     }
+
+    /**
+     * It sets the instructions' text displayed on the GUI.
+     * @param text
+     *     The text
+     */
+    public void setInstructions(final String text) {
+        this.instr.setText(text);
+    }
 }
