@@ -1,4 +1,4 @@
-package controller;
+package utility;
 
 /**
  * This class is used to print strings in the console. Used in some circumstances but mostly for 
