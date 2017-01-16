@@ -6,9 +6,9 @@ package controller;
   */
 public enum Turn {
     /**
-     * Name of Player 1.
+     * Name of Player.
      */
-    PLAYER1("Player 1"),
+    PLAYER("Player"),
     /**
      * Name of Computer.
      */
