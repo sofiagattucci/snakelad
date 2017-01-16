@@ -20,6 +20,7 @@ public class ViewImpl implements View {
     public ViewImpl(final ViewObserver obs) {
         setObserver(obs);
     }
+
     @Override
     public void setDiceValue(final int value) {
         playScene.updateDiceValue(value);
@@ -63,6 +64,7 @@ public class ViewImpl implements View {
     private static void setObserver(final ViewObserver obs) {
         observer = obs;
     }
+
     @Override
     public void showTurn(final String turn) {
         playScene.setTurn(turn);
