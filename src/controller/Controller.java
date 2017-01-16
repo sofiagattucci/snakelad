@@ -49,6 +49,7 @@ public class Controller implements ViewObserver {
         this.game.restartGame();
         this.view.firstTurn();
         this.turn = Turn.PLAYER.toString();
+        this.view.showTurn(turn);
     }
 
     @Override
@@ -75,10 +76,10 @@ public class Controller implements ViewObserver {
      * Switch the turn of game.
      */
     private void changeTurn() {
-        if (this.turn.equals(Turn.COMPUTER.toString())) {
+        if (this.turn.equals(Turn.CPU.toString())) {
             this.turn = Turn.PLAYER.toString();
         } else {
-            this.turn = Turn.COMPUTER.toString();
+            this.turn = Turn.CPU.toString();
         }
         this.view.showTurn(this.turn);
     }

@@ -12,7 +12,7 @@ public enum Turn {
     /**
      * Name of Computer.
      */
-    COMPUTER("Computer");
+    CPU("CPU");
 
     private final String actualName;
 
