@@ -11,6 +11,8 @@ import javafx.stage.Stage;
  */
 public class PauseBox {
 
+    private static final String TITLE = "PAUSE";
+    private static final String MESSAGE = "What do you want to do?";
     private static final String RESUME = "Resume";
     private static final String GIVE_UP = "Give up";
     private static final String RESTART = "Restart";
@@ -30,6 +32,8 @@ public class PauseBox {
 
         pause.initOwner(parentStage);
         pause.initModality(Modality.APPLICATION_MODAL);
+        pause.setTitle(TITLE);
+        pause.setHeaderText(MESSAGE);
         pause.getButtonTypes().clear();
         pause.getButtonTypes().setAll(resume, restart, giveUp);
         this.parentSt = parentStage;

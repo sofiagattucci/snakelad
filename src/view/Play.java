@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public final class Play extends BasicScene {
 
-    private static final String BACK = "Back";
+    private static final String PAUSE = "Pause";
     private static final String ROLL = "Roll";
     private static final int DICE_DEFAULT_VALUE = 0;
     private static final double BOX_SPACING = 20;
@@ -27,7 +27,7 @@ public final class Play extends BasicScene {
     private static Play playScene = new Play();
     private static Stage playStage;
 
-    private final Button back = new BasicButton(BACK);
+    private final Button back = new BasicButton(PAUSE);
     private final Button roll = new BasicButton(ROLL); 
     private final Label diceValue = new Label(String.valueOf(DICE_DEFAULT_VALUE));
     private final Label turn = new Label(); 
