@@ -29,7 +29,7 @@ public interface View {
      * @param text
      *     The text to set.
      */
-    void setInstructions(final String text);
+    void setInstructions(String text);
 
     /**
      * It resets the displayed values at the beginning of each game.

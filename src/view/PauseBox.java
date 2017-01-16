@@ -30,12 +30,12 @@ public class PauseBox {
      */
     public PauseBox(final Stage parentStage) {
 
-        pause.initOwner(parentStage);
-        pause.initModality(Modality.APPLICATION_MODAL);
-        pause.setTitle(TITLE);
-        pause.setHeaderText(MESSAGE);
-        pause.getButtonTypes().clear();
-        pause.getButtonTypes().setAll(resume, restart, giveUp);
+        this.pause.initOwner(parentStage);
+        this.pause.initModality(Modality.APPLICATION_MODAL);
+        this.pause.setTitle(TITLE);
+        this.pause.setHeaderText(MESSAGE);
+        this.pause.getButtonTypes().clear();
+        this.pause.getButtonTypes().setAll(resume, restart, giveUp);
         this.parentSt = parentStage;
     }
 

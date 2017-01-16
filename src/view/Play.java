@@ -36,24 +36,25 @@ public final class Play extends BasicScene {
 
         this.getDefaultLayout().setRight(this.box);
 
-        box.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_W_PERC * BOX_W_PERC);
+        this.box.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_W_PERC * BOX_W_PERC);
         this.box.setSpacing(BOX_SPACING);
-        box.setPadding(new Insets(BOX_INSETS));
+        this.box.setPadding(new Insets(BOX_INSETS));
 
-        diceValue.setFont(new Font(FONT_SIZE));
-        turn.setFont(new Font(FONT_SIZE));
+        this.diceValue.setFont(new Font(FONT_SIZE));
+        this.turn.setFont(new Font(FONT_SIZE));
 
-        roll.setPrefWidth(BUTTON_WIDTH);
-        roll.setPrefHeight(BUTTON_HEIGHT);
+        this.roll.setPrefWidth(BUTTON_WIDTH);
+        this.roll.setPrefHeight(BUTTON_HEIGHT);
 
-        back.setPrefWidth(BUTTON_WIDTH);
-        back.setPrefHeight(BUTTON_HEIGHT);
+        this.back.setPrefWidth(BUTTON_WIDTH);
+        this.back.setPrefHeight(BUTTON_HEIGHT);
 
-        back.setOnAction(e -> { 
+        this.back.setOnAction(e -> { 
             final PauseBox pause = new PauseBox(playStage);
             pause.show();
         });
-        roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
+
+        this.roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
     }
     /**
      * Getter of the scene.

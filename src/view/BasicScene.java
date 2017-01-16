@@ -22,7 +22,7 @@ public class BasicScene extends Scene {
         super(new BorderPane());
 
         this.setRoot(this.bp);
-        bp.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.bp.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     /**

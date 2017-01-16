@@ -50,14 +50,14 @@ public final class Menu extends BasicScene {
 
         this.getDefaultLayout().setCenter(box);
 
-        box.setAlignment(Pos.CENTER);
-        box.setSpacing(BOX_SPACING);
-        box.setPadding(new Insets(BOX_INSETS)); 
+        this.box.setAlignment(Pos.CENTER);
+        this.box.setSpacing(BOX_SPACING);
+        this.box.setPadding(new Insets(BOX_INSETS)); 
 
         this.getDefaultLayout().setTop(title);
         BorderPane.setAlignment(title, Pos.CENTER);
-        title.setFont(new Font(FONT_SIZE));
-        title.setTranslateY(TITLE_TOP_PADDING);
+        this.title.setFont(new Font(FONT_SIZE));
+        this.title.setTranslateY(TITLE_TOP_PADDING);
     }
 
     /**

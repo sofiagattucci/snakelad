@@ -24,10 +24,10 @@ public final class ClosureHandler {
      */
     public ClosureHandler(final Stage parentStage) {
 
-        confirmationBox.initOwner(parentStage);
-        confirmationBox.initModality(Modality.APPLICATION_MODAL);
-        confirmationBox.setTitle(QUIT_MESSAGE);
-        confirmationBox.setHeaderText(CONFIRMATION_MESSAGE);
+        this.confirmationBox.initOwner(parentStage);
+        this.confirmationBox.initModality(Modality.APPLICATION_MODAL);
+        this.confirmationBox.setTitle(QUIT_MESSAGE);
+        this.confirmationBox.setHeaderText(CONFIRMATION_MESSAGE);
     }
 
     /**
