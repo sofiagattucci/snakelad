@@ -79,5 +79,10 @@ public class ViewImpl implements View {
     public void setInstructions(final String text) {
         instrScene.setInstructions(text);
     }
+
+    @Override
+    public void firstTurn() {
+        playScene.firstTurn();
+    }
 } 
 

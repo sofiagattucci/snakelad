@@ -16,7 +16,6 @@ public final class Play extends BasicScene {
 
     private static final String PAUSE = "Pause";
     private static final String ROLL = "Roll";
-    private static final int DICE_DEFAULT_VALUE = 0;
     private static final double BOX_SPACING = 20;
     private static final double BOX_INSETS = 60;
     private static final double BOX_W_PERC = 0.20;
@@ -29,7 +28,7 @@ public final class Play extends BasicScene {
 
     private final Button back = new BasicButton(PAUSE);
     private final Button roll = new BasicButton(ROLL); 
-    private final Label diceValue = new Label(String.valueOf(DICE_DEFAULT_VALUE));
+    private final Label diceValue = new Label();
     private final Label turn = new Label(); 
     private final VBox box = new VBox(turn, diceValue, roll, back);
 
@@ -84,5 +83,14 @@ public final class Play extends BasicScene {
      */
     public void setTurn(final String turn) {
         this.turn.setText(turn);
+    }
+
+    /*Package visibility*/
+    /**
+     * It resets the displayed values at the beginning of each game. Indeed at the beginning 
+     * there is no value shown in the GUI for the dice value. 
+     */
+    protected void firstTurn() {
+        this.diceValue.setText("");
     }
 }

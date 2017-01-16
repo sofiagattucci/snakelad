@@ -30,4 +30,9 @@ public interface View {
      *     The text to set.
      */
     void setInstructions(final String text);
+
+    /**
+     * It resets the displayed values at the beginning of each game.
+     */
+    void firstTurn();
 }
