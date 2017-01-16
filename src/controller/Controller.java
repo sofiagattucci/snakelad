@@ -48,6 +48,7 @@ public class Controller implements ViewObserver {
     public void restart() {
         this.game.restartGame();
         this.view.firstTurn();
+        this.turn = Turn.PLAYER.toString();
     }
 
     @Override
@@ -55,12 +56,14 @@ public class Controller implements ViewObserver {
         this.game.startGame();
         this.view.showTurn(turn);
         this.view.firstTurn();
+        this.turn = Turn.PLAYER.toString();
     }
 
     @Override
     public void giveUp() {
         this.game.giveUpGame();
         this.view.firstTurn();
+        this.turn = Turn.PLAYER.toString();
     }
     /**
      * Start the view.
