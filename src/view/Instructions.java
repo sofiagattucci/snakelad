@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -18,7 +19,7 @@ public final class Instructions extends BasicScene {
 
     private static Stage instrStage;
     private static Instructions instructionsScene = new Instructions();
-    private final Text instr = new Text("Instructions...");
+    private final Text instr = new Text();
     private final Button back = new BasicButton(BACK);
     private final VBox box = new VBox(instr, back);
 
@@ -32,6 +33,7 @@ public final class Instructions extends BasicScene {
         this.back.setOnAction(e -> instrStage.setScene(Menu.getScene(instrStage)));
 
         this.instr.setFont(new Font(FONT_SIZE));
+        this.instr.setTextAlignment(TextAlignment.CENTER);
     }
 
     /**
