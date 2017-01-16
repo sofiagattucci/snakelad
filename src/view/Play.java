@@ -32,7 +32,6 @@ public final class Play extends BasicScene {
     private final Label diceValue = new Label(String.valueOf(DICE_DEFAULT_VALUE));
     private final Label turn = new Label(); 
     private final VBox box = new VBox(turn, diceValue, roll, back);
-    private final PauseBox pause = new PauseBox(playStage);
 
     private Play() {
 
@@ -51,11 +50,12 @@ public final class Play extends BasicScene {
         back.setPrefWidth(BUTTON_WIDTH);
         back.setPrefHeight(BUTTON_HEIGHT);
 
-        back.setOnAction(e ->  this.pause.show()); //playStage.setScene(Menu.getScene(playStage)));
-
+        back.setOnAction(e -> { 
+            final PauseBox pause = new PauseBox(playStage);
+            pause.show();
+        });
         roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
     }
-
     /**
      * Getter of the scene.
      * @param stage

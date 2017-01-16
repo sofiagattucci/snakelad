@@ -19,7 +19,7 @@ public class PauseBox {
     private final ButtonType resume = new ButtonType(RESUME);
     private final ButtonType giveUp = new ButtonType(GIVE_UP);
     private final ButtonType restart = new ButtonType(RESTART);
-    private final Stage parentStage;
+    private final Stage parentSt;
 
     /**
      * Constructor of the class.
@@ -31,8 +31,8 @@ public class PauseBox {
         pause.initOwner(parentStage);
         pause.initModality(Modality.APPLICATION_MODAL);
         pause.getButtonTypes().clear();
-        pause.getButtonTypes().setAll(resume, giveUp, restart);
-        this.parentStage = parentStage;
+        pause.getButtonTypes().setAll(resume, restart, giveUp);
+        this.parentSt = parentStage;
     }
 
     /**
@@ -42,6 +42,7 @@ public class PauseBox {
         final String choose = this.pause.showAndWait().get().getText();
         if (choose.equals(GIVE_UP)) {
             ViewImpl.getObserver().giveUp();
+            this.parentSt.setScene(Menu.getScene(parentSt));
         }
         if (choose.equals(RESTART)) {
             ViewImpl.getObserver().restart();
