@@ -41,9 +41,9 @@ public final class Menu extends BasicScene {
         });
 
         this.instructions.setOnAction(e -> {
-        ViewImpl.setInstrScene(Instructions.getScene(menuStage));
-        ViewImpl.getObserver().getInstructions();
-        menuStage.setScene(Instructions.getScene(menuStage));
+            ViewImpl.setInstrScene(Instructions.getScene(menuStage));
+            ViewImpl.getObserver().getInstructions();
+            menuStage.setScene(Instructions.getScene(menuStage));
         });
 
         this.quit.setOnAction(e -> this.closure.close());
@@ -58,6 +58,7 @@ public final class Menu extends BasicScene {
         BorderPane.setAlignment(title, Pos.CENTER);
         this.title.setFont(new Font(FONT_SIZE));
         this.title.setTranslateY(TITLE_TOP_PADDING);
+
     }
 
     /**
