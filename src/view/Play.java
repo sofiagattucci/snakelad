@@ -37,6 +37,7 @@ public final class Play extends BasicScene {
     private static final int FONT_SIZE = 35;
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
     private static final int N_DICE_SIDES = 6;
+    private static final String PAWN_PATH = "./res/Pawns/BlackPawn.png";
 
     private static Play playScene = new Play();
     private static Stage playStage;
@@ -47,6 +48,7 @@ public final class Play extends BasicScene {
     private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
     private final VBox box = new VBox(turn, dice, roll, pause);
     private final Map<Integer, String> diceSides = new HashMap<>();
+    private final ImageView pawn = ImageLoader.get().getImageView(PAWN_PATH);
 
     private Play() {
 
@@ -76,6 +78,12 @@ public final class Play extends BasicScene {
         for (int i = 1; i <= N_DICE_SIDES; i++) {
             this.diceSides.put(i, "./res/Dice/ClassicDice/DiceSide" + i + ".png");
         }
+
+        this.getDefaultLayout().getChildren().add(this.pawn);
+        this.pawn.setFitWidth(BOARD_H / 8 * 0.66);
+        this.pawn.setFitHeight(BOARD_H / 8 * 0.66);
+        this.pawn.setTranslateY(BOARD_H - BOARD_H / 8 * 0.40);
+        this.pawn.setTranslateX((Dimension.SCREEN_W - BOX_WIDTH - BOARD_H) / 2 + BOARD_H / 8 * 0.15);
     }
 
     private void setBackground() {
