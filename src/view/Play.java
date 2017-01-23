@@ -1,10 +1,14 @@
 package view;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -30,17 +34,19 @@ public final class Play extends BasicScene {
     private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
     private static final double BUTTON_WIDTH = Dimension.SCREEN_W * 0.18;
     private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.07;
-    private static final int FONT_SIZE = 30;
+    private static final int FONT_SIZE = 35;
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
+    private static final int N_DICE_SIDES = 6;
 
     private static Play playScene = new Play();
     private static Stage playStage;
 
-    private final Button back = new BasicButton(PAUSE);
+    private final Button pause = new BasicButton(PAUSE);
     private final Button roll = new BasicButton(ROLL); 
-    private final Label diceValue = new Label();
     private final Label turn = new Label(); 
-    private final VBox box = new VBox(turn, diceValue, roll, back);
+    private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/DiceSide1.png");
+    private final VBox box = new VBox(turn, dice, roll, pause);
+    private final Map<Integer, String> diceSides = new HashMap<>();
 
     private Play() {
 
@@ -50,8 +56,6 @@ public final class Play extends BasicScene {
         this.box.setSpacing(BOX_SPACING);
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
         this.box.setStyle("-fx-background-color: #336699;");
-
-        this.diceValue.setFont(new Font(FONT_SIZE));
         this.turn.setFont(new Font(FONT_SIZE));
 
         this.setBackground();
@@ -59,15 +63,19 @@ public final class Play extends BasicScene {
         this.roll.setPrefWidth(BUTTON_WIDTH);
         this.roll.setPrefHeight(BUTTON_HEIGHT);
 
-        this.back.setPrefWidth(BUTTON_WIDTH);
-        this.back.setPrefHeight(BUTTON_HEIGHT);
+        this.pause.setPrefWidth(BUTTON_WIDTH);
+        this.pause.setPrefHeight(BUTTON_HEIGHT);
 
-        this.back.setOnAction(e -> { 
+        this.pause.setOnAction(e -> { 
             final PauseBox pause = new PauseBox(playStage);
             pause.show();
         });
 
         this.roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
+
+        for (int i = 1; i <= N_DICE_SIDES; i++) {
+            this.diceSides.put(i, "./res/Dice/DiceSide" + i + ".png");
+        }
     }
 
     private void setBackground() {
@@ -102,7 +110,10 @@ public final class Play extends BasicScene {
      *     The new value of the dice
      */
     public void updateDiceValue(final int newValue) {
-        this.diceValue.setText(String.valueOf(newValue));
+        if (!this.dice.isVisible()) {
+            this.dice.setVisible(true);
+        }
+        this.dice.setImage(ImageLoader.get().getImage(this.diceSides.get(newValue)));
     }
 
     /**
@@ -120,6 +131,6 @@ public final class Play extends BasicScene {
      * there is no value shown in the GUI for the dice value. 
      */
     protected void firstTurn() {
-        this.diceValue.setText("");
+        this.dice.setVisible(false);
     }
 }
