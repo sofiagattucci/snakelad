@@ -11,7 +11,7 @@ import utilities.ImageLoader;
 public class MainFrame extends Application {
 
     private static final String TITLE = "SnakeNLadder";
-    private static final String ICONE = "./res/Logo.png";
+    private static final String ICONE = "./res/logo.png";
 
     @Override
     public void start(final Stage defaultStage) {

@@ -27,7 +27,7 @@ public final class Play extends BasicScene {
 
     private static final String PAUSE = "Pause";
     private static final String ROLL = "Roll";
-    private static final String BOARD_PATH = "./res/GameBoards/GameBoard1.png";
+    private static final String BOARD_PATH = "./res/GameBoards/GameBoard1/GameBoard1.png";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final double VERTICAL_INSETS = Dimension.SCREEN_H * 0.05;
     private static final double HORIZONTAL_INSETS = Dimension.SCREEN_W * 0.05;
@@ -44,7 +44,7 @@ public final class Play extends BasicScene {
     private final Button pause = new BasicButton(PAUSE);
     private final Button roll = new BasicButton(ROLL); 
     private final Label turn = new Label(); 
-    private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/DiceSide1.png");
+    private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
     private final VBox box = new VBox(turn, dice, roll, pause);
     private final Map<Integer, String> diceSides = new HashMap<>();
 
@@ -74,7 +74,7 @@ public final class Play extends BasicScene {
         this.roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
 
         for (int i = 1; i <= N_DICE_SIDES; i++) {
-            this.diceSides.put(i, "./res/Dice/DiceSide" + i + ".png");
+            this.diceSides.put(i, "./res/Dice/ClassicDice/DiceSide" + i + ".png");
         }
     }
 
