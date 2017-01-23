@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.Toolkit;
-
 import javafx.scene.control.Button;
 
 /**
@@ -9,8 +7,8 @@ import javafx.scene.control.Button;
  */
 public class BasicButton extends Button {
 
-    private static final double BUTTON_WIDTH_PERC = 0.25;
-    private static final double BUTTON_HEIGHT_PERC = 0.044;
+    private static final double BUTTON_WIDTH_PERC = 0.30;
+    private static final double BUTTON_HEIGHT_PERC = 0.08;
 
     BasicButton(final String s) {
         super(s);
@@ -18,8 +16,8 @@ public class BasicButton extends Button {
     }
 
     private void setDimension() {
-        this.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_W_PERC * BUTTON_WIDTH_PERC);
-        this.setPrefHeight(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_H_PERC * BUTTON_HEIGHT_PERC);
+        this.setPrefWidth(Dimension.SCREEN_W * BUTTON_WIDTH_PERC);
+        this.setPrefHeight(Dimension.SCREEN_H * BUTTON_HEIGHT_PERC);
     } 
 
 }

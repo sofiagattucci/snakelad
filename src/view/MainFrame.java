@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.Toolkit;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -22,8 +20,8 @@ public class MainFrame extends Application {
         defaultStage.setTitle(TITLE);
         defaultStage.getIcons().add(ImageLoader.get().getImage(ICONE));
 
-        defaultStage.setHeight(Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Dimension.SCREEN_H_PERC);
-        defaultStage.setWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_W_PERC);
+        defaultStage.setHeight(Dimension.SCREEN_H * Dimension.SCREEN_H_PERC);
+        defaultStage.setWidth(Dimension.SCREEN_W * Dimension.SCREEN_W_PERC);
         defaultStage.setMaximized(true);
         defaultStage.centerOnScreen();
         defaultStage.setResizable(false);

@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Toolkit;
 import java.io.FileInputStream;
 
 import javafx.geometry.Insets;
@@ -26,14 +25,16 @@ public final class Play extends BasicScene {
 
     private static final String PAUSE = "Pause";
     private static final String ROLL = "Roll";
+    private static final String BOARD_PATH = "./res/GameBoards/GameBoard1.png";
+    private static final String ERROR_MSG = "Error while reading the game board...";
     private static final double BOX_SPACING = 20;
     private static final double VERTICAL_INSETS = 60;
-    private static final double HORIZONTAL_INSETS = Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.05;
+    private static final double HORIZONTAL_INSETS = Dimension.SCREEN_W * 0.05;
     private static final double BOX_W_PERC = 0.20;
     private static final double BUTTON_WIDTH = 150;
     private static final double BUTTON_HEIGHT = 40;
     private static final int FONT_SIZE = 30;
-    private static final Double BOARD_H = Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.9;
+    private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
 
     private static Play playScene = new Play();
     private static Stage playStage;
@@ -48,7 +49,7 @@ public final class Play extends BasicScene {
 
         this.getDefaultLayout().setRight(this.box);
 
-        this.box.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_W_PERC * BOX_W_PERC);
+        this.box.setPrefWidth(Dimension.SCREEN_W * Dimension.SCREEN_W_PERC * BOX_W_PERC);
         this.box.setSpacing(BOX_SPACING);
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
 
@@ -68,12 +69,12 @@ public final class Play extends BasicScene {
 
         this.roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
 
-        try (FileInputStream in = new FileInputStream("./res/GameBoards/GameBoard1.png")) {
+        try (FileInputStream in = new FileInputStream(BOARD_PATH)) {
 
             final Image board = new Image(in);
 
-            final Double transposeY = (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - BOARD_H) / 2;
-            final Double transposeX = (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - BUTTON_WIDTH - 2 * HORIZONTAL_INSETS - BOARD_H) / 2;
+            final double transposeY = (Dimension.SCREEN_H - BOARD_H) / 2;
+            final double transposeX = (Dimension.SCREEN_W - BUTTON_WIDTH - 2 * HORIZONTAL_INSETS - BOARD_H) / 2;
 
             final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, transposeX, false, Side.TOP, transposeY, false);
             final BackgroundSize size = new BackgroundSize(BOARD_H, BOARD_H, false, false, false, false);
@@ -83,7 +84,7 @@ public final class Play extends BasicScene {
             this.setFill(Color.LIGHTBLUE);
 
         } catch (Exception e) {
-            ConsoleLog.get().print("Error while reading the game board...");
+            ConsoleLog.get().print(ERROR_MSG);
         }
 
     }
