@@ -14,7 +14,7 @@ public final class ConsoleLog {
     /**
      * Getter of the Log.
      * @return
-     *     The log
+     *     The log.
      */
     public static ConsoleLog get() {
         return SINGLETON_LOG;
@@ -23,7 +23,7 @@ public final class ConsoleLog {
     /**
      * Method to print a string on the console.
      * @param s
-     *     The string to print
+     *     The string to print.
      */
     public void print(final String s) {
         System.out.println(s);

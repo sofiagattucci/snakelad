@@ -4,7 +4,7 @@ import java.io.File;
 
 import model.Game;
 import model.GameImpl;
-import utilities.FileManager;
+import utilities.InstructionsManager;
 import view.View;
 import view.ViewImpl;
 
@@ -35,8 +35,8 @@ public class Controller implements ViewObserver {
     }
 
     @Override
-        public void getInstructions() {
-        this.view.setInstructions(FileManager.get().read(new File(FILE_NAME)));
+    public void getInstructions() {
+        this.view.setInstructions(InstructionsManager.get().read(new File(FILE_NAME)));
     }
 
     @Override
