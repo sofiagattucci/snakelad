@@ -1,13 +1,23 @@
 package view;
 
 import java.awt.Toolkit;
+import java.io.FileInputStream;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import utilities.ConsoleLog;
 
 /**
  * This class creates and initializes the game scene.
@@ -55,6 +65,21 @@ public final class Play extends BasicScene {
         });
 
         this.roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
+
+        try (FileInputStream in = new FileInputStream("./res/GameBoards/GameBoard1.png")) {
+            final Image board = new Image(in);
+            final Double bgH = Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.9;
+            final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, 0, false, Side.TOP, 0, false); 
+            final BackgroundSize size = new BackgroundSize(bgH, bgH, false, false, false, false);
+            final BackgroundImage bgi = new BackgroundImage(board, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, pos, size);
+            final Background bg = new Background(bgi);
+            this.getDefaultLayout().setBackground(bg);
+            this.setFill(Color.LIGHTBLUE);
+
+        } catch (Exception e) {
+            ConsoleLog.get().print("Error while reading the game board...");
+        }
+
     }
     /**
      * Getter of the scene.
