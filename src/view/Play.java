@@ -1,6 +1,9 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.geometry.Insets;
@@ -19,7 +22,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.ImageLoader;
-import utilities.Pair;
 
 /**
  * This class creates and initializes the game scene.
@@ -29,6 +31,8 @@ public final class Play extends BasicScene {
     private static final String PAUSE = "Pause";
     private static final String ROLL = "Roll";
     private static final String BOARD_PATH = "./res/GameBoards/GameBoard1/GameBoard1.png";
+    private static final String PAWN1_PATH = "./res/Pawns/BlackPawn.png";
+    private static final String PAWN2_PATH = "./res/Pawns/BeigePawn.png";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final double VERTICAL_INSETS = Dimension.SCREEN_H * 0.05;
     private static final double HORIZONTAL_INSETS = Dimension.SCREEN_W * 0.05;
@@ -38,9 +42,6 @@ public final class Play extends BasicScene {
     private static final int FONT_SIZE = 35;
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
     private static final int N_DICE_SIDES = 6;
-    private static final int N_BOX_PER_RAW = 8;
-    private static final String PAWN_PATH = "./res/Pawns/BlackPawn.png";
-    private static final double PAWN_HEIGHT = BOARD_H / N_BOX_PER_RAW * 0.66;
 
     private static Play playScene = new Play();
     private static Stage playStage;
@@ -51,9 +52,9 @@ public final class Play extends BasicScene {
     private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
     private final VBox box = new VBox(turn, dice, roll, pause);
     private final Map<Integer, String> diceSides = new HashMap<>();
-    private final ImageView pawn = ImageLoader.get().getImageView(PAWN_PATH);
-    private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - BOX_WIDTH - BOARD_H) / 2 + BOARD_H / N_BOX_PER_RAW * 0.27,
-            BOARD_H - BOARD_H / N_BOX_PER_RAW * 0.40);
+    private final Pawn pawn1 = new Pawn(PAWN1_PATH);
+    private final Pawn pawn2 = new Pawn(PAWN2_PATH);
+    private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(pawn1, pawn2));
 
     private Play() {
 
@@ -84,11 +85,9 @@ public final class Play extends BasicScene {
             this.diceSides.put(i, "./res/Dice/ClassicDice/DiceSide" + i + ".png");
         }
 
-        this.getDefaultLayout().getChildren().add(this.pawn);
-        this.pawn.setFitHeight(PAWN_HEIGHT);
-        this.pawn.setPreserveRatio(true);
-        this.pawn.setTranslateY(pawnStartingPos.getSecond());
-        this.pawn.setTranslateX(pawnStartingPos.getFirst());
+        for (final Pawn elem: pawnList) {
+            this.getDefaultLayout().getChildren().add(elem.getPawn());
+        }
     }
 
     private void setBackground() {
@@ -104,17 +103,6 @@ public final class Play extends BasicScene {
         final Background bg = new Background(new BackgroundImage(board, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, pos, size));
         this.getDefaultLayout().setBackground(bg);
         this.setFill(Color.LIGHTBLUE);
-    }
-    /**
-     * Getter of the scene.
-     * @param stage
-     *     The stage that will be linked to the one of this class
-     * @return
-     *     The game scene
-     */
-    public static Play getScene(final Stage stage) {
-            playStage = stage;
-            return playScene;
     }
 
     /**
@@ -145,5 +133,25 @@ public final class Play extends BasicScene {
      */
     protected void firstTurn() {
         this.dice.setVisible(false);
+    }
+
+    /**
+     * Getter of the scene.
+     * @param stage
+     *     The stage that will be linked to the one of this class
+     * @return
+     *     The game scene
+     */
+    public static Play getScene(final Stage stage) {
+            playStage = stage;
+            return playScene;
+    }
+    /**
+     * Getter of the board height BOARD_H.
+     * @return
+     *     BOARD_H, the height of the board.
+     */
+    protected static double getBoardHeight() {
+        return BOARD_H;
     }
 }
