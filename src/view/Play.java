@@ -1,7 +1,5 @@
 package view;
 
-import java.io.FileInputStream;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
@@ -16,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import utilities.ConsoleLog;
+import utilities.ImageLoader;
 
 /**
  * This class creates and initializes the game scene.
@@ -26,13 +24,12 @@ public final class Play extends BasicScene {
     private static final String PAUSE = "Pause";
     private static final String ROLL = "Roll";
     private static final String BOARD_PATH = "./res/GameBoards/GameBoard1.png";
-    private static final String ERROR_MSG = "Error while reading the game board...";
     private static final double BOX_SPACING = 20;
     private static final double VERTICAL_INSETS = 60;
     private static final double HORIZONTAL_INSETS = Dimension.SCREEN_W * 0.05;
-    private static final double BOX_W_PERC = 0.20;
-    private static final double BUTTON_WIDTH = 150;
-    private static final double BUTTON_HEIGHT = 40;
+    private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
+    private static final double BUTTON_WIDTH = 0.18;
+    private static final double BUTTON_HEIGHT = 0.07;
     private static final int FONT_SIZE = 30;
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
 
@@ -49,18 +46,21 @@ public final class Play extends BasicScene {
 
         this.getDefaultLayout().setRight(this.box);
 
-        this.box.setPrefWidth(Dimension.SCREEN_W * Dimension.SCREEN_W_PERC * BOX_W_PERC);
+        this.box.setPrefWidth(BOX_WIDTH);
         this.box.setSpacing(BOX_SPACING);
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
+        this.box.setStyle("-fx-background-color: #336699;");
 
         this.diceValue.setFont(new Font(FONT_SIZE));
         this.turn.setFont(new Font(FONT_SIZE));
 
-        this.roll.setPrefWidth(BUTTON_WIDTH);
-        this.roll.setPrefHeight(BUTTON_HEIGHT);
+        this.setBackground();
 
-        this.back.setPrefWidth(BUTTON_WIDTH);
-        this.back.setPrefHeight(BUTTON_HEIGHT);
+        this.roll.setPrefWidth(Dimension.SCREEN_W * BUTTON_WIDTH);
+        this.roll.setPrefHeight(Dimension.SCREEN_H * BUTTON_HEIGHT);
+
+        this.back.setPrefWidth(Dimension.SCREEN_W * BUTTON_WIDTH);
+        this.back.setPrefHeight(Dimension.SCREEN_H * BUTTON_HEIGHT);
 
         this.back.setOnAction(e -> { 
             final PauseBox pause = new PauseBox(playStage);
@@ -68,25 +68,21 @@ public final class Play extends BasicScene {
         });
 
         this.roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
+    }
 
-        try (FileInputStream in = new FileInputStream(BOARD_PATH)) {
+    private void setBackground() {
 
-            final Image board = new Image(in);
+        final Image board = ImageLoader.get().getImage(BOARD_PATH);
 
-            final double transposeY = (Dimension.SCREEN_H - BOARD_H) / 2;
-            final double transposeX = (Dimension.SCREEN_W - BUTTON_WIDTH - 2 * HORIZONTAL_INSETS - BOARD_H) / 2;
+        final double transposeY = (Dimension.SCREEN_H - BOARD_H) / 2;
+        final double transposeX = (Dimension.SCREEN_W - BOX_WIDTH - BOARD_H) / 2;
 
-            final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, transposeX, false, Side.TOP, transposeY, false);
-            final BackgroundSize size = new BackgroundSize(BOARD_H, BOARD_H, false, false, false, false);
+        final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, transposeX, false, Side.TOP, transposeY, false);
+        final BackgroundSize size = new BackgroundSize(BOARD_H, BOARD_H, false, false, false, false);
 
-            final Background bg = new Background(new BackgroundImage(board, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, pos, size));
-            this.getDefaultLayout().setBackground(bg);
-            this.setFill(Color.LIGHTBLUE);
-
-        } catch (Exception e) {
-            ConsoleLog.get().print(ERROR_MSG);
-        }
-
+        final Background bg = new Background(new BackgroundImage(board, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, pos, size));
+        this.getDefaultLayout().setBackground(bg);
+        this.setFill(Color.LIGHTBLUE);
     }
     /**
      * Getter of the scene.

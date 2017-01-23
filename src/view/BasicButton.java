@@ -7,8 +7,8 @@ import javafx.scene.control.Button;
  */
 public class BasicButton extends Button {
 
-    private static final double BUTTON_WIDTH_PERC = 0.30;
-    private static final double BUTTON_HEIGHT_PERC = 0.08;
+    private static final double BUTTON_WIDTH_PERC = 0.28;
+    private static final double BUTTON_HEIGHT_PERC = 0.09;
 
     BasicButton(final String s) {
         super(s);
