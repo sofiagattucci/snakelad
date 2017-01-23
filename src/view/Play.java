@@ -27,11 +27,13 @@ public final class Play extends BasicScene {
     private static final String PAUSE = "Pause";
     private static final String ROLL = "Roll";
     private static final double BOX_SPACING = 20;
-    private static final double BOX_INSETS = 60;
+    private static final double VERTICAL_INSETS = 60;
+    private static final double HORIZONTAL_INSETS = Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.05;
     private static final double BOX_W_PERC = 0.20;
     private static final double BUTTON_WIDTH = 150;
     private static final double BUTTON_HEIGHT = 40;
     private static final int FONT_SIZE = 30;
+    private static final Double BOARD_H = Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.9;
 
     private static Play playScene = new Play();
     private static Stage playStage;
@@ -48,7 +50,7 @@ public final class Play extends BasicScene {
 
         this.box.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_W_PERC * BOX_W_PERC);
         this.box.setSpacing(BOX_SPACING);
-        this.box.setPadding(new Insets(BOX_INSETS));
+        this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
 
         this.diceValue.setFont(new Font(FONT_SIZE));
         this.turn.setFont(new Font(FONT_SIZE));
@@ -67,12 +69,16 @@ public final class Play extends BasicScene {
         this.roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
 
         try (FileInputStream in = new FileInputStream("./res/GameBoards/GameBoard1.png")) {
+
             final Image board = new Image(in);
-            final Double bgH = Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.9;
-            final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, 0, false, Side.TOP, 0, false); 
-            final BackgroundSize size = new BackgroundSize(bgH, bgH, false, false, false, false);
-            final BackgroundImage bgi = new BackgroundImage(board, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, pos, size);
-            final Background bg = new Background(bgi);
+
+            final Double transposeY = (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - BOARD_H) / 2;
+            final Double transposeX = (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - BUTTON_WIDTH - 2 * HORIZONTAL_INSETS - BOARD_H) / 2;
+
+            final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, transposeX, false, Side.TOP, transposeY, false);
+            final BackgroundSize size = new BackgroundSize(BOARD_H, BOARD_H, false, false, false, false);
+
+            final Background bg = new Background(new BackgroundImage(board, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, pos, size));
             this.getDefaultLayout().setBackground(bg);
             this.setFill(Color.LIGHTBLUE);
 
