@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.ImageLoader;
+import utilities.Pair;
 
 /**
  * This class creates and initializes the game scene.
@@ -37,7 +38,9 @@ public final class Play extends BasicScene {
     private static final int FONT_SIZE = 35;
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
     private static final int N_DICE_SIDES = 6;
+    private static final int N_BOX_PER_RAW = 8;
     private static final String PAWN_PATH = "./res/Pawns/BlackPawn.png";
+    private static final double PAWN_HEIGHT = BOARD_H / N_BOX_PER_RAW * 0.66;
 
     private static Play playScene = new Play();
     private static Stage playStage;
@@ -49,6 +52,8 @@ public final class Play extends BasicScene {
     private final VBox box = new VBox(turn, dice, roll, pause);
     private final Map<Integer, String> diceSides = new HashMap<>();
     private final ImageView pawn = ImageLoader.get().getImageView(PAWN_PATH);
+    private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - BOX_WIDTH - BOARD_H) / 2 + BOARD_H / N_BOX_PER_RAW * 0.27,
+            BOARD_H - BOARD_H / N_BOX_PER_RAW * 0.40);
 
     private Play() {
 
@@ -80,10 +85,10 @@ public final class Play extends BasicScene {
         }
 
         this.getDefaultLayout().getChildren().add(this.pawn);
-        this.pawn.setFitWidth(BOARD_H / 8 * 0.66);
-        this.pawn.setFitHeight(BOARD_H / 8 * 0.66);
-        this.pawn.setTranslateY(BOARD_H - BOARD_H / 8 * 0.40);
-        this.pawn.setTranslateX((Dimension.SCREEN_W - BOX_WIDTH - BOARD_H) / 2 + BOARD_H / 8 * 0.15);
+        this.pawn.setFitHeight(PAWN_HEIGHT);
+        this.pawn.setPreserveRatio(true);
+        this.pawn.setTranslateY(pawnStartingPos.getSecond());
+        this.pawn.setTranslateX(pawnStartingPos.getFirst());
     }
 
     private void setBackground() {
