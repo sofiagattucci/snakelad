@@ -35,8 +35,8 @@ public class Pawn {
      * It puts the pawn to its starting position.
      */
     public final void setInitPosition() {
-        this.pawnIm.setTranslateY(pawnStartingPos.getSecond());
-        this.pawnIm.setTranslateX(pawnStartingPos.getFirst());
+        this.pawnIm.setX(this.pawnStartingPos.getFirst());
+        this.pawnIm.setY(this.pawnStartingPos.getSecond());
     }
 
     /**
@@ -47,23 +47,27 @@ public class Pawn {
     public void movePawn(final int nMoves) {
 
         for (int i = 0; i < nMoves; i++) {
-            if (conta == (N_BOX_PER_RAW - 1)) {
-                conta = 0;
-                if (direction == Direction.RIGHT) {
-                    direction = Direction.LEFT;
-                } else {
-                    direction = Direction.RIGHT;
-                }
-                pawnIm.setY(pawnIm.getY() - Play.getBoardHeight() / N_BOX_PER_RAW);
+            if (this.conta == (N_BOX_PER_RAW - 1)) {
+                this.conta = 0;
+                this.direction = this.direction == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT; 
+                this.pawnIm.setY(pawnIm.getY() - Play.getBoardHeight() / N_BOX_PER_RAW);
                 continue;
             }
-            conta++;
-            if (direction == Direction.RIGHT) {
-                pawnIm.setX(pawnIm.getX() + Play.getBoardHeight() / N_BOX_PER_RAW);
+            this.conta++;
+            if (this.direction == Direction.RIGHT) {
+                this.pawnIm.setX(this.pawnIm.getX() + Play.getBoardHeight() / N_BOX_PER_RAW);
             } else {
-                pawnIm.setX(pawnIm.getX() - Play.getBoardHeight() / N_BOX_PER_RAW);
+                this.pawnIm.setX(this.pawnIm.getX() - Play.getBoardHeight() / N_BOX_PER_RAW);
             }
         }
+    }
+
+    /**
+     * It resets the conta of the pawn and puts it to 0 again, then the direction is set to the default one (RIGHT).
+     */
+    public void reset() {
+        this.conta = 0;
+        this.direction = Direction.RIGHT;
     }
 
     /**

@@ -52,9 +52,8 @@ public final class Play extends BasicScene {
     private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
     private final VBox box = new VBox(turn, dice, roll, pause);
     private final Map<Integer, String> diceSides = new HashMap<>();
-    //private final Pawn pawn1 = new Pawn(PAWN1_PATH);
-    //private final Pawn pawn2 = new Pawn(PAWN2_PATH);
     private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new Pawn(PAWN1_PATH), new Pawn(PAWN2_PATH)));
+    private boolean changePawn = true;
 
     private Play() {
 
@@ -115,7 +114,12 @@ public final class Play extends BasicScene {
             this.dice.setVisible(true);
         }
         this.dice.setImage(ImageLoader.get().getImage(this.diceSides.get(newValue)));
-        this.pawnList.get(0).movePawn(newValue);
+        if (this.changePawn) {
+            this.pawnList.get(0).movePawn(newValue);
+        } else {
+            this.pawnList.get(1).movePawn(newValue);
+        }
+        this.changePawn = this.changePawn ? false : true;
     }
 
     /**
@@ -136,6 +140,7 @@ public final class Play extends BasicScene {
         this.dice.setVisible(false);
         for (final Pawn elem: pawnList) {
             elem.setInitPosition();
+            elem.reset();
         }
     }
 
