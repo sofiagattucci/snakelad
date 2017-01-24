@@ -37,19 +37,19 @@ public class Toolbar {
     private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.07;
     private static final double CENTER_DICE = BUTTON_WIDTH / 15;
     private static final int N_DICE_SIDES = 6;
+    private static final double ALIGN_GRID = -BUTTON_WIDTH * 0.06;
 
     private static Stage toolStage;
 
     private final Button pause = new BasicButton(PAUSE);
     private final Button roll = new BasicButton(ROLL); 
-    private final Label turn = new Label();
     private final Label player = new Label(PLAYER);
     private final Label cpu = new Label(CPU);
     private final Font smallFont = new Font(SMALL_FONT_SIZE);
     private final Font bigFont = new Font(BIG_FONT_SIZE);
     private final GridPane gp = new GridPane();
     private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
-    private final VBox box = new VBox(turn, gp, roll, dice, pause);
+    private final VBox box = new VBox(gp, roll, dice, pause);
     private final Map<Integer, String> diceSides = new HashMap<>();
 
     /**
@@ -61,10 +61,10 @@ public class Toolbar {
         this.box.setSpacing(BOX_SPACING);
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
         this.box.setStyle(BOX_COLOR);
-        this.turn.setFont(smallFont);
 
-        gp.addRow(0, new Pawn(PAWN1_PATH).getPawn(), player);
-        gp.addRow(1, new Pawn(PAWN2_PATH).getPawn(), cpu);
+        this.gp.addRow(0, new Pawn(PAWN1_PATH).getPawn(), player);
+        this.gp.addRow(1, new Pawn(PAWN2_PATH).getPawn(), cpu);
+        this.gp.setTranslateX(ALIGN_GRID);
 
         this.dice.setTranslateX(CENTER_DICE);
 
@@ -99,17 +99,19 @@ public class Toolbar {
             this.cpu.setStyle(YELLOW_LABEL);
             this.player.setStyle(BLACK_LABEL);
         } else {
-            this.player.setFont(bigFont);
-            this.cpu.setFont(smallFont);
-            this.player.setStyle(YELLOW_LABEL);
-            this.cpu.setStyle(BLACK_LABEL);
+            this.resetTurn();
         }
     }
 
     /**
-     * It puts the turn shown in the game screen ready to start a new game.
+     * It resets the elements of the tool bar(turn, dice).
      */
-    public void resetTurn() {
+    public void reset() {
+        this.resetTurn();
+        this.dice.setVisible(false);
+    }
+
+    private void resetTurn() {
         this.player.setFont(bigFont);
         this.cpu.setFont(smallFont);
         this.player.setStyle(YELLOW_LABEL);
@@ -141,15 +143,6 @@ public class Toolbar {
      */
     public Map<Integer, String> getDiceSides() {
         return this.diceSides;
-    }
-
-    /**
-     * Getter of label that shows the current turn.
-     * @return
-     *     The turn label
-     */
-    public Label getTurn() {
-        return this.turn;
     }
 
     /**

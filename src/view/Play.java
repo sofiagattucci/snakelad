@@ -91,8 +91,7 @@ public final class Play extends BasicScene {
      * there is no value shown in the GUI for the dice value. 
      */
     protected void firstTurn() {
-        this.toolbar.getDice().setVisible(false);
-        this.toolbar.resetTurn();
+        this.toolbar.reset();
         for (final Pawn elem: pawnList) {
             elem.reset();
         }
