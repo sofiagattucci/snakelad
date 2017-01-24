@@ -82,7 +82,7 @@ public final class Play extends BasicScene {
      *     The new turn
      */
     public void setTurn(final String turn) {
-        this.toolbar.getTurn().setText(turn);
+        this.toolbar.changeTurn(turn);
     }
 
     /*Package visibility*/
@@ -92,8 +92,8 @@ public final class Play extends BasicScene {
      */
     protected void firstTurn() {
         this.toolbar.getDice().setVisible(false);
+        this.toolbar.resetTurn();
         for (final Pawn elem: pawnList) {
-            elem.setInitPosition();
             elem.reset();
         }
     }

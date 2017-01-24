@@ -24,11 +24,15 @@ public class Toolbar {
     private static final String CPU = "CPU";
     private static final String PAWN1_PATH = "./res/Pawns/RedPawn.png";
     private static final String PAWN2_PATH = "./res/Pawns/LightBluePawn.png";
+    private static final String BLACK_LABEL = "-fx-text-fill: black";
+    private static final String YELLOW_LABEL = "-fx-text-fill: yellow";
+    private static final String BOX_COLOR = "-fx-background-color: #336699;";
     private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final double VERTICAL_INSETS = Dimension.SCREEN_H * 0.05;
     private static final double HORIZONTAL_INSETS = Dimension.SCREEN_W * 0.05;
-    private static final int FONT_SIZE = 35;
+    private static final int SMALL_FONT_SIZE = 20;
+    private static final int BIG_FONT_SIZE = 40;
     private static final double BUTTON_WIDTH = Dimension.SCREEN_W * 0.18;
     private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.07;
     private static final double CENTER_DICE = BUTTON_WIDTH / 15;
@@ -39,6 +43,10 @@ public class Toolbar {
     private final Button pause = new BasicButton(PAUSE);
     private final Button roll = new BasicButton(ROLL); 
     private final Label turn = new Label();
+    private final Label player = new Label(PLAYER);
+    private final Label cpu = new Label(CPU);
+    private final Font smallFont = new Font(SMALL_FONT_SIZE);
+    private final Font bigFont = new Font(BIG_FONT_SIZE);
     private final GridPane gp = new GridPane();
     private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
     private final VBox box = new VBox(turn, gp, roll, dice, pause);
@@ -52,11 +60,11 @@ public class Toolbar {
         this.box.setPrefWidth(BOX_WIDTH);
         this.box.setSpacing(BOX_SPACING);
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
-        this.box.setStyle("-fx-background-color: #336699;");
-        this.turn.setFont(new Font(FONT_SIZE));
+        this.box.setStyle(BOX_COLOR);
+        this.turn.setFont(smallFont);
 
-        gp.addRow(0, new Pawn(PAWN1_PATH).getPawn(), new Label(PLAYER));
-        gp.addRow(1, new Pawn(PAWN2_PATH).getPawn(), new Label(CPU));
+        gp.addRow(0, new Pawn(PAWN1_PATH).getPawn(), player);
+        gp.addRow(1, new Pawn(PAWN2_PATH).getPawn(), cpu);
 
         this.dice.setTranslateX(CENTER_DICE);
 
@@ -76,6 +84,36 @@ public class Toolbar {
         for (int i = 1; i <= N_DICE_SIDES; i++) {
             this.diceSides.put(i, "./res/Dice/ClassicDice/DiceSide" + i + ".png");
         }
+    }
+
+    /**
+     * Changes the turn shown in the game screen.
+     * @param turn
+     *     The new turn to set
+     */
+    public void changeTurn(final String turn) {
+
+        if (turn.equals("CPU")) {
+            this.player.setFont(smallFont);
+            this.cpu.setFont(bigFont);
+            this.cpu.setStyle(YELLOW_LABEL);
+            this.player.setStyle(BLACK_LABEL);
+        } else {
+            this.player.setFont(bigFont);
+            this.cpu.setFont(smallFont);
+            this.player.setStyle(YELLOW_LABEL);
+            this.cpu.setStyle(BLACK_LABEL);
+        }
+    }
+
+    /**
+     * It puts the turn shown in the game screen ready to start a new game.
+     */
+    public void resetTurn() {
+        this.player.setFont(bigFont);
+        this.cpu.setFont(smallFont);
+        this.player.setStyle(YELLOW_LABEL);
+        this.cpu.setStyle(BLACK_LABEL);
     }
 
     /**

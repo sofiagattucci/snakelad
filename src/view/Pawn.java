@@ -31,10 +31,7 @@ public class Pawn {
         this.rowCounter = 0;
     }
 
-    /**
-     * It puts the pawn to its starting position.
-     */
-    public final void setInitPosition() {
+    private void setInitPosition() {
         this.pawnIm.setX(this.pawnStartingPos.getFirst());
         this.pawnIm.setY(this.pawnStartingPos.getSecond());
     }
@@ -64,10 +61,12 @@ public class Pawn {
 
     /**
      * It resets the raw counter of the pawn and puts it to 0 again, then the direction is set to the default one (RIGHT).
+     * In the end it puts the pawn to its starting position.
      */
     public void reset() {
         this.rowCounter = 0;
         this.direction = Direction.RIGHT;
+        this.setInitPosition();
     }
 
     /**
