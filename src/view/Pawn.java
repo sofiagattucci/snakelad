@@ -63,7 +63,7 @@ public class Pawn {
     }
 
     /**
-     * It resets the conta of the pawn and puts it to 0 again, then the direction is set to the default one (RIGHT).
+     * It resets the raw counter of the pawn and puts it to 0 again, then the direction is set to the default one (RIGHT).
      */
     public void reset() {
         this.rowCounter = 0;

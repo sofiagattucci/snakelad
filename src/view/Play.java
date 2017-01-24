@@ -2,25 +2,16 @@ package view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Side;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.ImageLoader;
 
@@ -29,67 +20,23 @@ import utilities.ImageLoader;
  */
 public final class Play extends BasicScene {
 
-    private static final String PAUSE = "Pause";
-    private static final String ROLL = "Roll";
     private static final String BOARD_PATH = "./res/GameBoards/GameBoard1/GameBoard1.png";
     private static final String PAWN1_PATH = "./res/Pawns/RedPawn.png";
     private static final String PAWN2_PATH = "./res/Pawns/LightBluePawn.png";
-    private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
-    private static final double VERTICAL_INSETS = Dimension.SCREEN_H * 0.05;
-    private static final double HORIZONTAL_INSETS = Dimension.SCREEN_W * 0.05;
     private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
-    private static final double BUTTON_WIDTH = Dimension.SCREEN_W * 0.18;
-    private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.07;
-    private static final double CENTER_DICE = BUTTON_WIDTH / 15;
-    private static final int FONT_SIZE = 35;
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
-    private static final int N_DICE_SIDES = 6;
 
     private static Play playScene = new Play();
-    private static Stage playStage;
 
-    private final Button pause = new BasicButton(PAUSE);
-    private final Button roll = new BasicButton(ROLL); 
-    private final Label turn = new Label();
-    private final GridPane gp = new GridPane();
-    private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
-    private final VBox box = new VBox(turn, gp, roll, dice, pause);
-    private final Map<Integer, String> diceSides = new HashMap<>();
     private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new Pawn(PAWN1_PATH), new Pawn(PAWN2_PATH)));
+    private final Toolbar toolbar = new Toolbar();
     private boolean changePawn = true;
 
     private Play() {
 
-        this.getDefaultLayout().setRight(this.box);
-
-        this.box.setPrefWidth(BOX_WIDTH);
-        this.box.setSpacing(BOX_SPACING);
-        this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
-        this.box.setStyle("-fx-background-color: #336699;");
-        this.turn.setFont(new Font(FONT_SIZE));
-
-        gp.addRow(0, new Pawn(PAWN1_PATH).getPawn(), new Label("Player"));
-        gp.addRow(1, new Pawn(PAWN2_PATH).getPawn(), new Label("CPU"));
+        this.getDefaultLayout().setRight(this.toolbar.getBox());
 
         this.setBackground();
-
-        this.dice.setTranslateX(CENTER_DICE);
-        this.roll.setPrefWidth(BUTTON_WIDTH);
-        this.roll.setPrefHeight(BUTTON_HEIGHT);
-
-        this.pause.setPrefWidth(BUTTON_WIDTH);
-        this.pause.setPrefHeight(BUTTON_HEIGHT);
-
-        this.pause.setOnAction(e -> { 
-            final PauseBox pause = new PauseBox(playStage);
-            pause.show();
-        });
-
-        this.roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
-
-        for (int i = 1; i <= N_DICE_SIDES; i++) {
-            this.diceSides.put(i, "./res/Dice/ClassicDice/DiceSide" + i + ".png");
-        }
 
         for (final Pawn elem: pawnList) {
             this.getDefaultLayout().getChildren().add(elem.getPawn());
@@ -117,10 +64,10 @@ public final class Play extends BasicScene {
      *     The new value of the dice
      */
     public void updateDiceValue(final int newValue) {
-        if (!this.dice.isVisible()) {
-            this.dice.setVisible(true);
+        if (!this.toolbar.getDice().isVisible()) {
+            this.toolbar.getDice().setVisible(true);
         }
-        this.dice.setImage(ImageLoader.get().getImage(this.diceSides.get(newValue)));
+        this.toolbar.getDice().setImage(ImageLoader.get().getImage(this.toolbar.getDiceSides().get(newValue)));
         if (this.changePawn) {
             this.pawnList.get(0).movePawn(newValue);
         } else {
@@ -135,7 +82,7 @@ public final class Play extends BasicScene {
      *     The new turn
      */
     public void setTurn(final String turn) {
-        this.turn.setText(turn);
+        this.toolbar.getTurn().setText(turn);
     }
 
     /*Package visibility*/
@@ -144,7 +91,7 @@ public final class Play extends BasicScene {
      * there is no value shown in the GUI for the dice value. 
      */
     protected void firstTurn() {
-        this.dice.setVisible(false);
+        this.toolbar.getDice().setVisible(false);
         for (final Pawn elem: pawnList) {
             elem.setInitPosition();
             elem.reset();
@@ -159,7 +106,7 @@ public final class Play extends BasicScene {
      *     The game scene
      */
     public static Play getScene(final Stage stage) {
-            playStage = stage;
+            Toolbar.setStage(stage);
             return playScene;
     }
     /**
