@@ -13,6 +13,7 @@ public class BasicButton extends Button {
     BasicButton(final String s) {
         super(s);
         this.setDimension();
+        this.setStyle("border-radius: 50%");
     }
 
     private void setDimension() {

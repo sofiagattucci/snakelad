@@ -14,7 +14,9 @@ public class Pawn {
 
     private final ImageView pawnIm;
     private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - BOX_WIDTH - Play.getBoardHeight()) / 2 
-            + Play.getBoardHeight() / N_BOX_PER_RAW * 0.27, Play.getBoardHeight() - Play.getBoardHeight() / N_BOX_PER_RAW * 0.40);
+            + Play.getBoardHeight() / N_BOX_PER_RAW * 0.16, Play.getBoardHeight() - Play.getBoardHeight() / N_BOX_PER_RAW * 0.39);
+    private boolean verso = true;
+    private int conta;
 
     /**
      * Constructor of this class.
@@ -25,12 +27,42 @@ public class Pawn {
         this.pawnIm = ImageLoader.get().getImageView(pawnPath);
         this.pawnIm.setFitHeight(PAWN_HEIGHT);
         this.pawnIm.setPreserveRatio(true);
-        this.initPosition();
+        this.conta = 0;
     }
 
-    private void initPosition() {
+    /**
+     * It puts the pawn to its starting position.
+     */
+    public final void setInitPosition() {
         this.pawnIm.setTranslateY(pawnStartingPos.getSecond());
         this.pawnIm.setTranslateX(pawnStartingPos.getFirst());
+    }
+
+    /**
+     * It updates the position of the pawn in the board by moving it of the chosen number of boxes.
+     * @param nMoves
+     *     The number of boxes the pawn needs to go on
+     */
+    public void movePawn(final int nMoves) {
+
+        for (int i = 0; i < nMoves; i++) {
+            if (conta == (N_BOX_PER_RAW - 1)) {
+                conta = 0;
+                if (verso) {
+                    verso = false;
+                } else {
+                    verso = true;
+                }
+                pawnIm.setY(pawnIm.getY() - Play.getBoardHeight() / N_BOX_PER_RAW);
+                continue;
+            }
+            conta++;
+            if (verso) {
+                pawnIm.setX(pawnIm.getX() + Play.getBoardHeight() / N_BOX_PER_RAW);
+            } else {
+                pawnIm.setX(pawnIm.getX() - Play.getBoardHeight() / N_BOX_PER_RAW);
+            }
+        }
     }
 
     /**

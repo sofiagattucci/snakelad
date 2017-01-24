@@ -31,8 +31,8 @@ public final class Play extends BasicScene {
     private static final String PAUSE = "Pause";
     private static final String ROLL = "Roll";
     private static final String BOARD_PATH = "./res/GameBoards/GameBoard1/GameBoard1.png";
-    private static final String PAWN1_PATH = "./res/Pawns/BlackPawn.png";
-    private static final String PAWN2_PATH = "./res/Pawns/BeigePawn.png";
+    private static final String PAWN1_PATH = "./res/Pawns/RedPawn.png";
+    private static final String PAWN2_PATH = "./res/Pawns/LightBluePawn.png";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final double VERTICAL_INSETS = Dimension.SCREEN_H * 0.05;
     private static final double HORIZONTAL_INSETS = Dimension.SCREEN_W * 0.05;
@@ -52,9 +52,9 @@ public final class Play extends BasicScene {
     private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
     private final VBox box = new VBox(turn, dice, roll, pause);
     private final Map<Integer, String> diceSides = new HashMap<>();
-    private final Pawn pawn1 = new Pawn(PAWN1_PATH);
-    private final Pawn pawn2 = new Pawn(PAWN2_PATH);
-    private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(pawn1, pawn2));
+    //private final Pawn pawn1 = new Pawn(PAWN1_PATH);
+    //private final Pawn pawn2 = new Pawn(PAWN2_PATH);
+    private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new Pawn(PAWN1_PATH), new Pawn(PAWN2_PATH)));
 
     private Play() {
 
@@ -115,6 +115,7 @@ public final class Play extends BasicScene {
             this.dice.setVisible(true);
         }
         this.dice.setImage(ImageLoader.get().getImage(this.diceSides.get(newValue)));
+        this.pawnList.get(0).movePawn(newValue);
     }
 
     /**
@@ -133,6 +134,9 @@ public final class Play extends BasicScene {
      */
     protected void firstTurn() {
         this.dice.setVisible(false);
+        for (final Pawn elem: pawnList) {
+            elem.setInitPosition();
+        }
     }
 
     /**
