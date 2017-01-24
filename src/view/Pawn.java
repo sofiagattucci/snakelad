@@ -15,7 +15,7 @@ public class Pawn {
     private final ImageView pawnIm;
     private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - BOX_WIDTH - Play.getBoardHeight()) / 2 
             + Play.getBoardHeight() / N_BOX_PER_RAW * 0.16, Play.getBoardHeight() - Play.getBoardHeight() / N_BOX_PER_RAW * 0.39);
-    private boolean verso = true;
+    private Direction direction;
     private int conta;
 
     /**
@@ -27,6 +27,7 @@ public class Pawn {
         this.pawnIm = ImageLoader.get().getImageView(pawnPath);
         this.pawnIm.setFitHeight(PAWN_HEIGHT);
         this.pawnIm.setPreserveRatio(true);
+        this.direction = Direction.RIGHT;
         this.conta = 0;
     }
 
@@ -48,16 +49,16 @@ public class Pawn {
         for (int i = 0; i < nMoves; i++) {
             if (conta == (N_BOX_PER_RAW - 1)) {
                 conta = 0;
-                if (verso) {
-                    verso = false;
+                if (direction == Direction.RIGHT) {
+                    direction = Direction.LEFT;
                 } else {
-                    verso = true;
+                    direction = Direction.RIGHT;
                 }
                 pawnIm.setY(pawnIm.getY() - Play.getBoardHeight() / N_BOX_PER_RAW);
                 continue;
             }
             conta++;
-            if (verso) {
+            if (direction == Direction.RIGHT) {
                 pawnIm.setX(pawnIm.getX() + Play.getBoardHeight() / N_BOX_PER_RAW);
             } else {
                 pawnIm.setX(pawnIm.getX() - Play.getBoardHeight() / N_BOX_PER_RAW);
