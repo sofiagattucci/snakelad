@@ -16,7 +16,7 @@ public class Pawn {
     private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - BOX_WIDTH - Play.getBoardHeight()) / 2 
             + Play.getBoardHeight() / N_BOX_PER_RAW * 0.16, Play.getBoardHeight() - Play.getBoardHeight() / N_BOX_PER_RAW * 0.39);
     private Direction direction;
-    private int conta;
+    private int rowCounter;
 
     /**
      * Constructor of this class.
@@ -28,7 +28,7 @@ public class Pawn {
         this.pawnIm.setFitHeight(PAWN_HEIGHT);
         this.pawnIm.setPreserveRatio(true);
         this.direction = Direction.RIGHT;
-        this.conta = 0;
+        this.rowCounter = 0;
     }
 
     /**
@@ -47,13 +47,13 @@ public class Pawn {
     public void movePawn(final int nMoves) {
 
         for (int i = 0; i < nMoves; i++) {
-            if (this.conta == (N_BOX_PER_RAW - 1)) {
-                this.conta = 0;
+            if (this.rowCounter == (N_BOX_PER_RAW - 1)) {
+                this.rowCounter = 0;
                 this.direction = this.direction == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT; 
                 this.pawnIm.setY(pawnIm.getY() - Play.getBoardHeight() / N_BOX_PER_RAW);
                 continue;
             }
-            this.conta++;
+            this.rowCounter++;
             if (this.direction == Direction.RIGHT) {
                 this.pawnIm.setX(this.pawnIm.getX() + Play.getBoardHeight() / N_BOX_PER_RAW);
             } else {
@@ -66,7 +66,7 @@ public class Pawn {
      * It resets the conta of the pawn and puts it to 0 again, then the direction is set to the default one (RIGHT).
      */
     public void reset() {
-        this.conta = 0;
+        this.rowCounter = 0;
         this.direction = Direction.RIGHT;
     }
 

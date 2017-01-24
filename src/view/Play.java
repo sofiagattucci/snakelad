@@ -17,6 +17,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -39,6 +40,7 @@ public final class Play extends BasicScene {
     private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
     private static final double BUTTON_WIDTH = Dimension.SCREEN_W * 0.18;
     private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.07;
+    private static final double CENTER_DICE = BUTTON_WIDTH / 15;
     private static final int FONT_SIZE = 35;
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
     private static final int N_DICE_SIDES = 6;
@@ -48,9 +50,10 @@ public final class Play extends BasicScene {
 
     private final Button pause = new BasicButton(PAUSE);
     private final Button roll = new BasicButton(ROLL); 
-    private final Label turn = new Label(); 
+    private final Label turn = new Label();
+    private final GridPane gp = new GridPane();
     private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
-    private final VBox box = new VBox(turn, dice, roll, pause);
+    private final VBox box = new VBox(turn, gp, roll, dice, pause);
     private final Map<Integer, String> diceSides = new HashMap<>();
     private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new Pawn(PAWN1_PATH), new Pawn(PAWN2_PATH)));
     private boolean changePawn = true;
@@ -65,8 +68,12 @@ public final class Play extends BasicScene {
         this.box.setStyle("-fx-background-color: #336699;");
         this.turn.setFont(new Font(FONT_SIZE));
 
+        gp.addRow(0, new Pawn(PAWN1_PATH).getPawn(), new Label("Player"));
+        gp.addRow(1, new Pawn(PAWN2_PATH).getPawn(), new Label("CPU"));
+
         this.setBackground();
 
+        this.dice.setTranslateX(CENTER_DICE);
         this.roll.setPrefWidth(BUTTON_WIDTH);
         this.roll.setPrefHeight(BUTTON_HEIGHT);
 
