@@ -3,6 +3,9 @@ package model;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import utilities.Pair;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -89,7 +92,7 @@ public class GameImpl implements Game {
     }
 
     @Override
-    public int getPositionFirstPlayer() {
+    public Pair<Integer, Boolean> getPositionFirstPlayer() {
 
         int partialPositionFirstPlayer = this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition() 
                                          + this.dice.getLastNumberAppeared();
@@ -101,21 +104,21 @@ public class GameImpl implements Game {
         if (this.laddersMap.containsKey(partialPositionFirstPlayer)) {
             partialPositionFirstPlayer = this.laddersMap.get(partialPositionFirstPlayer);
             this.playersList.get(FIRST_PLAYER_INDEX).setNewPlayerPosition(partialPositionFirstPlayer);
-            return this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition();
+            return new Pair<Integer, Boolean>(this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition(), true);
         }
 
         if (this.snakesMap.containsKey(partialPositionFirstPlayer)) {
             partialPositionFirstPlayer = this.snakesMap.get(partialPositionFirstPlayer);
             this.playersList.get(FIRST_PLAYER_INDEX).setNewPlayerPosition(partialPositionFirstPlayer);
-            return this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition();
+            return new Pair<Integer, Boolean>(this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition(), true);
         }
 
         this.playersList.get(FIRST_PLAYER_INDEX).setNewPlayerPosition(partialPositionFirstPlayer);
-        return this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition();
+        return new Pair<Integer, Boolean>(this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition(), false);
     }
 
     @Override
-    public int getPositionSecondPlayer() {
+    public Pair<Integer, Boolean> getPositionSecondPlayer() {
 
         int partialPositionSecondPlayer = this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition() 
                                           + this.dice.getLastNumberAppeared();
@@ -127,17 +130,17 @@ public class GameImpl implements Game {
         if (this.laddersMap.containsKey(partialPositionSecondPlayer)) {
             partialPositionSecondPlayer = this.laddersMap.get(partialPositionSecondPlayer);
             this.playersList.get(SECOND_PLAYER_INDEX).setNewPlayerPosition(partialPositionSecondPlayer);
-            return this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition();
+            return new Pair<Integer, Boolean>(this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition(), true);
         }
 
         if (this.snakesMap.containsKey(partialPositionSecondPlayer)) {
             partialPositionSecondPlayer = this.snakesMap.get(partialPositionSecondPlayer);
             this.playersList.get(SECOND_PLAYER_INDEX).setNewPlayerPosition(partialPositionSecondPlayer);
-            return this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition();
+            return new Pair<Integer, Boolean>(this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition(), true);
         }
 
         this.playersList.get(SECOND_PLAYER_INDEX).setNewPlayerPosition(partialPositionSecondPlayer);
-        return this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition();
+        return new Pair<Integer, Boolean>(this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition(), false);
     }
 
     @Override

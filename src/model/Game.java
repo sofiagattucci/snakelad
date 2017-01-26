@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import utilities.Pair;
+
 /**
  * It represents the model interface in MVC pattern, the interface of the game.
  * Defines the main methods of the Model class.
@@ -25,17 +27,17 @@ public interface Game {
 
 
     /**
-     * Returns the current position of the first player on the game board.
-     * @return the current position of the first player on the game board.
+     * Returns the current position of the first player on the game board and a boolean that represents a jump.
+     * @return the current position of the first player on the game board and a boolean that represents a jump.
      */
-    int getPositionFirstPlayer();
+    Pair<Integer, Boolean> getPositionFirstPlayer();
 
 
     /**
-     * Returns the current position of the second player on the game board.
-     * @return the current position of the second player on the game board.
+     * Returns the current position of the second player on the game board and a boolean that represents a jump.
+     * @return the current position of the second player on the game board and a boolean that represents a jump.
      */
-    int getPositionSecondPlayer();
+    Pair<Integer, Boolean> getPositionSecondPlayer();
 
 
     /**
