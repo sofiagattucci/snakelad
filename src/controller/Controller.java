@@ -34,9 +34,17 @@ public class Controller implements ViewObserver {
         final int value = this.game.getNumberFromDice();
 
         if (this.turn.equals(Turn.PLAYER.toString())) {
-            this.game.getPositionFirstPlayer();
+            if (this.game.getPositionFirstPlayer().getSecond()) {
+                this.view.updateInfo(turn, value, this.game.getPositionFirstPlayer().getFirst());
+            } else {
+                this.view.updateInfo(turn, value);
+            }
         } else {
-            this.game.getPositionSecondPlayer();
+            if (this.game.getPositionSecondPlayer().getSecond()) {
+                this.view.updateInfo(turn, value, this.game.getPositionSecondPlayer().getFirst());
+            } else {
+                this.view.updateInfo(turn, value);
+            }
         }
         this.view.setDiceValue(value);
         changeTurn();
