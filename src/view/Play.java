@@ -65,11 +65,11 @@ public final class Play extends BasicScene {
         this.toolbar.getDice().setImage(ImageLoader.get().getImage(this.toolbar.getDiceSides().get(newValue)));
     }
 
-    private void movePawn(final int nBoxes, final boolean jump, final int finalPosition) {
+    private void movePawn(final int nBoxes) {
         if (this.changePawn) {
-            this.pawnList.get(0).movePawn(nBoxes, jump, finalPosition);
+            this.pawnList.get(0).movePawn(nBoxes);
         } else {
-            this.pawnList.get(1).movePawn(nBoxes, jump, finalPosition);
+            this.pawnList.get(1).movePawn(nBoxes);
         }
         this.changePawn = this.changePawn ? false : true;
     }
@@ -96,15 +96,31 @@ public final class Play extends BasicScene {
      *     the new turn
      * @param newDiceValue
      *     The new value of the dice
-     * @param jump
-     *     If there' s a snake/ladder in the arrival box so I need to change the pawn position
-     * @param finalPosition
-     *     The final position if the pawn stops on a snake/ladder
      */
-    public void updateInfo(final String turn, final int newDiceValue, final boolean jump, final int finalPosition) {
+    public void updateInfo(final String turn, final int newDiceValue) {
         this.setTurn(turn);
         this.updateDiceValue(newDiceValue);
-        this.movePawn(newDiceValue, jump, finalPosition);
+        this.movePawn(newDiceValue);
+    }
+
+    /**
+     * It updates the game screen each turn.
+     * @param turn
+     *     the new turn
+     * @param newDiceValue
+     *     The new value of the dice
+     * @param finalPosition
+     *     The new position after a jump due to a snake/ladder
+     */
+    public void updateInfo(final String turn, final int newDiceValue, final int finalPosition) {
+        this.updateInfo(turn, newDiceValue);
+        this.changePawn = this.changePawn ? false : true;
+        if (this.changePawn) {
+            this.pawnList.get(0).jump(finalPosition);
+        } else {
+            this.pawnList.get(1).jump(finalPosition);
+        }
+        this.changePawn = this.changePawn ? false : true;
     }
 
     /**

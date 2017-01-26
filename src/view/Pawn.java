@@ -40,12 +40,8 @@ public class Pawn {
      * It updates the position of the pawn in the board by moving it of the chosen number of boxes.
      * @param nMoves
      *     The number of boxes the pawn needs to go on
-     * @param checkJump
-     *     If there' s a snake/ladder in the arrival box so I need to change the pawn position
-     * @param finalPosition
-     *     The final position if the pawn stops on a snake/ladder
      */
-    public void movePawn(final int nMoves, final boolean checkJump, final int finalPosition) {
+    public void movePawn(final int nMoves) {
 
         for (int i = 0; i < nMoves; i++) {
             if (this.rowCounter == (N_BOX_PER_RAW - 1)) {
@@ -60,9 +56,6 @@ public class Pawn {
             } else {
                 this.moveLeft();
             }
-        }
-        if (checkJump) {
-            this.jump(finalPosition);
         }
     }
 
@@ -82,7 +75,12 @@ public class Pawn {
         this.rowCounter = 0;
     }
 
-    private void jump(final int finalPosition) {
+    /**
+     * It puts the pawn in the right box.
+     * @param finalPosition
+     *     The box where the pawn has to be put.
+     */
+    public void jump(final int finalPosition) {
 
         final int nX;
         final int nY = finalPosition / N_BOX_PER_RAW;

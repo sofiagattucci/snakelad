@@ -86,8 +86,13 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void updateInfo(final String turn, final int newDiceValue, final boolean jump, final int finalPosition) {
-        playScene.updateInfo(turn, newDiceValue, jump, finalPosition);
+    public void updateInfo(final String turn, final int newDiceValue, final int finalPosition) {
+        playScene.updateInfo(turn, newDiceValue, finalPosition);
+    }
+
+    @Override
+    public void updateInfo(final String turn, final int newDiceValue) {
+        playScene.updateInfo(turn, newDiceValue);
     }
 } 
 
