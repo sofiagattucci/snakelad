@@ -1,7 +1,6 @@
 package view;
 
 import javafx.scene.image.ImageView;
-import utilities.ConsoleLog;
 import utilities.ImageLoader;
 import utilities.Pair;
 /**
@@ -84,7 +83,20 @@ public class Pawn {
     }
 
     private void jump(final int finalPosition) {
-        ConsoleLog.get().print("JUMP" + finalPosition);
+
+        final int nX;
+        final int nY = finalPosition / N_BOX_PER_RAW;
+        final int change = nY % 2;
+        this.rowCounter = finalPosition % N_BOX_PER_RAW;
+        if (change == 0) {
+            this.direction = Direction.RIGHT;
+            nX = this.rowCounter;
+        } else {
+            this.direction = Direction.LEFT;
+            nX = N_BOX_PER_RAW - 1 - this.rowCounter;
+        }
+        this.pawnIm.setX(this.pawnStartingPos.getFirst() + (Play.getBoardHeight() / N_BOX_PER_RAW) * nX);
+        this.pawnIm.setY(this.pawnStartingPos.getSecond() + (Play.getBoardHeight() / N_BOX_PER_RAW) * nY);
     }
 
     /**
