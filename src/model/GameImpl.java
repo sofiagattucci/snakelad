@@ -85,17 +85,27 @@ public class GameImpl implements Game {
     @Override
     public int getPositionFirstPlayer() {
 
-        this.playersList.get(0).setNewPlayerPosition(this.playersList.get(0).getPlayerPosition()
-                                                     + this.dice.getLastNumberAppeared());
-        return this.playersList.get(0).getPlayerPosition() % this.numberOfCells;
+        final int partialPositionFirstPlayer = this.playersList.get(0).getPlayerPosition() 
+                                               + this.dice.getLastNumberAppeared();
+
+        this.playersList.get(0).setNewPlayerPosition(partialPositionFirstPlayer > this.numberOfCells
+                                                     ? this.numberOfCells - (partialPositionFirstPlayer - this.numberOfCells)
+                                                     : partialPositionFirstPlayer);
+
+        return this.playersList.get(0).getPlayerPosition();
     }
 
     @Override
     public int getPositionSecondPlayer() {
 
-        this.playersList.get(1).setNewPlayerPosition(this.playersList.get(1).getPlayerPosition()
-                                                     + this.dice.getLastNumberAppeared());
-        return this.playersList.get(1).getPlayerPosition() % this.numberOfCells;
+        final int partialPositionSecondPlayer = this.playersList.get(1).getPlayerPosition() 
+                                                + this.dice.getLastNumberAppeared();
+
+        this.playersList.get(1).setNewPlayerPosition(partialPositionSecondPlayer > this.numberOfCells
+                                                     ? this.numberOfCells - (partialPositionSecondPlayer - this.numberOfCells)
+                                                     : partialPositionSecondPlayer);
+
+        return this.playersList.get(1).getPlayerPosition();
     }
 
     @Override
