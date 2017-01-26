@@ -22,11 +22,6 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void setDiceValue(final int value) {
-        //playScene.updateDiceValue(value);
-    }
-
-    @Override
     public void start() {
         Application.launch(MainFrame.class);
     }

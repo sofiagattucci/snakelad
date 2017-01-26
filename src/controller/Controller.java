@@ -49,7 +49,6 @@ public class Controller implements ViewObserver {
                 this.view.updateInfo(turn, value);
             }
         }
-        this.view.setDiceValue(value);
         changeTurn();
     }
 
