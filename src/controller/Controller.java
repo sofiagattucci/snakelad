@@ -6,6 +6,7 @@ import model.Game;
 import model.GameImpl;
 import utilities.DataManager;
 import utilities.InstructionsManager;
+import utilities.Pair;
 import view.View;
 import view.ViewImpl;
 
@@ -34,14 +35,16 @@ public class Controller implements ViewObserver {
         final int value = this.game.getNumberFromDice();
 
         if (this.turn.equals(Turn.PLAYER.toString())) {
-            if (this.game.getPositionFirstPlayer().getSecond()) {
-                this.view.updateInfo(turn, value, this.game.getPositionFirstPlayer().getFirst());
+            final Pair<Integer, Boolean> pair = this.game.getPositionFirstPlayer();
+            if (pair.getSecond()) {
+                this.view.updateInfo(turn, value, pair.getFirst());
             } else {
                 this.view.updateInfo(turn, value);
             }
         } else {
-            if (this.game.getPositionSecondPlayer().getSecond()) {
-                this.view.updateInfo(turn, value, this.game.getPositionSecondPlayer().getFirst());
+            final Pair<Integer, Boolean> pair = this.game.getPositionSecondPlayer();
+            if (pair.getSecond()) {
+                this.view.updateInfo(turn, value, pair.getFirst());
             } else {
                 this.view.updateInfo(turn, value);
             }

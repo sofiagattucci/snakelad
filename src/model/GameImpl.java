@@ -3,9 +3,7 @@ package model;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import utilities.Pair;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -83,6 +81,7 @@ public class GameImpl implements Game {
         for (final Player player : this.playersList) {
             player.setNewPlayerPosition(PLAYER_INITIAL_POSITION);
         }
+
     }
 
     @Override
