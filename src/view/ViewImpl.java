@@ -23,7 +23,7 @@ public class ViewImpl implements View {
 
     @Override
     public void setDiceValue(final int value) {
-        playScene.updateDiceValue(value);
+        //playScene.updateDiceValue(value);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ViewImpl implements View {
 
     @Override
     public void showTurn(final String turn) {
-        playScene.setTurn(turn);
+        //playScene.setTurn(turn);
     }
 
     /**
@@ -83,6 +83,11 @@ public class ViewImpl implements View {
     @Override
     public void firstTurn() {
         playScene.firstTurn();
+    }
+
+    @Override
+    public void updateInfo(final String turn, final int newDiceValue, final boolean jump, final int finalPosition) {
+        playScene.updateInfo(turn, newDiceValue, jump, finalPosition);
     }
 } 
 

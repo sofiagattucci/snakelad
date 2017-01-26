@@ -58,30 +58,23 @@ public final class Play extends BasicScene {
         this.setFill(Color.LIGHTBLUE);
     }
 
-    /**
-     * This method is used to update the dice value shown on the screen.
-     * @param newValue
-     *     The new value of the dice
-     */
-    public void updateDiceValue(final int newValue) {
+    private void updateDiceValue(final int newValue) {
         if (!this.toolbar.getDice().isVisible()) {
             this.toolbar.getDice().setVisible(true);
         }
         this.toolbar.getDice().setImage(ImageLoader.get().getImage(this.toolbar.getDiceSides().get(newValue)));
+    }
+
+    private void movePawn(final int nBoxes, final boolean jump, final int finalPosition) {
         if (this.changePawn) {
-            this.pawnList.get(0).movePawn(newValue);
+            this.pawnList.get(0).movePawn(nBoxes, jump, finalPosition);
         } else {
-            this.pawnList.get(1).movePawn(newValue);
+            this.pawnList.get(1).movePawn(nBoxes, jump, finalPosition);
         }
         this.changePawn = this.changePawn ? false : true;
     }
 
-    /**
-     * It changes the turn shown in the GUI.
-     * @param turn
-     *     The new turn
-     */
-    public void setTurn(final String turn) {
+    private void setTurn(final String turn) {
         this.toolbar.changeTurn(turn);
     }
 
@@ -95,6 +88,23 @@ public final class Play extends BasicScene {
         for (final Pawn elem: pawnList) {
             elem.reset();
         }
+    }
+
+    /**
+     * It updates the game screen each turn.
+     * @param turn
+     *     the new turn
+     * @param newDiceValue
+     *     The new value of the dice
+     * @param jump
+     *     If there' s a snake/ladder in the arrival box so I need to change the pawn position
+     * @param finalPosition
+     *     The final position if the pawn stops on a snake/ladder
+     */
+    public void updateInfo(final String turn, final int newDiceValue, final boolean jump, final int finalPosition) {
+        this.setTurn(turn);
+        this.updateDiceValue(newDiceValue);
+        this.movePawn(newDiceValue, jump, finalPosition);
     }
 
     /**

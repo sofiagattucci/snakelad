@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.image.ImageView;
+import utilities.ConsoleLog;
 import utilities.ImageLoader;
 import utilities.Pair;
 /**
@@ -40,23 +41,50 @@ public class Pawn {
      * It updates the position of the pawn in the board by moving it of the chosen number of boxes.
      * @param nMoves
      *     The number of boxes the pawn needs to go on
+     * @param checkJump
+     *     If there' s a snake/ladder in the arrival box so I need to change the pawn position
+     * @param finalPosition
+     *     The final position if the pawn stops on a snake/ladder
      */
-    public void movePawn(final int nMoves) {
+    public void movePawn(final int nMoves, final boolean checkJump, final int finalPosition) {
 
         for (int i = 0; i < nMoves; i++) {
             if (this.rowCounter == (N_BOX_PER_RAW - 1)) {
-                this.rowCounter = 0;
+                this.resetCounter();
                 this.direction = this.direction == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT; 
-                this.pawnIm.setY(pawnIm.getY() - Play.getBoardHeight() / N_BOX_PER_RAW);
+                this.moveUp();
                 continue;
             }
             this.rowCounter++;
             if (this.direction == Direction.RIGHT) {
-                this.pawnIm.setX(this.pawnIm.getX() + Play.getBoardHeight() / N_BOX_PER_RAW);
+                this.moveRight();
             } else {
-                this.pawnIm.setX(this.pawnIm.getX() - Play.getBoardHeight() / N_BOX_PER_RAW);
+                this.moveLeft();
             }
         }
+        if (checkJump) {
+            this.jump(finalPosition);
+        }
+    }
+
+    private void moveUp() {
+        this.pawnIm.setY(pawnIm.getY() - Play.getBoardHeight() / N_BOX_PER_RAW);
+    }
+
+    private void moveRight() {
+        this.pawnIm.setX(this.pawnIm.getX() + Play.getBoardHeight() / N_BOX_PER_RAW);
+    }
+
+    private void moveLeft() {
+        this.pawnIm.setX(this.pawnIm.getX() - Play.getBoardHeight() / N_BOX_PER_RAW);
+    }
+
+    private void resetCounter() {
+        this.rowCounter = 0;
+    }
+
+    private void jump(final int finalPosition) {
+        ConsoleLog.get().print("JUMP" + finalPosition);
     }
 
     /**
@@ -64,7 +92,7 @@ public class Pawn {
      * In the end it puts the pawn to its starting position.
      */
     public void reset() {
-        this.rowCounter = 0;
+        this.resetCounter();
         this.direction = Direction.RIGHT;
         this.setInitPosition();
     }

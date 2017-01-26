@@ -93,7 +93,7 @@ public class Toolbar {
      */
     public void changeTurn(final String turn) {
 
-        if (turn.equals("CPU")) {
+        if (turn.equals(CPU)) {
             this.player.setFont(smallFont);
             this.cpu.setFont(bigFont);
             this.cpu.setStyle(YELLOW_LABEL);

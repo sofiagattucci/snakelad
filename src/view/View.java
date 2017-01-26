@@ -35,4 +35,17 @@ public interface View {
      * It resets the displayed values at the beginning of each game.
      */
     void firstTurn();
+
+    /**
+     * It updates the game screen each turn.
+     * @param turn
+     *     the new turn
+     * @param newDiceValue
+     *     The new new dice value.
+     * @param jump
+     *     If there' s a snake/ladder in the arrival box so I need to change the pawn position
+     * @param finalPosition
+     *     The final position if the pawn stops on a snake/ladder
+     */
+    void updateInfo(String turn, int newDiceValue, final boolean jump, final int finalPosition);
 }
