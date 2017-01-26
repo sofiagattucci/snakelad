@@ -74,7 +74,12 @@ public final class Play extends BasicScene {
         this.changePawn = this.changePawn ? false : true;
     }
 
-    private void setTurn(final String turn) {
+    /**
+     * It changes the turn shown in the game screen.
+     * @param turn
+     *     The new turn to set
+     */
+    public void setTurn(final String turn) {
         this.toolbar.changeTurn(turn);
     }
 
@@ -88,6 +93,7 @@ public final class Play extends BasicScene {
         for (final Pawn elem: pawnList) {
             elem.reset();
         }
+        this.changePawn = true;
     }
 
     /**
@@ -98,7 +104,6 @@ public final class Play extends BasicScene {
      *     The new value of the dice
      */
     public void updateInfo(final String turn, final int newDiceValue) {
-        this.setTurn(turn);
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue);
     }
@@ -113,6 +118,7 @@ public final class Play extends BasicScene {
      *     The new position after a jump due to a snake/ladder
      */
     public void updateInfo(final String turn, final int newDiceValue, final int finalPosition) {
+
         this.updateInfo(turn, newDiceValue);
         this.changePawn = this.changePawn ? false : true;
         if (this.changePawn) {
