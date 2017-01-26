@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 /**
  * It represents the model interface in MVC pattern, the interface of the game.
  * Defines the main methods of the Model class.
@@ -8,8 +10,11 @@ public interface Game {
 
     /**
      * Starts the game, setting all needed in order to start it.
+     * @param listData
+     *          The list that contains the data (snakes and ladders positions, number of 
+     *          cells on the game board) to be passed to Model to allow starting the game.
      */
-    void startGame();
+    void startGame(List<Integer> listData);
 
 
     /**

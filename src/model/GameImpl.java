@@ -3,10 +3,6 @@ package model;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import utilities.DataManager;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,7 +18,7 @@ public class GameImpl implements Game {
     private static final int SEPARATOR = 0;
 
     // the number of cells in the game board
-    private final int numberOfCells;
+    private int numberOfCells;
     // the list which contains positions of all snakes in the current game board
     private final Map<Integer, Integer> snakesMap = new HashMap<>();
     // the list which contains positions of all ladders in the current game board
@@ -35,7 +31,20 @@ public class GameImpl implements Game {
      */
     public GameImpl() {
 
-        final List<Integer> listDataFromFile = DataManager.get().read(new File("./res/GameBoards/GameBoard1/file.txt"));
+        final Player player1 = new Player();
+        final Player player2 = new Player();
+        this.playersList.add(player1);
+        this.playersList.add(player2);
+
+        this.dice = new ClassicDice();
+
+    }
+
+    @Override
+    public void startGame(final List<Integer> listData) {
+
+        final List<Integer> listDataFromFile = listData;
+
         listDataFromFile.remove(FIRST_INDEX);
         this.numberOfCells = listDataFromFile.get(FIRST_INDEX);
         listDataFromFile.remove(FIRST_INDEX);
@@ -62,18 +71,6 @@ public class GameImpl implements Game {
            laddersMap.put(key, value);
        }
 
-        final Player player1 = new Player();
-        final Player player2 = new Player();
-        this.playersList.add(player1);
-        this.playersList.add(player2);
-
-        this.dice = new ClassicDice();
-
-    }
-
-    @Override
-    public void startGame() {
-
         for (final Player player : this.playersList) {
             player.setNewPlayerPosition(PLAYER_INITIAL_POSITION);
         }
@@ -90,7 +87,7 @@ public class GameImpl implements Game {
 
         this.playersList.get(0).setNewPlayerPosition(this.playersList.get(0).getPlayerPosition()
                                                      + this.dice.getLastNumberAppeared());
-        return this.playersList.get(0).getPlayerPosition();
+        return this.playersList.get(0).getPlayerPosition() % this.numberOfCells;
     }
 
     @Override
@@ -98,7 +95,7 @@ public class GameImpl implements Game {
 
         this.playersList.get(1).setNewPlayerPosition(this.playersList.get(1).getPlayerPosition()
                                                      + this.dice.getLastNumberAppeared());
-        return this.playersList.get(1).getPlayerPosition();
+        return this.playersList.get(1).getPlayerPosition() % this.numberOfCells;
     }
 
     @Override

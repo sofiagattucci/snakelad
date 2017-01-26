@@ -27,7 +27,7 @@ public class ClassicDice implements Dice {
     public int getLastNumberAppeared() throws IllegalStateException {
 
         if (!this.lastNumberAppeared.isPresent()) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("ERROR using ClassicDice, the field lastNumberAppeared is empty!");
         }
         return this.lastNumberAppeared.get();
     }
