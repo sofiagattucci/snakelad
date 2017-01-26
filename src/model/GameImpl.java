@@ -16,20 +16,26 @@ public class GameImpl implements Game {
     private static final int PLAYER_INITIAL_POSITION = 0;
     private static final int FIRST_INDEX = 0;
     private static final int SEPARATOR = 0;
+    private static final int FIRST_PLAYER_INDEX = 0;
+    private static final int SECOND_PLAYER_INDEX = 1;
 
     // the number of cells in the game board
     private int numberOfCells;
     // the list which contains positions of all snakes in the current game board
-    private final Map<Integer, Integer> snakesMap = new HashMap<>();
+    private final Map<Integer, Integer> snakesMap;
     // the list which contains positions of all ladders in the current game board
-    private final Map<Integer, Integer> laddersMap = new HashMap<>();
-    private final List<Player> playersList = new ArrayList<>();
+    private final Map<Integer, Integer> laddersMap;
+    private final List<Player> playersList;
     private final Dice dice;
 
     /**
      * GameImpl constructor.
      */
     public GameImpl() {
+
+        this.snakesMap = new HashMap<>();
+        this.laddersMap = new HashMap<>();
+        this.playersList = new ArrayList<>();
 
         final Player player1 = new Player();
         final Player player2 = new Player();
@@ -85,27 +91,53 @@ public class GameImpl implements Game {
     @Override
     public int getPositionFirstPlayer() {
 
-        final int partialPositionFirstPlayer = this.playersList.get(0).getPlayerPosition() 
-                                               + this.dice.getLastNumberAppeared();
+        int partialPositionFirstPlayer = this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition() 
+                                         + this.dice.getLastNumberAppeared();
 
-        this.playersList.get(0).setNewPlayerPosition(partialPositionFirstPlayer > this.numberOfCells
-                                                     ? this.numberOfCells - (partialPositionFirstPlayer - this.numberOfCells)
-                                                     : partialPositionFirstPlayer);
+        partialPositionFirstPlayer = partialPositionFirstPlayer > this.numberOfCells
+                                     ? this.numberOfCells - (partialPositionFirstPlayer - this.numberOfCells)
+                                     : partialPositionFirstPlayer;
 
-        return this.playersList.get(0).getPlayerPosition();
+        if (this.laddersMap.containsKey(partialPositionFirstPlayer)) {
+            partialPositionFirstPlayer = this.laddersMap.get(partialPositionFirstPlayer);
+            this.playersList.get(FIRST_PLAYER_INDEX).setNewPlayerPosition(partialPositionFirstPlayer);
+            return this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition();
+        }
+
+        if (this.snakesMap.containsKey(partialPositionFirstPlayer)) {
+            partialPositionFirstPlayer = this.snakesMap.get(partialPositionFirstPlayer);
+            this.playersList.get(FIRST_PLAYER_INDEX).setNewPlayerPosition(partialPositionFirstPlayer);
+            return this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition();
+        }
+
+        this.playersList.get(FIRST_PLAYER_INDEX).setNewPlayerPosition(partialPositionFirstPlayer);
+        return this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition();
     }
 
     @Override
     public int getPositionSecondPlayer() {
 
-        final int partialPositionSecondPlayer = this.playersList.get(1).getPlayerPosition() 
-                                                + this.dice.getLastNumberAppeared();
+        int partialPositionSecondPlayer = this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition() 
+                                          + this.dice.getLastNumberAppeared();
 
-        this.playersList.get(1).setNewPlayerPosition(partialPositionSecondPlayer > this.numberOfCells
-                                                     ? this.numberOfCells - (partialPositionSecondPlayer - this.numberOfCells)
-                                                     : partialPositionSecondPlayer);
+        partialPositionSecondPlayer = partialPositionSecondPlayer > this.numberOfCells
+                                      ? this.numberOfCells - (partialPositionSecondPlayer - this.numberOfCells)
+                                      : partialPositionSecondPlayer;
 
-        return this.playersList.get(1).getPlayerPosition();
+        if (this.laddersMap.containsKey(partialPositionSecondPlayer)) {
+            partialPositionSecondPlayer = this.laddersMap.get(partialPositionSecondPlayer);
+            this.playersList.get(SECOND_PLAYER_INDEX).setNewPlayerPosition(partialPositionSecondPlayer);
+            return this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition();
+        }
+
+        if (this.snakesMap.containsKey(partialPositionSecondPlayer)) {
+            partialPositionSecondPlayer = this.snakesMap.get(partialPositionSecondPlayer);
+            this.playersList.get(SECOND_PLAYER_INDEX).setNewPlayerPosition(partialPositionSecondPlayer);
+            return this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition();
+        }
+
+        this.playersList.get(SECOND_PLAYER_INDEX).setNewPlayerPosition(partialPositionSecondPlayer);
+        return this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition();
     }
 
     @Override

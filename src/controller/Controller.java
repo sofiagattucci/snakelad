@@ -17,7 +17,7 @@ public class Controller implements ViewObserver {
     private final Game game;
     private final View view;
     private String turn;
-    private static final String INSTRUCTION = "./res/Instructions.txt";
+    private static final String INSTRUCTIONS = "./res/Instructions.txt";
     private static final String DATA = "./res/GameBoards/GameBoard1/file.txt";
 
     /**
@@ -44,7 +44,7 @@ public class Controller implements ViewObserver {
 
     @Override
     public void getInstructions() {
-        this.view.setInstructions(InstructionsManager.get().read(new File(INSTRUCTION)));
+        this.view.setInstructions(InstructionsManager.get().read(new File(INSTRUCTIONS)));
     }
 
     @Override
