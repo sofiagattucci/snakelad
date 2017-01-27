@@ -27,6 +27,7 @@ public final class Play extends BasicScene {
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
 
     private static Play playScene = new Play();
+    private static Stage playStage;
 
     private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new Pawn(PAWN1_PATH), new Pawn(PAWN2_PATH)));
     private final Toolbar toolbar = new Toolbar();
@@ -130,6 +131,13 @@ public final class Play extends BasicScene {
     }
 
     /**
+     * It handles the end of the game.
+     */
+    public static void gameOver() {
+        new GameOver(playStage).show();
+    }
+
+    /**
      * Getter of the scene.
      * @param stage
      *     The stage that will be linked to the one of this class
@@ -137,8 +145,9 @@ public final class Play extends BasicScene {
      *     The game scene
      */
     public static Play getScene(final Stage stage) {
-            Toolbar.setStage(stage);
-            return playScene;
+        playStage = stage;
+        Toolbar.setStage(stage);
+        return playScene;
     }
     /**
      * Getter of the board height BOARD_H.

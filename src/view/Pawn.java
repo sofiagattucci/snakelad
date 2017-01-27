@@ -1,7 +1,6 @@
 package view;
 
 import javafx.scene.image.ImageView;
-import utilities.ConsoleLog;
 import utilities.ImageLoader;
 import utilities.Pair;
 /**
@@ -64,6 +63,10 @@ public class Pawn {
                 this.moveRight();
             } else {
                 this.moveLeft();
+            }
+            if ((this.row  == (N_BOXES_PER_ROW - 1)) && (this.rowCounter == (N_BOXES_PER_ROW - 1)) && (i == nMoves - 1)) {
+                Play.gameOver();
+                break;
             }
         }
 
