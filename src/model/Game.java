@@ -27,18 +27,15 @@ public interface Game {
 
 
     /**
-     * Returns the current position of the first player on the game board and a boolean that represents a jump.
-     * @return the current position of the first player on the game board and a boolean that represents a jump.
+     * Returns the current position of the specified player on the game board 
+     * and a Boolean that indicates if the player has to jump or not.
+     * @param playerIndex
+     *          The index which identifies the player whose position is required.
+     * @return a pair of values, the first is an Integer which indicates the current position of the player 
+     * on the game board and the second is a Boolean that indicates if the player has to jump or not (a 
+     * "jump" means the achievement of either a snake or a ladder).
      */
-    Pair<Integer, Boolean> getPositionFirstPlayer();
-
-
-    /**
-     * Returns the current position of the second player on the game board and a boolean that represents a jump.
-     * @return the current position of the second player on the game board and a boolean that represents a jump.
-     */
-    Pair<Integer, Boolean> getPositionSecondPlayer();
-
+    Pair<Integer, Boolean> getPlayerPosition(int playerIndex);
 
     /**
      * Restarts the game, setting all needed in order to restart it.

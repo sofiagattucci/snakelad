@@ -17,8 +17,6 @@ public class GameImpl implements Game {
     private static final int PLAYER_INITIAL_POSITION = 0;
     private static final int FIRST_INDEX = 0;
     private static final int SEPARATOR = 0;
-    private static final int FIRST_PLAYER_INDEX = 0;
-    private static final int SECOND_PLAYER_INDEX = 1;
 
     // the number of cells in the game board
     private int numberOfCells;
@@ -78,7 +76,7 @@ public class GameImpl implements Game {
         }
 
         for (final Player player : this.playersList) {
-            player.setNewPlayerPosition(PLAYER_INITIAL_POSITION);
+            player.setNewPosition(PLAYER_INITIAL_POSITION);
         }
     }
 
@@ -89,62 +87,36 @@ public class GameImpl implements Game {
     }
 
     @Override
-    public Pair<Integer, Boolean> getPositionFirstPlayer() {
+    public Pair<Integer, Boolean> getPlayerPosition(final int playerIndex) {
 
-        int partialPositionFirstPlayer = this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition() 
+        int partialPlayerPosition = this.playersList.get(playerIndex).getPosition() 
                                          + this.dice.getLastNumberAppeared();
 
-        partialPositionFirstPlayer = partialPositionFirstPlayer > this.numberOfCells
-                                     ? this.numberOfCells - (partialPositionFirstPlayer - this.numberOfCells)
-                                     : partialPositionFirstPlayer;
+        partialPlayerPosition = partialPlayerPosition > this.numberOfCells
+                                ? this.numberOfCells - (partialPlayerPosition - this.numberOfCells)
+                                : partialPlayerPosition;
 
-        if (this.laddersMap.containsKey(partialPositionFirstPlayer)) {
-            partialPositionFirstPlayer = this.laddersMap.get(partialPositionFirstPlayer);
-            this.playersList.get(FIRST_PLAYER_INDEX).setNewPlayerPosition(partialPositionFirstPlayer);
-            return new Pair<Integer, Boolean>(this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition(), true);
+        if (this.laddersMap.containsKey(partialPlayerPosition)) {
+            partialPlayerPosition = this.laddersMap.get(partialPlayerPosition);
+            this.playersList.get(playerIndex).setNewPosition(partialPlayerPosition);
+            return new Pair<Integer, Boolean>(this.playersList.get(playerIndex).getPosition(), true);
         }
 
-        if (this.snakesMap.containsKey(partialPositionFirstPlayer)) {
-            partialPositionFirstPlayer = this.snakesMap.get(partialPositionFirstPlayer);
-            this.playersList.get(FIRST_PLAYER_INDEX).setNewPlayerPosition(partialPositionFirstPlayer);
-            return new Pair<Integer, Boolean>(this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition(), true);
+        if (this.snakesMap.containsKey(partialPlayerPosition)) {
+            partialPlayerPosition = this.snakesMap.get(partialPlayerPosition);
+            this.playersList.get(playerIndex).setNewPosition(partialPlayerPosition);
+            return new Pair<Integer, Boolean>(this.playersList.get(playerIndex).getPosition(), true);
         }
 
-        this.playersList.get(FIRST_PLAYER_INDEX).setNewPlayerPosition(partialPositionFirstPlayer);
-        return new Pair<Integer, Boolean>(this.playersList.get(FIRST_PLAYER_INDEX).getPlayerPosition(), false);
-    }
-
-    @Override
-    public Pair<Integer, Boolean> getPositionSecondPlayer() {
-
-        int partialPositionSecondPlayer = this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition() 
-                                          + this.dice.getLastNumberAppeared();
-
-        partialPositionSecondPlayer = partialPositionSecondPlayer > this.numberOfCells
-                                      ? this.numberOfCells - (partialPositionSecondPlayer - this.numberOfCells)
-                                      : partialPositionSecondPlayer;
-
-        if (this.laddersMap.containsKey(partialPositionSecondPlayer)) {
-            partialPositionSecondPlayer = this.laddersMap.get(partialPositionSecondPlayer);
-            this.playersList.get(SECOND_PLAYER_INDEX).setNewPlayerPosition(partialPositionSecondPlayer);
-            return new Pair<Integer, Boolean>(this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition(), true);
-        }
-
-        if (this.snakesMap.containsKey(partialPositionSecondPlayer)) {
-            partialPositionSecondPlayer = this.snakesMap.get(partialPositionSecondPlayer);
-            this.playersList.get(SECOND_PLAYER_INDEX).setNewPlayerPosition(partialPositionSecondPlayer);
-            return new Pair<Integer, Boolean>(this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition(), true);
-        }
-
-        this.playersList.get(SECOND_PLAYER_INDEX).setNewPlayerPosition(partialPositionSecondPlayer);
-        return new Pair<Integer, Boolean>(this.playersList.get(SECOND_PLAYER_INDEX).getPlayerPosition(), false);
+        this.playersList.get(playerIndex).setNewPosition(partialPlayerPosition);
+        return new Pair<Integer, Boolean>(this.playersList.get(playerIndex).getPosition(), false);
     }
 
     @Override
     public void restartGame() {
 
         for (final Player player : this.playersList) {
-            player.setNewPlayerPosition(PLAYER_INITIAL_POSITION);
+            player.setNewPosition(PLAYER_INITIAL_POSITION);
         }
     }
 

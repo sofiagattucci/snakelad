@@ -21,7 +21,7 @@ public class Player {
      * Returns the current position of the player on the game board.
      * @return the number which represents the current position of the player on the numbered game board.
      */
-    public int getPlayerPosition() {
+    public int getPosition() {
         return this.position;
     }
 
@@ -30,7 +30,7 @@ public class Player {
      * @param newPosition
      *          The number which represents the new position of the player on the numbered game board.
      */
-    public void setNewPlayerPosition(final int newPosition) {
+    public void setNewPosition(final int newPosition) {
         this.position = newPosition;
     }
 
