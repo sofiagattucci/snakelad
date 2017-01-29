@@ -1,7 +1,7 @@
 package view;
 
 import javafx.scene.image.ImageView;
-import utilities.ImageLoader;
+import utilities.ImageManager;
 import utilities.Pair;
 /**
  * This class represents a pawn of the game.
@@ -25,7 +25,7 @@ public class Pawn {
      *     The path to the pawn to create
      */
     public Pawn(final String pawnPath) {
-        this.pawnIm = ImageLoader.get().getImageView(pawnPath);
+        this.pawnIm = ImageManager.get().getImageView(pawnPath);
         this.pawnIm.setFitHeight(PAWN_HEIGHT);
         this.pawnIm.setPreserveRatio(true);
         this.direction = Direction.RIGHT;

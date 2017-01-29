@@ -20,7 +20,6 @@ public class BasicScene extends Scene {
      */
     protected BasicScene() {
         super(new BorderPane());
-
         this.setRoot(this.bp);
         this.bp.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY))); 
     }

@@ -10,33 +10,32 @@ import java.util.Optional;
 
 /**
  * This class handles read/write operations relatives to a file which contains the data of a scenery.
- * Used Singleton Pattern.
+ * It's designed using Singleton pattern.
  */
-public final class DataManager implements FileManager {
+public final class SceneryDataManager implements FileManager {
 
+    private static final SceneryDataManager SINGLETON = new SceneryDataManager();
     private static final int SEPARATOR = 0;
-    private static final DataManager DATA_MANAGER = new DataManager();
 
-    //private constructor
-    private DataManager() { }
+    // private constructor
+    private SceneryDataManager() { }
 
 
     /**
-     * Getter of the DataManeger.
-     * @return
-     *     The DataManager.
+     * Static method which returns a DataManager unique instance.
+     * @return a DataManager unique instance.
      */
-    public static DataManager get() {
-        return DATA_MANAGER;
+    public static SceneryDataManager get() {
+        return SINGLETON;
     }
 
-
     @Override
-    public List<Integer> read(final File f) {
+    public List<Integer> readFromFile(final String path) {
 
+        final File file = new File(path);
         final List<Integer> data = new LinkedList<>();
 
-        try (BufferedReader bf = new BufferedReader(new FileReader(f))) {
+        try (BufferedReader bf = new BufferedReader(new FileReader(file))) {
             Optional<String> line = Optional.empty();
             line = Optional.ofNullable(bf.readLine());
             while (line.isPresent()) {
@@ -44,18 +43,18 @@ public final class DataManager implements FileManager {
                     data.add(Integer.parseInt(line.get()));
                     line = Optional.ofNullable(bf.readLine());
                 }
-                data.add(DataManager.SEPARATOR);
+                data.add(SceneryDataManager.SEPARATOR);
                 line = Optional.ofNullable(bf.readLine());
             }
-        } catch (IOException e) {
-            ConsoleLog.get().print("Error...Failed to read from data file");
+        } catch (IOException exception) {
+            ConsoleLog.get().print("Error...Failed to read scenery from data file located at: " + path);
+            exception.printStackTrace();
         }
         return data;
     }
 
-
     @Override
-    public void write(final File f) {
+    public void writeToFile(final String path) {
 
     }
 

@@ -1,10 +1,8 @@
 package controller;
 
-import java.io.File;
-
 import model.Game;
 import model.GameImpl;
-import utilities.DataManager;
+import utilities.SceneryDataManager;
 import utilities.InstructionsManager;
 import utilities.Pair;
 import view.View;
@@ -55,7 +53,7 @@ public class Controller implements ViewObserver {
 
     @Override
     public void getInstructions() {
-        this.view.setInstructions(InstructionsManager.get().read(new File(INSTRUCTIONS)));
+        this.view.setInstructions(InstructionsManager.get().readFromFile(INSTRUCTIONS));
     }
 
     @Override
@@ -73,7 +71,7 @@ public class Controller implements ViewObserver {
 
     @Override
     public void play() {
-        this.game.startGame(DataManager.get().read(new File(DATA)));
+        this.game.startGame(SceneryDataManager.get().readFromFile(DATA));
         this.view.showTurn(turn);
         this.view.firstTurn();
         this.turn = Turn.PLAYER.toString();

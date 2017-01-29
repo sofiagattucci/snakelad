@@ -13,7 +13,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import utilities.ImageLoader;
+import utilities.ImageManager;
 
 /**
  * This class creates and initializes the game scene.
@@ -36,7 +36,6 @@ public final class Play extends BasicScene {
     private Play() {
 
         this.getDefaultLayout().setRight(this.toolbar.getBox());
-
         this.setBackground();
 
         for (final Pawn elem: pawnList) {
@@ -46,7 +45,7 @@ public final class Play extends BasicScene {
 
     private void setBackground() {
 
-        final Image board = ImageLoader.get().getImage(BOARD_PATH);
+        final Image board = ImageManager.get().readFromFile(BOARD_PATH);
 
         final double transposeY = (Dimension.SCREEN_H - BOARD_H) / 2;
         final double transposeX = (Dimension.SCREEN_W - BOX_WIDTH - BOARD_H) / 2;
@@ -63,7 +62,7 @@ public final class Play extends BasicScene {
         if (!this.toolbar.getDice().isVisible()) {
             this.toolbar.getDice().setVisible(true);
         }
-        this.toolbar.getDice().setImage(ImageLoader.get().getImage(this.toolbar.getDiceSides().get(newValue)));
+        this.toolbar.getDice().setImage(ImageManager.get().readFromFile(this.toolbar.getDiceSides().get(newValue)));
     }
 
     private void movePawn(final int nBoxes) {

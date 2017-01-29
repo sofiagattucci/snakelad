@@ -25,7 +25,7 @@ public final class ClassicDice implements Dice {
      * Static method which returns a ClassicDice unique instance.
      * @return a ClassicDice unique instance.
      */
-    public static ClassicDice getClassicDice() {
+    public static ClassicDice get() {
         return ClassicDice.SINGLETON;
     }
 

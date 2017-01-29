@@ -43,7 +43,7 @@ public class GameImpl implements Game {
         this.playersList.add(player1);
         this.playersList.add(player2);
 
-        this.dice = ClassicDice.getClassicDice();
+        this.dice = ClassicDice.get();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class GameImpl implements Game {
            final Integer key = iter.next();
            final Integer value = iter.next();
            laddersMap.put(key, value);
-       }
+        }
 
         for (final Player player : this.playersList) {
             player.setNewPlayerPosition(PLAYER_INITIAL_POSITION);

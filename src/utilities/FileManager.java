@@ -1,27 +1,24 @@
 package utilities;
 
-import java.io.File;
-
 /**
  * It's an interface for a generic FileManager.
  */
 public interface FileManager {
 
     /**
-     * Method to read a file.
-     * @param f
-     *     The file to read.
-     * @return
-     *     an element which represents the content of the file.
+     * Method to read a file in a specific location.
+     * @param path
+     *     The path on the file system in which the file to read is located.
+     * @return an Object which represents the content of the specified file.
      */
-    Object read(File f);
+    Object readFromFile(String path);
 
 
     /**
-     * Method to write into s file.
-     * @param f
-     *     The file i want to override.
+     * Method to write into a file in a specific location.
+     * @param path
+     *     The path on the file system in which the file to write is located.
      */
-    void write(File f);
+    void writeToFile(String path);
 
 }

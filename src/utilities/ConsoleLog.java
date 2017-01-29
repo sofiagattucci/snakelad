@@ -3,27 +3,27 @@ package utilities;
 /**
  * This class is used to print strings in the console. Used in some circumstances but mostly for 
  * debug tests.
- * Used Singleton Pattern.
+ * It's designed using Singleton pattern.
  */
 public final class ConsoleLog {
 
-    private static final ConsoleLog SINGLETON_LOG = new ConsoleLog();
+    private static final ConsoleLog SINGLETON = new ConsoleLog();
 
+    // private constructor
     private ConsoleLog() { }
 
     /**
-     * Getter of the Log.
-     * @return
-     *     The log.
+     * Static method which returns a ConsoleLog unique instance.
+     * @return a ConsoleLog unique instance.
      */
     public static ConsoleLog get() {
-        return SINGLETON_LOG;
+        return ConsoleLog.SINGLETON;
     }
 
     /**
      * Method to print a string on the console.
-     * @param s
-     *     The string to print.
+     * @param s 
+     *          The string to print.
      */
     public void print(final String s) {
         System.out.println(s);

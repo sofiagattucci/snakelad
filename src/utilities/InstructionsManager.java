@@ -7,45 +7,46 @@ import java.io.IOException;
 
 /**
  * This class handles read/write operations relatives to a file which contains the game instructions.
- * Used Singleton Pattern.
+ * It's designed using Singleton pattern.
  */
 public final class InstructionsManager implements FileManager {
 
-    private static final InstructionsManager INSTRUCTIONS_MANAGER = new InstructionsManager();
+    private static final InstructionsManager SINGLETON = new InstructionsManager();
 
-    //private constructor
+    // private constructor
     private InstructionsManager() { }
 
     /**
-     * Getter of the InstructionsManager.
-     * @return
-     *     The InstructionsManager
+     * Static method which returns an InstructionsManager unique instance.
+     * @return an InstructionsManager unique instance.
      */
     public static InstructionsManager get() {
-        return INSTRUCTIONS_MANAGER;
+        return SINGLETON;
     }
 
     @Override
-    public String read(final File f) {
+    public String readFromFile(final String path) {
 
+        final File file = new File(path);
         String text = "";
 
-        try (BufferedReader bf = new BufferedReader(new FileReader(f))) {
+        try (BufferedReader bf = new BufferedReader(new FileReader(file))) {
             String line = null;
             line = bf.readLine();
             while (line != null) {
                 text = text.concat(line + "\n");
                 line = bf.readLine();
             }
-        } catch (IOException e) {
-            ConsoleLog.get().print("Error...Failed to load instructions from file");
+        } catch (IOException exception) {
+            ConsoleLog.get().print("Error...Failed to read instructions from file located at: " + path);
+            exception.printStackTrace();
         }
 
         return text;
     }
 
     @Override
-    public void write(final File f) {
+    public void writeToFile(final String path) {
 
     }
 

@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import utilities.ImageLoader;
+import utilities.ImageManager;
 
 /**
  * It sets up the tool bar in the game screen.
@@ -48,7 +48,7 @@ public class Toolbar {
     private final Font smallFont = new Font(SMALL_FONT_SIZE);
     private final Font bigFont = new Font(BIG_FONT_SIZE);
     private final GridPane gp = new GridPane();
-    private final ImageView dice = ImageLoader.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
+    private final ImageView dice = ImageManager.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
     private final VBox box = new VBox(gp, roll, dice, pause);
     private final Map<Integer, String> diceSides = new HashMap<>();
 
