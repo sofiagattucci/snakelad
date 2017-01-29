@@ -43,8 +43,7 @@ public class GameImpl implements Game {
         this.playersList.add(player1);
         this.playersList.add(player2);
 
-        this.dice = new ClassicDice();
-
+        this.dice = ClassicDice.getClassicDice();
     }
 
     @Override
@@ -81,7 +80,6 @@ public class GameImpl implements Game {
         for (final Player player : this.playersList) {
             player.setNewPlayerPosition(PLAYER_INITIAL_POSITION);
         }
-
     }
 
     @Override

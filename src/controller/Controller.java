@@ -15,6 +15,7 @@ import view.ViewImpl;
  *
  */
 public class Controller implements ViewObserver {
+
     private final Game game;
     private final View view;
     private String turn;
