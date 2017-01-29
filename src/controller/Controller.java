@@ -31,24 +31,24 @@ public class Controller implements ViewObserver {
 
     @Override
     public void rollDice() {
+        changeTurn();
         final int value = this.game.getNumberFromDice();
 
         if (this.turn.equals(Turn.PLAYER.toString())) {
             final Pair<Integer, Boolean> pair = this.game.getPositionFirstPlayer();
             if (pair.getSecond()) {
-                this.view.updateInfo(turn, value, pair.getFirst());
+                this.view.updateInfo(this.turn, value, pair.getFirst());
             } else {
-                this.view.updateInfo(turn, value);
+                this.view.updateInfo(this.turn, value);
             }
         } else {
             final Pair<Integer, Boolean> pair = this.game.getPositionSecondPlayer();
             if (pair.getSecond()) {
-                this.view.updateInfo(turn, value, pair.getFirst());
+                this.view.updateInfo(this.turn, value, pair.getFirst());
             } else {
-                this.view.updateInfo(turn, value);
+                this.view.updateInfo(this.turn, value);
             }
         }
-        changeTurn();
     }
 
     @Override
@@ -64,17 +64,17 @@ public class Controller implements ViewObserver {
     @Override
     public void restart() {
         this.game.restartGame();
-        this.view.firstTurn();
         this.turn = Turn.PLAYER.toString();
-        this.view.showTurn(turn);
+        this.view.firstTurn();
+        this.view.showTurn(this.turn);
     }
 
     @Override
     public void play() {
         this.game.startGame(SceneryDataManager.get().readFromFile(DATA));
-        this.view.showTurn(turn);
-        this.view.firstTurn();
         this.turn = Turn.PLAYER.toString();
+        this.view.firstTurn();
+        this.view.showTurn(this.turn);
     }
 
     @Override

@@ -113,6 +113,7 @@ public class Toolbar {
         this.cpu.setFont(smallFont);
         this.player.setStyle(YELLOW_LABEL);
         this.cpu.setStyle(BLACK_LABEL);
+        System.out.println("Ciao");
     }
 
     /**

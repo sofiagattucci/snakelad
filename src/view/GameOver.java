@@ -16,17 +16,18 @@ public class GameOver {
     private static final String RESTART = "Restart";
     private static final String MAIN_MENU = "Main Menu";
 
-    private final Stage parentSt;
+    private final Alert end = new Alert(AlertType.INFORMATION);
     private final ButtonType mainMenu = new ButtonType(MAIN_MENU);
     private final ButtonType restart = new ButtonType(RESTART);
-    private final Alert end = new Alert(AlertType.INFORMATION);
+    private final Stage parentSt;
 
     /**
-     * Default constructor of this class.
+     * Constructor of this class.
      * @param parentStage
-     *     The parent stage of the game over box
+     *     The parent stage of the game over box.
      */
     public GameOver(final Stage parentStage) {
+
         this.end.initOwner(parentStage);
         this.end.initModality(Modality.APPLICATION_MODAL);
         this.end.setTitle(GAME_OVER);
