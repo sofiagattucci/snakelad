@@ -1,7 +1,5 @@
 package view;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
@@ -16,7 +14,6 @@ public class PauseBox extends BasicDialogBox {
     private static final String GIVE_UP = "Give up";
     private static final String RESTART = "Restart";
 
-    private final Alert pause = new Alert(AlertType.INFORMATION);
     private final ButtonType resume = new ButtonType(RESUME);
     private final ButtonType giveUp = new ButtonType(GIVE_UP);
     private final ButtonType restart = new ButtonType(RESTART);
@@ -28,9 +25,9 @@ public class PauseBox extends BasicDialogBox {
      */
     public PauseBox(final Stage parentStage) {
         super(parentStage);
-        this.pause.setTitle(TITLE);
-        this.pause.setHeaderText(MESSAGE);
-        this.pause.getButtonTypes().setAll(resume, restart, giveUp);
+        this.getBox().setTitle(TITLE);
+        this.getBox().setHeaderText(MESSAGE);
+        this.getBox().getButtonTypes().setAll(resume, restart, giveUp);
     }
 
     /**
@@ -38,7 +35,7 @@ public class PauseBox extends BasicDialogBox {
      */
     @Override
     public void show() {
-        final String choose = this.pause.showAndWait().get().getText();
+        final String choose = this.getBox().showAndWait().get().getText();
         if (choose.equals(GIVE_UP)) {
             ViewImpl.getObserver().giveUp();
             this.getStage().setScene(Menu.getScene(this.getStage()));

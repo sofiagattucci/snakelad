@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  */
 public abstract class BasicDialogBox {
 
-    private final Alert end = new Alert(AlertType.INFORMATION);
+    private final Alert box = new Alert(AlertType.INFORMATION);
     private final Stage parentSt;
 
     /**
@@ -20,9 +20,9 @@ public abstract class BasicDialogBox {
      */
     public BasicDialogBox(final Stage parentStage) {
 
-        this.end.initOwner(parentStage);
-        this.end.initModality(Modality.APPLICATION_MODAL);
-        this.end.getButtonTypes().clear();
+        this.box.initOwner(parentStage);
+        this.box.initModality(Modality.APPLICATION_MODAL);
+        this.box.getButtonTypes().clear();
         this.parentSt = parentStage;
     }
 
@@ -33,6 +33,15 @@ public abstract class BasicDialogBox {
      */
     protected Stage getStage() {
         return this.parentSt;
+    }
+
+    /**
+     * Getter of the box.
+     * @return
+     *     It returns the box itself.
+     */
+    protected Alert getBox() {
+        return this.box;
     }
 
     /**

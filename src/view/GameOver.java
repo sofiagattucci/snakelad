@@ -1,8 +1,6 @@
 package view;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -15,7 +13,6 @@ public class GameOver extends BasicDialogBox {
     private static final String RESTART = "Restart";
     private static final String MAIN_MENU = "Main Menu";
 
-    private final Alert end = new Alert(AlertType.INFORMATION);
     private final ButtonType mainMenu = new ButtonType(MAIN_MENU);
     private final ButtonType restart = new ButtonType(RESTART);
 
@@ -26,9 +23,9 @@ public class GameOver extends BasicDialogBox {
      */
     public GameOver(final Stage parentStage) {
         super(parentStage);
-        this.end.setTitle(GAME_OVER);
-        this.end.setHeaderText(MESSAGE);
-        this.end.getButtonTypes().setAll(mainMenu, restart);
+        this.getBox().setTitle(GAME_OVER);
+        this.getBox().setHeaderText(MESSAGE);
+        this.getBox().getButtonTypes().setAll(mainMenu, restart);
     }
 
     /**
@@ -36,8 +33,7 @@ public class GameOver extends BasicDialogBox {
      */
     @Override
     public void show() {
-        final String choose = this.end.showAndWait().get().getText();
-        if (choose.equals(MAIN_MENU)) {
+        if (this.getBox().showAndWait().get().getText().equals(MAIN_MENU)) {
             ViewImpl.getObserver().giveUp();
             this.getStage().setScene(Menu.getScene(this.getStage()));
         } else {

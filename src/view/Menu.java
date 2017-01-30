@@ -44,7 +44,7 @@ public final class Menu extends BasicScene {
             menuStage.setScene(Instructions.getScene(menuStage));
         });
 
-        this.quit.setOnAction(e -> this.closure.close());
+        this.quit.setOnAction(e -> this.closure.show());
 
         this.getDefaultLayout().setCenter(box);
 
