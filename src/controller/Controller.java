@@ -35,14 +35,14 @@ public class Controller implements ViewObserver {
         final int value = this.game.getNumberFromDice();
 
         if (this.turn.equals(Turn.PLAYER.toString())) {
-            final Pair<Integer, Boolean> pair = this.game.getPositionFirstPlayer();
+            final Pair<Integer, Boolean> pair = this.game.getPlayerPosition(0);
             if (pair.getSecond()) {
                 this.view.updateInfo(this.turn, value, pair.getFirst());
             } else {
                 this.view.updateInfo(this.turn, value);
             }
         } else {
-            final Pair<Integer, Boolean> pair = this.game.getPositionSecondPlayer();
+            final Pair<Integer, Boolean> pair = this.game.getPlayerPosition(1);
             if (pair.getSecond()) {
                 this.view.updateInfo(this.turn, value, pair.getFirst());
             } else {
