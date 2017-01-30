@@ -25,12 +25,14 @@ public final class Play extends BasicScene {
     private static final String PAWN2_PATH = "./res/Pawns/LightBluePawn.png";
     private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
+    private static final int PLAYER_INDEX = 0;
+    private static final int CPU_INDEX = 1;
 
     private static Play playScene = new Play();
     private static Stage playStage;
     private static boolean checkGameOver;
 
-    private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new Pawn(PAWN1_PATH), new Pawn(PAWN2_PATH)));
+    private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new PawnImpl(PAWN1_PATH), new PawnImpl(PAWN2_PATH)));
     private final Toolbar toolbar = new Toolbar();
     private boolean changePawn = true;
 
@@ -68,9 +70,9 @@ public final class Play extends BasicScene {
 
     private void movePawn(final int nBoxes) {
         if (this.changePawn) {
-            this.pawnList.get(0).movePawn(nBoxes);
+            this.pawnList.get(PLAYER_INDEX).movePawn(nBoxes);
         } else {
-            this.pawnList.get(1).movePawn(nBoxes);
+            this.pawnList.get(CPU_INDEX).movePawn(nBoxes);
         }
         this.changePawn = this.changePawn ? false : true;
         if (checkGameOver) {
@@ -127,9 +129,9 @@ public final class Play extends BasicScene {
         this.updateInfo(turn, newDiceValue);
         this.changePawn = this.changePawn ? false : true;
         if (this.changePawn) {
-            this.pawnList.get(0).jump(finalPosition);
+            this.pawnList.get(PLAYER_INDEX).jump(finalPosition);
         } else {
-            this.pawnList.get(1).jump(finalPosition);
+            this.pawnList.get(CPU_INDEX).jump(finalPosition);
         }
         this.changePawn = this.changePawn ? false : true;
     }

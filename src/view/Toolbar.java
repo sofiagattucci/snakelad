@@ -1,5 +1,6 @@
 package view;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,8 +63,8 @@ public class Toolbar {
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
         this.box.setStyle(BOX_COLOR);
 
-        this.gp.addRow(0, new Pawn(PAWN1_PATH).getPawn(), player);
-        this.gp.addRow(1, new Pawn(PAWN2_PATH).getPawn(), cpu);
+        this.gp.addRow(0, new PawnImpl(PAWN1_PATH).getPawn(), player);
+        this.gp.addRow(1, new PawnImpl(PAWN2_PATH).getPawn(), cpu);
         this.gp.setTranslateX(ALIGN_GRID);
 
         this.dice.setTranslateX(CENTER_DICE);
@@ -139,7 +140,7 @@ public class Toolbar {
      *     The dice map
      */
     public Map<Integer, String> getDiceSides() {
-        return this.diceSides;
+        return Collections.unmodifiableMap(this.diceSides);
     }
 
     /**
