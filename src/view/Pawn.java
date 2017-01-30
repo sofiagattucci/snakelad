@@ -28,6 +28,7 @@ public class Pawn {
         this.pawnIm = ImageManager.get().getImageView(pawnPath);
         this.pawnIm.setFitHeight(PAWN_HEIGHT);
         this.pawnIm.setPreserveRatio(true);
+        this.setInitPosition();
         this.direction = Direction.RIGHT;
         this.rowCounter = 0;
         this.row = 0;
