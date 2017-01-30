@@ -28,6 +28,7 @@ public final class Play extends BasicScene {
 
     private static Play playScene = new Play();
     private static Stage playStage;
+    private static boolean gameOver = false;
 
     private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new Pawn(PAWN1_PATH), new Pawn(PAWN2_PATH)));
     private final Toolbar toolbar = new Toolbar();
@@ -72,6 +73,10 @@ public final class Play extends BasicScene {
             this.pawnList.get(1).movePawn(nBoxes);
         }
         this.changePawn = this.changePawn ? false : true;
+        if (gameOver) {
+            gameOver = false;
+            changePawn = true;
+        }
     }
 
     /**
@@ -134,6 +139,7 @@ public final class Play extends BasicScene {
      */
     public static void gameOver() {
         new GameOver(playStage).show();
+        gameOver = true;
     }
 
     /**

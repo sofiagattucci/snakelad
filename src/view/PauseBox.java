@@ -47,7 +47,8 @@ public class PauseBox {
         if (choose.equals(GIVE_UP)) {
             ViewImpl.getObserver().giveUp();
             this.parentSt.setScene(Menu.getScene(parentSt));
-        } else {
+        }
+        if (choose.equals(RESTART)) {
             ViewImpl.getObserver().restart();
         }
     }
