@@ -10,12 +10,14 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utilities.ImageManager;
 import view.GameBoard;
 import view.GameOver;
 import view.Pawn;
 import view.PawnImpl;
+import view.PawnTypes;
 import view.Toolbar;
 
 /**
@@ -24,8 +26,8 @@ import view.Toolbar;
 public final class Play extends BasicScene {
 
     private static final String BOARD_PATH = "./res/GameBoards/GameBoard1/GameBoard1.png";
-    private static final String PAWN1_PATH = "./res/Pawns/RedPawn.png";
-    private static final String PAWN2_PATH = "./res/Pawns/LightBluePawn.png";
+    private static final Color PAWN1_COLOR = Color.RED;
+    private static final Color PAWN2_COLOR = Color.LIGHTBLUE;
     private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
 
@@ -33,7 +35,8 @@ public final class Play extends BasicScene {
     private static Stage playStage;
     private static boolean checkGameOver;
 
-    private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new PawnImpl(PAWN1_PATH), new PawnImpl(PAWN2_PATH)));
+    private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new PawnImpl(PawnTypes.get().getPawn(PAWN1_COLOR)), 
+            new PawnImpl(PawnTypes.get().getPawn(PAWN2_COLOR))));
     private final Toolbar toolbar = new Toolbar();
     private final GameBoard board = new GameBoard(BOARD_PATH);
     private boolean changePawn = true;
@@ -144,6 +147,24 @@ public final class Play extends BasicScene {
 
     private static void setGameOver() {
         checkGameOver = checkGameOver ? false : true;
+    }
+
+    /**
+     * Getter of the first pawn color.
+     * @return
+     *     The Color of the first pawn
+     */
+    public static Color getPawn1Color() {
+        return PAWN1_COLOR;
+    }
+
+    /**
+     * Getter of the second pawn color.
+     * @return
+     *     The Color of the second pawn
+     */
+    public static Color getPawn2Color() {
+        return PAWN2_COLOR;
     }
 
     /**

@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import view.scenes.Play;
 
 /**
  * It sets up the tool bar in the game screen.
@@ -21,8 +22,6 @@ public class Toolbar {
     private static final String ROLL = "Roll";
     private static final String PLAYER = "Player";
     private static final String CPU = "CPU";
-    private static final String PAWN1_PATH = "./res/Pawns/RedPawn.png";
-    private static final String PAWN2_PATH = "./res/Pawns/LightBluePawn.png";
     private static final String BLACK_LABEL = "-fx-text-fill: black";
     private static final String YELLOW_LABEL = "-fx-text-fill: yellow";
     private static final String BOX_COLOR = "-fx-background-color: #336699;";
@@ -60,8 +59,8 @@ public class Toolbar {
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
         this.box.setStyle(BOX_COLOR);
 
-        this.gp.addRow(0, new PawnImpl(PAWN1_PATH).getPawn(), player);
-        this.gp.addRow(1, new PawnImpl(PAWN2_PATH).getPawn(), cpu);
+        this.gp.addRow(0, new PawnImpl(PawnTypes.get().getPawn(Play.getPawn1Color())).getPawn(), player);
+        this.gp.addRow(1, new PawnImpl(PawnTypes.get().getPawn(Play.getPawn2Color())).getPawn(), cpu);
         this.gp.setTranslateX(ALIGN_GRID);
 
         this.diceImView.setTranslateX(ALIGN_DICE);
