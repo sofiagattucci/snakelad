@@ -8,14 +8,13 @@ import utilities.Pair;
  */
 public class PawnImpl implements Pawn {
 
-    private static final int N_BOXES_PER_ROW = 8;
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
-    private static final double PAWN_HEIGHT = BOARD_H / N_BOXES_PER_ROW * 0.66;
+    private static final double PAWN_HEIGHT = BOARD_H / GameBoard.getBoxesPerRaw() * 0.66;
     private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
 
     private final ImageView pawnIm;
     private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - BOX_WIDTH - BOARD_H) / 2 
-            + BOARD_H / N_BOXES_PER_ROW * 0.16, BOARD_H - BOARD_H / N_BOXES_PER_ROW * 0.39);
+            + BOARD_H / GameBoard.getBoxesPerRaw() * 0.16, BOARD_H - BOARD_H / GameBoard.getBoxesPerRaw() * 0.39);
     private Direction direction;
     private int rowCounter;
     private int row; 
@@ -45,11 +44,11 @@ public class PawnImpl implements Pawn {
     public void movePawn(final int nMoves) {
 
         for (int i = 0; i < nMoves; i++) {
-            if ((this.row  == (N_BOXES_PER_ROW - 1)) && (this.rowCounter == (N_BOXES_PER_ROW - 1))) {
+            if ((this.row  == (GameBoard.getBoxesPerRaw() - 1)) && (this.rowCounter == (GameBoard.getBoxesPerRaw() - 1))) {
                 this.goBack(nMoves - i);
                 break;
             }
-            if (this.rowCounter == (N_BOXES_PER_ROW - 1)) {
+            if (this.rowCounter == (GameBoard.getBoxesPerRaw() - 1)) {
                 this.resetCounter();
                 this.row++;
                 this.direction = this.direction == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT; 
@@ -62,7 +61,7 @@ public class PawnImpl implements Pawn {
             } else {
                 this.moveLeft();
             }
-            if ((this.row  == (N_BOXES_PER_ROW - 1)) && (this.rowCounter == (N_BOXES_PER_ROW - 1)) && (i == nMoves - 1)) {
+            if ((this.row  == (GameBoard.getBoxesPerRaw() - 1)) && (this.rowCounter == (GameBoard.getBoxesPerRaw() - 1)) && (i == nMoves - 1)) {
                 Play.gameOver();
                 break;
             }
@@ -71,19 +70,19 @@ public class PawnImpl implements Pawn {
     }
 
     private void moveUp() {
-        this.pawnIm.setY(pawnIm.getY() - BOARD_H / N_BOXES_PER_ROW);
+        this.pawnIm.setY(pawnIm.getY() - BOARD_H / GameBoard.getBoxesPerRaw());
     }
 
     private void moveRight() {
-        this.pawnIm.setX(this.pawnIm.getX() + BOARD_H / N_BOXES_PER_ROW);
+        this.pawnIm.setX(this.pawnIm.getX() + BOARD_H / GameBoard.getBoxesPerRaw());
     }
 
     private void moveLeft() {
-        this.pawnIm.setX(this.pawnIm.getX() - BOARD_H / N_BOXES_PER_ROW);
+        this.pawnIm.setX(this.pawnIm.getX() - BOARD_H / GameBoard.getBoxesPerRaw());
     }
 
     private void moveDown() {
-        this.pawnIm.setY(this.pawnIm.getY() + BOARD_H / N_BOXES_PER_ROW);
+        this.pawnIm.setY(this.pawnIm.getY() + BOARD_H / GameBoard.getBoxesPerRaw());
     }
 
     private void resetCounter() {
@@ -95,7 +94,7 @@ public class PawnImpl implements Pawn {
             if (this.rowCounter == 0) {
                 this.moveDown();
                 this.direction = this.direction == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT; 
-                this.rowCounter = N_BOXES_PER_ROW;
+                this.rowCounter = GameBoard.getBoxesPerRaw();
                 this.row--;
                 continue;
             }
@@ -112,19 +111,19 @@ public class PawnImpl implements Pawn {
     public void jump(final int finalPosition) {
 
         final int nX;
-        final int nY = finalPosition / N_BOXES_PER_ROW;
+        final int nY = finalPosition / GameBoard.getBoxesPerRaw();
         final int change = nY % 2;
         if (change == 0) {
-            this.rowCounter = finalPosition % N_BOXES_PER_ROW;
+            this.rowCounter = finalPosition % GameBoard.getBoxesPerRaw();
             this.direction = Direction.RIGHT;
             nX = this.rowCounter;
         } else {
             this.direction = Direction.LEFT;
-            nX = N_BOXES_PER_ROW - 1 - finalPosition % N_BOXES_PER_ROW;
-            this.rowCounter = N_BOXES_PER_ROW - 1 - nX;
+            nX = GameBoard.getBoxesPerRaw() - 1 - finalPosition % GameBoard.getBoxesPerRaw();
+            this.rowCounter = GameBoard.getBoxesPerRaw() - 1 - nX;
         }
-        this.pawnIm.setX(this.pawnStartingPos.getFirst() + (BOARD_H / N_BOXES_PER_ROW) * nX);
-        this.pawnIm.setY(this.pawnStartingPos.getSecond() - (BOARD_H / N_BOXES_PER_ROW) * nY);
+        this.pawnIm.setX(this.pawnStartingPos.getFirst() + (BOARD_H / GameBoard.getBoxesPerRaw()) * nX);
+        this.pawnIm.setY(this.pawnStartingPos.getSecond() - (BOARD_H / GameBoard.getBoxesPerRaw()) * nY);
         this.row = nY;
     }
 

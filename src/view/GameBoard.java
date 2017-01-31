@@ -9,15 +9,21 @@ import utilities.Pair;
  */
 public class GameBoard {
 
-    private static final String BOARD_PATH = "./res/GameBoards/GameBoard1/GameBoard1.png";
     private static final int N_BOXES_PER_ROW = 8;
     private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
-    private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
 
-    private final Image board = ImageManager.get().readFromFile(BOARD_PATH);
-    private final Pair<Double, Double> boardPosition = new Pair<Double, Double>((Dimension.SCREEN_W - BOX_WIDTH - BOARD_H) / 2,
+    private final Image board;
+    private final Pair<Double, Double> boardPosition = new Pair<Double, Double>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - BOARD_H) / 2,
             (Dimension.SCREEN_H - BOARD_H) / 2);
 
+    /**
+     * Constructor of this class.
+     * @param path
+     *     The path to the game board image in the file system
+     */
+    public GameBoard(final String path) {
+        this.board = ImageManager.get().readFromFile(path);
+    }
     /**
      * Getter of the board.
      * @return
@@ -49,7 +55,7 @@ public class GameBoard {
      * @return
      *     The number of the boxes per row in the game board
      */
-    public int getBoxPerRaw() {
+    public static int getBoxesPerRaw() {
         return N_BOXES_PER_ROW;
     }
 }

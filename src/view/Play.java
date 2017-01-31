@@ -10,7 +10,6 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utilities.ImageManager;
 
@@ -19,6 +18,7 @@ import utilities.ImageManager;
  */
 public final class Play extends BasicScene {
 
+    private static final String BOARD_PATH = "./res/GameBoards/GameBoard1/GameBoard1.png";
     private static final String PAWN1_PATH = "./res/Pawns/RedPawn.png";
     private static final String PAWN2_PATH = "./res/Pawns/LightBluePawn.png";
     private static final int PLAYER_INDEX = 0;
@@ -30,7 +30,7 @@ public final class Play extends BasicScene {
 
     private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new PawnImpl(PAWN1_PATH), new PawnImpl(PAWN2_PATH)));
     private final Toolbar toolbar = new Toolbar();
-    private final GameBoard board = new GameBoard();
+    private final GameBoard board = new GameBoard(BOARD_PATH);
     private boolean changePawn = true;
 
     private Play() {
@@ -52,7 +52,7 @@ public final class Play extends BasicScene {
         final Background bg = new Background(new BackgroundImage(this.board.getBoard(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, pos, size));
         this.getDefaultLayout().setBackground(bg);
-        this.setFill(Color.LIGHTBLUE);
+        this.setFill(this.getBackColor());
     }
 
     private void updateDiceValue(final int newValue) {

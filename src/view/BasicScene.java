@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 public class BasicScene extends Scene {
 
     private final BorderPane bp = new BorderPane();
+    private final Color backColor = Color.LIGHTBLUE;
 
     /**
      * Sets up some basic informations for the scene.
@@ -21,7 +22,7 @@ public class BasicScene extends Scene {
     protected BasicScene() {
         super(new BorderPane());
         this.setRoot(this.bp);
-        this.bp.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY))); 
+        this.bp.setBackground(new Background(new BackgroundFill(this.backColor, CornerRadii.EMPTY, Insets.EMPTY))); 
     }
 
     /**
@@ -31,5 +32,14 @@ public class BasicScene extends Scene {
      */
     protected BorderPane getDefaultLayout() {
         return this.bp;
+    }
+
+    /**
+     * Getter of the default background color.
+     * @return
+     *     The default background color
+     */
+    protected Color getBackColor() {
+        return this.backColor;
     }
 }

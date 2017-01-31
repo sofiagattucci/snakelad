@@ -28,6 +28,7 @@ public class Toolbar {
     private static final String BLACK_LABEL = "-fx-text-fill: black";
     private static final String YELLOW_LABEL = "-fx-text-fill: yellow";
     private static final String BOX_COLOR = "-fx-background-color: #336699;";
+    private static final String DEFAULT_DICE = "./res/Dice/ClassicDice/DiceSide1.png";
     private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final double VERTICAL_INSETS = Dimension.SCREEN_H * 0.05;
@@ -49,7 +50,7 @@ public class Toolbar {
     private final Font smallFont = new Font(SMALL_FONT_SIZE);
     private final Font bigFont = new Font(BIG_FONT_SIZE);
     private final GridPane gp = new GridPane();
-    private final ImageView dice = ImageManager.get().getImageView("./res/Dice/ClassicDice/DiceSide1.png");
+    private final ImageView dice = ImageManager.get().getImageView(DEFAULT_DICE);
     private final VBox box = new VBox(gp, roll, dice, pause);
     private final Map<Integer, String> diceSides = new HashMap<>();
 
@@ -141,6 +142,15 @@ public class Toolbar {
      */
     public Map<Integer, String> getDiceSides() {
         return Collections.unmodifiableMap(this.diceSides);
+    }
+
+    /**
+     * Getter of the box' s width.
+     * @return
+     *     The width of the box
+     */
+    public static double getBoxWidth() {
+        return BOX_WIDTH;
     }
 
     /**
