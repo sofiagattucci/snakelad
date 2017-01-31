@@ -34,7 +34,7 @@ public class Toolbar {
     private static final int BIG_FONT_SIZE = 40;
     private static final double BUTTON_WIDTH = Dimension.SCREEN_W * 0.18;
     private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.07;
-    private static final double CENTER_DICE = BUTTON_WIDTH / 15;
+    private static final double ALIGN_DICE = BUTTON_WIDTH / 15;
     private static final double ALIGN_GRID = -BUTTON_WIDTH * 0.06;
 
     private static Stage toolStage;
@@ -46,7 +46,7 @@ public class Toolbar {
     private final Font smallFont = new Font(SMALL_FONT_SIZE);
     private final Font bigFont = new Font(BIG_FONT_SIZE);
     private final GridPane gp = new GridPane();
-    private final Dice dice = new Dice();
+    private final Dice dice = new DiceImpl();
     private final ImageView diceImView = new ImageView(dice.getDiceImage());
     private final VBox box = new VBox(gp, roll, diceImView, pause);
 
@@ -64,7 +64,7 @@ public class Toolbar {
         this.gp.addRow(1, new PawnImpl(PAWN2_PATH).getPawn(), cpu);
         this.gp.setTranslateX(ALIGN_GRID);
 
-        this.diceImView.setTranslateX(CENTER_DICE);
+        this.diceImView.setTranslateX(ALIGN_DICE);
 
         this.roll.setPrefWidth(BUTTON_WIDTH);
         this.roll.setPrefHeight(BUTTON_HEIGHT);
