@@ -2,6 +2,8 @@ package view;
 
 import controller.ViewObserver;
 import javafx.application.Application;
+import view.scenes.Instructions;
+import view.scenes.Play;
 
 /**
  * This is the main class of the view and implements the View Interface.
@@ -26,33 +28,30 @@ public class ViewImpl implements View {
         Application.launch(MainFrame.class);
     }
 
-    /*Package visibility*/
     /**
      * It links a Play scene to this class.
      * @param scene
      *     The scene to link.
      */
-    protected static void setPlayScene(final Play scene) {
+    public static void setPlayScene(final Play scene) {
         playScene = scene;
     }
 
-    /*Package visibility*/
     /**
      * It links a Play scene to this class.
      * @param scene
      *     The scene to link.
      */
-    protected static void setInstrScene(final Instructions scene) {
+    public static void setInstrScene(final Instructions scene) {
         instrScene = scene;
     }
 
-    /*Package visibility*/
     /**
      * Getter of the observer.
      * @return
      *     The observer linked to this class
      */
-    protected static ViewObserver getObserver() {
+    public static ViewObserver getObserver() {
         return observer;
     }
 

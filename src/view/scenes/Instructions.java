@@ -1,4 +1,4 @@
-package view;
+package view.scenes;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -8,6 +8,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import view.BasicButton;
 
 /**
  * This class creates and initializes the instructions scene.

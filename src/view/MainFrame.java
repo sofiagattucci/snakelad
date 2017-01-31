@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import utilities.ImageManager;
+import view.scenes.Menu;
 
 /**
  * This class creates and initializes the main frame of the application. 

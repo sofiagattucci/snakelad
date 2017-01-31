@@ -10,7 +10,12 @@ public class BasicButton extends Button {
     private static final double BUTTON_WIDTH = Dimension.SCREEN_W * 0.28;
     private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.09;
 
-    BasicButton(final String s) {
+    /**
+     * Constructor of this class.
+     * @param s
+     *     The string shown in the button
+     */
+    public BasicButton(final String s) {
         super(s);
         this.setDimension();
     }

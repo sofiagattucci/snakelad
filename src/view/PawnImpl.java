@@ -3,6 +3,7 @@ package view;
 import javafx.scene.image.ImageView;
 import utilities.ImageManager;
 import utilities.Pair;
+import view.scenes.Play;
 /**
  * This class represents a pawn of the game.
  */

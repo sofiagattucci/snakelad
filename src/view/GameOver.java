@@ -2,6 +2,7 @@ package view;
 
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import view.scenes.Menu;
 
 /**
  * It handles the end of the game.

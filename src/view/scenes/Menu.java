@@ -1,4 +1,4 @@
-package view;
+package view.scenes;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -7,6 +7,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import view.BasicButton;
+import view.ClosureHandler;
+import view.Dimension;
+import view.ViewImpl;
 /**
  * This class creates and initializes the main menu scene. 
  * It' s built using a Singleton pattern.

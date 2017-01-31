@@ -2,6 +2,7 @@ package view;
 
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import view.scenes.Menu;
 
 /**
  * This class represents the pause window.

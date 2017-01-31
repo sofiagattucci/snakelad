@@ -1,4 +1,4 @@
-package view;
+package view.scenes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +12,11 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
 import utilities.ImageManager;
+import view.GameBoard;
+import view.GameOver;
+import view.Pawn;
+import view.PawnImpl;
+import view.Toolbar;
 
 /**
  * This class creates and initializes the game scene.
@@ -84,12 +89,11 @@ public final class Play extends BasicScene {
         this.toolbar.changeTurn(turn);
     }
 
-    /*Package visibility*/
     /**
      * It resets the displayed values at the beginning of each game. Indeed at the beginning 
      * there is no value shown in the GUI for the dice value. 
      */
-    protected void firstTurn() {
+    public void firstTurn() {
         this.toolbar.reset();
         for (final Pawn elem: pawnList) {
             elem.reset();
