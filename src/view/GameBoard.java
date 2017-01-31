@@ -46,7 +46,7 @@ public class GameBoard {
      * @return
      *     The height of the game board image
      */
-    public double getBoardHeight() {
+    public static double getBoardHeight() {
         return BOARD_H;
     }
 

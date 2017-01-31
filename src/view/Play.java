@@ -47,7 +47,7 @@ public final class Play extends BasicScene {
 
         final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, this.board.getPosition().getFirst(), false,
                 Side.TOP, this.board.getPosition().getSecond(), false);
-        final BackgroundSize size = new BackgroundSize(this.board.getBoardHeight(), this.board.getBoardHeight(), false, false, false, false);
+        final BackgroundSize size = new BackgroundSize(GameBoard.getBoardHeight(), GameBoard.getBoardHeight(), false, false, false, false);
 
         final Background bg = new Background(new BackgroundImage(this.board.getBoard(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, pos, size));
@@ -56,10 +56,10 @@ public final class Play extends BasicScene {
     }
 
     private void updateDiceValue(final int newValue) {
-        if (!this.toolbar.getDice().isVisible()) {
-            this.toolbar.getDice().setVisible(true);
+        if (!this.toolbar.getDiceImView().isVisible()) {
+            this.toolbar.getDiceImView().setVisible(true);
         }
-        this.toolbar.getDice().setImage(ImageManager.get().readFromFile(this.toolbar.getDiceSides().get(newValue)));
+        this.toolbar.getDiceImView().setImage(ImageManager.get().readFromFile(this.toolbar.getDiceSides().get(newValue)));
     }
 
     private void movePawn(final int nBoxes) {
