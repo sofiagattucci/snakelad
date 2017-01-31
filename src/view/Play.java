@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javafx.geometry.Side;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -20,11 +19,8 @@ import utilities.ImageManager;
  */
 public final class Play extends BasicScene {
 
-    private static final String BOARD_PATH = "./res/GameBoards/GameBoard1/GameBoard1.png";
     private static final String PAWN1_PATH = "./res/Pawns/RedPawn.png";
     private static final String PAWN2_PATH = "./res/Pawns/LightBluePawn.png";
-    private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
-    private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
     private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
 
@@ -34,6 +30,7 @@ public final class Play extends BasicScene {
 
     private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new PawnImpl(PAWN1_PATH), new PawnImpl(PAWN2_PATH)));
     private final Toolbar toolbar = new Toolbar();
+    private final GameBoard board = new GameBoard();
     private boolean changePawn = true;
 
     private Play() {
@@ -48,15 +45,12 @@ public final class Play extends BasicScene {
 
     private void setBackground() {
 
-        final Image board = ImageManager.get().readFromFile(BOARD_PATH);
+        final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, this.board.getPosition().getFirst(), false,
+                Side.TOP, this.board.getPosition().getSecond(), false);
+        final BackgroundSize size = new BackgroundSize(this.board.getBoardHeight(), this.board.getBoardHeight(), false, false, false, false);
 
-        final double transposeY = (Dimension.SCREEN_H - BOARD_H) / 2;
-        final double transposeX = (Dimension.SCREEN_W - BOX_WIDTH - BOARD_H) / 2;
-
-        final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, transposeX, false, Side.TOP, transposeY, false);
-        final BackgroundSize size = new BackgroundSize(BOARD_H, BOARD_H, false, false, false, false);
-
-        final Background bg = new Background(new BackgroundImage(board, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, pos, size));
+        final Background bg = new Background(new BackgroundImage(this.board.getBoard(), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, pos, size));
         this.getDefaultLayout().setBackground(bg);
         this.setFill(Color.LIGHTBLUE);
     }
@@ -159,13 +153,5 @@ public final class Play extends BasicScene {
         playStage = stage;
         Toolbar.setStage(stage);
         return playScene;
-    }
-    /**
-     * Getter of the board height BOARD_H.
-     * @return
-     *     BOARD_H, the height of the board.
-     */
-    protected static double getBoardHeight() {
-        return BOARD_H;
     }
 }

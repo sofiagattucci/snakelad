@@ -9,12 +9,13 @@ import utilities.Pair;
 public class PawnImpl implements Pawn {
 
     private static final int N_BOXES_PER_ROW = 8;
-    private static final double PAWN_HEIGHT = Play.getBoardHeight() / N_BOXES_PER_ROW * 0.66;
+    private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
+    private static final double PAWN_HEIGHT = BOARD_H / N_BOXES_PER_ROW * 0.66;
     private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
 
     private final ImageView pawnIm;
-    private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - BOX_WIDTH - Play.getBoardHeight()) / 2 
-            + Play.getBoardHeight() / N_BOXES_PER_ROW * 0.16, Play.getBoardHeight() - Play.getBoardHeight() / N_BOXES_PER_ROW * 0.39);
+    private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - BOX_WIDTH - BOARD_H) / 2 
+            + BOARD_H / N_BOXES_PER_ROW * 0.16, BOARD_H - BOARD_H / N_BOXES_PER_ROW * 0.39);
     private Direction direction;
     private int rowCounter;
     private int row; 
@@ -70,19 +71,19 @@ public class PawnImpl implements Pawn {
     }
 
     private void moveUp() {
-        this.pawnIm.setY(pawnIm.getY() - Play.getBoardHeight() / N_BOXES_PER_ROW);
+        this.pawnIm.setY(pawnIm.getY() - BOARD_H / N_BOXES_PER_ROW);
     }
 
     private void moveRight() {
-        this.pawnIm.setX(this.pawnIm.getX() + Play.getBoardHeight() / N_BOXES_PER_ROW);
+        this.pawnIm.setX(this.pawnIm.getX() + BOARD_H / N_BOXES_PER_ROW);
     }
 
     private void moveLeft() {
-        this.pawnIm.setX(this.pawnIm.getX() - Play.getBoardHeight() / N_BOXES_PER_ROW);
+        this.pawnIm.setX(this.pawnIm.getX() - BOARD_H / N_BOXES_PER_ROW);
     }
 
     private void moveDown() {
-        this.pawnIm.setY(this.pawnIm.getY() + Play.getBoardHeight() / N_BOXES_PER_ROW);
+        this.pawnIm.setY(this.pawnIm.getY() + BOARD_H / N_BOXES_PER_ROW);
     }
 
     private void resetCounter() {
@@ -122,8 +123,8 @@ public class PawnImpl implements Pawn {
             nX = N_BOXES_PER_ROW - 1 - finalPosition % N_BOXES_PER_ROW;
             this.rowCounter = N_BOXES_PER_ROW - 1 - nX;
         }
-        this.pawnIm.setX(this.pawnStartingPos.getFirst() + (Play.getBoardHeight() / N_BOXES_PER_ROW) * nX);
-        this.pawnIm.setY(this.pawnStartingPos.getSecond() - (Play.getBoardHeight() / N_BOXES_PER_ROW) * nY);
+        this.pawnIm.setX(this.pawnStartingPos.getFirst() + (BOARD_H / N_BOXES_PER_ROW) * nX);
+        this.pawnIm.setY(this.pawnStartingPos.getSecond() - (BOARD_H / N_BOXES_PER_ROW) * nY);
         this.row = nY;
     }
 

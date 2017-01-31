@@ -32,7 +32,7 @@ public interface View {
     /**
      * It updates the game screen each turn.
      * @param turn
-     *     the new turn
+     *     The new turn
      * @param newDiceValue
      *     The new new dice value.
      */
@@ -41,7 +41,7 @@ public interface View {
     /**
      * It updates the game screen each turn.
      * @param turn
-     *     the new turn
+     *     The new turn
      * @param newDiceValue
      *     The new new dice value.
      * @param finalPosition
