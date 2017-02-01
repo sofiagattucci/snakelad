@@ -19,6 +19,8 @@ public class Controller implements ViewObserver {
     private String turn;
     private static final String INSTRUCTIONS = "./res/Instructions.txt";
     private static final String DATA = "./res/GameBoards/GameBoard1/file.txt";
+    private static final int PLAYER_INDEX = 0;
+    private static final int CPU_INDEX = 1;
 
     /**
      * Constructor.
@@ -35,14 +37,14 @@ public class Controller implements ViewObserver {
         final int value = this.game.getNumberFromDice();
 
         if (this.turn.equals(Turn.PLAYER.toString())) {
-            final Pair<Integer, Boolean> pair = this.game.getPositionFirstPlayer();
+            final Pair<Integer, Boolean> pair = this.game.getPlayerPosition(PLAYER_INDEX);
             if (pair.getSecond()) {
                 this.view.updateInfo(this.turn, value, pair.getFirst());
             } else {
                 this.view.updateInfo(this.turn, value);
             }
         } else {
-            final Pair<Integer, Boolean> pair = this.game.getPositionSecondPlayer();
+            final Pair<Integer, Boolean> pair = this.game.getPlayerPosition(CPU_INDEX);
             if (pair.getSecond()) {
                 this.view.updateInfo(this.turn, value, pair.getFirst());
             } else {
