@@ -10,13 +10,15 @@ import view.ViewImpl;
 
 /**
  * Class Controller.
+ * This class using Singleton pattern.
  *
  */
-public class Controller implements ViewObserver {
+public final class Controller implements ViewObserver {
 
     private final Game game;
     private final View view;
     private String turn;
+    private static final Controller SINGLETON = new Controller();
     private static final String INSTRUCTIONS = "./res/Instructions.txt";
     private static final String DATA = "./res/GameBoards/GameBoard1/file.txt";
     private static final int PLAYER_INDEX = 0;
@@ -25,10 +27,18 @@ public class Controller implements ViewObserver {
     /**
      * Constructor.
      */
-    public Controller() {
+    private Controller() {
         this.game = new GameImpl();
         this.view = new ViewImpl(this);
         this.turn = Turn.PLAYER.toString();
+    }
+
+    /**
+     * Method that return an instance of Controller.
+     * @return instance of Controller.
+     */
+    public static Controller getController() {
+        return SINGLETON;
     }
 
     @Override
