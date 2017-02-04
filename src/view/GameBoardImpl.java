@@ -10,11 +10,11 @@ import utilities.Pair;
 public class GameBoardImpl  implements GameBoard {
 
     private static final int N_BOXES_PER_ROW = 8;
-    private static final double BOARD_H = Dimension.SCREEN_H * 0.9;
 
     private final Image board;
-    private final Pair<Double, Double> boardPosition = new Pair<Double, Double>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - BOARD_H) / 2,
-            (Dimension.SCREEN_H - BOARD_H) / 2);
+    private final Pair<Double, Double> boardPosition = new Pair<Double, Double>(
+            (Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2,
+            (Dimension.SCREEN_H - Dimension.BOARD_H) / 2);
 
     /**
      * Constructor of this class.
@@ -40,14 +40,6 @@ public class GameBoardImpl  implements GameBoard {
      */
     public Pair<Double, Double> getPosition() {
         return this.boardPosition;
-    }
-    /**
-     * Getter of the height of the board.
-     * @return
-     *     The height of the game board image
-     */
-    public static double getBoardHeight() {
-        return BOARD_H;
     }
 
     /**

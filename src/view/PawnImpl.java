@@ -9,12 +9,13 @@ import view.scenes.Play;
  */
 public class PawnImpl implements Pawn {
 
-    private static final double PAWN_HEIGHT = GameBoardImpl.getBoardHeight() / GameBoardImpl.getBoxesPerRaw() * 0.66;
+    private static final double PAWN_HEIGHT = Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() * 0.66;
 
     private final ImageView pawnIm;
-    private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - GameBoardImpl.getBoardHeight()) / 2 
-            + GameBoardImpl.getBoardHeight() / GameBoardImpl.getBoxesPerRaw() * 0.16,
-            GameBoardImpl.getBoardHeight() - GameBoardImpl.getBoardHeight() / GameBoardImpl.getBoxesPerRaw() * 0.39);
+    private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
+            + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() / 2 - PAWN_HEIGHT / 1.80,
+            Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
+            - PAWN_HEIGHT - (Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() - PAWN_HEIGHT) / 2);
     private Direction direction;
     private int positionInRow;
     private int row; 
@@ -71,19 +72,19 @@ public class PawnImpl implements Pawn {
     }
 
     private void moveUp() {
-        this.pawnIm.setY(pawnIm.getY() - GameBoardImpl.getBoardHeight() / GameBoardImpl.getBoxesPerRaw());
+        this.pawnIm.setY(pawnIm.getY() - Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw());
     }
 
     private void moveRight() {
-        this.pawnIm.setX(this.pawnIm.getX() + GameBoardImpl.getBoardHeight() / GameBoardImpl.getBoxesPerRaw());
+        this.pawnIm.setX(this.pawnIm.getX() + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw());
     }
 
     private void moveLeft() {
-        this.pawnIm.setX(this.pawnIm.getX() - GameBoardImpl.getBoardHeight() / GameBoardImpl.getBoxesPerRaw());
+        this.pawnIm.setX(this.pawnIm.getX() - Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw());
     }
 
     private void moveDown() {
-        this.pawnIm.setY(this.pawnIm.getY() + GameBoardImpl.getBoardHeight() / GameBoardImpl.getBoxesPerRaw());
+        this.pawnIm.setY(this.pawnIm.getY() + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw());
     }
 
     private void resetCounter() {
@@ -123,8 +124,8 @@ public class PawnImpl implements Pawn {
             nX = GameBoardImpl.getBoxesPerRaw() - 1 - finalPosition % GameBoardImpl.getBoxesPerRaw();
             this.positionInRow = GameBoardImpl.getBoxesPerRaw() - 1 - nX;
         }
-        this.pawnIm.setX(this.pawnStartingPos.getFirst() + (GameBoardImpl.getBoardHeight() / GameBoardImpl.getBoxesPerRaw()) * nX);
-        this.pawnIm.setY(this.pawnStartingPos.getSecond() - (GameBoardImpl.getBoardHeight() / GameBoardImpl.getBoxesPerRaw()) * nY);
+        this.pawnIm.setX(this.pawnStartingPos.getFirst() + (Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw()) * nX);
+        this.pawnIm.setY(this.pawnStartingPos.getSecond() - (Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw()) * nY);
         this.row = nY;
     }
 

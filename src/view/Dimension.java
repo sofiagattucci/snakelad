@@ -26,6 +26,11 @@ public final class Dimension {
      */
     public static final double SCREEN_H = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
+    /**
+     * The height of the game board in the game screen.
+     */
+    public static final double BOARD_H = SCREEN_H * 0.9;
+
     private Dimension() { }
 
 }

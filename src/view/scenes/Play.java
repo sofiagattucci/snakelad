@@ -13,6 +13,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utilities.ImageManager;
+import view.Dimension;
 import view.GameBoard;
 import view.GameBoardImpl;
 import view.GameOver;
@@ -56,7 +57,7 @@ public final class Play extends BasicScene {
 
         final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, this.board.getPosition().getFirst(), false,
                 Side.TOP, this.board.getPosition().getSecond(), false);
-        final BackgroundSize size = new BackgroundSize(GameBoardImpl.getBoardHeight(), GameBoardImpl.getBoardHeight(), false, false, false, false);
+        final BackgroundSize size = new BackgroundSize(Dimension.BOARD_H, Dimension.BOARD_H, false, false, false, false);
 
         final Background bg = new Background(new BackgroundImage(this.board.getBoard(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, pos, size));
