@@ -31,6 +31,11 @@ public final class Dimension {
      */
     public static final double BOARD_H = SCREEN_H * 0.9;
 
+    /**
+     * The height of the pawn in the game.
+     */
+    public static final double PAWN_HEIGHT = BOARD_H / GameBoardImpl.getBoxesPerRaw() * 0.66;
+
     private Dimension() { }
 
 }

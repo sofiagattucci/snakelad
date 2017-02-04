@@ -9,13 +9,11 @@ import view.scenes.Play;
  */
 public class PawnImpl implements Pawn {
 
-    private static final double PAWN_HEIGHT = Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() * 0.66;
-
     private final ImageView pawnIm;
     private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
-            + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() / 2 - PAWN_HEIGHT / 1.80,
+            + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() / 2 - Dimension.PAWN_HEIGHT / 1.80,
             Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
-            - PAWN_HEIGHT - (Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() - PAWN_HEIGHT) / 2);
+            - Dimension.PAWN_HEIGHT - (Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() - Dimension.PAWN_HEIGHT) / 2);
     private Direction direction;
     private int positionInRow;
     private int row; 
@@ -27,7 +25,7 @@ public class PawnImpl implements Pawn {
      */
     public PawnImpl(final String pawnPath) {
         this.pawnIm = ImageManager.get().getImageView(pawnPath);
-        this.pawnIm.setFitHeight(PAWN_HEIGHT);
+        this.pawnIm.setFitHeight(Dimension.PAWN_HEIGHT);
         this.pawnIm.setPreserveRatio(true);
         this.setInitPosition();
         this.direction = Direction.RIGHT;

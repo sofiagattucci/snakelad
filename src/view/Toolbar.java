@@ -26,15 +26,15 @@ public class Toolbar {
     private static final String YELLOW_LABEL = "-fx-text-fill: yellow";
     private static final String BOX_COLOR = "-fx-background-color: #336699;";
     private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
-    private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
+    private static final double BUTTON_WIDTH = BOX_WIDTH * 0.6;
+    private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.07;
+    private static final double BOX_SPACING = BUTTON_HEIGHT / 2.5;
     private static final double VERTICAL_INSETS = Dimension.SCREEN_H * 0.05;
     private static final double HORIZONTAL_INSETS = Dimension.SCREEN_W * 0.05;
+    private static final double ALIGN_DICE = BUTTON_WIDTH / 11;
+    private static final double ALIGN_GRID = -BUTTON_WIDTH * 0.1;
     private static final int SMALL_FONT_SIZE = 20;
     private static final int BIG_FONT_SIZE = 40;
-    private static final double BUTTON_WIDTH = Dimension.SCREEN_W * 0.18;
-    private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.07;
-    private static final double ALIGN_DICE = BUTTON_WIDTH / 15;
-    private static final double ALIGN_GRID = -BUTTON_WIDTH * 0.06;
 
     private static Stage toolStage;
 
