@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utilities.ImageManager;
 import view.GameBoard;
+import view.GameBoardImpl;
 import view.GameOver;
 import view.Pawn;
 import view.PawnImpl;
@@ -38,7 +39,7 @@ public final class Play extends BasicScene {
     private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new PawnImpl(PawnTypes.get().getPawn(PAWN1_COLOR)), 
             new PawnImpl(PawnTypes.get().getPawn(PAWN2_COLOR))));
     private final Toolbar toolbar = new Toolbar();
-    private final GameBoard board = new GameBoard(BOARD_PATH);
+    private final GameBoard board = new GameBoardImpl(BOARD_PATH);
     private boolean changePawn = true;
 
     private Play() {
@@ -55,7 +56,7 @@ public final class Play extends BasicScene {
 
         final BackgroundPosition pos = new BackgroundPosition(Side.LEFT, this.board.getPosition().getFirst(), false,
                 Side.TOP, this.board.getPosition().getSecond(), false);
-        final BackgroundSize size = new BackgroundSize(GameBoard.getBoardHeight(), GameBoard.getBoardHeight(), false, false, false, false);
+        final BackgroundSize size = new BackgroundSize(GameBoardImpl.getBoardHeight(), GameBoardImpl.getBoardHeight(), false, false, false, false);
 
         final Background bg = new Background(new BackgroundImage(this.board.getBoard(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, pos, size));

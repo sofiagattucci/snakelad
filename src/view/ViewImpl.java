@@ -64,11 +64,6 @@ public class ViewImpl implements View {
         playScene.setTurn(turn);
     }
 
-    /**
-     * It sets the instructions text in the Instructions Scene.
-     * @param text
-     *     The text to be set in the Instruction Scene
-     */
     @Override
     public void setInstructions(final String text) {
         instrScene.setInstructions(text);
