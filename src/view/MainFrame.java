@@ -1,9 +1,10 @@
 package view;
 
-import java.awt.Toolkit;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import utilities.ImageManager;
+import view.scenes.Menu;
 
 /**
  * This class creates and initializes the main frame of the application. 
@@ -11,15 +12,21 @@ import javafx.stage.Stage;
 public class MainFrame extends Application {
 
     private static final String TITLE = "SnakeNLadder";
+    private static final String ICONE = "./res/logo.png";
 
     @Override
     public void start(final Stage defaultStage) {
 
+        defaultStage.initStyle(StageStyle.UNDECORATED);
         defaultStage.setTitle(TITLE);
-        defaultStage.setHeight(Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Dimension.SCREEN_H_PERC);
-        defaultStage.setWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Dimension.SCREEN_W_PERC);
+        defaultStage.getIcons().add(ImageManager.get().readFromFile(ICONE));
+
+        defaultStage.setHeight(Dimension.SCREEN_H * Dimension.SCREEN_H_PERC);
+        defaultStage.setWidth(Dimension.SCREEN_W * Dimension.SCREEN_W_PERC);
+        defaultStage.setMaximized(true);
         defaultStage.centerOnScreen();
         defaultStage.setResizable(false);
+
         defaultStage.setScene(Menu.getScene(defaultStage));
         defaultStage.show();
     }

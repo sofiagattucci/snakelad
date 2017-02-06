@@ -1,10 +1,10 @@
-The game is presented as a grid of incrementally numbered boxes. The goal is 
-to reach the final box (Finish) before the opponent, beginning with a pawn 
-placed on the starting box (Start) and traveling the boxes in ascending order 
-of numbers. Each player has to roll the dice once per turn and continue the 
-route according to the number appeared. If a player's pawn is stopped on a 
-box in which the image of a ladder begins, the pawn must climb the ladder up 
-until its end, then pass the turn to the opponent. Instead, if a player's 
-pawn is stopped on a box depicting the head of a snake, it's obliged to go 
-down the snake positioning itself on the lower numbered box on which the 
+The game is presented as a grid of incrementally numbered boxes. The goal
+is to reach the final box (Finish) before the opponent, beginning with a
+pawn placed on the starting box (Start) and traveling the boxes in ascending
+order of numbers. Each player has to roll the dice once per turn and continue
+the route according to the number appeared. If a player's pawn is stopped on
+a box in which the image of a ladder begins, the pawn must climb the ladder
+up until its end, then pass the turn to the opponent. Instead, if a player's
+pawn is stopped on a box depicting the head of a snake, it's obliged to go
+down the snake positioning itself on the lower numbered box on which the
 animal's tail is located.

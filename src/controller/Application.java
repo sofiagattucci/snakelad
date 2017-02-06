@@ -9,7 +9,7 @@ public final class Application {
     private final Controller controller;
 
     private Application() {
-        this.controller = new Controller();
+        this.controller = Controller.getController();
     }
 
     /**

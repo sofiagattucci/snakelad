@@ -6,13 +6,6 @@ package view;
 public interface View {
 
     /**
-     * It sets the dice value in play scene.
-     * @param value
-     *     The value to be set
-     */
-    void setDiceValue(int value);
-
-    /**
      * It starts the application.
      */ 
     void start();
@@ -35,4 +28,24 @@ public interface View {
      * It resets the displayed values at the beginning of each game.
      */
     void firstTurn();
+
+    /**
+     * It updates the game screen each turn.
+     * @param turn
+     *     The new turn
+     * @param newDiceValue
+     *     The new new dice value.
+     */
+    void updateInfo(String turn, int newDiceValue);
+
+    /**
+     * It updates the game screen each turn.
+     * @param turn
+     *     The new turn
+     * @param newDiceValue
+     *     The new new dice value.
+     * @param finalPosition
+     *     The final position if the pawn stops on a snake/ladder
+     */
+    void updateInfo(String turn, int newDiceValue, final int finalPosition);
 }
