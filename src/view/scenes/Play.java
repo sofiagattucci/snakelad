@@ -85,6 +85,19 @@ public final class Play extends BasicScene {
         }
     }
 
+    private void movePawn(final int nBoxes, final int finalPos) {
+        if (this.changePawn) {
+            this.pawnList.get(PLAYER_INDEX).movePawnAndJump(nBoxes, finalPos);
+        } else {
+            this.pawnList.get(CPU_INDEX).movePawnAndJump(nBoxes, finalPos);
+        }
+        this.changePawn = this.changePawn ? false : true;
+        if (checkGameOver) {
+            setGameOver();
+            changePawn = true;
+        }
+    }
+
     /**
      * It changes the turn shown in the game screen.
      * @param turn
@@ -114,6 +127,7 @@ public final class Play extends BasicScene {
      *     The new value of the dice
      */
     public void updateInfo(final String turn, final int newDiceValue) {
+        this.setTurn(turn);
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue);
     }
@@ -128,15 +142,9 @@ public final class Play extends BasicScene {
      *     The new position after a jump due to a snake/ladder
      */
     public void updateInfo(final String turn, final int newDiceValue, final int finalPosition) {
-
-        this.updateInfo(turn, newDiceValue);
-        this.changePawn = this.changePawn ? false : true;
-        if (this.changePawn) {
-            this.pawnList.get(PLAYER_INDEX).jump(finalPosition);
-        } else {
-            this.pawnList.get(CPU_INDEX).jump(finalPosition);
-        }
-        this.changePawn = this.changePawn ? false : true;
+        this.setTurn(turn);
+        this.updateDiceValue(newDiceValue);
+        this.movePawn(newDiceValue, finalPosition);
     }
 
     /**

@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.image.ImageView;
+import utilities.Pair;
 
 /**
  * Interface for a generic pawn.
@@ -15,11 +16,13 @@ public interface Pawn {
     void movePawn(int nMoves);
 
     /**
-     * It puts the pawn in the right box.
-     * @param finalPosition
-     *     The box where the pawn has to be put.
+     * It updates the position of the pawn in the board by moving it of the chosen number of boxes.
+     * @param nMoves
+     *     The number of boxes the pawn needs to go on
+     * @param finalPos
+     *     The position of the pawn after the jump
      */
-    void jump(int finalPosition);
+    void movePawnAndJump(int nMoves, int finalPos);
 
     /**
      * It resets the raw counter of the pawn and puts it to 0 again, then the direction is set to the default one (RIGHT).
@@ -33,5 +36,52 @@ public interface Pawn {
      *     The pawn itself.
      */
     ImageView getPawn();
+
+    /**
+     * Getter of the movements direction of the pawn.
+     * @return
+     *     An element of the enumeration Direction .
+     */
+    Direction getDirection();
+
+    /**
+     * Getter of the position of the pawn in the current row.
+     * @return
+     *     The pawn' s position in the row.
+     */
+    int getPositionInRow();
+
+    /**
+     * Getter of the row of the pawn.
+     * @return
+     *     The row where the pawn is.
+     */
+    int getRow();
+
+    /**
+     * Setter of the pawn.
+     * @param newPos
+     *     The new new position in the row.
+     */
+    void setPositionInRow(int newPos);
+
+    /**
+     * Setter of the pawn' s row.
+     * @param newRow
+     *     The new pawn' s row.
+     */
+    void setRow(int newRow);
+
+    /**
+     * getter of the starting point of the pawn.
+     * @return
+     *     The X:Y coordinates where the pawn has its starting point
+     */
+    Pair<Double, Double> getIniPos();
+
+    /**
+     * It changes the direction of the pawn' s movement.
+     */
+    void changeDirection();
 
 }

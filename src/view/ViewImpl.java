@@ -61,7 +61,7 @@ public class ViewImpl implements View {
 
     @Override
     public void showTurn(final String turn) {
-        playScene.setTurn(turn);
+        //playScene.setTurn(turn);
     }
 
     @Override
