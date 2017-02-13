@@ -72,9 +72,12 @@ public class PawnAnimation implements Runnable {
                     }
                 }
             }
-            if (this.jumpBool) {
-                this.jump(finalPos);
+            synchronized (pawnClass) {
+                if (this.jumpBool) {
+                    this.jump(finalPos);
+                }
             }
+            ViewImpl.getPlayScene().endTurn();
         }
 
     private void jump(final int finalPosition) {

@@ -73,7 +73,10 @@ public class Toolbar {
 
         this.pause.setOnAction(e ->  new PauseBox(toolStage).show());
 
-        this.roll.setOnAction(e -> ViewImpl.getObserver().rollDice());
+        this.roll.setOnAction(e -> {
+            this.roll.setVisible(false);
+            ViewImpl.getObserver().rollDice();
+        });
     }
 
     /**
@@ -151,5 +154,12 @@ public class Toolbar {
      */
     public static void setStage(final Stage stage) {
         toolStage = stage;
+    }
+
+    /**
+     * It sets the roll button enabled again after the pawn finished to move.
+     */
+    public void endTurn() {
+        this.roll.setVisible(true);
     }
 }

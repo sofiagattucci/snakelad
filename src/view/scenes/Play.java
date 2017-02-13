@@ -189,4 +189,12 @@ public final class Play extends BasicScene {
         Toolbar.setStage(stage);
         return playScene;
     }
+
+    /**
+     * It sets the roll button in the tool bar enabled again after the pawn finished to move.
+     */
+    public void endTurn() {
+        this.toolbar.endTurn();
+    }
+
 }

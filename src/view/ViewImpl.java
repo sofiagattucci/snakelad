@@ -55,6 +55,15 @@ public class ViewImpl implements View {
         return observer;
     }
 
+    /**
+     * Getter of the play scene.
+     * @return
+     *     The play scene used in the game
+     */
+    public static Play getPlayScene() {
+        return playScene;
+    }
+
     private static void setObserver(final ViewObserver obs) {
         observer = obs;
     }
