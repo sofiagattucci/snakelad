@@ -36,6 +36,7 @@ public final class Play extends BasicScene {
     private static Play playScene = new Play();
     private static Stage playStage;
     private static boolean checkGameOver;
+    private String nextTurn = " ";
 
     private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new PawnImpl(PawnTypes.get().getPawn(PAWN1_COLOR)), 
             new PawnImpl(PawnTypes.get().getPawn(PAWN2_COLOR))));
@@ -99,15 +100,6 @@ public final class Play extends BasicScene {
     }
 
     /**
-     * It changes the turn shown in the game screen.
-     * @param turn
-     *     The new turn to set
-     */
-    public void setTurn(final String turn) {
-        this.toolbar.changeTurn(turn);
-    }
-
-    /**
      * It resets the displayed values at the beginning of each game. Indeed at the beginning 
      * there is no value shown in the GUI for the dice value. 
      */
@@ -122,12 +114,12 @@ public final class Play extends BasicScene {
     /**
      * It updates the game screen each turn.
      * @param turn
-     *     the new turn
+     *     the next turn
      * @param newDiceValue
      *     The new value of the dice
      */
     public void updateInfo(final String turn, final int newDiceValue) {
-        this.setTurn(turn);
+        this.nextTurn = turn;
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue);
     }
@@ -135,14 +127,14 @@ public final class Play extends BasicScene {
     /**
      * It updates the game screen each turn.
      * @param turn
-     *     the new turn
+     *     the next turn
      * @param newDiceValue
      *     The new value of the dice
      * @param finalPosition
      *     The new position after a jump due to a snake/ladder
      */
     public void updateInfo(final String turn, final int newDiceValue, final int finalPosition) {
-        this.setTurn(turn);
+        this.nextTurn = turn;
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue, finalPosition);
     }
@@ -194,6 +186,7 @@ public final class Play extends BasicScene {
      * It sets the roll button in the tool bar enabled again after the pawn finished to move.
      */
     public void endTurn() {
+        this.toolbar.changeTurn(nextTurn);
         this.toolbar.endTurn();
     }
 
