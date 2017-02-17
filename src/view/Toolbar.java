@@ -102,6 +102,7 @@ public class Toolbar {
     public void reset() {
         this.resetTurn();
         this.diceImView.setVisible(false);
+        this.roll.setVisible(true);
     }
 
     private void resetTurn() {

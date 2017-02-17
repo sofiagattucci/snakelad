@@ -13,6 +13,7 @@ public class PawnAnimation implements Runnable {
     private final int nMoves;
     private int finalPos = 1;
     private boolean jumpBool;
+    private boolean gameOver;
 
     /**
      * Constructor of this class.
@@ -67,16 +68,19 @@ public class PawnAnimation implements Runnable {
                         && (this.pawnClass.getPositionInRow() == (GameBoardImpl.getBoxesPerRaw() - 1)) 
                         && (i == nMoves - 1)) {
                         Platform.runLater(() -> ViewImpl.getPlayScene().gameOver());
+                        this.gameOver = true;
                         break;
                     }
                 }
             }
-            synchronized (pawnClass) {
-                if (this.jumpBool) {
-                    this.jump(finalPos);
+            if (!this.gameOver) {
+                synchronized (pawnClass) {
+                    if (this.jumpBool) {
+                        this.jump(finalPos);
+                    }
                 }
+                Platform.runLater(() -> ViewImpl.getPlayScene().endTurn());
             }
-            Platform.runLater(() -> ViewImpl.getPlayScene().endTurn());
         }
 
     private void jump(final int finalPosition) {
