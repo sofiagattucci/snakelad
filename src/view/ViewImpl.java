@@ -69,11 +69,6 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void showTurn(final String turn) {
-        //playScene.setTurn(turn);
-    }
-
-    @Override
     public void setInstructions(final String text) {
         instrScene.setInstructions(text);
     }
@@ -84,13 +79,13 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void updateInfo(final String turn, final int newDiceValue, final int finalPosition) {
-        playScene.updateInfo(turn, newDiceValue, finalPosition);
+    public void updateInfo(final String nextTurn, final int newDiceValue, final int finalPosition) {
+        playScene.updateInfo(nextTurn, newDiceValue, finalPosition);
     }
 
     @Override
-    public void updateInfo(final String turn, final int newDiceValue) {
-        playScene.updateInfo(turn, newDiceValue);
+    public void updateInfo(final String nextTurn, final int newDiceValue) {
+        playScene.updateInfo(nextTurn, newDiceValue);
     }
 } 
 

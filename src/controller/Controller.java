@@ -78,7 +78,6 @@ public final class Controller implements ViewObserver {
         this.game.restartGame();
         this.turn = Turn.PLAYER.toString();
         this.view.firstTurn();
-        this.view.showTurn(this.turn);
     }
 
     @Override
@@ -86,7 +85,6 @@ public final class Controller implements ViewObserver {
         this.game.startGame(SceneryDataManager.get().readFromFile(DATA));
         this.turn = Turn.PLAYER.toString();
         this.view.firstTurn();
-        this.view.showTurn(this.turn);
     }
 
     @Override
@@ -110,6 +108,5 @@ public final class Controller implements ViewObserver {
         } else {
             this.turn = Turn.CPU.toString();
         }
-        this.view.showTurn(this.turn);
     }
 }

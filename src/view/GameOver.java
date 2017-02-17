@@ -10,7 +10,8 @@ import view.scenes.Menu;
 public class GameOver extends BasicDialogBox {
 
     private static final String GAME_OVER = "GAME OVER";
-    private static final String MESSAGE = "Game Over...\nWhat do you want to do?";
+    private static final String MESSAGE = "The winner is: ";
+    private static final String MESSAGE2 = "\nWhat do you want to do?";
     private static final String RESTART = "Restart";
     private static final String MAIN_MENU = "Main Menu";
 
@@ -21,11 +22,13 @@ public class GameOver extends BasicDialogBox {
      * Constructor of this class.
      * @param parentStage
      *     The parent stage of the game over box.
+     * @param winner
+     *     The winner of the game.
      */
-    public GameOver(final Stage parentStage) {
+    public GameOver(final Stage parentStage, final String winner) {
         super(parentStage);
         this.getBox().setTitle(GAME_OVER);
-        this.getBox().setHeaderText(MESSAGE);
+        this.getBox().setHeaderText(MESSAGE + winner + MESSAGE2);
         this.getBox().getButtonTypes().setAll(mainMenu, restart);
     }
 

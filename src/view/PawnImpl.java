@@ -48,13 +48,9 @@ public class PawnImpl implements Pawn {
         new Thread(new PawnAnimation(this, nMoves, finalPos)).start();
     }
 
-    private void resetCounter() {
-        this.positionInRow = 0;
-    }
-
     @Override
     public void reset() {
-        this.resetCounter();
+        this.positionInRow = 0;
         this.direction = Direction.RIGHT;
         this.setInitPosition();
     }

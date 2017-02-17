@@ -6,7 +6,7 @@ import java.util.Map;
 import javafx.scene.paint.Color;
 
 /**
- * This class manages the different types of pawn available in the game.
+ * This class manages the different types of pawns available in the game.
  */
 public final class PawnTypes {
 

@@ -11,13 +11,6 @@ public interface View {
     void start();
 
     /**
-     * It changes the turn shown in the GUI.
-     * @param turn
-     *     the new turn.
-     */
-    void showTurn(String turn);
-
-    /**
      * It sets the instructions' text shown in the GUI.
      * @param text
      *     The text to set.
@@ -30,22 +23,22 @@ public interface View {
     void firstTurn();
 
     /**
-     * It updates the game screen each turn.
-     * @param turn
-     *     The new turn
+     * It updates the game screen each turn. No jump to be done in this turn
+     * @param nextTurn
+     *     The next turn
      * @param newDiceValue
      *     The new new dice value.
      */
-    void updateInfo(String turn, int newDiceValue);
+    void updateInfo(String nextTurn, int newDiceValue);
 
     /**
-     * It updates the game screen each turn.
-     * @param turn
-     *     The new turn
+     * It updates the game screen each turn. Required a jump to be done in this turn.
+     * @param nextTurn
+     *     The next turn
      * @param newDiceValue
      *     The new new dice value.
      * @param finalPosition
      *     The final position if the pawn stops on a snake/ladder
      */
-    void updateInfo(String turn, int newDiceValue, final int finalPosition);
+    void updateInfo(String nextTurn, int newDiceValue, final int finalPosition);
 }

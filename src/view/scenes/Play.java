@@ -94,7 +94,7 @@ public final class Play extends BasicScene {
         }
         this.changePawn = this.changePawn ? false : true;
         if (checkGameOver) {
-            setGameOver();
+            this.setGameOver();
             changePawn = true;
         }
     }
@@ -142,12 +142,18 @@ public final class Play extends BasicScene {
     /**
      * It handles the end of the game.
      */
-    public static void gameOver() {
-        new GameOver(playStage).show();
-        setGameOver();
+    public void gameOver() {
+        final String winner;
+        if (!this.changePawn) {
+            winner = "Player";
+        } else {
+            winner = "CPU";
+        }
+        new GameOver(playStage, winner).show();
+        this.setGameOver();
     }
 
-    private static void setGameOver() {
+    private void setGameOver() {
         checkGameOver = checkGameOver ? false : true;
     }
 

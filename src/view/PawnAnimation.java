@@ -1,14 +1,13 @@
 package view;
 
 import javafx.application.Platform;
-import view.scenes.Play;
 
 /**
  * This class handles the movement of a pawn.
  */
 public class PawnAnimation implements Runnable {
 
-    private static final double STEP = 1;
+    private static final double STEP = 8;
 
     private final Pawn pawnClass;
     private final int nMoves;
@@ -67,7 +66,7 @@ public class PawnAnimation implements Runnable {
                     if ((this.pawnClass.getRow()  == (GameBoardImpl.getBoxesPerRaw() - 1))
                         && (this.pawnClass.getPositionInRow() == (GameBoardImpl.getBoxesPerRaw() - 1)) 
                         && (i == nMoves - 1)) {
-                        Platform.runLater(() -> Play.gameOver());
+                        Platform.runLater(() -> ViewImpl.getPlayScene().gameOver());
                         break;
                     }
                 }
