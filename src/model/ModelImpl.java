@@ -15,14 +15,13 @@ import java.util.Iterator;
 public class ModelImpl implements Model {
 
     private static final int PLAYER_INITIAL_POSITION = 0;
-    private static final int FIRST_INDEX = 0;
     private static final int SEPARATOR = 0;
 
-    // the number of cells in the game board
+    //the number of cells in the game board
     private int numberOfCells;
-    // the list which contains positions of all snakes in the current game board
+    //map which contains positions of all snakes in the game board
     private final Map<Integer, Integer> snakesMap;
-    // the list which contains positions of all ladders in the current game board
+    //map which contains positions of all ladders in the game board
     private final Map<Integer, Integer> laddersMap;
     private final List<Player> playersList;
     private final Dice dice;
@@ -31,7 +30,6 @@ public class ModelImpl implements Model {
      * GameImpl constructor.
      */
     public ModelImpl() {
-
         this.snakesMap = new HashMap<>();
         this.laddersMap = new HashMap<>();
         this.playersList = new ArrayList<>();
@@ -44,36 +42,52 @@ public class ModelImpl implements Model {
         this.dice = ClassicDice.get();
     }
 
+    private Map<Integer, Integer> fillMap(final List<Integer> list) {
+        final Iterator<Integer> iterator = list.iterator();
+        final Map<Integer, Integer> map = new HashMap<>();
+        while (iterator.hasNext()) {
+            final Integer key = iterator.next();
+            final Integer value = iterator.next();
+            map.put(key, value);
+        }
+
+        return map;
+    }
+
+    private void fillSnakesMap(final List<Integer> dataList) {
+        final List<Integer> list = dataList.stream()
+                                           .limit(dataList.indexOf(SEPARATOR))
+                                           .collect(Collectors.toList());
+
+        this.snakesMap.putAll(this.fillMap(list));
+    }
+
+    private void fillLaddersMap(final List<Integer> dataList) {
+        final List<Integer> list = dataList.stream()
+                                           .skip(dataList.indexOf(SEPARATOR) + 1)
+                                           .limit(dataList.indexOf(SEPARATOR))
+                                           .collect(Collectors.toList());
+
+        this.laddersMap.putAll(this.fillMap(list));
+    }
+
     @Override
-    public void startGame(final List<Integer> listData) {
+    public void startGame(final List<Integer> data) {
 
-        final List<Integer> listDataFromFile = listData;
+        final List<Integer> dataList = data;
 
-        listDataFromFile.remove(FIRST_INDEX);
-        this.numberOfCells = listDataFromFile.get(FIRST_INDEX);
-        listDataFromFile.remove(FIRST_INDEX);
-        listDataFromFile.remove(FIRST_INDEX);
+        //get the first number from dataList. It represents the number of cells in the scenery
+        this.numberOfCells = dataList.get(0);
 
-        List<Integer> list = listDataFromFile.stream()
-                                             .limit(listDataFromFile.indexOf(SEPARATOR))
-                                             .collect(Collectors.toList());
-        Iterator<Integer> iter = list.iterator();
-        while (iter.hasNext()) {
-            final Integer key = iter.next();
-            final Integer value = iter.next();
-            snakesMap.put(key, value);
-        }
+        //remove the first two elements in dataList
+        dataList.remove(0);
+        dataList.remove(0);
 
-        list = listDataFromFile.stream()
-                               .skip(listDataFromFile.indexOf(SEPARATOR) + 1)
-                               .limit(listDataFromFile.indexOf(SEPARATOR))
-                               .collect(Collectors.toList());
-        iter = list.iterator();
-        while (iter.hasNext()) {
-           final Integer key = iter.next();
-           final Integer value = iter.next();
-           laddersMap.put(key, value);
-        }
+        //fill this.snakesMap with snakes positions
+        this.fillSnakesMap(dataList);
+
+        //fill this.laddersMap with ladders positions
+        this.fillLaddersMap(dataList);
 
         for (final Player player : this.playersList) {
             player.setNewPosition(PLAYER_INITIAL_POSITION);
@@ -82,7 +96,6 @@ public class ModelImpl implements Model {
 
     @Override
     public int getNumberFromDice() {
-
         return this.dice.roll();
     }
 
@@ -114,7 +127,6 @@ public class ModelImpl implements Model {
 
     @Override
     public void restartGame() {
-
         for (final Player player : this.playersList) {
             player.setNewPosition(PLAYER_INITIAL_POSITION);
         }
