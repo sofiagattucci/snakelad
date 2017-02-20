@@ -1,4 +1,4 @@
-package view;
+package view.dialog_boxes;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

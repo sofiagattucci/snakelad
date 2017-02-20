@@ -1,7 +1,8 @@
-package view;
+package view.dialog_boxes;
 
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import view.ViewImpl;
 import view.scenes.Menu;
 
 /**

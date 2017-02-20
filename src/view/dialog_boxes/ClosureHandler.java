@@ -1,4 +1,4 @@
-package view;
+package view.dialog_boxes;
 
 import javafx.application.Platform;
 import javafx.scene.control.ButtonType;

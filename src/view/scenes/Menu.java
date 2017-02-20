@@ -8,9 +8,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import view.BasicButton;
-import view.ClosureHandler;
 import view.Dimension;
 import view.ViewImpl;
+import view.dialog_boxes.ClosureHandler;
 /**
  * This class creates and initializes the main menu scene. 
  * It' s built using a Singleton pattern.

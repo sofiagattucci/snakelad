@@ -16,12 +16,12 @@ import view.Dimension;
 import view.GameBoard;
 import view.GameBoardImpl;
 import view.GameBoardTypes;
-import view.SingleGameOver;
 import view.Pawn;
 import view.PawnImpl;
 import view.PawnTypes;
 import view.Toolbar;
 import view.ViewImpl;
+import view.dialog_boxes.SingleGameOver;
 
 /**
  * This class creates and initializes the game scene for a player versus CPU game.

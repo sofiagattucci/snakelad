@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.Turn;
+import view.dialog_boxes.PauseBox;
 
 /**
  * It sets up the tool bar in the game screen.
