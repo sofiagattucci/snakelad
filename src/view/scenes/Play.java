@@ -1,7 +1,6 @@
 package view.scenes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javafx.geometry.Side;
@@ -10,9 +9,9 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utilities.ImageManager;
+import utilities.Turn;
 import view.Dimension;
 import view.GameBoard;
 import view.GameBoardImpl;
@@ -28,29 +27,29 @@ import view.Toolbar;
  */
 public final class Play extends BasicScene {
 
-    private static final Color PAWN1_COLOR = Color.RED;
-    private static final Color PAWN2_COLOR = Color.LIGHTBLUE;
+    private static final String BOARD_PATH = GameBoardTypes.get().getBoard(1);
     private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
+    private static final int N_PLAYERS = 2;
 
     private static Play playScene = new Play();
     private static Stage playStage;
-    private static boolean checkGameOver;
-    private String nextTurn = " ";
+    private Turn nextTurn = Turn.CPU;
+    private Turn currentTurn = Turn.PLAYER;
 
-    private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new PawnImpl(PawnTypes.get().getPawn(PAWN1_COLOR)), 
-            new PawnImpl(PawnTypes.get().getPawn(PAWN2_COLOR))));
+    private final List<Pawn> pawnList = new ArrayList<>();
     private final Toolbar toolbar = new Toolbar();
-    private final GameBoard board = new GameBoardImpl(GameBoardTypes.get().getBoard(1));
-    private boolean changePawn = true;
+    private final GameBoard board = new GameBoardImpl(BOARD_PATH);
 
     private Play() {
 
         this.getDefaultLayout().setRight(this.toolbar.getBox());
         this.setBackground();
 
-        for (final Pawn elem: pawnList) {
-            this.getDefaultLayout().getChildren().add(elem.getPawn());
+        for (int i = 0; i < N_PLAYERS; i++) {
+            final Pawn newPawn = new PawnImpl(PawnTypes.get().getPawn(i));
+            this.pawnList.add(newPawn);
+            this.getDefaultLayout().getChildren().add(newPawn.getPawn());
         }
     }
 
@@ -74,29 +73,21 @@ public final class Play extends BasicScene {
     }
 
     private void movePawn(final int nBoxes) {
-        if (this.changePawn) {
+        if (this.currentTurn == Turn.PLAYER) {
             this.pawnList.get(PLAYER_INDEX).movePawn(nBoxes);
         } else {
             this.pawnList.get(CPU_INDEX).movePawn(nBoxes);
         }
-        this.changePawn = this.changePawn ? false : true;
-        if (checkGameOver) {
-            setGameOver();
-            changePawn = true;
-        }
+        this.currentTurn = this.nextTurn;
     }
 
     private void movePawn(final int nBoxes, final int finalPos) {
-        if (this.changePawn) {
+        if (this.currentTurn == Turn.PLAYER) {
             this.pawnList.get(PLAYER_INDEX).movePawnAndJump(nBoxes, finalPos);
         } else {
             this.pawnList.get(CPU_INDEX).movePawnAndJump(nBoxes, finalPos);
         }
-        this.changePawn = this.changePawn ? false : true;
-        if (checkGameOver) {
-            this.setGameOver();
-            changePawn = true;
-        }
+        this.currentTurn = this.nextTurn;
     }
 
     /**
@@ -108,33 +99,42 @@ public final class Play extends BasicScene {
         for (final Pawn elem: pawnList) {
             elem.reset();
         }
-        this.changePawn = true;
+        this.currentTurn = Turn.PLAYER;
+        this.nextTurn = Turn.CPU;
     }
 
     /**
      * It updates the game screen each turn.
-     * @param turn
+     * @param nextTurn
      *     the next turn
      * @param newDiceValue
      *     The new value of the dice
      */
-    public void updateInfo(final String turn, final int newDiceValue) {
-        this.nextTurn = turn;
+    public void updateInfo(final String nextTurn, final int newDiceValue) {
+        if (nextTurn.equals("Player")) {
+            this.nextTurn = Turn.PLAYER;
+        } else {
+            this.nextTurn = Turn.CPU;
+        }
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue);
     }
 
     /**
      * It updates the game screen each turn.
-     * @param turn
+     * @param nextTurn
      *     the next turn
      * @param newDiceValue
      *     The new value of the dice
      * @param finalPosition
      *     The new position after a jump due to a snake/ladder
      */
-    public void updateInfo(final String turn, final int newDiceValue, final int finalPosition) {
-        this.nextTurn = turn;
+    public void updateInfo(final String nextTurn, final int newDiceValue, final int finalPosition) {
+        if (nextTurn.equals("Player")) {
+            this.nextTurn = Turn.PLAYER;
+        } else {
+            this.nextTurn = Turn.CPU;
+        }
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue, finalPosition);
     }
@@ -144,35 +144,12 @@ public final class Play extends BasicScene {
      */
     public void gameOver() {
         final String winner;
-        if (!this.changePawn) {
+        if (this.currentTurn == Turn.CPU) {
             winner = "Player";
         } else {
             winner = "CPU";
         }
         new GameOver(playStage, winner).show();
-        this.setGameOver();
-    }
-
-    private void setGameOver() {
-        checkGameOver = checkGameOver ? false : true;
-    }
-
-    /**
-     * Getter of the first pawn color.
-     * @return
-     *     The Color of the first pawn
-     */
-    public static Color getPawn1Color() {
-        return PAWN1_COLOR;
-    }
-
-    /**
-     * Getter of the second pawn color.
-     * @return
-     *     The Color of the second pawn
-     */
-    public static Color getPawn2Color() {
-        return PAWN2_COLOR;
     }
 
     /**

@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import view.scenes.Play;
+import utilities.Turn;
 
 /**
  * It sets up the tool bar in the game screen.
@@ -59,8 +59,8 @@ public class Toolbar {
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
         this.box.setStyle(BOX_COLOR);
 
-        this.gp.addRow(0, new PawnImpl(PawnTypes.get().getPawn(Play.getPawn1Color())).getPawn(), player);
-        this.gp.addRow(1, new PawnImpl(PawnTypes.get().getPawn(Play.getPawn2Color())).getPawn(), cpu);
+        this.gp.addRow(0, new PawnImpl(PawnTypes.get().getPawn(0)).getPawn(), player);
+        this.gp.addRow(1, new PawnImpl(PawnTypes.get().getPawn(1)).getPawn(), cpu);
         this.gp.setTranslateX(ALIGN_GRID);
 
         this.diceImView.setTranslateX(ALIGN_DICE);
@@ -84,9 +84,9 @@ public class Toolbar {
      * @param turn
      *     The new turn to set
      */
-    public void changeTurn(final String turn) {
+    public void changeTurn(final Turn turn) {
 
-        if (turn.equals(CPU)) {
+        if (turn == Turn.CPU) {
             this.player.setFont(smallFont);
             this.cpu.setFont(bigFont);
             this.cpu.setStyle(YELLOW_LABEL);

@@ -3,8 +3,6 @@ package view;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.scene.paint.Color;
-
 /**
  * This class manages the different types of pawns available in the game.
  */
@@ -17,14 +15,14 @@ public final class PawnTypes {
     private static final String FUCHSIA_PAWN_PATH = "./res/Pawns/FuchsiaPawn.png";
 
     private static final PawnTypes PAWN_TYPES = new PawnTypes();
-    private final Map<Color, String> pawnColor = new HashMap<>();
+    private final Map<Integer, String> pawnColor = new HashMap<>();
 
     private PawnTypes() {
-        this.pawnColor.put(Color.RED, RED_PAWN_PATH);
-        this.pawnColor.put(Color.LIGHTBLUE, LIGHTBLUE_PAWN_PATH);
-        this.pawnColor.put(Color.YELLOW, YELLOW_PAWN_PATH);
-        this.pawnColor.put(Color.GREEN, GREEN_PAWN_PATH);
-        this.pawnColor.put(Color.FUCHSIA, FUCHSIA_PAWN_PATH);
+        this.pawnColor.put(0, RED_PAWN_PATH);
+        this.pawnColor.put(1, LIGHTBLUE_PAWN_PATH);
+        this.pawnColor.put(2, YELLOW_PAWN_PATH);
+        this.pawnColor.put(3, GREEN_PAWN_PATH);
+        this.pawnColor.put(4, FUCHSIA_PAWN_PATH);
     }
 
     /**
@@ -38,12 +36,12 @@ public final class PawnTypes {
 
     /**
      * It select the right pawn image to use.
-     * @param c
-     *     The color of the pawn to be used
+     * @param index
+     *     The index of the pawn to be used
      * @return
      *     The path to the selected pawn
      */
-    public String getPawn(final Color c) {
-        return this.pawnColor.get(c);
+    public String getPawn(final Integer index) {
+        return this.pawnColor.get(index);
     }
 }
