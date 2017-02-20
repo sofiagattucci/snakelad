@@ -4,6 +4,7 @@ import controller.ViewObserver;
 import javafx.application.Application;
 import utilities.Turn;
 import view.scenes.Instructions;
+import view.scenes.SetUpGame;
 import view.scenes.SinglePlayerPlay;
 
 /**
@@ -13,6 +14,7 @@ public class ViewImpl implements View {
 
     private static SinglePlayerPlay playScene;
     private static Instructions instrScene;
+    private static SetUpGame setUpScene;
     private static ViewObserver observer;
 
     /**
@@ -36,6 +38,15 @@ public class ViewImpl implements View {
      */
     public static void setPlayScene(final SinglePlayerPlay scene) {
         playScene = scene;
+    }
+
+    /**
+     * Setter of the set up scene.
+     * @param scene
+     *     The scene to link.
+     */
+    public static void setSetUpScene(final SetUpGame scene) {
+        setUpScene = scene;
     }
 
     /**
@@ -63,6 +74,15 @@ public class ViewImpl implements View {
      */
     public static SinglePlayerPlay getPlayScene() {
         return playScene;
+    }
+
+    /**
+     * Getter of the set up scene.
+     * @return
+     *     The set up scene used in the game
+     */
+    public static SetUpGame getSetUpScene() {
+        return setUpScene;
     }
 
     private void setObserver(final ViewObserver obs) {

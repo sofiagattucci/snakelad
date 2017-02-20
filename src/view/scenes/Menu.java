@@ -37,9 +37,8 @@ public final class Menu extends BasicScene {
     private Menu() {
 
         this.play.setOnAction(e -> {
-            ViewImpl.setPlayScene(SinglePlayerPlay.getScene(menuStage));
-            ViewImpl.getObserver().play();
-            menuStage.setScene(SinglePlayerPlay.getScene(menuStage));
+            ViewImpl.setSetUpScene(SetUpGame.getScene(menuStage));
+            menuStage.setScene(SetUpGame.getScene(menuStage));
         });
 
         this.instructions.setOnAction(e -> {
