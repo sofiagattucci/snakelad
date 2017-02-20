@@ -2,17 +2,14 @@ package view;
 
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import utilities.Turn;
 import view.scenes.Menu;
 
 /**
- * It handles the end of the game.
+ * It handles the end of a player versus player game.
  */
 public class GameOver extends BasicDialogBox {
 
     private static final String GAME_OVER = "GAME OVER";
-    private static final String MESSAGE = "The winner is: ";
-    private static final String MESSAGE2 = "\nWhat do you want to do?";
     private static final String RESTART = "Restart";
     private static final String MAIN_MENU = "Main Menu";
 
@@ -23,13 +20,10 @@ public class GameOver extends BasicDialogBox {
      * Constructor of this class.
      * @param parentStage
      *     The parent stage of the game over box.
-     * @param winner
-     *     The winner of the game.
      */
-    public GameOver(final Stage parentStage, final Turn winner) {
+    public GameOver(final Stage parentStage) {
         super(parentStage);
         this.getBox().setTitle(GAME_OVER);
-        this.getBox().setHeaderText(MESSAGE + winner + MESSAGE2);
         this.getBox().getButtonTypes().setAll(mainMenu, restart);
     }
 

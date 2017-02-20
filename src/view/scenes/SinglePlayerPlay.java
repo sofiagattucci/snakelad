@@ -16,7 +16,7 @@ import view.Dimension;
 import view.GameBoard;
 import view.GameBoardImpl;
 import view.GameBoardTypes;
-import view.GameOver;
+import view.SingleGameOver;
 import view.Pawn;
 import view.PawnImpl;
 import view.PawnTypes;
@@ -24,7 +24,7 @@ import view.Toolbar;
 import view.ViewImpl;
 
 /**
- * This class creates and initializes the game scene.
+ * This class creates and initializes the game scene for a player versus CPU game.
  */
 public final class SinglePlayerPlay extends BasicScene {
 
@@ -142,7 +142,7 @@ public final class SinglePlayerPlay extends BasicScene {
         } else {
             winner = Turn.CPU;
         }
-        new GameOver(playStage, winner).show();
+        new SingleGameOver(playStage, winner).show();
     }
 
     /**

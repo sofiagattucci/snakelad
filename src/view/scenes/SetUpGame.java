@@ -11,21 +11,30 @@ import view.ViewImpl;
  */
 public final class SetUpGame extends BasicScene {
 
-    private static final String START = "Start";
+    private static final String SINGLE = "Single player";
+    private static final String MULTI = "Multiplayer";
 
     private static Stage setUpStage;
     private static SetUpGame setUpScene = new SetUpGame();
 
-    private final Button start = new BasicButton(START);
+    private final Button single = new BasicButton(SINGLE);
+    private final Button multi = new BasicButton(MULTI);
 
     private SetUpGame() {
 
-        this.getDefaultLayout().setCenter(this.start);
+        this.getDefaultLayout().setLeft(this.single);
+        this.getDefaultLayout().setRight(this.multi);
 
-        this.start.setOnAction(e -> {
+        this.single.setOnAction(e -> {
             ViewImpl.setPlayScene(SinglePlayerPlay.getScene(setUpStage));
             ViewImpl.getObserver().play();
             setUpStage.setScene(SinglePlayerPlay.getScene(setUpStage));
+        });
+
+        this.multi.setOnAction(e -> {
+           // ViewImpl.setSinglePlayScene(MultiplayerPlay.getScene(setUpStage));
+           // ViewImpl.getObserver().play();
+            //setUpStage.setScene(MultiplayerPlay.getScene(setUpStage));
         });
     }
 
