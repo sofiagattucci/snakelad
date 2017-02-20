@@ -9,7 +9,7 @@ import model.Dice;
 import utilities.ConsoleLog;
 
 /**
- * Junit test used in order to test ClassicDice class.
+ * Junit test used in order to test ClassicDice class inside Model.
  * This class has to achieve success in all its tests.
  */
 public final class ClassicDiceTest {
@@ -17,13 +17,13 @@ public final class ClassicDiceTest {
     private static final int NUMBER_OF_ROLLS = 100;
     private static final int NUMBER_OF_SIDES = 6;
 
-    private final Dice dice = ClassicDice.get();
-
     /**
-     * Tests getLastNumberAppeared() and roll() methods in ClassicDice class.
+     * Tests all methods inside ClassicDice class.
      */
     @Test
     public void testClassicDice() {
+        //get singleton object representing the dice
+        final Dice dice = ClassicDice.get();
         //call getLastNumberAppeared() when there are no number appeared! It must throw IllegalStateException
         try {
             dice.getLastNumberAppeared();
