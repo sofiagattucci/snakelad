@@ -40,5 +40,5 @@ public interface View {
      * @param finalPosition
      *     The final position if the pawn stops on a snake/ladder
      */
-    void updateInfo(String nextTurn, int newDiceValue, final int finalPosition);
+    void updateInfo(String nextTurn, int newDiceValue,  int finalPosition);
 }

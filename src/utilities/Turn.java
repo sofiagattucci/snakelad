@@ -1,4 +1,4 @@
-package controller;
+package utilities;
 
  /**
   * Enumeration for game turn.

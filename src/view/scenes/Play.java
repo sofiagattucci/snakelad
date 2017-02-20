@@ -16,6 +16,7 @@ import utilities.ImageManager;
 import view.Dimension;
 import view.GameBoard;
 import view.GameBoardImpl;
+import view.GameBoardTypes;
 import view.GameOver;
 import view.Pawn;
 import view.PawnImpl;
@@ -27,7 +28,6 @@ import view.Toolbar;
  */
 public final class Play extends BasicScene {
 
-    private static final String BOARD_PATH = "./res/GameBoards/GameBoard1/GameBoard1.png";
     private static final Color PAWN1_COLOR = Color.RED;
     private static final Color PAWN2_COLOR = Color.LIGHTBLUE;
     private static final int PLAYER_INDEX = 0;
@@ -41,7 +41,7 @@ public final class Play extends BasicScene {
     private final List<Pawn> pawnList = new ArrayList<>(Arrays.asList(new PawnImpl(PawnTypes.get().getPawn(PAWN1_COLOR)), 
             new PawnImpl(PawnTypes.get().getPawn(PAWN2_COLOR))));
     private final Toolbar toolbar = new Toolbar();
-    private final GameBoard board = new GameBoardImpl(BOARD_PATH);
+    private final GameBoard board = new GameBoardImpl(GameBoardTypes.get().getBoard(1));
     private boolean changePawn = true;
 
     private Play() {

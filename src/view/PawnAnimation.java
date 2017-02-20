@@ -7,7 +7,7 @@ import javafx.application.Platform;
  */
 public class PawnAnimation implements Runnable {
 
-    private static final double STEP = 8;
+    private static final double STEP = 1;
 
     private final Pawn pawnClass;
     private final int nMoves;
@@ -17,10 +17,11 @@ public class PawnAnimation implements Runnable {
 
     /**
      * Constructor of this class.
+     * 
      * @param moves
-     *     The number of box the pawn must move
+     *            The number of box the pawn must move
      * @param pawn
-     *     The pawn to be moved.
+     *            The pawn to be moved.
      */
     public PawnAnimation(final Pawn pawn, final int moves) {
         this.nMoves = moves;
@@ -29,12 +30,13 @@ public class PawnAnimation implements Runnable {
 
     /**
      * Constructor of this class.
+     * 
      * @param moves
-     *     The number of box the pawn must move
+     *            The number of box the pawn must move
      * @param pawn
-     *     The pawn to be moved.
+     *            The pawn to be moved.
      * @param finalPosition
-     *     The position after the jump
+     *            The position after the jump
      */
     public PawnAnimation(final Pawn pawn, final int moves, final int finalPosition) {
         this(pawn, moves);
@@ -42,46 +44,46 @@ public class PawnAnimation implements Runnable {
         this.jumpBool = true;
     }
 
-    private synchronized void movePawn() {
+    private void movePawn() {
 
-            for (int i = 0; i < nMoves; i++) {
-                synchronized (pawnClass) {
-                    if ((this.pawnClass.getRow()  == (GameBoardImpl.getBoxesPerRaw() - 1))
+        for (int i = 0; i < nMoves; i++) {
+            synchronized (pawnClass) {
+                if ((this.pawnClass.getRow() == (GameBoardImpl.getBoxesPerRaw() - 1))
                         && (this.pawnClass.getPositionInRow() == (GameBoardImpl.getBoxesPerRaw() - 1))) {
-                        this.goBack(nMoves - i);
-                        break;
-                    }
-                    if (this.pawnClass.getPositionInRow() == (GameBoardImpl.getBoxesPerRaw() - 1)) {
-                        this.resetPositionInRow();
-                        this.pawnClass.setRow(this.pawnClass.getRow() + 1);
-                        this.pawnClass.changeDirection();
-                        this.moveUp();
-                        continue;
-                    }
-                    this.pawnClass.setPositionInRow(this.pawnClass.getPositionInRow() + 1);
-                    if (this.pawnClass.getDirection() == Direction.RIGHT) {
-                        this.moveRight();
-                    } else {
-                        this.moveLeft();
-                    }
-                    if ((this.pawnClass.getRow()  == (GameBoardImpl.getBoxesPerRaw() - 1))
-                        && (this.pawnClass.getPositionInRow() == (GameBoardImpl.getBoxesPerRaw() - 1)) 
+                    this.goBack(nMoves - i);
+                    break;
+                }
+                if (this.pawnClass.getPositionInRow() == (GameBoardImpl.getBoxesPerRaw() - 1)) {
+                    this.resetPositionInRow();
+                    this.pawnClass.setRow(this.pawnClass.getRow() + 1);
+                    this.pawnClass.changeDirection();
+                    this.moveUp();
+                    continue;
+                }
+                this.pawnClass.setPositionInRow(this.pawnClass.getPositionInRow() + 1);
+                if (this.pawnClass.getDirection() == Direction.RIGHT) {
+                    this.moveRight();
+                } else {
+                    this.moveLeft();
+                }
+                if ((this.pawnClass.getRow() == (GameBoardImpl.getBoxesPerRaw() - 1))
+                        && (this.pawnClass.getPositionInRow() == (GameBoardImpl.getBoxesPerRaw() - 1))
                         && (i == nMoves - 1)) {
-                        Platform.runLater(() -> ViewImpl.getPlayScene().gameOver());
-                        this.gameOver = true;
-                        break;
-                    }
+                    Platform.runLater(() -> ViewImpl.getPlayScene().gameOver());
+                    this.gameOver = true;
+                    break;
                 }
-            }
-            if (!this.gameOver) {
-                synchronized (pawnClass) {
-                    if (this.jumpBool) {
-                        this.jump(finalPos);
-                    }
-                }
-                Platform.runLater(() -> ViewImpl.getPlayScene().endTurn());
-            }
+           }
         }
+        if (!this.gameOver) {
+            synchronized (pawnClass) {
+                if (this.jumpBool) {
+                    this.jump(finalPos);
+                }
+            }
+            Platform.runLater(() -> ViewImpl.getPlayScene().endTurn());
+        }
+    }
 
     private void jump(final int finalPosition) {
 
@@ -101,81 +103,85 @@ public class PawnAnimation implements Runnable {
             nX = GameBoardImpl.getBoxesPerRaw() - 1 - finalPosition % GameBoardImpl.getBoxesPerRaw();
             this.pawnClass.setPositionInRow(GameBoardImpl.getBoxesPerRaw() - 1 - nX);
         }
-        Platform.runLater(() -> 
-            this.pawnClass.getPawn().setX(this.pawnClass.getIniPos().getFirst() + (Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw()) * nX));
-        Platform.runLater(() ->
-            this.pawnClass.getPawn().setY(this.pawnClass.getIniPos().getSecond() - (Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw()) * nY));
+        Platform.runLater(() -> this.pawnClass.getPawn().setX(
+            this.pawnClass.getIniPos().getFirst() + (Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw()) * nX));
+        Platform.runLater(() -> this.pawnClass.getPawn().setY(
+            this.pawnClass.getIniPos().getSecond() - (Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw()) * nY));
         this.pawnClass.setRow(nY);
     }
 
-        private void moveUp() {
-            final double startPos = pawnClass.getPawn().getY();
-            final double finalPos = startPos - Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw();
-            while (pawnClass.getPawn().getY() > finalPos) {
-                Platform.runLater(() -> pawnClass.getPawn().setY(pawnClass.getPawn().getY() - STEP));
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) { }
+    private void moveUp() {
+        final double startPos = pawnClass.getPawn().getY();
+        final double finalPos = startPos - Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw();
+        while (pawnClass.getPawn().getY() > finalPos) {
+            Platform.runLater(() -> pawnClass.getPawn().setY(pawnClass.getPawn().getY() - STEP));
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
             }
         }
+    }
 
-        private void moveRight() {
-            final double startPos = pawnClass.getPawn().getX();
-            final double finalPos = startPos + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw();
-            while (pawnClass.getPawn().getX() < finalPos) {
-                Platform.runLater(() -> pawnClass.getPawn().setX(pawnClass.getPawn().getX() + STEP));
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) { }
+    private void moveRight() {
+        final double startPos = pawnClass.getPawn().getX();
+        final double finalPos = startPos + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw();
+        while (pawnClass.getPawn().getX() < finalPos) {
+            Platform.runLater(() -> pawnClass.getPawn().setX(pawnClass.getPawn().getX() + STEP));
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
             }
         }
+    }
 
-        private void moveLeft() {
-            final double startPos = pawnClass.getPawn().getX();
-            final double finalPos = startPos - Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw();
-            while (pawnClass.getPawn().getX() > finalPos) {
-                Platform.runLater(() -> pawnClass.getPawn().setX(pawnClass.getPawn().getX() - STEP));
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) { }
+    private void moveLeft() {
+        final double startPos = pawnClass.getPawn().getX();
+        final double finalPos = startPos - Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw();
+        while (pawnClass.getPawn().getX() > finalPos) {
+            Platform.runLater(() -> pawnClass.getPawn().setX(pawnClass.getPawn().getX() - STEP));
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
             }
         }
+    }
 
-        private void moveDown() {
-            final double startPos = pawnClass.getPawn().getY();
-            final double finalPos = startPos + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw();
-            while (pawnClass.getPawn().getY() < finalPos) {
-                Platform.runLater(() -> pawnClass.getPawn().setY(pawnClass.getPawn().getY() + STEP));
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) { }
+    private void moveDown() {
+        final double startPos = pawnClass.getPawn().getY();
+        final double finalPos = startPos + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw();
+        while (pawnClass.getPawn().getY() < finalPos) {
+            Platform.runLater(() -> pawnClass.getPawn().setY(pawnClass.getPawn().getY() + STEP));
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
             }
         }
+    }
 
-        private void goBack(final int nMoves) {
-             for (int i = 0; i < nMoves; i++) {
-                 if (this.pawnClass.getPositionInRow() == 0) {
-                    this.moveDown();
-                    this.pawnClass.changeDirection();
-                    this.pawnClass.setPositionInRow(GameBoardImpl.getBoxesPerRaw());
-                    this.pawnClass.setRow(this.pawnClass.getRow() - 1);
-                    continue;
-                }
-                this.pawnClass.setPositionInRow(this.pawnClass.getPositionInRow() - 1);
-                if (this.pawnClass.getDirection() == Direction.LEFT) {
-                    this.moveRight();
-                } else {
-                    this.moveLeft();
-                }
+    private void goBack(final int nMoves) {
+        for (int i = 0; i < nMoves; i++) {
+            if (this.pawnClass.getPositionInRow() == 0) {
+                this.moveDown();
+                this.pawnClass.changeDirection();
+                this.pawnClass.setPositionInRow(GameBoardImpl.getBoxesPerRaw());
+                this.pawnClass.setRow(this.pawnClass.getRow() - 1);
+                continue;
+            }
+            this.pawnClass.setPositionInRow(this.pawnClass.getPositionInRow() - 1);
+            if (this.pawnClass.getDirection() == Direction.LEFT) {
+                this.moveRight();
+            } else {
+                this.moveLeft();
             }
         }
+    }
 
-        private void resetPositionInRow() {
-            this.pawnClass.setPositionInRow(0);
-        }
+    private void resetPositionInRow() {
+        this.pawnClass.setPositionInRow(0);
+    }
 
-        @Override
-        public void run() {
-            this.movePawn();
-}
+    @Override
+    public void run() {
+        this.movePawn();
+    }
 }
