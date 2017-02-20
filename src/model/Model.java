@@ -5,18 +5,18 @@ import java.util.List;
 import utilities.Pair;
 
 /**
- * It represents the model interface in MVC pattern, the interface of the game.
+ * It represents the interface for the model in MVC pattern.
  * Defines the main methods of Model class.
  */
 public interface Model {
 
     /**
      * Starts the game, setting all needed in order to start it.
-     * @param listData
+     * @param data
      *          The list that contains the data (snakes and ladders positions, number of 
      *          cells on the game board) to be passed to Model to allow starting the game.
      */
-    void startGame(List<Integer> listData);
+    void startGame(List<Integer> data);
 
 
     /**
