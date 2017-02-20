@@ -37,7 +37,7 @@ public final class SinglePlayerPlay extends BasicScene {
 
     private int currentTurn;
     private final List<Pawn> pawnList = new ArrayList<>();
-    private final Toolbar toolbar = new Toolbar(N_PLAYERS);
+    private final Toolbar toolbar = new Toolbar();
     private final GameBoard board = new GameBoardImpl(BOARD_PATH);
 
     private SinglePlayerPlay() {
@@ -50,6 +50,7 @@ public final class SinglePlayerPlay extends BasicScene {
             this.pawnList.add(newPawn);
             this.getDefaultLayout().getChildren().add(newPawn.getPawn());
         }
+        this.toolbar.putLabels(N_PLAYERS);
     }
 
     private void setBackground() {
@@ -146,7 +147,7 @@ public final class SinglePlayerPlay extends BasicScene {
     }
 
     /**
-     * It sets the roll button in the tool bar enabled again after the pawn finished to move.
+     * It manages the end of the turn, so it updates some informations.
      */
     public void endTurn() {
         this.toolbar.changeTurn((this.currentTurn % N_PLAYERS));

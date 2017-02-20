@@ -52,22 +52,13 @@ public class Toolbar {
 
     /**
      * Constructor of the tool bar.
-     * @param nPlayers
-     *     The number of players of the game
      */
-    public Toolbar(final int nPlayers) {
+    public Toolbar() {
 
         this.box.setPrefWidth(BOX_WIDTH);
         this.box.setSpacing(BOX_SPACING);
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
         this.box.setStyle(BOX_COLOR);
-
-        for (int i = 0; i < nPlayers; i++) {
-            this.pawnLabel.add(new Label(PLAYER + (i + 1)));
-            this.pawnLabel.get(i).setFont(smallFont);
-            this.gp.addRow(i, new PawnImpl(PawnTypes.get().getPawn(i)).getPawn(), this.pawnLabel.get(i));
-        }
-        this.gp.setTranslateX(ALIGN_GRID);
 
         this.diceImView.setTranslateX(ALIGN_DICE);
 
@@ -83,6 +74,20 @@ public class Toolbar {
             this.roll.setVisible(false);
             ViewImpl.getObserver().rollDice();
         });
+    }
+
+    /**
+     * It inserts the player' s name in the tool bar.
+     * @param nPlayers
+     *     The number of players of the game
+     */
+    public void putLabels(final int nPlayers) {
+        for (int i = 0; i < nPlayers; i++) {
+            this.pawnLabel.add(new Label(PLAYER + (i + 1)));
+            this.pawnLabel.get(i).setFont(smallFont);
+            this.gp.addRow(i, new PawnImpl(PawnTypes.get().getPawn(i)).getPawn(), this.pawnLabel.get(i));
+        }
+        this.gp.setTranslateX(ALIGN_GRID);
     }
 
     /**
