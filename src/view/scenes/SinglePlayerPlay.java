@@ -21,18 +21,19 @@ import view.Pawn;
 import view.PawnImpl;
 import view.PawnTypes;
 import view.Toolbar;
+import view.ViewImpl;
 
 /**
  * This class creates and initializes the game scene.
  */
-public final class Play extends BasicScene {
+public final class SinglePlayerPlay extends BasicScene {
 
     private static final String BOARD_PATH = GameBoardTypes.get().getBoard(1);
     private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
     private static final int N_PLAYERS = 2;
 
-    private static Play playScene = new Play();
+    private static SinglePlayerPlay playScene = new SinglePlayerPlay();
     private static Stage playStage;
     private Turn nextTurn = Turn.CPU;
     private Turn currentTurn = Turn.PLAYER;
@@ -41,7 +42,7 @@ public final class Play extends BasicScene {
     private final Toolbar toolbar = new Toolbar();
     private final GameBoard board = new GameBoardImpl(BOARD_PATH);
 
-    private Play() {
+    private SinglePlayerPlay() {
 
         this.getDefaultLayout().setRight(this.toolbar.getBox());
         this.setBackground();
@@ -126,7 +127,7 @@ public final class Play extends BasicScene {
      *     The new position after a jump due to a snake/ladder
      */
     public void updateInfo(final Turn nextTurn, final int newDiceValue, final int finalPosition) {
-        this.nextTurn = Turn.PLAYER;
+        this.nextTurn = nextTurn;
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue, finalPosition);
     }
@@ -151,7 +152,7 @@ public final class Play extends BasicScene {
      * @return
      *     The game scene
      */
-    public static Play getScene(final Stage stage) {
+    public static SinglePlayerPlay getScene(final Stage stage) {
         playStage = stage;
         Toolbar.setStage(stage);
         return playScene;
@@ -162,7 +163,11 @@ public final class Play extends BasicScene {
      */
     public void endTurn() {
         this.toolbar.changeTurn(nextTurn);
-        this.toolbar.endTurn();
+        if (this.nextTurn == Turn.CPU) {
+            ViewImpl.getObserver().rollDice();
+        } else {
+            this.toolbar.endTurn();
+        }
     }
 
 }

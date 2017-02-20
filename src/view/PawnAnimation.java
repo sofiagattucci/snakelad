@@ -7,7 +7,7 @@ import javafx.application.Platform;
  */
 public class PawnAnimation implements Runnable {
 
-    private static final double STEP = 8;
+    private static final double STEP = 1;
 
     private final Pawn pawnClass;
     private final int nMoves;
