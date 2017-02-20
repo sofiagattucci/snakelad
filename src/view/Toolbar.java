@@ -11,7 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import utilities.Turn;
 import view.dialog_boxes.PauseBox;
 
 /**
@@ -82,12 +81,12 @@ public class Toolbar {
 
     /**
      * Changes the turn shown in the game screen.
-     * @param turn
+     * @param newTurn
      *     The new turn to set
      */
-    public void changeTurn(final Turn turn) {
+    public void changeTurn(final int newTurn) {
 
-        if (turn == Turn.CPU) {
+        if (newTurn == 1) {
             this.player.setFont(smallFont);
             this.cpu.setFont(bigFont);
             this.cpu.setStyle(YELLOW_LABEL);

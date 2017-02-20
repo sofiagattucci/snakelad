@@ -29,15 +29,13 @@ import view.dialog_boxes.SingleGameOver;
 public final class SinglePlayerPlay extends BasicScene {
 
     private static final String BOARD_PATH = GameBoardTypes.get().getBoard(1);
-    private static final int PLAYER_INDEX = 0;
-    private static final int CPU_INDEX = 1;
+    private static final int PLAYER_INDEX = 0; //So CPU_INDEX will be 1...
     private static final int N_PLAYERS = 2;
 
     private static SinglePlayerPlay playScene = new SinglePlayerPlay();
     private static Stage playStage;
-    private Turn nextTurn = Turn.CPU;
-    private Turn currentTurn = Turn.PLAYER;
 
+    private int currentTurn;
     private final List<Pawn> pawnList = new ArrayList<>();
     private final Toolbar toolbar = new Toolbar();
     private final GameBoard board = new GameBoardImpl(BOARD_PATH);
@@ -74,21 +72,13 @@ public final class SinglePlayerPlay extends BasicScene {
     }
 
     private void movePawn(final int nBoxes) {
-        if (this.currentTurn == Turn.PLAYER) {
-            this.pawnList.get(PLAYER_INDEX).movePawn(nBoxes);
-        } else {
-            this.pawnList.get(CPU_INDEX).movePawn(nBoxes);
-        }
-        this.currentTurn = this.nextTurn;
+        this.pawnList.get(this.currentTurn % N_PLAYERS).movePawn(nBoxes);
+        this.currentTurn++;
     }
 
     private void movePawn(final int nBoxes, final int finalPos) {
-        if (this.currentTurn == Turn.PLAYER) {
-            this.pawnList.get(PLAYER_INDEX).movePawnAndJump(nBoxes, finalPos);
-        } else {
-            this.pawnList.get(CPU_INDEX).movePawnAndJump(nBoxes, finalPos);
-        }
-        this.currentTurn = this.nextTurn;
+        this.pawnList.get(this.currentTurn % N_PLAYERS).movePawnAndJump(nBoxes, finalPos);
+        this.currentTurn++;
     }
 
     /**
@@ -100,8 +90,7 @@ public final class SinglePlayerPlay extends BasicScene {
         for (final Pawn elem: pawnList) {
             elem.reset();
         }
-        this.currentTurn = Turn.PLAYER;
-        this.nextTurn = Turn.CPU;
+        this.currentTurn = PLAYER_INDEX;
     }
 
     /**
@@ -112,7 +101,6 @@ public final class SinglePlayerPlay extends BasicScene {
      *     The new value of the dice
      */
     public void updateInfo(final Turn nextTurn, final int newDiceValue) {
-        this.nextTurn = nextTurn;
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue);
     }
@@ -127,7 +115,6 @@ public final class SinglePlayerPlay extends BasicScene {
      *     The new position after a jump due to a snake/ladder
      */
     public void updateInfo(final Turn nextTurn, final int newDiceValue, final int finalPosition) {
-        this.nextTurn = nextTurn;
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue, finalPosition);
     }
@@ -136,8 +123,8 @@ public final class SinglePlayerPlay extends BasicScene {
      * It handles the end of the game.
      */
     public void gameOver() {
-        final Turn winner;
-        if (this.currentTurn == Turn.CPU) {
+         Turn winner;
+        if (((this.currentTurn - 1) % N_PLAYERS) == PLAYER_INDEX) {
             winner = Turn.PLAYER;
         } else {
             winner = Turn.CPU;
@@ -162,8 +149,8 @@ public final class SinglePlayerPlay extends BasicScene {
      * It sets the roll button in the tool bar enabled again after the pawn finished to move.
      */
     public void endTurn() {
-        this.toolbar.changeTurn(nextTurn);
-        if (this.nextTurn == Turn.CPU) {
+        this.toolbar.changeTurn((this.currentTurn % N_PLAYERS));
+        if ((this.currentTurn % N_PLAYERS) != PLAYER_INDEX) {
             ViewImpl.getObserver().rollDice();
         } else {
             this.toolbar.endTurn();
