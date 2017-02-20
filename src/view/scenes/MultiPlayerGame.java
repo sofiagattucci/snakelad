@@ -2,25 +2,25 @@ package view.scenes;
 
 import javafx.stage.Stage;
 import view.Toolbar;
-import view.dialog_boxes.MultiGameOver;
+import view.dialog_boxes.MultiPlayerGameOver;
 
 /**
  * This class creates and initializes the game scene for a player versus player game.
  */
-public final class MultiplayerPlay extends Play {
+public final class MultiPlayerGame extends Game {
 
     private static final int N_PLAYERS = 2;
 
-    private static Play playScene = new MultiplayerPlay();
+    private static Game playScene = new MultiPlayerGame();
     private static Stage playStage;
 
-    private MultiplayerPlay() {
+    private MultiPlayerGame() {
         super();
     }
 
     @Override
     public void gameOver() {
-        new MultiGameOver(playStage, this.getCurrentTurn()).show();
+        new MultiPlayerGameOver(playStage, this.getCurrentTurn()).show();
     }
 
     /**
@@ -30,7 +30,7 @@ public final class MultiplayerPlay extends Play {
      * @return
      *     The game scene
      */
-    public static Play getScene(final Stage stage) {
+    public static Game getScene(final Stage stage) {
         playStage = stage;
         Toolbar.setStage(stage);
         return playScene;

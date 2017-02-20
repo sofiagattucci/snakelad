@@ -1,4 +1,4 @@
-package view;
+package view.game_board;
 
 import javafx.scene.image.Image;
 import utilities.Pair;

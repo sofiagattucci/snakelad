@@ -1,8 +1,12 @@
-package view;
+package view.pawns;
 
 import javafx.scene.image.ImageView;
 import utilities.ImageManager;
 import utilities.Pair;
+import view.Dimension;
+import view.Direction;
+import view.Toolbar;
+import view.game_board.GameBoardImpl;
 /**
  * This class represents a pawn of the game.
  */

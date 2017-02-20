@@ -1,8 +1,10 @@
-package view;
+package view.game_board;
 
 import javafx.scene.image.Image;
 import utilities.ImageManager;
 import utilities.Pair;
+import view.Dimension;
+import view.Toolbar;
 
 /**
  * This class manages the game board.

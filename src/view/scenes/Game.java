@@ -12,18 +12,18 @@ import javafx.scene.layout.BackgroundSize;
 import utilities.ImageManager;
 import utilities.Turn;
 import view.Dimension;
-import view.GameBoard;
-import view.GameBoardImpl;
-import view.GameBoardTypes;
-import view.Pawn;
-import view.PawnImpl;
-import view.PawnTypes;
 import view.Toolbar;
+import view.game_board.GameBoard;
+import view.game_board.GameBoardImpl;
+import view.game_board.GameBoardTypes;
+import view.pawns.Pawn;
+import view.pawns.PawnImpl;
+import view.pawns.PawnTypes;
 
 /**
  * This class creates and initializes a generic game scene.
  */
-public abstract class Play extends BasicScene { 
+public abstract class Game extends BasicScene { 
 
     private static final String BOARD_PATH = GameBoardTypes.get().getBoard(1);
 
@@ -35,7 +35,7 @@ public abstract class Play extends BasicScene {
     /**
      * Constructor of his class.
      */
-    protected Play() {
+    protected Game() {
 
         this.getDefaultLayout().setRight(this.toolbar.getBox());
         this.setBackground();

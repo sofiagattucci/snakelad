@@ -4,7 +4,7 @@ import controller.ViewObserver;
 import javafx.application.Application;
 import utilities.Turn;
 import view.scenes.Instructions;
-import view.scenes.Play;
+import view.scenes.Game;
 import view.scenes.SetUpGame;
 
 /**
@@ -12,7 +12,7 @@ import view.scenes.SetUpGame;
  */
 public class ViewImpl implements View {
 
-    private static Play playScene;
+    private static Game playScene;
     private static Instructions instrScene;
     private static SetUpGame setUpScene;
     private static ViewObserver observer;
@@ -36,7 +36,7 @@ public class ViewImpl implements View {
      * @param scene
      *     The scene to link.
      */
-    public static void setPlayScene(final Play scene) {
+    public static void setPlayScene(final Game scene) {
         playScene = scene;
     }
 
@@ -72,7 +72,7 @@ public class ViewImpl implements View {
      * @return
      *     The play scene used in the game
      */
-    public static Play getPlayScene() {
+    public static Game getPlayScene() {
         return playScene;
     }
 

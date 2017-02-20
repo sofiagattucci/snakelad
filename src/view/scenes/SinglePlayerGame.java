@@ -4,20 +4,20 @@ import javafx.stage.Stage;
 import utilities.Turn;
 import view.Toolbar;
 import view.ViewImpl;
-import view.dialog_boxes.SingleGameOver;
+import view.dialog_boxes.SinglePlayerGameOver;
 
 /**
  * This class creates and initializes the game scene for a player versus CPU game.
  */
-public final class SinglePlayerPlay extends Play {
+public final class SinglePlayerGame extends Game {
 
     private static final int PLAYER_INDEX = 0; //So CPU_INDEX will be 1...
     private static final int N_PLAYERS = 2;
 
-    private static SinglePlayerPlay playScene = new SinglePlayerPlay();
+    private static SinglePlayerGame playScene = new SinglePlayerGame();
     private static Stage playStage;
 
-    private SinglePlayerPlay() {
+    private SinglePlayerGame() {
         super();
         this.getToolbar().setCPU();
     }
@@ -30,7 +30,7 @@ public final class SinglePlayerPlay extends Play {
         } else {
             winner = Turn.CPU;
         }
-        new SingleGameOver(playStage, winner).show();
+        new SinglePlayerGameOver(playStage, winner).show();
     }
 
     /**
@@ -40,7 +40,7 @@ public final class SinglePlayerPlay extends Play {
      * @return
      *     The game scene
      */
-    public static Play getScene(final Stage stage) {
+    public static Game getScene(final Stage stage) {
         playStage = stage;
         Toolbar.setStage(stage);
         return playScene;
@@ -61,6 +61,15 @@ public final class SinglePlayerPlay extends Play {
     @Override
     public int getTag() {
         return N_PLAYERS;
+    }
+
+    /**
+     * Getter of the player index.
+     * @return
+     *     The player index
+     */
+    public static int getPlayerIndex() {
+        return PLAYER_INDEX;
     }
 
 }

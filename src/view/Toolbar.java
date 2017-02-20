@@ -14,6 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.dialog_boxes.PauseBox;
+import view.pawns.PawnImpl;
+import view.pawns.PawnTypes;
+import view.scenes.SinglePlayerGame;
 
 /**
  * It sets up the tool bar in the game screen.
@@ -94,7 +97,7 @@ public class Toolbar {
      * It sets the CPU player in single player game mode.
      */
     public void setCPU() {
-        this.pawnLabel.get(1).setText(CPU);
+        this.pawnLabel.get(SinglePlayerGame.getPlayerIndex()).setText(CPU);
     }
 
     /**

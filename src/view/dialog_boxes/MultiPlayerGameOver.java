@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 /**
  * It handles the end of a player versus player game.
  */
-public class MultiGameOver extends GameOver {
+public class MultiPlayerGameOver extends GameOver {
 
     private static final String MESSAGE = "The winner is: Player ";
     private static final String MESSAGE2 = "\nWhat do you want to do?";
@@ -17,7 +17,7 @@ public class MultiGameOver extends GameOver {
      * @param winnerIndex
      *     The index of the winner of the game.
      */
-    public MultiGameOver(final Stage parentStage, final int winnerIndex) {
+    public MultiPlayerGameOver(final Stage parentStage, final int winnerIndex) {
         super(parentStage);
         this.getBox().setHeaderText(MESSAGE + winnerIndex + MESSAGE2);
     }

@@ -1,4 +1,4 @@
-package view;
+package view.game_board;
 
 import java.util.HashMap;
 import java.util.Map;
