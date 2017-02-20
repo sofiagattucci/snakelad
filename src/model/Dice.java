@@ -16,7 +16,8 @@ public interface Dice {
     /**
      * Gets the last number released rolling the dice.
      * @return the last number released rolling the dice.
+     * @throws IllegalStateException if it called when is empty (with no previous number appeared).
      */
-    int getLastNumberAppeared();
+    int getLastNumberAppeared() throws IllegalStateException;
 
 }
