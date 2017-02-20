@@ -103,10 +103,10 @@ public class ModelImpl implements Model {
     public Pair<Integer, Boolean> getPlayerPosition(final int playerIndex) {
 
         int partialPlayerPosition = this.playersList.get(playerIndex).getPosition() 
-                                         + this.dice.getLastNumberAppeared();
+                                    + this.dice.getLastNumberAppeared();
 
         partialPlayerPosition = partialPlayerPosition > this.numberOfCells
-                                ? this.numberOfCells - (partialPlayerPosition - this.numberOfCells)
+                                ? this.numberOfCells - (partialPlayerPosition - this.numberOfCells) 
                                 : partialPlayerPosition;
 
         if (this.laddersMap.containsKey(partialPlayerPosition)) {
