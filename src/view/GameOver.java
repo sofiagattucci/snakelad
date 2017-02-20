@@ -2,6 +2,7 @@ package view;
 
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import utilities.Turn;
 import view.scenes.Menu;
 
 /**
@@ -25,7 +26,7 @@ public class GameOver extends BasicDialogBox {
      * @param winner
      *     The winner of the game.
      */
-    public GameOver(final Stage parentStage, final String winner) {
+    public GameOver(final Stage parentStage, final Turn winner) {
         super(parentStage);
         this.getBox().setTitle(GAME_OVER);
         this.getBox().setHeaderText(MESSAGE + winner + MESSAGE2);
