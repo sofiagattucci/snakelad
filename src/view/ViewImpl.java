@@ -2,6 +2,7 @@ package view;
 
 import controller.ViewObserver;
 import javafx.application.Application;
+import utilities.Turn;
 import view.scenes.Instructions;
 import view.scenes.Play;
 
@@ -20,7 +21,7 @@ public class ViewImpl implements View {
      *     The observer to link to this class
      */
     public ViewImpl(final ViewObserver obs) {
-        setObserver(obs);
+        this.setObserver(obs);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class ViewImpl implements View {
         return playScene;
     }
 
-    private static void setObserver(final ViewObserver obs) {
+    private void setObserver(final ViewObserver obs) {
         observer = obs;
     }
 
@@ -79,12 +80,12 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void updateInfo(final String nextTurn, final int newDiceValue, final int finalPosition) {
+    public void updateInfo(final Turn nextTurn, final int newDiceValue, final int finalPosition) {
         playScene.updateInfo(nextTurn, newDiceValue, finalPosition);
     }
 
     @Override
-    public void updateInfo(final String nextTurn, final int newDiceValue) {
+    public void updateInfo(final Turn nextTurn, final int newDiceValue) {
         playScene.updateInfo(nextTurn, newDiceValue);
     }
 } 

@@ -110,12 +110,8 @@ public final class Play extends BasicScene {
      * @param newDiceValue
      *     The new value of the dice
      */
-    public void updateInfo(final String nextTurn, final int newDiceValue) {
-        if (nextTurn.equals("Player")) {
-            this.nextTurn = Turn.PLAYER;
-        } else {
-            this.nextTurn = Turn.CPU;
-        }
+    public void updateInfo(final Turn nextTurn, final int newDiceValue) {
+        this.nextTurn = nextTurn;
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue);
     }
@@ -129,12 +125,8 @@ public final class Play extends BasicScene {
      * @param finalPosition
      *     The new position after a jump due to a snake/ladder
      */
-    public void updateInfo(final String nextTurn, final int newDiceValue, final int finalPosition) {
-        if (nextTurn.equals("Player")) {
-            this.nextTurn = Turn.PLAYER;
-        } else {
-            this.nextTurn = Turn.CPU;
-        }
+    public void updateInfo(final Turn nextTurn, final int newDiceValue, final int finalPosition) {
+        this.nextTurn = Turn.PLAYER;
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue, finalPosition);
     }
@@ -143,11 +135,11 @@ public final class Play extends BasicScene {
      * It handles the end of the game.
      */
     public void gameOver() {
-        final String winner;
+        final Turn winner;
         if (this.currentTurn == Turn.CPU) {
-            winner = "Player";
+            winner = Turn.PLAYER;
         } else {
-            winner = "CPU";
+            winner = Turn.CPU;
         }
         new GameOver(playStage, winner).show();
     }
