@@ -16,6 +16,8 @@ import view.GameBoard;
 import view.GameBoardImpl;
 import view.GameBoardTypes;
 import view.Pawn;
+import view.PawnImpl;
+import view.PawnTypes;
 import view.Toolbar;
 
 /**
@@ -37,6 +39,11 @@ public abstract class Play extends BasicScene {
 
         this.getDefaultLayout().setRight(this.toolbar.getBox());
         this.setBackground();
+        for (int i = 0; i < this.getTag(); i++) {
+            final Pawn newPawn = new PawnImpl(PawnTypes.get().getPawn(i));
+            this.getPawnList().add(newPawn);
+            this.getDefaultLayout().getChildren().add(newPawn.getPawn());
+        }
         this.getToolbar().putLabels(getTag());
     }
 
@@ -60,12 +67,12 @@ public abstract class Play extends BasicScene {
     }
 
     private void movePawn(final int nBoxes) {
-        this.pawnList.get(this.currentTurn % getTag()).movePawn(nBoxes);
+        this.pawnList.get(this.currentTurn % this.getTag()).movePawn(nBoxes);
         this.currentTurn++;
     }
 
     private void movePawn(final int nBoxes, final int finalPos) {
-        this.pawnList.get(this.currentTurn % getTag()).movePawnAndJump(nBoxes, finalPos);
+        this.pawnList.get(this.currentTurn % this.getTag()).movePawnAndJump(nBoxes, finalPos);
         this.currentTurn++;
     }
 
@@ -130,7 +137,7 @@ public abstract class Play extends BasicScene {
      *     The tool bar in the game screen
      */
     protected Toolbar getToolbar() {
-        return toolbar;
+        return this.toolbar;
     }
 
     /**
@@ -139,7 +146,7 @@ public abstract class Play extends BasicScene {
      *     The game board in the game screen
      */
     protected GameBoard getBoard() {
-        return board;
+        return this.board;
     }
 
     /**
@@ -148,7 +155,7 @@ public abstract class Play extends BasicScene {
      *     A list containing the pawns in the game screen
      */
     protected List<Pawn> getPawnList() {
-        return pawnList;
+        return this.pawnList;
     }
 
     /**

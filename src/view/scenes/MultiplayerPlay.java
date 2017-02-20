@@ -1,9 +1,6 @@
 package view.scenes;
 
 import javafx.stage.Stage;
-import view.Pawn;
-import view.PawnImpl;
-import view.PawnTypes;
 import view.Toolbar;
 import view.dialog_boxes.MultiGameOver;
 
@@ -19,16 +16,8 @@ public final class MultiplayerPlay extends Play {
 
     private MultiplayerPlay() {
         super();
-        for (int i = 0; i < N_PLAYERS; i++) {
-            final Pawn newPawn = new PawnImpl(PawnTypes.get().getPawn(i));
-            this.getPawnList().add(newPawn);
-            this.getDefaultLayout().getChildren().add(newPawn.getPawn());
-        }
     }
 
-    /**
-     * It handles the end of the game.
-     */
     @Override
     public void gameOver() {
         new MultiGameOver(playStage, this.getCurrentTurn()).show();
@@ -47,9 +36,6 @@ public final class MultiplayerPlay extends Play {
         return playScene;
     }
 
-    /**
-     * It manages the end of the turn, so it updates some informations.
-     */
     @Override
     public void endTurn() {
         this.getToolbar().changeTurn((this.getCurrentTurn() % N_PLAYERS));

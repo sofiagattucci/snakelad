@@ -26,9 +26,9 @@ public final class SetUpGame extends BasicScene {
         this.getDefaultLayout().setRight(this.multi);
 
         this.single.setOnAction(e -> {
-            //ViewImpl.setPlayScene(SinglePlayerPlay.getScene(setUpStage));
-            //ViewImpl.getObserver().play();
-            //setUpStage.setScene(SinglePlayerPlay.getScene(setUpStage));
+            ViewImpl.setPlayScene(SinglePlayerPlay.getScene(setUpStage));
+            ViewImpl.getObserver().play();
+            setUpStage.setScene(SinglePlayerPlay.getScene(setUpStage));
         });
 
         this.multi.setOnAction(e -> {
