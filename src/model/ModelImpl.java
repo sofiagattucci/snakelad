@@ -12,7 +12,7 @@ import java.util.Iterator;
  * This is the main class of the model in MVC pattern.
  * It represents the game overall, with all his entities and main features.
  */
-public class GameImpl implements Game {
+public class ModelImpl implements Model {
 
     private static final int PLAYER_INITIAL_POSITION = 0;
     private static final int FIRST_INDEX = 0;
@@ -30,7 +30,7 @@ public class GameImpl implements Game {
     /**
      * GameImpl constructor.
      */
-    public GameImpl() {
+    public ModelImpl() {
 
         this.snakesMap = new HashMap<>();
         this.laddersMap = new HashMap<>();

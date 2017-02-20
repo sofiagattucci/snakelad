@@ -1,7 +1,7 @@
 package controller;
 
-import model.Game;
-import model.GameImpl;
+import model.Model;
+import model.ModelImpl;
 import utilities.SceneryDataManager;
 import utilities.Turn;
 import utilities.InstructionsManager;
@@ -16,7 +16,7 @@ import view.ViewImpl;
  */
 public final class Controller implements ViewObserver {
 
-    private final Game game;
+    private final Model game;
     private final View view;
     private String turn;
     private static final Controller SINGLETON = new Controller();
@@ -29,7 +29,7 @@ public final class Controller implements ViewObserver {
      * Constructor.
      */
     private Controller() {
-        this.game = new GameImpl();
+        this.game = new ModelImpl();
         this.view = new ViewImpl(this);
         this.turn = Turn.PLAYER.toString();
     }

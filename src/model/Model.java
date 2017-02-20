@@ -8,7 +8,7 @@ import utilities.Pair;
  * It represents the model interface in MVC pattern, the interface of the game.
  * Defines the main methods of Model class.
  */
-public interface Game {
+public interface Model {
 
     /**
      * Starts the game, setting all needed in order to start it.
