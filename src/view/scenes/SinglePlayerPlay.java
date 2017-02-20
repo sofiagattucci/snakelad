@@ -19,6 +19,7 @@ public final class SinglePlayerPlay extends Play {
 
     private SinglePlayerPlay() {
         super();
+        this.getToolbar().setCPU();
     }
 
     @Override

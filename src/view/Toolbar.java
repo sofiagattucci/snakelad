@@ -23,7 +23,7 @@ public class Toolbar {
     private static final String PAUSE = "Pause";
     private static final String ROLL = "Roll";
     private static final String PLAYER = "Player";
-    //private static final String CPU = "CPU";
+    private static final String CPU = "CPU";
     private static final String BLACK_LABEL = "-fx-text-fill: black";
     private static final String YELLOW_LABEL = "-fx-text-fill: yellow";
     private static final String BOX_COLOR = "-fx-background-color: #336699;";
@@ -60,6 +60,7 @@ public class Toolbar {
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
         this.box.setStyle(BOX_COLOR);
 
+        this.gp.setTranslateX(ALIGN_GRID);
         this.diceImView.setTranslateX(ALIGN_DICE);
 
         this.roll.setPrefWidth(BUTTON_WIDTH);
@@ -87,7 +88,13 @@ public class Toolbar {
             this.pawnLabel.get(i).setFont(smallFont);
             this.gp.addRow(i, new PawnImpl(PawnTypes.get().getPawn(i)).getPawn(), this.pawnLabel.get(i));
         }
-        this.gp.setTranslateX(ALIGN_GRID);
+    }
+
+    /**
+     * It sets the CPU player in single player game mode.
+     */
+    public void setCPU() {
+        this.pawnLabel.get(1).setText(CPU);
     }
 
     /**
