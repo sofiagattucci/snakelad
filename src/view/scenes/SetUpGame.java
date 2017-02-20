@@ -32,8 +32,8 @@ public final class SetUpGame extends BasicScene {
         });
 
         this.multi.setOnAction(e -> {
-           // ViewImpl.setSinglePlayScene(MultiplayerPlay.getScene(setUpStage));
-           // ViewImpl.getObserver().play();
+            //ViewImpl.setSinglePlayScene(MultiplayerPlay.getScene(setUpStage));
+            //ViewImpl.getObserver().play();
             //setUpStage.setScene(MultiplayerPlay.getScene(setUpStage));
         });
     }

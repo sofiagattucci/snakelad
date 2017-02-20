@@ -1,6 +1,8 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import javafx.geometry.Insets;
@@ -21,7 +23,7 @@ public class Toolbar {
     private static final String PAUSE = "Pause";
     private static final String ROLL = "Roll";
     private static final String PLAYER = "Player";
-    private static final String CPU = "CPU";
+    //private static final String CPU = "CPU";
     private static final String BLACK_LABEL = "-fx-text-fill: black";
     private static final String YELLOW_LABEL = "-fx-text-fill: yellow";
     private static final String BOX_COLOR = "-fx-background-color: #336699;";
@@ -40,27 +42,31 @@ public class Toolbar {
 
     private final Button pause = new BasicButton(PAUSE);
     private final Button roll = new BasicButton(ROLL); 
-    private final Label player = new Label(PLAYER);
-    private final Label cpu = new Label(CPU);
     private final Font smallFont = new Font(SMALL_FONT_SIZE);
     private final Font bigFont = new Font(BIG_FONT_SIZE);
     private final GridPane gp = new GridPane();
     private final Dice dice = new DiceImpl();
     private final ImageView diceImView = new ImageView(dice.getDiceImage());
     private final VBox box = new VBox(gp, roll, diceImView, pause);
+    private final List<Label> pawnLabel = new ArrayList<>();
 
     /**
      * Constructor of the tool bar.
+     * @param nPlayers
+     *     The number of players of the game
      */
-    public Toolbar() {
+    public Toolbar(final int nPlayers) {
 
         this.box.setPrefWidth(BOX_WIDTH);
         this.box.setSpacing(BOX_SPACING);
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
         this.box.setStyle(BOX_COLOR);
 
-        this.gp.addRow(0, new PawnImpl(PawnTypes.get().getPawn(0)).getPawn(), player);
-        this.gp.addRow(1, new PawnImpl(PawnTypes.get().getPawn(1)).getPawn(), cpu);
+        for (int i = 0; i < nPlayers; i++) {
+            this.pawnLabel.add(new Label(PLAYER + (i + 1)));
+            this.pawnLabel.get(i).setFont(smallFont);
+            this.gp.addRow(i, new PawnImpl(PawnTypes.get().getPawn(i)).getPawn(), this.pawnLabel.get(i));
+        }
         this.gp.setTranslateX(ALIGN_GRID);
 
         this.diceImView.setTranslateX(ALIGN_DICE);
@@ -86,14 +92,12 @@ public class Toolbar {
      */
     public void changeTurn(final int newTurn) {
 
-        if (newTurn == 1) {
-            this.player.setFont(smallFont);
-            this.cpu.setFont(bigFont);
-            this.cpu.setStyle(YELLOW_LABEL);
-            this.player.setStyle(BLACK_LABEL);
-        } else {
-            this.resetTurn();
+        for (final Label l: pawnLabel) {
+            l.setFont(smallFont);
+            l.setStyle(BLACK_LABEL);
         }
+        this.pawnLabel.get(newTurn).setFont(bigFont);
+        this.pawnLabel.get(newTurn).setStyle(YELLOW_LABEL);
     }
 
     /**
@@ -106,10 +110,12 @@ public class Toolbar {
     }
 
     private void resetTurn() {
-        this.player.setFont(bigFont);
-        this.cpu.setFont(smallFont);
-        this.player.setStyle(YELLOW_LABEL);
-        this.cpu.setStyle(BLACK_LABEL);
+        for (final Label l: pawnLabel) {
+            l.setFont(smallFont);
+            l.setStyle(BLACK_LABEL);
+        }
+        this.pawnLabel.get(0).setFont(bigFont);
+        this.pawnLabel.get(0).setStyle(YELLOW_LABEL);
     }
 
     /**

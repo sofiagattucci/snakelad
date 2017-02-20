@@ -27,7 +27,7 @@ public abstract class Play extends BasicScene {
 
     protected static Stage playStage;
 
-    protected final Toolbar toolbar = new Toolbar();
+    protected final Toolbar toolbar = new Toolbar(3);
     protected final GameBoard board = new GameBoardImpl(BOARD_PATH);
     protected final List<Pawn> pawnList = new ArrayList<>();
 

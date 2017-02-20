@@ -37,7 +37,7 @@ public final class SinglePlayerPlay extends BasicScene {
 
     private int currentTurn;
     private final List<Pawn> pawnList = new ArrayList<>();
-    private final Toolbar toolbar = new Toolbar();
+    private final Toolbar toolbar = new Toolbar(N_PLAYERS);
     private final GameBoard board = new GameBoardImpl(BOARD_PATH);
 
     private SinglePlayerPlay() {
