@@ -9,13 +9,18 @@ import view.dialog_boxes.MultiPlayerGameOver;
  */
 public final class MultiPlayerGame extends Game {
 
-    private static final int N_PLAYERS = 2;
+    private final int numPlayers;
+    //private static Game playScene = new MultiPlayerGame();
+    private Stage playStage;
 
-    private static Game playScene = new MultiPlayerGame();
-    private static Stage playStage;
-
-    private MultiPlayerGame() {
+    /**
+     * Constructor of this class.
+     * @param n
+     *     The number of players in the game
+     */
+    public MultiPlayerGame(final int n) {
         super();
+        this.numPlayers = n;
     }
 
     @Override
@@ -30,21 +35,20 @@ public final class MultiPlayerGame extends Game {
      * @return
      *     The game scene
      */
-    public static Game getScene(final Stage stage) {
-        playStage = stage;
+    public Game getScene(final Stage stage) {
+        this.playStage = stage;
         Toolbar.setStage(stage);
-        return playScene;
+        return MultiPlayerScenes.get().getScene(this.numPlayers);
     }
 
     @Override
     public void endTurn() {
-        this.getToolbar().changeTurn((this.getCurrentTurn() % N_PLAYERS));
+        this.getToolbar().changeTurn((this.getCurrentTurn() % numPlayers));
         this.getToolbar().endTurn();
     }
 
     @Override
     public int getTag() {
-        return N_PLAYERS;
+        return SetUpGame.getPlayers();
     }
-
 }

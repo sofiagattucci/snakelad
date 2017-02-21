@@ -29,6 +29,7 @@ public final class SetUpGame extends BasicScene {
 
     private static Stage setUpStage;
     private static SetUpGame setUpScene = new SetUpGame();
+    private static int numPlayers;
 
     private final Button single = new BasicButton(SINGLE);
     private final Button multi = new BasicButton(MULTI);
@@ -55,9 +56,11 @@ public final class SetUpGame extends BasicScene {
 
         for (final Button b: nPlayer) {
             b.setOnAction(e -> {
-                ViewImpl.setPlayScene(MultiPlayerGame.getScene(setUpStage));
+                setNumPlayers(Integer.valueOf(b.getText()));
+                MultiPlayerScenes.get().insert(numPlayers);
+                ViewImpl.setPlayScene(MultiPlayerScenes.get().getScene(numPlayers));
                 ViewImpl.getObserver().play();
-                setUpStage.setScene(MultiPlayerGame.getScene(setUpStage));
+                setUpStage.setScene(MultiPlayerScenes.get().getScene(numPlayers));
             });
             this.chooseNumber.getChildren().add(b);
         }
@@ -77,6 +80,10 @@ public final class SetUpGame extends BasicScene {
         this.reset();
     }
 
+    private static void setNumPlayers(final int n) {
+        numPlayers = n;
+    }
+
     private void reset() {
         this.chooseNumber.setVisible(false);
     }
@@ -92,5 +99,14 @@ public final class SetUpGame extends BasicScene {
         setUpStage = stage;
         Toolbar.setStage(stage);
         return setUpScene;
+    }
+
+    /**
+     * getter of the number of players in the game.
+     * @return
+     *     The number of players in the game
+     */
+    public static int getPlayers() {
+        return numPlayers;
     }
 }
