@@ -24,4 +24,28 @@ public class GameSettings {
         this.dice = dice;
     }
 
+    /**
+     * Getter for number of players.
+     * @return the number of players
+     */
+    public int getNumberOfPlayer() {
+        return this.numberOfPlayers;
+    }
+
+    /**
+     * Getter for scenery choose.
+     * @return the scenery choose
+     */
+    public int getScenery() {
+        return this.scenery;
+    }
+
+    /**
+     * Getter for dice choose.
+     * @return the dice choose.
+     */
+    public int getDice() {
+        return this.dice;
+    }
+
 }

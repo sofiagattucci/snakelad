@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Optional;
+
 import model.Model;
 import model.ModelImpl;
 import utilities.SceneryDataManager;
@@ -19,6 +21,7 @@ public final class Controller implements ViewObserver {
     private final Model game;
     private final View view;
     private String turn;
+    private Optional<GameSettings> settings;
     private static final Controller SINGLETON = new Controller();
     private static final String INSTRUCTIONS = "./res/Instructions.txt";
     private static final String DATA = "./res/GameBoards/GameBoard1/file.txt";
@@ -32,6 +35,7 @@ public final class Controller implements ViewObserver {
         this.game = new ModelImpl();
         this.view = new ViewImpl(this);
         this.turn = Turn.PLAYER.toString();
+        this.settings = Optional.empty();
     }
 
     /**
@@ -83,11 +87,11 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void play(final int numberOfPlayers, final int scenery, final int dice) {
-        final GameSettings settings = new GameSettingsBuilder()
+        this.settings = Optional.of(new GameSettingsBuilder()
                 .numOfPlayers(numberOfPlayers)
                 .sceneryChoose(scenery)
                 .diceChoose(dice)
-                .build();
+                .build());
         this.game.startGame(SceneryDataManager.get().readFromFile(DATA));
         this.turn = Turn.PLAYER.toString();
         this.view.firstTurn();
