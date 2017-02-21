@@ -23,16 +23,19 @@ public final class SetUpGame extends BasicScene {
     private static final String MULTI = "Multiplayer";
     private static final String BACK = "Back";
     private static final String START = "Start";
-    private static final String HOW_MANY = "How many players:";
+    private static final String HOW_MANY = "How many players: ";
+    private static final String SCENARY_LABEL = "Select the game board to use: ";
+    private static final String BOARD1 = "Board1";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 5;
     private static final int FONT = 20;
-    private static final int SCENARY = 1;
+
     private static final int DICE = 1;
 
     private static Stage setUpStage;
     private static SetUpGame setUpScene = new SetUpGame();
     private static int numPlayers;
+    private static int boardType;
 
     private final Button single = new BasicButton(SINGLE);
     private final Button multi = new BasicButton(MULTI);
@@ -42,7 +45,10 @@ public final class SetUpGame extends BasicScene {
     private final List<Button> nPlayer = new ArrayList<>();
     private final Label howMany = new Label(HOW_MANY);
     private final HBox chooseNumber = new HBox(howMany);
-    private final VBox box = new VBox(modes, chooseNumber, start);
+    private final Label scenaryLabel = new Label(SCENARY_LABEL);
+    private final Button board1 = new Button(BOARD1);
+    private final HBox scenaryChoose = new HBox(scenaryLabel, board1);
+    private final VBox box = new VBox(modes, chooseNumber, scenaryChoose, start);
     private boolean singleGameMode;
 
     private SetUpGame() {
@@ -52,8 +58,10 @@ public final class SetUpGame extends BasicScene {
         this.box.setSpacing(BOX_SPACING);
         this.modes.setAlignment(Pos.CENTER);
         this.chooseNumber.setAlignment(Pos.CENTER);
+        this.scenaryChoose.setAlignment(Pos.CENTER);
 
         this.howMany.setFont(new Font(FONT));
+        this.scenaryLabel.setFont(new Font(FONT));
 
         for (int i = 2; i <= MAX_PLAYERS; i++) {
             this.nPlayer.add(new Button(String.valueOf(i)));
@@ -67,7 +75,7 @@ public final class SetUpGame extends BasicScene {
                 b.setDisable(true);
                 this.setMode(false);
                 setNumPlayers(Integer.valueOf(b.getText()));
-                this.start.setVisible(true);
+                this.scenaryChoose.setVisible(true);
             });
             this.chooseNumber.getChildren().add(b);
         }
@@ -75,32 +83,40 @@ public final class SetUpGame extends BasicScene {
         this.single.setOnAction(e -> {
             this.single.setDisable(true);
             this.multi.setDisable(false);
+            this.start.setVisible(false);
             for (final Button b: nPlayer) {
                 b.setDisable(false);
             }
             this.chooseNumber.setVisible(false);
             this.setMode(true);
-            this.start.setVisible(true);
+            this.scenaryChoose.setVisible(true);
         });
 
         this.multi.setOnAction(e -> {
             this.multi.setDisable(true);
             this.single.setDisable(false);
+            this.scenaryChoose.setVisible(false);
             this.start.setVisible(false);
             this.chooseNumber.setVisible(true);
         });
         this.back.setOnAction(e -> {
             setUpStage.setScene(Menu.getScene(setUpStage));
         });
+
+        this.board1.setOnAction(e -> {
+            boardType = 1;
+            this.start.setVisible(true);
+        });
+
         this.start.setOnAction(e -> {
             if (singleGameMode) {
                 ViewImpl.setPlayScene(SinglePlayerGame.getScene(setUpStage));
-                ViewImpl.getObserver().play(numPlayers, SCENARY, DICE);
+                ViewImpl.getObserver().play(numPlayers, boardType, DICE);
                 setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
             } else {
                 MultiPlayerScenes.get().insert(numPlayers);
                 ViewImpl.setPlayScene(MultiPlayerScenes.get().getScene(numPlayers));
-                ViewImpl.getObserver().play(numPlayers, SCENARY, DICE);
+                ViewImpl.getObserver().play(numPlayers, boardType, DICE);
                 setUpStage.setScene(MultiPlayerScenes.get().getScene(numPlayers));
             }
         });
@@ -126,6 +142,7 @@ public final class SetUpGame extends BasicScene {
         for (final Button b: nPlayer) {
             b.setDisable(false);
         }
+        this.scenaryChoose.setVisible(false);
     }
 
     /**
@@ -148,5 +165,14 @@ public final class SetUpGame extends BasicScene {
      */
     public static int getPlayers() {
         return numPlayers;
+    }
+
+    /**
+     * Getter of the board selected for this game.
+     * @return
+     *     The selected board 
+     */
+    public static int getBoardType() {
+        return boardType;
     }
 }

@@ -25,7 +25,7 @@ import view.pawns.PawnTypes;
  */
 public abstract class Game extends BasicScene { 
 
-    private static final String BOARD_PATH = GameBoardTypes.get().getBoard(1);
+    private static final String BOARD_PATH = GameBoardTypes.get().getBoard(SetUpGame.getBoardType());
 
     private final Toolbar toolbar = new Toolbar();
     private final GameBoard board = new GameBoardImpl(BOARD_PATH);
