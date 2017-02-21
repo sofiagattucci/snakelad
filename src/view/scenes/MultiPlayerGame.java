@@ -10,7 +10,6 @@ import view.dialog_boxes.MultiPlayerGameOver;
 public final class MultiPlayerGame extends Game {
 
     private final int numPlayers;
-    //private static Game playScene = new MultiPlayerGame();
     private Stage playStage;
 
     /**

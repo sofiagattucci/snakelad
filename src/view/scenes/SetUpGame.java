@@ -22,10 +22,13 @@ public final class SetUpGame extends BasicScene {
     private static final String SINGLE = "Single player";
     private static final String MULTI = "Multiplayer";
     private static final String BACK = "Back";
+    private static final String START = "Start";
     private static final String HOW_MANY = "How many players:";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 5;
     private static final int FONT = 20;
+    private static final int SCENARY = 1;
+    private static final int DICE = 1;
 
     private static Stage setUpStage;
     private static SetUpGame setUpScene = new SetUpGame();
@@ -34,11 +37,13 @@ public final class SetUpGame extends BasicScene {
     private final Button single = new BasicButton(SINGLE);
     private final Button multi = new BasicButton(MULTI);
     private final Button back = new BasicButton(BACK);
+    private final Button start = new BasicButton(START);
     private final HBox modes = new HBox(single, multi, back);
     private final List<Button> nPlayer = new ArrayList<>();
     private final Label howMany = new Label(HOW_MANY);
     private final HBox chooseNumber = new HBox(howMany);
-    private final VBox box = new VBox(modes, chooseNumber);
+    private final VBox box = new VBox(modes, chooseNumber, start);
+    private boolean singleGameMode;
 
     private SetUpGame() {
 
@@ -56,36 +61,71 @@ public final class SetUpGame extends BasicScene {
 
         for (final Button b: nPlayer) {
             b.setOnAction(e -> {
+                for (final Button elem: nPlayer) {
+                    elem.setDisable(false);
+                }
+                b.setDisable(true);
+                this.setMode(false);
                 setNumPlayers(Integer.valueOf(b.getText()));
-                MultiPlayerScenes.get().insert(numPlayers);
-                ViewImpl.setPlayScene(MultiPlayerScenes.get().getScene(numPlayers));
-                ViewImpl.getObserver().play();
-                setUpStage.setScene(MultiPlayerScenes.get().getScene(numPlayers));
+                this.start.setVisible(true);
             });
             this.chooseNumber.getChildren().add(b);
         }
 
         this.single.setOnAction(e -> {
-            this.reset();
-            ViewImpl.setPlayScene(SinglePlayerGame.getScene(setUpStage));
-            ViewImpl.getObserver().play();
-            setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
+            this.single.setDisable(true);
+            this.multi.setDisable(false);
+            for (final Button b: nPlayer) {
+                b.setDisable(false);
+            }
+            this.chooseNumber.setVisible(false);
+            this.setMode(true);
+            this.start.setVisible(true);
         });
 
-        this.multi.setOnAction(e -> this.chooseNumber.setVisible(true));
+        this.multi.setOnAction(e -> {
+            this.multi.setDisable(true);
+            this.single.setDisable(false);
+            this.start.setVisible(false);
+            this.chooseNumber.setVisible(true);
+        });
         this.back.setOnAction(e -> {
-            this.reset();
             setUpStage.setScene(Menu.getScene(setUpStage));
         });
+        this.start.setOnAction(e -> {
+            if (singleGameMode) {
+                ViewImpl.setPlayScene(SinglePlayerGame.getScene(setUpStage));
+                ViewImpl.getObserver().play(numPlayers, SCENARY, DICE);
+                setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
+            } else {
+                MultiPlayerScenes.get().insert(numPlayers);
+                ViewImpl.setPlayScene(MultiPlayerScenes.get().getScene(numPlayers));
+                ViewImpl.getObserver().play(numPlayers, SCENARY, DICE);
+                setUpStage.setScene(MultiPlayerScenes.get().getScene(numPlayers));
+            }
+        });
         this.reset();
+    }
+
+    private void setMode(final boolean b) {
+        this.singleGameMode = b;
     }
 
     private static void setNumPlayers(final int n) {
         numPlayers = n;
     }
 
-    private void reset() {
+    /**
+     * It resets the settings scene.
+     */
+    public void reset() {
         this.chooseNumber.setVisible(false);
+        this.start.setVisible(false);
+        this.single.setDisable(false);
+        this.multi.setDisable(false);
+        for (final Button b: nPlayer) {
+            b.setDisable(false);
+        }
     }
 
     /**
