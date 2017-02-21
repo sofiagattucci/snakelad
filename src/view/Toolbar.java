@@ -97,7 +97,7 @@ public class Toolbar {
      * It sets the CPU player in single player game mode.
      */
     public void setCPU() {
-        this.pawnLabel.get(SinglePlayerGame.getPlayerIndex()).setText(CPU);
+        this.pawnLabel.get(SinglePlayerGame.getCPUIndex()).setText(CPU);
     }
 
     /**

@@ -11,7 +11,8 @@ import view.dialog_boxes.SinglePlayerGameOver;
  */
 public final class SinglePlayerGame extends Game {
 
-    private static final int PLAYER_INDEX = 0; //So CPU_INDEX will be 1...
+    private static final int PLAYER_INDEX = 0;
+    private static final int CPU_INDEX = 1;
     private static final int N_PLAYERS = 2;
 
     private static SinglePlayerGame playScene = new SinglePlayerGame();
@@ -68,8 +69,8 @@ public final class SinglePlayerGame extends Game {
      * @return
      *     The player index
      */
-    public static int getPlayerIndex() {
-        return PLAYER_INDEX;
+    public static int getCPUIndex() {
+        return CPU_INDEX;
     }
 
 }
