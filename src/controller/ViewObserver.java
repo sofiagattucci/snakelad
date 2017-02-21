@@ -29,8 +29,14 @@ public interface ViewObserver {
 
     /**
      * Start new game.
+     * @param numberOfPlayers
+     *          the number of player
+     * @param scenery
+     *          the scenery choose
+     * @param dice
+     *          the type of dice choose
      */
-    void play();
+    void play(int numberOfPlayers, int scenery, int dice);
 
     /**
      * Give up the game.

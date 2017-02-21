@@ -19,9 +19,6 @@ public final class Controller implements ViewObserver {
     private final Model game;
     private final View view;
     private String turn;
-    private int numberOfPlayers;
-    private int scenery;
-    private int dice;
     private static final Controller SINGLETON = new Controller();
     private static final String INSTRUCTIONS = "./res/Instructions.txt";
     private static final String DATA = "./res/GameBoards/GameBoard1/file.txt";
@@ -43,60 +40,6 @@ public final class Controller implements ViewObserver {
      */
     public static Controller getController() {
         return SINGLETON;
-    }
-
-    /**
-     * Nested class Builder for use Builder pattern.
-     *
-     */
-    public static class Builder {
-        private int numberOfPlayers;
-        private int scenery;
-        private int dice;
-
-        /**
-         * Set number of player.
-         * @param nOfPlayers
-         *              the number of players
-         * @return the Builder
-         */
-        public Builder numOfPlayers(final int nOfPlayers) {
-            this.numberOfPlayers = nOfPlayers;
-            return this;
-        }
-
-        /**
-         * Set the scenery choose.
-         * @param scenery
-         *              the scenery to use
-         * @return the Builder
-         */
-        public Builder sceneryChoose(final int scenery) {
-            this.scenery = scenery;
-            return this;
-        }
-
-        /**
-         * Set the type of dice choose.
-         * @param dice
-         *              the type of dice choose
-         * @return the Builder
-         */
-        public Builder diceChoose(final int dice) {
-            this.dice = dice;
-            return this;
-        }
-
-        /**
-         * Build the Controller.
-         * @return an instance of Controller
-         */
-        public Controller build() {
-            SINGLETON.numberOfPlayers = this.numberOfPlayers;
-            SINGLETON.scenery = this.scenery;
-            SINGLETON.dice = this.dice;
-            return SINGLETON;
-        }
     }
 
     @Override
@@ -139,7 +82,12 @@ public final class Controller implements ViewObserver {
     }
 
     @Override
-    public void play() {
+    public void play(final int numberOfPlayers, final int scenery, final int dice) {
+        final GameSettings settings = new GameSettingsBuilder()
+                .numOfPlayers(numberOfPlayers)
+                .sceneryChoose(scenery)
+                .diceChoose(dice)
+                .build();
         this.game.startGame(SceneryDataManager.get().readFromFile(DATA));
         this.turn = Turn.PLAYER.toString();
         this.view.firstTurn();
