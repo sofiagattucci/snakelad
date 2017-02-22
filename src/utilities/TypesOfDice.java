@@ -6,7 +6,7 @@ package utilities;
 public enum TypesOfDice {
 
     /**
-     * Type of dice is the classic.
+     * Type which represents a classic dice with 6 sides.
      */
     CLASSIC_DICE;
 }

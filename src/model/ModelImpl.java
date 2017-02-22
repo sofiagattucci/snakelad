@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import utilities.TypesOfDice;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,48 +23,13 @@ public final class ModelImpl implements Model {
     private static final int SEPARATOR = 0;
 
     //the number of cells in the game board
-    private final int numberOfCells;
+    private int numberOfCells;
     //map which contains positions of all snakes in the game board
     private final Map<Integer, Integer> snakesMap = new HashMap<>();
     //map which contains positions of all ladders in the game board
     private final Map<Integer, Integer> laddersMap = new HashMap<>();
     private final List<Player> playersList = new LinkedList<>();
-    private final Dice dice;
-
-    /**
-     * ModelImpl constructor which sets everything needed in order to start the game.
-     * @param data
-     *          The list that contains the data (snakes and ladders positions, 
-     *          number of cells on the game board) useful to start the game.
-     * @param numberOfPlayers
-     *          Number of players who want to play the game.
-     * @param dice
-     *          The dice which players want to play with.
-     */
-    public ModelImpl(final List<Integer> data, final int numberOfPlayers, final Dice dice) {
-
-        final List<Integer> dataList = data;
-
-        //get the first number from dataList. It represents the number of cells in the scenery
-        this.numberOfCells = dataList.get(0);
-
-        //remove the first two elements in dataList
-        dataList.remove(0);
-        dataList.remove(0);
-
-        //fill snakesMap with snakes positions
-        this.snakesMap.putAll(this.fillMap(this.fillSnakesMap(dataList)));
-
-        //fill laddersMap with ladders positions
-        this.laddersMap.putAll(this.fillMap(this.fillLaddersMap(dataList)));
-
-        //fill playersList with the exact number of players playing the game and set their initial positions
-        this.playersList.addAll(IntStream.range(0, numberOfPlayers)
-                                         .mapToObj(value -> new Player())
-                                         .peek(player -> player.setNewPosition(PLAYER_INITIAL_POSITION))
-                                         .collect(Collectors.toList()));
-        this.dice = dice;
-    }
+    private Dice dice;
 
     private Map<Integer, Integer> fillMap(final List<Integer> list) {
         final Iterator<Integer> iterator = list.iterator();
@@ -122,6 +90,38 @@ public final class ModelImpl implements Model {
         //the specified player don't achieve neither a snake or a ladder
         this.playerPositionUtils(playerIndex, partialPlayerPosition);
         return Optional.empty();
+    }
+
+    @Override
+    public void startGame(final List<Integer> data, final int numberOfPlayers, final TypesOfDice dice) {
+
+        final List<Integer> dataList = data;
+
+        //get the first number from dataList. It represents the number of cells in the scenery
+        this.numberOfCells = dataList.get(0);
+
+        //remove the first two elements in dataList
+        dataList.remove(0);
+        dataList.remove(0);
+
+        //fill snakesMap with snakes positions
+        this.snakesMap.putAll(this.fillMap(this.fillSnakesMap(dataList)));
+
+        //fill laddersMap with ladders positions
+        this.laddersMap.putAll(this.fillMap(this.fillLaddersMap(dataList)));
+
+        //fill playersList with the exact number of players playing the game and set their initial positions
+        this.playersList.addAll(IntStream.range(0, numberOfPlayers)
+                                         .mapToObj(value -> new Player())
+                                         .peek(player -> player.setNewPosition(PLAYER_INITIAL_POSITION))
+                                         .collect(Collectors.toList()));
+        switch (dice) {
+        case CLASSIC_DICE:
+            this.dice = ClassicDice.get();
+            break;
+        default:
+            break;
+        }
     }
 
     @Override

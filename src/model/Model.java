@@ -1,6 +1,9 @@
 package model;
 
+import java.util.List;
 import java.util.Optional;
+
+import utilities.TypesOfDice;
 
 /**
  * It represents the interface for the model in MVC pattern.
@@ -13,6 +16,18 @@ public interface Model {
      * @return the number released by the dice's roll.
      */
     int getNumberFromDice();
+
+    /**
+     * Sets everything needed in order to start the game.
+     * @param data
+     *          The list that contains the data (snakes and ladders positions, 
+     *          number of cells on the game board) useful to start the game.
+     * @param numberOfPlayers
+     *          Number of players who want to play the game.
+     * @param dice
+     *          The dice which players want to play with.
+     */
+    void startGame(List<Integer> data, int numberOfPlayers, TypesOfDice dice);
 
     /**
      * Returns an Optional<Integer> which represents the movement of the required player.
