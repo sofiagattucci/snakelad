@@ -22,7 +22,7 @@ public final class Settings extends BasicScene {
     private static final String BACK = "Back";
     private static final String PAWN_COLOR = "Change pawns' color";
     private static final String LANGUAGE_MSG = "Change language: ";
-    private static final String DEFAULT_LANGUAGE = Language.ENG.name();
+    private static final String DEFAULT_LANGUAGE = Language.EN.name();
     private static final int TITLE_FONT = 60;
     private static final int FONT = 20;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;

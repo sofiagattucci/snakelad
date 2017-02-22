@@ -6,8 +6,8 @@ import model.Model;
 import model.ModelImpl;
 import utilities.SceneryDataManager;
 import utilities.Turn;
+import utilities.TypesOfDice;
 import utilities.InstructionsManager;
-import utilities.Pair;
 import view.View;
 import view.ViewImpl;
 
@@ -50,21 +50,13 @@ public final class Controller implements ViewObserver {
     public void rollDice() {
         changeTurn();
         final int value = this.game.getNumberFromDice();
-
+        final Optional<Integer> position;
         if (this.turn.equals(Turn.PLAYER.toString())) {
-            final Pair<Integer, Boolean> pair = this.game.getPlayerPosition(PLAYER_INDEX);
-            if (pair.getSecond()) {
-                this.view.updateInfo(Turn.PLAYER, value, pair.getFirst());
-            } else {
-                this.view.updateInfo(Turn.PLAYER, value);
-            }
+            position = this.game.getPlayerPosition(PLAYER_INDEX);
+            this.view.updateInfo(Turn.PLAYER, value, position);
         } else {
-            final Pair<Integer, Boolean> pair = this.game.getPlayerPosition(CPU_INDEX);
-            if (pair.getSecond()) {
-                this.view.updateInfo(Turn.CPU, value, pair.getFirst());
-            } else {
-                this.view.updateInfo(Turn.CPU, value);
-            }
+            position = this.game.getPlayerPosition(CPU_INDEX);
+            this.view.updateInfo(Turn.CPU, value, position);
         }
     }
 
@@ -92,7 +84,7 @@ public final class Controller implements ViewObserver {
                 .sceneryChoose(scenery)
                 .diceChoose(dice)
                 .build());
-        this.game.startGame(SceneryDataManager.get().readFromFile(DATA));
+        this.game.startGame(SceneryDataManager.get().readFromFile(DATA), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
         this.turn = Turn.PLAYER.toString();
         this.view.firstTurn();
     }
