@@ -24,20 +24,23 @@ public final class MultiPlayerGame extends Game {
 
     @Override
     public void gameOver() {
-        new MultiPlayerGameOver(playStage, this.getCurrentTurn()).show();
+        int winner;
+        if (this.getCurrentTurn() % this.numPlayers == 0) {
+            winner = numPlayers;
+        } else {
+            winner = this.getCurrentTurn() % numPlayers;
+        }
+        new MultiPlayerGameOver(playStage, winner).show();
     }
 
     /**
      * Getter of the scene.
      * @param stage
      *     The stage that will be linked to the one of this class
-     * @return
-     *     The game scene
      */
-    public Game getScene(final Stage stage) {
+    public void setStage(final Stage stage) {
         this.playStage = stage;
         Toolbar.setStage(stage);
-        return MultiPlayerScenes.get().getScene(this.numPlayers);
     }
 
     @Override
