@@ -29,7 +29,7 @@ public final class SetUpGame extends BasicScene {
     private static final String DICE_LABEL = "Select the dice to use: ";
     private static final String TITLE = "Custom your game:";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
-    private static final int MAX_PLAYERS = 5;
+    private static final int MAX_PLAYERS = 4;
     private static final int NUM_SCENARY = 1;
     private static final int NUM_DICE = 1;
     private static final int FONT = 20;
