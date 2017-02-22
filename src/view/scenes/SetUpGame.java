@@ -91,6 +91,7 @@ public final class SetUpGame extends BasicScene {
 
         this.single.setOnAction(e -> {
             this.setMode(true);
+            setNumPlayers(2);
             this.single.setDisable(true);
             this.multi.setDisable(false);
             for (final Button b: boardList) {

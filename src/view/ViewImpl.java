@@ -2,7 +2,6 @@ package view;
 
 import controller.ViewObserver;
 import javafx.application.Application;
-import utilities.Turn;
 import view.scenes.Instructions;
 import view.scenes.Game;
 import view.scenes.SetUpGame;
@@ -100,13 +99,13 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void updateInfo(final Turn nextTurn, final int newDiceValue, final int finalPosition) {
-        playScene.updateInfo(nextTurn, newDiceValue, finalPosition);
+    public void updateInfo(final int newDiceValue, final int finalPosition) {
+        playScene.updateInfo(newDiceValue, finalPosition);
     }
 
     @Override
-    public void updateInfo(final Turn nextTurn, final int newDiceValue) {
-        playScene.updateInfo(nextTurn, newDiceValue);
+    public void updateInfo(final int newDiceValue) {
+        playScene.updateInfo(newDiceValue);
     }
 } 
 

@@ -10,7 +10,6 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import utilities.ImageManager;
-import utilities.Turn;
 import view.Dimension;
 import view.Toolbar;
 import view.game_board.GameBoard;
@@ -90,26 +89,22 @@ public abstract class Game extends BasicScene {
 
     /**
      * It updates the game screen each turn.
-     * @param nextTurn
-     *     the next turn
      * @param newDiceValue
      *     The new value of the dice
      */
-    public void updateInfo(final Turn nextTurn, final int newDiceValue) {
+    public void updateInfo(final int newDiceValue) {
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue);
     }
 
     /**
      * It updates the game screen each turn.
-     * @param nextTurn
-     *     the next turn
      * @param newDiceValue
      *     The new value of the dice
      * @param finalPosition
      *     The new position after a jump due to a snake/ladder
      */
-    public void updateInfo(final Turn nextTurn, final int newDiceValue, final int finalPosition) {
+    public void updateInfo(final int newDiceValue, final int finalPosition) {
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue, finalPosition);
     }
