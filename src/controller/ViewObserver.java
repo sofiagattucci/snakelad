@@ -1,5 +1,7 @@
 package controller;
 
+import utilities.Language;
+
 /**
  *Interface of Controller.
  *
@@ -11,11 +13,6 @@ public interface ViewObserver {
      * Set the value of dice.
      */
     void rollDice();
-
-    /**
-     * Get Text file of instruction.
-     */
-    void getInstructions();
 
     /**
      * Quit game.
@@ -42,5 +39,12 @@ public interface ViewObserver {
      * Give up the game.
      */
     void giveUp();
+
+    /**
+     * Set the language of game.
+     * @param language
+     *          the language setting
+     */
+    void setLanguage(Language language);
 
 }

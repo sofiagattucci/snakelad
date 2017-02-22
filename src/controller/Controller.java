@@ -7,7 +7,8 @@ import model.ModelImpl;
 import utilities.SceneryDataManager;
 import utilities.Turn;
 import utilities.TypesOfDice;
-import utilities.InstructionsManager;
+import utilities.LanguagesManager;
+import utilities.Language;
 import view.View;
 import view.ViewImpl;
 
@@ -24,7 +25,6 @@ public final class Controller implements ViewObserver {
     private int counter;
     private Optional<GameSettings> settings;
     private static final Controller SINGLETON = new Controller();
-    private static final String INSTRUCTIONS = "./res/Instructions.txt";
     private static final String DATA = "./res/GameBoards/GameBoard1/file.txt";
 
     /**
@@ -50,31 +50,17 @@ public final class Controller implements ViewObserver {
     public void rollDice() {
         final int value = this.game.getNumberFromDice();
         final Optional<Integer> position;
-        if (this.turn.equals(Turn.PLAYER.toString())) {
-            position = this.game.getPlayerPosition(counter);
-            if (position.isPresent()) {
-                this.view.updateInfo(value, position.get());
-            } else { 
-                this.view.updateInfo(value);
-            }
+        position = this.game.getPlayerPosition(counter);
+        if (position.isPresent()) {
+            this.view.updateInfo(value, position.get());
         } else {
-            position = this.game.getPlayerPosition(counter);
-            if (position.isPresent()) {
-                this.view.updateInfo(value, position.get());
-            } else {
-                this.view.updateInfo(value);
-            }
+            this.view.updateInfo(value);
         }
-        if (this.counter % this.settings.get().getNumberOfPlayer() != 1) {
+        if (this.counter % this.settings.get().getNumberOfPlayer() != 0) {
             this.counter++;
         }  else {
             this.counter = 0;
         }
-    }
-
-    @Override
-    public void getInstructions() {
-        this.view.setInstructions(InstructionsManager.get().readFromFile(INSTRUCTIONS));
     }
 
     @Override
@@ -112,5 +98,10 @@ public final class Controller implements ViewObserver {
      */
     public void start() {
         this.view.start();
+    }
+
+    @Override
+    public void setLanguage(final Language language) {
+        LanguagesManager.get().getLanguage(language); 
     }
 }
