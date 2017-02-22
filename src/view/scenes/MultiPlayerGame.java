@@ -43,7 +43,7 @@ public final class MultiPlayerGame extends Game {
     public Game getScene(final Stage stage) {
         this.playStage = stage;
         Toolbar.setStage(stage);
-        return MultiPlayerScenes.get().getScene(this.numPlayers);
+        return MultiPlayerScenes.get(playStage).getScene(this.numPlayers);
     }
 
     @Override

@@ -168,10 +168,10 @@ public final class SetUpGame extends BasicScene {
                 ViewImpl.getObserver().play(numPlayers, boardType, diceType);
                 setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
             } else {
-                MultiPlayerScenes.get().insert(numPlayers);
-                ViewImpl.setPlayScene(MultiPlayerScenes.get().getScene(numPlayers));
+                MultiPlayerScenes.get(setUpStage).insert(numPlayers);
+                ViewImpl.setPlayScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
                 ViewImpl.getObserver().play(numPlayers, boardType, diceType);
-                setUpStage.setScene(MultiPlayerScenes.get().getScene(numPlayers));
+                setUpStage.setScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
             }
         });
         this.reset();
