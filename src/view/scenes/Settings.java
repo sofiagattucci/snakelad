@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import utilities.Language;
 import view.BasicButton;
 import view.Dimension;
+import view.ViewImpl;
 
 /**
  * It' s a scene of the application. It manages some optional features of the game
@@ -54,6 +55,9 @@ public final class Settings extends BasicScene {
             this.languages.getItems().add(elem);
         }
         this.languages.setPromptText(DEFAULT_LANGUAGE);
+        this.languages.setOnAction(e -> {
+            ViewImpl.getObserver().setLanguage(this.languages.getValue());
+        });
 
         this.back.setOnAction(e -> {
             settingStage.setScene(Menu.getScene(settingStage));

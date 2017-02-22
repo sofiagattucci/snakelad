@@ -1,8 +1,9 @@
 package view;
 
+import java.util.Map;
+
 import controller.ViewObserver;
 import javafx.application.Application;
-import view.scenes.Instructions;
 import view.scenes.Game;
 import view.scenes.SetUpGame;
 
@@ -12,7 +13,6 @@ import view.scenes.SetUpGame;
 public class ViewImpl implements View {
 
     private static Game playScene;
-    private static Instructions instrScene;
     private static SetUpGame setUpScene;
     private static ViewObserver observer;
 
@@ -49,15 +49,6 @@ public class ViewImpl implements View {
     }
 
     /**
-     * It links a Play scene to this class.
-     * @param scene
-     *     The scene to link.
-     */
-    public static void setInstrScene(final Instructions scene) {
-        instrScene = scene;
-    }
-
-    /**
      * Getter of the observer.
      * @return
      *     The observer linked to this class
@@ -89,11 +80,6 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void setInstructions(final String text) {
-        instrScene.setInstructions(text);
-    }
-
-    @Override
     public void firstTurn() {
         playScene.firstTurn();
     }
@@ -106,6 +92,11 @@ public class ViewImpl implements View {
     @Override
     public void updateInfo(final int newDiceValue) {
         playScene.updateInfo(newDiceValue);
+    }
+
+    @Override
+    public void getLanguageMap(final Map<String, String> map) {
+        LanguageStringMap.get().setLanguage(map);
     }
 } 
 

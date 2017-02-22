@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import view.BasicButton;
+import view.LanguageStringMap;
 
 /**
  * This class creates and initializes the instructions scene.
@@ -57,10 +58,8 @@ public final class Instructions extends BasicScene {
 
     /**
      * It sets the instructions' text displayed on the GUI.
-     * @param text
-     *     The text
      */
-    public void setInstructions(final String text) {
-        this.instr.setText(text);
+    public void setInstructions() {
+        this.instr.setText(LanguageStringMap.get().getMap().get("instructions"));
     }
 }

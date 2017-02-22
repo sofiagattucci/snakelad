@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Map;
+
 /**
  * Interface for the View.
  */
@@ -9,13 +11,6 @@ public interface View {
      * It starts the application.
      */ 
     void start();
-
-    /**
-     * It sets the instructions' text shown in the GUI.
-     * @param text
-     *     The text to set.
-     */
-    void setInstructions(String text);
 
     /**
      * It resets the displayed values at the beginning of each game.
@@ -37,4 +32,11 @@ public interface View {
      *     The final position if the pawn stops on a snake/ladder
      */
     void updateInfo(int newDiceValue,  int finalPosition);
+
+    /**
+     * It updates the language map with the informations of the new language.
+     * @param map
+     *     The new map containing the new language.
+     */
+    void getLanguageMap(Map<String, String> map);
 }
