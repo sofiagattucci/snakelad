@@ -38,7 +38,7 @@ public final class MultiPlayerScenes {
      */
     public void insert(final int n) {
         this.scenesMap.put(n, new MultiPlayerGame(n));
-        this.scenesMap.get(n).getScene(stage);
+        this.scenesMap.get(n).setStage(stage);
     }
 
     /**

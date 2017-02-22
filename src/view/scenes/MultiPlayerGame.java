@@ -37,13 +37,10 @@ public final class MultiPlayerGame extends Game {
      * Getter of the scene.
      * @param stage
      *     The stage that will be linked to the one of this class
-     * @return
-     *     The game scene
      */
-    public Game getScene(final Stage stage) {
+    public void setStage(final Stage stage) {
         this.playStage = stage;
         Toolbar.setStage(stage);
-        return MultiPlayerScenes.get(playStage).getScene(this.numPlayers);
     }
 
     @Override
