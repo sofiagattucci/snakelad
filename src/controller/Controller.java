@@ -48,7 +48,7 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void rollDice() {
-        changeTurn();
+        //changeTurn();
         final int value = this.game.getNumberFromDice();
         final Optional<Integer> position;
         if (this.turn.equals(Turn.PLAYER.toString())) {
@@ -66,6 +66,7 @@ public final class Controller implements ViewObserver {
                 this.view.updateInfo(Turn.CPU, value);
             }
         }
+        changeTurn();
     }
 
     @Override
