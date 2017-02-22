@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import tests.model.ClassicDiceTest;
 import tests.model.PlayerTest;
+import tests.view.PawnTest;
+import tests.view.PawnTypesTest;
 
 /**
  * This class has the task of calling all Junit tests within the 
@@ -36,6 +38,7 @@ public final class TestLauncher {
      */
     @Test
     public void testView() {
-
+        new PawnTypesTest().pawnTypesTest();
+        new PawnTest().pawnTest();
     }
 }

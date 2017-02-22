@@ -83,6 +83,7 @@ public final class SetUpGame extends BasicScene {
         this.single.setOnAction(e -> {
             this.single.setDisable(true);
             this.multi.setDisable(false);
+            this.board1.setDisable(false);
             this.start.setVisible(false);
             for (final Button b: nPlayer) {
                 b.setDisable(false);
@@ -96,6 +97,7 @@ public final class SetUpGame extends BasicScene {
             this.multi.setDisable(true);
             this.single.setDisable(false);
             this.scenaryChoose.setVisible(false);
+            this.board1.setDisable(false);
             this.start.setVisible(false);
             this.chooseNumber.setVisible(true);
         });
@@ -104,7 +106,8 @@ public final class SetUpGame extends BasicScene {
         });
 
         this.board1.setOnAction(e -> {
-            boardType = 1;
+            setScenary(1);
+            this.board1.setDisable(true);
             this.start.setVisible(true);
         });
 
@@ -127,6 +130,10 @@ public final class SetUpGame extends BasicScene {
         this.singleGameMode = b;
     }
 
+    private static void setScenary(final int n) {
+        boardType = n;
+    }
+
     private static void setNumPlayers(final int n) {
         numPlayers = n;
     }
@@ -143,6 +150,7 @@ public final class SetUpGame extends BasicScene {
             b.setDisable(false);
         }
         this.scenaryChoose.setVisible(false);
+        this.board1.setDisable(false);
     }
 
     /**

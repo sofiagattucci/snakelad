@@ -41,7 +41,7 @@ public final class PawnTypes {
      * @return
      *     The path to the selected pawn
      */
-    public String getPawn(final Integer index) {
+    public String getPawn(final int index) {
         return this.pawnColor.get(index);
     }
 }
