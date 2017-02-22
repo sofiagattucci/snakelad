@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.BasicButton;
+import view.Dimension;
 import view.Toolbar;
 import view.ViewImpl;
 
@@ -25,12 +26,15 @@ public final class SetUpGame extends BasicScene {
     private static final String START = "Start";
     private static final String HOW_MANY = "How many players: ";
     private static final String SCENARY_LABEL = "Select the game board to use: ";
-    private static final String BOARD1 = "Board1";
     private static final String DICE_LABEL = "Select the dice to use: ";
-    private static final String DICE1 = "Dice1";
+    private static final String TITLE = "Custom your game:";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 5;
+    private static final int NUM_SCENARY = 1;
+    private static final int NUM_DICE = 1;
     private static final int FONT = 20;
+    private static final int TITLE_FONT = 65;
+    private static final double Y_TITLE_TRANSLATE = -Dimension.SCREEN_H / 10; 
 
     private static Stage setUpStage;
     private static SetUpGame setUpScene = new SetUpGame();
@@ -38,21 +42,22 @@ public final class SetUpGame extends BasicScene {
     private static int boardType;
     private static int diceType;
 
+    private final Label title = new Label(TITLE);
     private final Button single = new BasicButton(SINGLE);
     private final Button multi = new BasicButton(MULTI);
     private final Button back = new BasicButton(BACK);
-    private final Button start = new BasicButton(START);
     private final HBox modes = new HBox(single, multi, back);
     private final List<Button> nPlayer = new ArrayList<>();
     private final Label howMany = new Label(HOW_MANY);
     private final HBox chooseNumber = new HBox(howMany);
+    private final List<Button> boardList = new ArrayList<>();
     private final Label scenaryLabel = new Label(SCENARY_LABEL);
-    private final Button board1 = new Button(BOARD1);
-    private final HBox scenaryChoose = new HBox(scenaryLabel, board1);
+    private final HBox scenaryChoose = new HBox(scenaryLabel);
+    private final List<Button> diceList = new ArrayList<>();
     private final Label diceLabel = new Label(DICE_LABEL);
-    private final Button dice1 = new Button(DICE1);
-    private final HBox diceChoose = new HBox(diceLabel, dice1);
-    private final VBox box = new VBox(modes, chooseNumber, scenaryChoose, diceChoose, start);
+    private final HBox diceChoose = new HBox(diceLabel);
+    private final Button start = new BasicButton(START);
+    private final VBox box = new VBox(title, modes, chooseNumber, scenaryChoose, diceChoose, start);
     private boolean singleGameMode;
 
     private SetUpGame() {
@@ -60,11 +65,14 @@ public final class SetUpGame extends BasicScene {
         this.getDefaultLayout().setCenter(this.box);
         this.box.setAlignment(Pos.CENTER);
         this.box.setSpacing(BOX_SPACING);
+        this.title.setAlignment(Pos.CENTER);
+        this.title.setTranslateY(Y_TITLE_TRANSLATE);
         this.modes.setAlignment(Pos.CENTER);
         this.chooseNumber.setAlignment(Pos.CENTER);
         this.scenaryChoose.setAlignment(Pos.CENTER);
         this.diceChoose.setAlignment(Pos.CENTER);
 
+        this.title.setFont(new Font(TITLE_FONT));
         this.howMany.setFont(new Font(FONT));
         this.scenaryLabel.setFont(new Font(FONT));
         this.diceLabel.setFont(new Font(FONT));
@@ -73,53 +81,84 @@ public final class SetUpGame extends BasicScene {
             this.nPlayer.add(new Button(String.valueOf(i)));
         }
 
+        for (int i = 1; i <= NUM_SCENARY; i++) {
+            this.boardList.add(new Button(String.valueOf(i)));
+        }
+
+        for (int i = 1; i <= NUM_DICE; i++) {
+            this.diceList.add(new Button(String.valueOf(i)));
+        }
+
+        this.single.setOnAction(e -> {
+            this.setMode(true);
+            this.single.setDisable(true);
+            this.multi.setDisable(false);
+            for (final Button b: boardList) {
+                b.setDisable(false);
+            }
+            this.chooseNumber.setVisible(false);
+            this.scenaryChoose.setVisible(true);
+            this.diceChoose.setVisible(false);
+            this.start.setVisible(false);
+        });
+
+        this.multi.setOnAction(e -> {
+            this.setMode(false);
+            this.multi.setDisable(true);
+            this.single.setDisable(false);
+            for (final Button b: nPlayer) {
+                b.setDisable(false);
+            }
+            this.chooseNumber.setVisible(true);
+            this.scenaryChoose.setVisible(false);
+            this.diceChoose.setVisible(false);
+            this.start.setVisible(false);
+        });
+
         for (final Button b: nPlayer) {
             b.setOnAction(e -> {
                 for (final Button elem: nPlayer) {
                     elem.setDisable(false);
                 }
                 b.setDisable(true);
-                this.setMode(false);
                 setNumPlayers(Integer.valueOf(b.getText()));
+                for (final Button elem: boardList) {
+                    elem.setDisable(false);
+                }
                 this.scenaryChoose.setVisible(true);
             });
             this.chooseNumber.getChildren().add(b);
         }
 
-        this.single.setOnAction(e -> {
-            this.single.setDisable(true);
-            this.multi.setDisable(false);
-            this.board1.setDisable(false);
-            this.start.setVisible(false);
-            for (final Button b: nPlayer) {
-                b.setDisable(false);
-            }
-            this.chooseNumber.setVisible(false);
-            this.diceChoose.setVisible(false);
-            this.dice1.setDisable(false);
-            this.setMode(true);
-            this.scenaryChoose.setVisible(true);
-        });
+        for (final Button b: boardList) {
+            b.setOnAction(e -> {
+                for (final Button elem: boardList) {
+                    elem.setDisable(false);
+                }
+                b.setDisable(true);
+                setScenary(Integer.valueOf(b.getText()));
+                for (final Button elem: diceList) {
+                    elem.setDisable(false);
+                }
+                this.diceChoose.setVisible(true);
+            });
+            this.scenaryChoose.getChildren().add(b);
+        }
 
-        this.multi.setOnAction(e -> {
-            this.multi.setDisable(true);
-            this.single.setDisable(false);
-            this.scenaryChoose.setVisible(false);
-            this.board1.setDisable(false);
-            this.start.setVisible(false);
-            this.chooseNumber.setVisible(true);
-            this.diceChoose.setVisible(false);
-            this.dice1.setDisable(true);
-        });
+        for (final Button b: diceList) {
+            b.setOnAction(e -> {
+                for (final Button elem: diceList) {
+                    elem.setDisable(false);
+                }
+                b.setDisable(true);
+                setDice(Integer.valueOf(b.getText()));
+                this.start.setVisible(true);
+            });
+            this.diceChoose.getChildren().add(b);
+        }
+
         this.back.setOnAction(e -> {
             setUpStage.setScene(Menu.getScene(setUpStage));
-        });
-
-        this.board1.setOnAction(e -> {
-            setScenary(1);
-            this.board1.setDisable(true);
-            this.diceChoose.setVisible(true);
-            this.dice1.setDisable(false);
         });
 
         this.start.setOnAction(e -> {
@@ -133,11 +172,6 @@ public final class SetUpGame extends BasicScene {
                 ViewImpl.getObserver().play(numPlayers, boardType, diceType);
                 setUpStage.setScene(MultiPlayerScenes.get().getScene(numPlayers));
             }
-        });
-        this.dice1.setOnAction(e -> {
-            setDice(1);
-            this.dice1.setDisable(true);
-            this.start.setVisible(true);
         });
         this.reset();
     }
@@ -170,9 +204,13 @@ public final class SetUpGame extends BasicScene {
             b.setDisable(false);
         }
         this.scenaryChoose.setVisible(false);
-        this.board1.setDisable(false);
+        for (final Button b: boardList) {
+            b.setDisable(false);
+        }
         this.diceChoose.setVisible(false);
-        this.dice1.setDisable(false);
+        for (final Button b: diceList) {
+            b.setDisable(false);
+        }
     }
 
     /**
