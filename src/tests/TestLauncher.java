@@ -19,10 +19,8 @@ public final class TestLauncher {
      */
     @Test
     public void testModel() {
-        final ClassicDiceTest classicDiceTest = new ClassicDiceTest();
-        classicDiceTest.testClassicDice();
-        final PlayerTest playerTest = new PlayerTest();
-        playerTest.testPlayer();
+        new ClassicDiceTest().testClassicDice();
+        new PlayerTest().testPlayer();
     }
 
     /**
