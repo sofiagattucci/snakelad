@@ -53,10 +53,18 @@ public final class Controller implements ViewObserver {
         final Optional<Integer> position;
         if (this.turn.equals(Turn.PLAYER.toString())) {
             position = this.game.getPlayerPosition(PLAYER_INDEX);
-            this.view.updateInfo(Turn.PLAYER, value, position);
+            if (position.isPresent()) {
+                this.view.updateInfo(Turn.PLAYER, value, position.get());
+            } else { 
+                this.view.updateInfo(Turn.PLAYER, value);
+            }
         } else {
             position = this.game.getPlayerPosition(CPU_INDEX);
-            this.view.updateInfo(Turn.CPU, value, position);
+            if (position.isPresent()) {
+                this.view.updateInfo(Turn.CPU, value, position.get());
+            } else {
+                this.view.updateInfo(Turn.CPU, value);
+            }
         }
     }
 
