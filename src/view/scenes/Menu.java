@@ -21,6 +21,7 @@ public final class Menu extends BasicScene {
     private static final String INSTRUCTIONS = "INSTRUCTIONS";
     private static final String QUIT = "QUIT";
     private static final String TITLE = "SnakeNLadder";
+    private static final String SETTINGS = "SETTINGS";
     private static final double TITLE_TOP_PADDING = Dimension.SCREEN_H / 6;
     private static final int FONT_SIZE = 65;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
@@ -29,9 +30,10 @@ public final class Menu extends BasicScene {
     private static Stage menuStage;
     private final Button play = new BasicButton(PLAY);
     private final Button instructions = new BasicButton(INSTRUCTIONS);
+    private final Button settings = new BasicButton(SETTINGS);
     private final Button quit = new BasicButton(QUIT);
     private final Text title = new Text(TITLE);
-    private final VBox box = new VBox(play, instructions, quit);
+    private final VBox box = new VBox(play, instructions, settings, quit);
     private final ClosureHandler closure = new ClosureHandler(menuStage);
 
     private Menu() {
@@ -46,6 +48,10 @@ public final class Menu extends BasicScene {
             ViewImpl.setInstrScene(Instructions.getScene(menuStage));
             ViewImpl.getObserver().getInstructions();
             menuStage.setScene(Instructions.getScene(menuStage));
+        });
+
+        this.settings.setOnAction(e -> {
+            menuStage.setScene(Settings.getScene(menuStage));
         });
 
         this.quit.setOnAction(e -> this.closure.show());
