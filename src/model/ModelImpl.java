@@ -2,9 +2,9 @@ package model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import utilities.Pair;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,9 +34,9 @@ public final class ModelImpl implements Model {
      *          The list that contains the data (snakes and ladders positions, 
      *          number of cells on the game board) useful to start the game.
      * @param numberOfPlayers
-     *          number of players who want to play the game.
+     *          Number of players who want to play the game.
      * @param dice
-     *          the dice which players want to play with.
+     *          The dice which players want to play with.
      */
     public ModelImpl(final List<Integer> data, final int numberOfPlayers, final Dice dice) {
 
@@ -93,13 +93,14 @@ public final class ModelImpl implements Model {
         return Collections.unmodifiableList(list);
     }
 
-    @Override
-    public int getNumberFromDice() {
-        return this.dice.roll();
+    //private method called to avoid too much repetition of identical code in getPlayerPosition()
+    private Optional<Integer> playerPositionUtils(final int index, final int position) {
+        this.playersList.get(index).setNewPosition(position);
+        return Optional.of(this.playersList.get(position).getPosition());
     }
 
     @Override
-    public Pair<Integer, Boolean> getPlayerPosition(final int playerIndex) {
+    public Optional<Integer> getPlayerPosition(final int playerIndex) {
 
         int partialPlayerPosition = this.playersList.get(playerIndex).getPosition() 
                                     + this.dice.getLastNumberAppeared();
@@ -108,27 +109,30 @@ public final class ModelImpl implements Model {
                                 ? this.numberOfCells - (partialPlayerPosition - this.numberOfCells) 
                                 : partialPlayerPosition;
 
-        if (this.laddersMap.containsKey(partialPlayerPosition)) {
-            partialPlayerPosition = this.laddersMap.get(partialPlayerPosition);
-            this.playersList.get(playerIndex).setNewPosition(partialPlayerPosition);
-            return new Pair<Integer, Boolean>(this.playersList.get(playerIndex).getPosition(), true);
-        }
-
         if (this.snakesMap.containsKey(partialPlayerPosition)) {
-            partialPlayerPosition = this.snakesMap.get(partialPlayerPosition);
-            this.playersList.get(playerIndex).setNewPosition(partialPlayerPosition);
-            return new Pair<Integer, Boolean>(this.playersList.get(playerIndex).getPosition(), true);
+            final int finalPlayerPosition = this.snakesMap.get(partialPlayerPosition);
+            return this.playerPositionUtils(playerIndex, finalPlayerPosition);
         }
 
-        this.playersList.get(playerIndex).setNewPosition(partialPlayerPosition);
-        return new Pair<Integer, Boolean>(this.playersList.get(playerIndex).getPosition(), false);
+        if (this.laddersMap.containsKey(partialPlayerPosition)) {
+            final int finalPlayerPosition = this.laddersMap.get(partialPlayerPosition);
+            return this.playerPositionUtils(playerIndex, finalPlayerPosition);
+        }
+
+        //the specified player don't achieve neither a snake or a ladder
+        this.playerPositionUtils(playerIndex, partialPlayerPosition);
+        return Optional.empty();
+    }
+
+    @Override
+    public int getNumberFromDice() {
+        return this.dice.roll();
     }
 
     @Override
     public void restartGame() {
-        for (final Player player : this.playersList) {
-            player.setNewPosition(PLAYER_INITIAL_POSITION);
-        }
+        this.playersList.stream()
+                        .forEach(player -> player.setNewPosition(PLAYER_INITIAL_POSITION));
     }
 
     @Override

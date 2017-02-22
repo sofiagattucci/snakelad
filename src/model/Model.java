@@ -1,6 +1,6 @@
 package model;
 
-import utilities.Pair;
+import java.util.Optional;
 
 /**
  * It represents the interface for the model in MVC pattern.
@@ -15,15 +15,16 @@ public interface Model {
     int getNumberFromDice();
 
     /**
-     * Returns the current position of the specified player on the game board 
-     * and a Boolean that indicates if the player has to jump or not.
+     * Returns an Optional<Integer> which represents the movement of the required player.
      * @param playerIndex
      *          The index which identifies the player whose position is required.
-     * @return a pair of values, the first is an Integer which indicates the current position of the player 
-     * on the game board and the second is a Boolean that indicates if the player has to jump or not (a 
-     * "jump" means the achievement of either a snake or a ladder).
+     * @return an Optional<Integer> which represents the movement of the required player. It's 
+     * an Optional.of(Integer) if the specified player has to jump (a "jump" means the achievement 
+     * of either a snake or a ladder) and the Integer value represents the final player's position 
+     * after the jump. Otherwise it's an Optional.empty, to indicate the specified player shouldn't
+     * jump (in this case the View'll calculate the final player's position on the game board). 
      */
-    Pair<Integer, Boolean> getPlayerPosition(int playerIndex);
+    Optional<Integer> getPlayerPosition(int playerIndex);
 
     /**
      * Restarts the game, setting all needed in order to restart it.
