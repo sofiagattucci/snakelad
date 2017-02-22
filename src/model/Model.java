@@ -1,6 +1,5 @@
 package model;
 
-import java.util.List;
 import utilities.Pair;
 
 /**
@@ -8,14 +7,6 @@ import utilities.Pair;
  * Defines the main methods of Model class.
  */
 public interface Model {
-
-    /**
-     * Starts the game, setting all needed in order to start it.
-     * @param data
-     *          The list that contains the data (snakes and ladders positions, number of 
-     *          cells on the game board) to be passed to Model to allow starting the game.
-     */
-    void startGame(List<Integer> data);
 
     /**
      * Return a random number rolling the dice.
