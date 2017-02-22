@@ -28,10 +28,6 @@ public enum Language {
     /**
      * Spanish language.
      */
-    ES,
+    ES;
 
-    /**
-     * Russian language.
-     */
-    RU;
 }

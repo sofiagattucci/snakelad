@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 /**
  *Class that contain main method.
  *
@@ -24,8 +27,12 @@ public final class Application {
      * @param args ignored.
      */
     public static void main(final String[] args) {
-       final Application application = new Application();
-       application.startApplication();
+
+        final Locale locale = new Locale("it");
+        final ResourceBundle strings = ResourceBundle.getBundle("LanguagesFiles.StringsBundle", locale);
+        System.out.println(strings.getString("instructions"));
+        //final Application application = new Application();
+        //application.startApplication();
     }
 
 }
