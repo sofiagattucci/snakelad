@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-
 import utilities.Pair;
 
 /**
@@ -18,13 +17,11 @@ public interface Model {
      */
     void startGame(List<Integer> data);
 
-
     /**
      * Return a random number rolling the dice.
      * @return the number released by the dice's roll.
      */
     int getNumberFromDice();
-
 
     /**
      * Returns the current position of the specified player on the game board 
