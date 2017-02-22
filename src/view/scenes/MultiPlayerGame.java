@@ -24,7 +24,13 @@ public final class MultiPlayerGame extends Game {
 
     @Override
     public void gameOver() {
-        new MultiPlayerGameOver(playStage, this.getCurrentTurn()).show();
+        int winner;
+        if (this.getCurrentTurn() % this.numPlayers == 0) {
+            winner = numPlayers;
+        } else {
+            winner = this.getCurrentTurn() % numPlayers;
+        }
+        new MultiPlayerGameOver(playStage, winner).show();
     }
 
     /**
