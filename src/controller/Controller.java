@@ -99,6 +99,6 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void setLanguage(final Language language) {
-        LanguagesManager.get().getLanguage(language); 
+        view.setLanguageMap(LanguagesManager.get().getLanguage(language));
     }
 }

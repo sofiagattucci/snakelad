@@ -1,6 +1,7 @@
 package view;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,7 +11,7 @@ public final class LanguageStringMap {
 
     private static final LanguageStringMap INSTANCE = new LanguageStringMap();
 
-    private Map<String, String> stringMap;
+    private Map<String, String> stringMap = new HashMap<>();
 
     private LanguageStringMap() {
 

@@ -38,5 +38,5 @@ public interface View {
      * @param map
      *     The new map containing the new language.
      */
-    void getLanguageMap(Map<String, String> map);
+    void setLanguageMap(Map<String, String> map);
 }
