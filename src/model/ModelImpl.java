@@ -48,16 +48,15 @@ public final class ModelImpl implements Model {
         final List<Integer> list = dataList.stream()
                                            .limit(dataList.indexOf(SEPARATOR))
                                            .collect(Collectors.toList());
-
         return Collections.unmodifiableList(list);
     }
 
     private List<Integer> fillLaddersMap(final List<Integer> dataList) {
         final List<Integer> list = dataList.stream()
                                            .skip(dataList.indexOf(SEPARATOR) + 1)
-                                           .limit(dataList.indexOf(SEPARATOR))
                                            .collect(Collectors.toList());
-
+        //remove the separator represented by the last element of the list
+        list.remove(list.size() - 1);
         return Collections.unmodifiableList(list);
     }
 
@@ -103,13 +102,10 @@ public final class ModelImpl implements Model {
         //remove the first two elements in dataList
         dataList.remove(0);
         dataList.remove(0);
-
         //fill snakesMap with snakes positions
         this.snakesMap.putAll(this.fillMap(this.fillSnakesMap(dataList)));
-
         //fill laddersMap with ladders positions
         this.laddersMap.putAll(this.fillMap(this.fillLaddersMap(dataList)));
-
         //fill playersList with the exact number of players playing the game and set their initial positions
         this.playersList.addAll(IntStream.range(0, numberOfPlayers)
                                          .mapToObj(value -> new Player())
