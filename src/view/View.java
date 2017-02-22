@@ -1,7 +1,5 @@
 package view;
 
-import utilities.Turn;
-
 /**
  * Interface for the View.
  */
@@ -26,21 +24,17 @@ public interface View {
 
     /**
      * It updates the game screen each turn. No jump to be done in this turn
-     * @param nextTurn
-     *     The next turn
      * @param newDiceValue
      *     The new new dice value.
      */
-    void updateInfo(Turn nextTurn, int newDiceValue);
+    void updateInfo(int newDiceValue);
 
     /**
      * It updates the game screen each turn. Required a jump to be done in this turn.
-     * @param nextTurn
-     *     The next turn
      * @param newDiceValue
      *     The new new dice value.
      * @param finalPosition
      *     The final position if the pawn stops on a snake/ladder
      */
-    void updateInfo(Turn nextTurn, int newDiceValue,  int finalPosition);
+    void updateInfo(int newDiceValue,  int finalPosition);
 }
