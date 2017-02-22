@@ -8,7 +8,7 @@ public enum Language {
     /**
      * English language.
      */
-    ENG,
+    EN,
 
     /**
      * Italian language.
