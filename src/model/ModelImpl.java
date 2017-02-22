@@ -79,13 +79,11 @@ public final class ModelImpl implements Model {
 
         if (this.snakesMap.containsKey(partialPlayerPosition)) {
             final int finalPlayerPosition = this.snakesMap.get(partialPlayerPosition);
-            System.out.println("SERPENTE");
             return this.playerPositionUtils(playerIndex, finalPlayerPosition);
         }
 
         if (this.laddersMap.containsKey(partialPlayerPosition)) {
             final int finalPlayerPosition = this.laddersMap.get(partialPlayerPosition);
-            System.out.println("SCALA");
             return this.playerPositionUtils(playerIndex, finalPlayerPosition);
         }
 
