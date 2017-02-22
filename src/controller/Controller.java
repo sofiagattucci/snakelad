@@ -5,7 +5,6 @@ import java.util.Optional;
 import model.Model;
 import model.ModelImpl;
 import utilities.SceneryDataManager;
-import utilities.Turn;
 import utilities.TypesOfDice;
 import utilities.LanguagesManager;
 import utilities.Language;
@@ -21,7 +20,6 @@ public final class Controller implements ViewObserver {
 
     private final Model game;
     private final View view;
-    private String turn;
     private int counter;
     private Optional<GameSettings> settings;
     private static final Controller SINGLETON = new Controller();
@@ -33,7 +31,6 @@ public final class Controller implements ViewObserver {
     private Controller() {
         this.game = new ModelImpl();
         this.view = new ViewImpl(this);
-        this.turn = Turn.PLAYER.toString();
         this.counter = 0;
         this.settings = Optional.empty();
     }
@@ -71,7 +68,7 @@ public final class Controller implements ViewObserver {
     @Override
     public void restart() {
         this.game.restartGame();
-        this.turn = Turn.PLAYER.toString();
+        this.counter = 0;
         this.view.firstTurn();
     }
 
@@ -83,7 +80,7 @@ public final class Controller implements ViewObserver {
                 .diceChoose(dice)
                 .build());
         this.game.startGame(SceneryDataManager.get().readFromFile(DATA), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
-        this.turn = Turn.PLAYER.toString();
+        this.counter = 0;
         this.view.firstTurn();
     }
 
@@ -91,7 +88,7 @@ public final class Controller implements ViewObserver {
     public void giveUp() {
         this.game.giveUpGame();
         this.view.firstTurn();
-        this.turn = Turn.PLAYER.toString();
+        this.counter = 0;
     }
     /**
      * Start the view.
