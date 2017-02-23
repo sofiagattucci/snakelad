@@ -32,7 +32,7 @@ public final class ClassicDiceTest {
             fail("cannot call getLastNumberAppeared() because there is no last number relased from dice.");
         } catch (final IllegalStateException e) {
             final ConsoleLog log = ConsoleLog.get();
-            log.print("IllegalStateException was thrown with success.");
+            log.print("IllegalStateException thrown with success.");
         } catch (final Exception e) {
             fail("should throw an IllegalStateException, not a " + e.getClass());
         }
@@ -61,7 +61,7 @@ public final class ClassicDiceTest {
             fail("cannot call getLastNumberAppeared() because it's empty.");
         } catch (final IllegalStateException e) {
             final ConsoleLog log = ConsoleLog.get();
-            log.print("IllegalStateException was thrown with success.");
+            log.print("IllegalStateException thrown with success.");
         } catch (final Exception e) {
             fail("should throw an IllegalStateException, not a " + e.getClass());
         }

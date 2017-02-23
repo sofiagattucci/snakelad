@@ -56,7 +56,7 @@ public final class Controller implements ViewObserver {
         } else {
             this.view.updateInfo(value);
         }
-        if (this.counter % this.settings.get().getNumberOfPlayer() != 0) {
+        if (this.counter < this.settings.get().getNumberOfPlayer() - 1) {
             this.counter++;
         }  else {
             this.counter = 0;

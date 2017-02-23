@@ -21,7 +21,7 @@ public final class TestLauncher {
      */
     @Test
     public void testModel() {
-        new ClassicDiceTest().testClassicDice();
+       new ClassicDiceTest().testClassicDice();
         new Dice5To10Test().testDice5To10();
         new NegativeDiceTest().testNegativeDice();
         new PlayerTest().testPlayer();

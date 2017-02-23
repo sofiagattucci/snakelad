@@ -34,7 +34,7 @@ public final class Dice5To10Test {
             fail("cannot call getLastNumberAppeared() because it's empty.");
         } catch (final IllegalStateException e) {
             final ConsoleLog log = ConsoleLog.get();
-            log.print("IllegalStateException was thrown with success.");
+            log.print("IllegalStateException thrown with success.");
         } catch (final Exception e) {
             fail("should throw an IllegalStateException, not a " + e.getClass());
         }
@@ -62,7 +62,7 @@ public final class Dice5To10Test {
             fail("Argument out of bounds.");
         } catch (final IllegalArgumentException e) {
             final ConsoleLog log = ConsoleLog.get();
-            log.print("IllegalArgumentException was thrown with success.");
+            log.print("IllegalArgumentException thrown with success.");
         } catch (final Exception e) {
             fail("should throw an IllegalArgumentException, not a " + e.getClass());
         }
@@ -74,7 +74,7 @@ public final class Dice5To10Test {
             fail("cannot call getLastNumberAppeared() because it's empty.");
         } catch (final IllegalStateException e) {
             final ConsoleLog log = ConsoleLog.get();
-            log.print("IllegalStateException was thrown with success.");
+            log.print("IllegalStateException thrown with success.");
         } catch (final Exception e) {
             fail("should throw an IllegalStateException, not a " + e.getClass());
         }
