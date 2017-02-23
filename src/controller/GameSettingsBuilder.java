@@ -1,4 +1,7 @@
 package controller;
+
+import utilities.Difficulty;
+
 /**
  * Builder for GameSettings class.
  *
@@ -6,7 +9,7 @@ package controller;
 public class GameSettingsBuilder {
 
     private int numberOfPlayers;
-    private int scenery;
+    private Difficulty scenery;
     private int dice;
 
     /**
@@ -26,7 +29,7 @@ public class GameSettingsBuilder {
      *              the scenery to use
      * @return the Builder
      */
-    public GameSettingsBuilder sceneryChoose(final int scenery) {
+    public GameSettingsBuilder sceneryChoose(final Difficulty scenery) {
         this.scenery = scenery;
         return this;
     }

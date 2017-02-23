@@ -1,5 +1,7 @@
 package controller;
 
+import utilities.Difficulty;
+
 /**
  * Class for set the settings of game.
  *
@@ -7,7 +9,7 @@ package controller;
 public class GameSettings {
 
     private final int numberOfPlayers;
-    private final int scenery;
+    private final Difficulty scenery;
     private final int dice;
 
     /**
@@ -19,7 +21,7 @@ public class GameSettings {
      * @param dice
      *          the dice choose
      */
-    public GameSettings(final int numOfPlayers, final int scenery, final int dice) {
+    public GameSettings(final int numOfPlayers, final Difficulty scenery, final int dice) {
         this.numberOfPlayers = numOfPlayers;
         this.scenery = scenery;
         this.dice = dice;
@@ -37,7 +39,7 @@ public class GameSettings {
      * Getter for scenery choose.
      * @return the scenery choose
      */
-    public int getScenery() {
+    public Difficulty getScenery() {
         return this.scenery;
     }
 

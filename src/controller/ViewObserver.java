@@ -1,5 +1,6 @@
 package controller;
 
+import utilities.Difficulty;
 import utilities.Language;
 
 /**
@@ -33,7 +34,7 @@ public interface ViewObserver {
      * @param dice
      *          the type of dice choose
      */
-    void play(int numberOfPlayers, int scenery, int dice);
+    void play(int numberOfPlayers, Difficulty scenery, int dice);
 
     /**
      * Give up the game.

@@ -7,6 +7,7 @@ import model.ModelImpl;
 import utilities.SceneryDataManager;
 import utilities.TypesOfDice;
 import utilities.LanguagesManager;
+import utilities.Difficulty;
 import utilities.Language;
 import view.View;
 import view.ViewImpl;
@@ -23,7 +24,9 @@ public final class Controller implements ViewObserver {
     private int counter;
     private Optional<GameSettings> settings;
     private static final Controller SINGLETON = new Controller();
-    private static final String DATA = "./res/GameBoards/GameBoard1/file.txt";
+    private static final String DATA1 = "./res/GameBoards/GameBoard1/file.txt";
+    private static final String DATA2 = "./res/GameBoards/GameBoard2/file.txt";
+    private static final String DATA3 = "./res/GameBoards/GameBoard3/file.txt";
 
     /**
      * Constructor.
@@ -73,13 +76,26 @@ public final class Controller implements ViewObserver {
     }
 
     @Override
-    public void play(final int numberOfPlayers, final int scenery, final int dice) {
+    public void play(final int numberOfPlayers, final Difficulty scenery, final int dice) {
         this.settings = Optional.of(new GameSettingsBuilder()
                 .numOfPlayers(numberOfPlayers)
                 .sceneryChoose(scenery)
                 .diceChoose(dice)
                 .build());
-        this.game.startGame(SceneryDataManager.get().readFromFile(DATA), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+        switch(scenery) {
+            case BEGINNER:
+                this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                break;
+            case EASY:
+                this.game.startGame(SceneryDataManager.get().readFromFile(DATA2), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                break;
+            case MEDIUM:
+                this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                break;
+                default:
+                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                    break;
+            }
         this.counter = 0;
         this.view.firstTurn();
     }
