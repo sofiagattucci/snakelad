@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import utilities.ConsoleLog;
 import utilities.Language;
-import utilities.LanguagesManager;
+import utilities.LanguageLoader;
 import view.LanguageStringMap;
 
 /**
@@ -29,10 +29,10 @@ public class LanguageMapTest {
             ConsoleLog.get().print("\nUnsupportedOperationException thrown with success in line 27 of LanguageMapTest");
         }
         for (final Language lang: Language.values()) {
-            LanguageStringMap.get().setLanguage(LanguagesManager.get().getLanguage(lang));
+            LanguageStringMap.get().setLanguage(LanguageLoader.get().getLanguage(lang));
             assertFalse(LanguageStringMap.get().getMap().isEmpty());
             for (final String elem: LanguageStringMap.get().getMap().keySet()) {
-                assertEquals(LanguageStringMap.get().getMap().get(elem), LanguagesManager.get().getLanguage(lang).get(elem));
+                assertEquals(LanguageStringMap.get().getMap().get(elem), LanguageLoader.get().getLanguage(lang).get(elem));
             }
         }
     }
