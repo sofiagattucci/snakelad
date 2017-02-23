@@ -50,6 +50,9 @@ public class PawnAnimation implements Runnable {
 
     private void movePawn() {
 
+        if (nMoves < 0) {
+            this.goBack(-nMoves);
+        }
         for (int i = 0; i < nMoves; i++) {
             synchronized (pawnClass) {
                 if ((this.pawnClass.getRow() == (GameBoardImpl.getBoxesPerRaw() - 1))
@@ -167,7 +170,7 @@ public class PawnAnimation implements Runnable {
             if (this.pawnClass.getPositionInRow() == 0) {
                 this.moveDown();
                 this.pawnClass.changeDirection();
-                this.pawnClass.setPositionInRow(GameBoardImpl.getBoxesPerRaw());
+                this.pawnClass.setPositionInRow(GameBoardImpl.getBoxesPerRaw() - 1);
                 this.pawnClass.setRow(this.pawnClass.getRow() - 1);
                 continue;
             }
