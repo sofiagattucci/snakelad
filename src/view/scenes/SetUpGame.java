@@ -22,14 +22,14 @@ import view.ViewImpl;
  */
 public final class SetUpGame extends BasicScene {
 
-    private static final String SINGLE = "Single player";
-    private static final String MULTI = "Multiplayer";
-    private static final String BACK = "Back";
-    private static final String START = "Start";
-    private static final String HOW_MANY = "How many players: ";
-    private static final String SCENARY_LABEL = "Select the game board to use: ";
-    private static final String DICE_LABEL = "Select the dice to use: ";
-    private static final String TITLE = "Custom your game:";
+    private static final String SINGLE_KEY = "setUp.single";
+    private static final String MULTI_KEY = "setUp.multi";
+    private static final String BACK_KEY = "back";
+    private static final String START_KEY = "setUp.start";
+    private static final String HOW_MANY_KEY = "setUp.selectPlayers";
+    private static final String SCENERY_LABEL_KEY = "setUp.selectBoard";
+    private static final String DICE_LABEL_KEY = "setUp.selectDice";
+    private static final String TITLE_KEY = "setUp.title";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 6;
     private static final int NUM_SCENARY = 3;
@@ -45,21 +45,21 @@ public final class SetUpGame extends BasicScene {
     private static Difficulty boardType;
     private static int diceType;
 
-    private final Label title = new Label(TITLE);
-    private final Button single = new BasicButton(SINGLE);
-    private final Button multi = new BasicButton(MULTI);
-    private final Button back = new BasicButton(BACK);
+    private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
+    private final Button single = new BasicButton(LanguageStringMap.get().getMap().get(SINGLE_KEY));
+    private final Button multi = new BasicButton(LanguageStringMap.get().getMap().get(MULTI_KEY));
+    private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
     private final HBox modes = new HBox(single, multi, back);
     private final List<Button> nPlayer = new ArrayList<>();
-    private final Label howMany = new Label(HOW_MANY);
+    private final Label howMany = new Label(LanguageStringMap.get().getMap().get(HOW_MANY_KEY));
     private final HBox chooseNumber = new HBox(howMany);
     private final List<Button> boardList = new ArrayList<>();
-    private final Label scenaryLabel = new Label(SCENARY_LABEL);
+    private final Label scenaryLabel = new Label(LanguageStringMap.get().getMap().get(SCENERY_LABEL_KEY));
     private final HBox scenaryChoose = new HBox(scenaryLabel);
     private final List<Button> diceList = new ArrayList<>();
-    private final Label diceLabel = new Label(DICE_LABEL);
+    private final Label diceLabel = new Label(LanguageStringMap.get().getMap().get(DICE_LABEL_KEY));
     private final HBox diceChoose = new HBox(diceLabel);
-    private final Button start = new BasicButton(START);
+    private final Button start = new BasicButton(LanguageStringMap.get().getMap().get(START_KEY));
     private final VBox box = new VBox(title, modes, chooseNumber, scenaryChoose, diceChoose, start);
     private boolean singleGameMode;
 
@@ -210,14 +210,14 @@ public final class SetUpGame extends BasicScene {
      * It updates the language of this scene. 
      */
     public void updateLanguage() {
-        this.title.setText(LanguageStringMap.get().getMap().get("setUp.title"));
-        this.back.setText(LanguageStringMap.get().getMap().get("back"));
-        this.single.setText(LanguageStringMap.get().getMap().get("setUp.single"));
-        this.multi.setText(LanguageStringMap.get().getMap().get("setUp.multi"));
-        this.howMany.setText(LanguageStringMap.get().getMap().get("setUp.selectPlayers"));
-        this.scenaryLabel.setText(LanguageStringMap.get().getMap().get("setUp.selectBoard"));
-        this.diceLabel.setText(LanguageStringMap.get().getMap().get("setUp.selectDice"));
-        this.start.setText(LanguageStringMap.get().getMap().get("setUp.start"));
+        this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
+        this.back.setText(LanguageStringMap.get().getMap().get(BACK_KEY));
+        this.single.setText(LanguageStringMap.get().getMap().get(SINGLE_KEY));
+        this.multi.setText(LanguageStringMap.get().getMap().get(MULTI_KEY));
+        this.howMany.setText(LanguageStringMap.get().getMap().get(HOW_MANY_KEY));
+        this.scenaryLabel.setText(LanguageStringMap.get().getMap().get(SCENERY_LABEL_KEY));
+        this.diceLabel.setText(LanguageStringMap.get().getMap().get(DICE_LABEL_KEY));
+        this.start.setText(LanguageStringMap.get().getMap().get(START_KEY));
     }
 
     /**

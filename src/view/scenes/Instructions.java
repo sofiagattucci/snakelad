@@ -16,17 +16,18 @@ import view.LanguageStringMap;
  */
 public final class Instructions extends BasicScene {
 
-    private static final String BACK = LanguageStringMap.get().getMap().get("back");
-    private static final String TITLE = LanguageStringMap.get().getMap().get("instructions.title");
+    private static final String BACK_KEY = "back";
+    private static final String TITLE_KEY = "instructions.title";
+    private static final String INSTRUCTIONS_KEY = "instructions";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 2;
     private static final int FONT_SIZE = 20;
     private static final int TITLE_FONT_SIZE = 60;
 
     private static Stage instrStage;
     private static Instructions instructionsScene = new Instructions();
-    private final Text instr = new Text();
-    private final Label title = new Label(TITLE);
-    private final Button back = new BasicButton(BACK);
+    private final Text instr = new Text(LanguageStringMap.get().getMap().get(INSTRUCTIONS_KEY));
+    private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
+    private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
     private final VBox box = new VBox(title, instr, back);
 
     private Instructions() {
@@ -60,8 +61,8 @@ public final class Instructions extends BasicScene {
      * It updates the language of this scene.
      */
     public void updateLanguage() {
-        this.title.setText(LanguageStringMap.get().getMap().get("instructions.title"));
-        this.instr.setText(LanguageStringMap.get().getMap().get("instructions"));
-        this.back.setText(LanguageStringMap.get().getMap().get("back"));
+        this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
+        this.instr.setText(LanguageStringMap.get().getMap().get(INSTRUCTIONS_KEY));
+        this.back.setText(LanguageStringMap.get().getMap().get(BACK_KEY));
     }
 }

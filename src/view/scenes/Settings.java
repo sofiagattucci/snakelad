@@ -20,10 +20,10 @@ import view.ViewImpl;
  */
 public final class Settings extends BasicScene {
 
-    private static final String TITLE = LanguageStringMap.get().getMap().get("settings.title");
-    private static final String BACK = LanguageStringMap.get().getMap().get("back");
+    private static final String TITLE_KEY = "settings.title";
+    private static final String BACK_KEY = "back";
     private static final String PAWN_COLOR = "Change pawns' color";
-    private static final String LANGUAGE_MSG = LanguageStringMap.get().getMap().get("settings.languageLabel");
+    private static final String LANGUAGE_MSG_KEY = "settings.languageLabel";
     private static final int TITLE_FONT = 60;
     private static final int FONT = 20;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
@@ -32,12 +32,12 @@ public final class Settings extends BasicScene {
     private static Stage settingStage;
     private static Settings settingsScene = new Settings();
 
-    private final Label title = new Label(TITLE);
+    private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
     private final Button pawnColor = new BasicButton(PAWN_COLOR);
-    private final Label langLabel = new Label(LANGUAGE_MSG);
+    private final Label langLabel = new Label(LanguageStringMap.get().getMap().get(LANGUAGE_MSG_KEY));
     private final ComboBox<Language> languages = new ComboBox<>();
     private final HBox langBox = new HBox(langLabel, languages);
-    private final Button back = new BasicButton(BACK);
+    private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
     private final VBox box = new VBox(title, pawnColor, langBox, back);
 
     private Settings() {
@@ -61,6 +61,7 @@ public final class Settings extends BasicScene {
             Menu.getScene(settingStage).updateLanguage();
             Instructions.getScene(settingStage).updateLanguage();
             SetUpGame.getScene(settingStage).updateLanguage();
+            ViewImpl.getPlayScene().updateLanguage();
         });
 
         this.back.setOnAction(e -> {
@@ -69,9 +70,9 @@ public final class Settings extends BasicScene {
     }
 
     private void updateLanguage() {
-        this.title.setText(LanguageStringMap.get().getMap().get("settings.title"));
-        this.langLabel.setText(LanguageStringMap.get().getMap().get("settings.languageLabel"));
-        this.back.setText(LanguageStringMap.get().getMap().get("back"));
+        this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
+        this.langLabel.setText(LanguageStringMap.get().getMap().get(LANGUAGE_MSG_KEY));
+        this.back.setText(LanguageStringMap.get().getMap().get(BACK_KEY));
     }
 
     /**
