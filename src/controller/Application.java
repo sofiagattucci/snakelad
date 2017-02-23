@@ -1,5 +1,8 @@
 package controller;
 
+import utilities.Language;
+import utilities.LanguagesManager;
+
 /**
  *Class that contain main method.
  *
@@ -24,6 +27,8 @@ public final class Application {
      * @param args ignored.
      */
     public static void main(final String[] args) {
+        final LanguagesManager im = LanguagesManager.get();
+        System.out.println(im.getLanguage(Language.FR));
         final Application application = new Application();
         application.startApplication();
     }
