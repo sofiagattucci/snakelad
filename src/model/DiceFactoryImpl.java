@@ -18,8 +18,7 @@ public class DiceFactoryImpl implements DiceFactory {
 
     @Override
     public Dice createNegativeDice(final Dice dice) {
-        // TODO Auto-generated method stub
-        return null;
+        return new NegativeDice(dice);
     }
 
 }

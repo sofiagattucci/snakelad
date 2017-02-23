@@ -6,7 +6,7 @@ import model.Model;
 import model.ModelImpl;
 import utilities.SceneryDataManager;
 import utilities.TypesOfDice;
-import utilities.LanguagesManager;
+import utilities.LanguageLoader;
 import utilities.Difficulty;
 import utilities.Language;
 import view.View;
@@ -115,6 +115,6 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void setLanguage(final Language language) {
-        view.setLanguageMap(LanguagesManager.get().getLanguage(language));
+        view.setLanguageMap(LanguageLoader.get().getLanguage(language));
     }
 }
