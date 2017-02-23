@@ -11,7 +11,7 @@ import view.game_board.GameBoardImpl;
  */
 public class PawnAnimation implements Runnable {
 
-    private static final double STEP = 8;
+    private static final double STEP = 6;
 
     private final Pawn pawnClass;
     private final int nMoves;
