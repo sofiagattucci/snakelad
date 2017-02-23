@@ -21,4 +21,11 @@ public interface GameBoard {
      */
     Pair<Double, Double> getPosition();
 
+    /**
+     * It assigns a new image to the board. The image is specified through its path.
+     * @param path
+     *     The path to the new board image
+     */
+    void newBoard(String path);
+
 }

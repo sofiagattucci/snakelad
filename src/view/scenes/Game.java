@@ -9,6 +9,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import utilities.Difficulty;
 import utilities.ImageManager;
 import view.Dimension;
 import view.Toolbar;
@@ -24,10 +25,9 @@ import view.pawns.PawnTypes;
  */
 public abstract class Game extends BasicScene { 
 
-    private static final String BOARD_PATH = GameBoardTypes.get().getBoard(SetUpGame.getBoardType());
-
+    private static String boardPath = GameBoardTypes.get().getBoard(SetUpGame.getBoardType());
     private final Toolbar toolbar = new Toolbar();
-    private final GameBoard board = new GameBoardImpl(BOARD_PATH);
+    private final GameBoard board = new GameBoardImpl(boardPath);
     private final List<Pawn> pawnList = new ArrayList<>();
     private int currentTurn;
 
@@ -107,6 +107,17 @@ public abstract class Game extends BasicScene {
     public void updateInfo(final int newDiceValue, final int finalPosition) {
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue, finalPosition);
+    }
+
+    /**
+     * Updates the difficulty of the scenery.
+     * @param newDiff
+     *     The new difficulty
+     */
+    public void setScenary(final Difficulty newDiff) {
+        boardPath = GameBoardTypes.get().getBoard(newDiff);
+        board.newBoard(boardPath);
+        this.setBackground();
     }
 
     /**

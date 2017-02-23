@@ -3,6 +3,8 @@ package view.game_board;
 import java.util.HashMap;
 import java.util.Map;
 
+import utilities.Difficulty;
+
 /**
  * This class manages the different types of game boards (images) available in the game.
  */
@@ -13,12 +15,12 @@ public final class GameBoardTypes {
     private static final String BOARD_PATH3 = "./res/GameBoards/GameBoard3/GameBoard3.png";
 
     private static final GameBoardTypes BOARD_TYPES = new GameBoardTypes();
-    private final Map<Integer, String> boardMap = new HashMap<>();
+    private final Map<Difficulty, String> boardMap = new HashMap<>();
 
     private GameBoardTypes() {
-        this.boardMap.put(1, BOARD_PATH1);
-        this.boardMap.put(2, BOARD_PATH2);
-        this.boardMap.put(3, BOARD_PATH3);
+        this.boardMap.put(Difficulty.BEGINNER, BOARD_PATH1);
+        this.boardMap.put(Difficulty.EASY, BOARD_PATH2);
+        this.boardMap.put(Difficulty.MEDIUM, BOARD_PATH3);
     }
 
     /**
@@ -32,12 +34,12 @@ public final class GameBoardTypes {
 
     /**
      * It select the right pawn image to use.
-     * @param index
-     *     The index of the board
+     * @param diff
+     *     The difficulty of the board
      * @return
      *     The path to the selected board 
      */
-    public String getBoard(final int index) {
-        return this.boardMap.get(index);
+    public String getBoard(final Difficulty diff) {
+        return this.boardMap.get(diff);
     }
 }

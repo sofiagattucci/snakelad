@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import utilities.Difficulty;
 import view.BasicButton;
 import view.Dimension;
 import view.Toolbar;
@@ -30,16 +31,17 @@ public final class SetUpGame extends BasicScene {
     private static final String TITLE = "Custom your game:";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 6;
-    private static final int NUM_SCENARY = 1;
+    private static final int NUM_SCENARY = 3;
     private static final int NUM_DICE = 1;
     private static final int FONT = 20;
     private static final int TITLE_FONT = 65;
     private static final double Y_TITLE_TRANSLATE = -Dimension.SCREEN_H / 10; 
+    private static final int SINGLE_MODE_PLAYERS = 2;
 
     private static Stage setUpStage;
     private static SetUpGame setUpScene = new SetUpGame();
     private static int numPlayers;
-    private static int boardType;
+    private static Difficulty boardType;
     private static int diceType;
 
     private final Label title = new Label(TITLE);
@@ -91,7 +93,7 @@ public final class SetUpGame extends BasicScene {
 
         this.single.setOnAction(e -> {
             this.setMode(true);
-            setNumPlayers(2);
+            setNumPlayers(SINGLE_MODE_PLAYERS);
             this.single.setDisable(true);
             this.multi.setDisable(false);
             for (final Button b: boardList) {
@@ -137,10 +139,10 @@ public final class SetUpGame extends BasicScene {
                     elem.setDisable(false);
                 }
                 b.setDisable(true);
-                setScenary(Integer.valueOf(b.getText()));
                 for (final Button elem: diceList) {
                     elem.setDisable(false);
                 }
+                setScenary(Integer.valueOf(b.getText()));
                 this.diceChoose.setVisible(true);
             });
             this.scenaryChoose.getChildren().add(b);
@@ -164,11 +166,13 @@ public final class SetUpGame extends BasicScene {
 
         this.start.setOnAction(e -> {
             if (singleGameMode) {
+                SinglePlayerGame.getScene(setUpStage).setScenary(boardType);
                 ViewImpl.setPlayScene(SinglePlayerGame.getScene(setUpStage));
                 ViewImpl.getObserver().play(numPlayers, boardType, diceType);
                 setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
             } else {
                 MultiPlayerScenes.get(setUpStage).insert(numPlayers);
+                MultiPlayerScenes.get(setUpStage).getScene(numPlayers).setScenary(boardType);
                 ViewImpl.setPlayScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
                 ViewImpl.getObserver().play(numPlayers, boardType, diceType);
                 setUpStage.setScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
@@ -182,7 +186,15 @@ public final class SetUpGame extends BasicScene {
     }
 
     private static void setScenary(final int n) {
-        boardType = n;
+        switch(n) {
+        case 1: boardType = Difficulty.BEGINNER; 
+                            break;
+        case 2: boardType = Difficulty.EASY;
+                            break;
+        case 3: boardType = Difficulty.MEDIUM;
+                            break;
+        default:
+        }
     }
 
     private static void setNumPlayers(final int n) {
@@ -241,7 +253,7 @@ public final class SetUpGame extends BasicScene {
      * @return
      *     The selected board 
      */
-    public static int getBoardType() {
+    public static Difficulty getBoardType() {
         return boardType;
     }
 }

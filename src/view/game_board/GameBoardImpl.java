@@ -13,7 +13,7 @@ public class GameBoardImpl  implements GameBoard {
 
     private static final int N_BOXES_PER_ROW = 8;
 
-    private final Image board;
+    private Image board;
     private final Pair<Double, Double> boardPosition = new Pair<Double, Double>(
             (Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2,
             (Dimension.SCREEN_H - Dimension.BOARD_H) / 2);
@@ -51,5 +51,10 @@ public class GameBoardImpl  implements GameBoard {
      */
     public static int getBoxesPerRaw() {
         return N_BOXES_PER_ROW;
+    }
+
+    @Override
+    public void newBoard(final String path) {
+        this.board = ImageManager.get().readFromFile(path);
     }
 }

@@ -13,7 +13,7 @@ public final class SinglePlayerGame extends Game {
 
     private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
-    private static final int N_PLAYERS = 2;
+    private static final int N_PLAYERS = SetUpGame.getPlayers();
 
     private static SinglePlayerGame playScene = new SinglePlayerGame();
     private static Stage playStage;
