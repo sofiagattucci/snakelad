@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
  */
 public final class LanguagesManager {
 
-    private static final String LANGUAGE = "LanguagesFiles.StringBundle";
+    private static final String LANGUAGE = "LanguagesFiles.StringsBundle";
 
     private static final LanguagesManager SINGLETON = new LanguagesManager();
 
