@@ -11,13 +11,13 @@ public enum TypesOfDice {
     CLASSIC_DICE,
 
     /**
-     * Represents a dice with 6 sides between the numbers 5 to 10 inclusive.
+     * Represents a dice with 6 sides between the numbers 5 to 10 included.
      */
     _5_TO_10_DICE,
 
     /**
      * Represents a dice with 7 sides between the negative number -2 to the
-     * positive number 5 inclusive. The number 0 is not consider as a dice's side.
+     * positive number 5 included. The number 0 is not consider as a dice's side.
      */
     NEGATIVE_DICE;
 

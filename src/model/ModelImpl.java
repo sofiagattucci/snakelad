@@ -117,6 +117,12 @@ public final class ModelImpl implements Model {
         case CLASSIC_DICE:
             this.dice = diceFactory.createClassicDice();
             break;
+        case _5_TO_10_DICE:
+            this.dice = diceFactory.create5To10Dice(diceFactory.createClassicDice()); //Decorator pattern used
+            break;
+        case NEGATIVE_DICE:
+            this.dice = diceFactory.createNegativeDice(diceFactory.createClassicDice()); //Decorator pattern used
+            break;
         default:
             break;
         }
@@ -135,7 +141,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public void giveUpGame() {
-
+       this.dice.setLastNumberAppeared(Optional.empty());
     }
 
 }
