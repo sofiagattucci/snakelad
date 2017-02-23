@@ -8,8 +8,7 @@ public class DiceFactoryImpl implements DiceFactory {
 
     @Override
     public Dice createClassicDice() {
-        // TODO Auto-generated method stub
-        return null;
+        return ClassicDice.get();
     }
 
     @Override

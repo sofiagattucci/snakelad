@@ -111,9 +111,11 @@ public final class ModelImpl implements Model {
                                          .mapToObj(value -> new Player())
                                          .peek(player -> player.setNewPosition(PLAYER_INITIAL_POSITION))
                                          .collect(Collectors.toList()));
+
+        final DiceFactory diceFactory = new DiceFactoryImpl();
         switch (dice) {
         case CLASSIC_DICE:
-            this.dice = ClassicDice.get();
+            this.dice = diceFactory.createClassicDice();
             break;
         default:
             break;
