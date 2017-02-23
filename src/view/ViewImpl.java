@@ -1,10 +1,8 @@
 package view;
 
 import java.util.Map;
-
 import controller.ViewObserver;
 import javafx.application.Application;
-import utilities.ConsoleLog;
 import view.scenes.Game;
 import view.scenes.SetUpGame;
 
@@ -98,7 +96,6 @@ public class ViewImpl implements View {
     @Override
     public void setLanguageMap(final Map<String, String> map) {
         LanguageStringMap.get().setLanguage(map);
-        ConsoleLog.get().print(LanguageStringMap.get().getMap().get("instructions"));
     }
 } 
 
