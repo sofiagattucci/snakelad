@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import utilities.Language;
 import view.BasicButton;
 import view.Dimension;
+import view.LanguageStringMap;
 import view.ViewImpl;
 
 /**
@@ -22,7 +23,7 @@ public final class Settings extends BasicScene {
     private static final String TITLE = "Settings";
     private static final String BACK = "Back";
     private static final String PAWN_COLOR = "Change pawns' color";
-    private static final String LANGUAGE_MSG = "Change language: ";
+    private static final String LANGUAGE_MSG = LanguageStringMap.get().getMap().get("settings.languageLabel");
     private static final String DEFAULT_LANGUAGE = Language.EN.name();
     private static final int TITLE_FONT = 60;
     private static final int FONT = 20;
@@ -57,11 +58,19 @@ public final class Settings extends BasicScene {
         this.languages.setPromptText(DEFAULT_LANGUAGE);
         this.languages.setOnAction(e -> {
             ViewImpl.getObserver().setLanguage(this.languages.getValue());
+            this.updateLanguage();
+            Menu.getScene(settingStage).updateLanguage();
         });
 
         this.back.setOnAction(e -> {
             settingStage.setScene(Menu.getScene(settingStage));
         });
+    }
+
+    private void updateLanguage() {
+        this.title.setText(LanguageStringMap.get().getMap().get("settings.title"));
+        this.langLabel.setText(LanguageStringMap.get().getMap().get("settings.languageLabel"));
+        this.back.setText(LanguageStringMap.get().getMap().get("back"));
     }
 
     /**

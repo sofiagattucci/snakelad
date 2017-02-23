@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import view.BasicButton;
 import view.Dimension;
+import view.LanguageStringMap;
 import view.ViewImpl;
 import view.dialog_boxes.ClosureHandler;
 /**
@@ -65,6 +66,16 @@ public final class Menu extends BasicScene {
         this.title.setFont(new Font(FONT_SIZE));
         this.title.setTranslateY(TITLE_TOP_PADDING);
 
+    }
+
+    /**
+     * It updates the language of this scene.
+     */
+    public void updateLanguage() {
+        this.play.setText(LanguageStringMap.get().getMap().get("menu.play"));
+        this.instructions.setText(LanguageStringMap.get().getMap().get("menu.instructions"));
+        this.settings.setText(LanguageStringMap.get().getMap().get("menu.settings"));
+        this.quit.setText(LanguageStringMap.get().getMap().get("menu.quit"));
     }
 
     /**

@@ -3,6 +3,7 @@ package view;
 import java.util.Map;
 import controller.ViewObserver;
 import javafx.application.Application;
+import utilities.Language;
 import view.scenes.Game;
 import view.scenes.SetUpGame;
 
@@ -10,6 +11,8 @@ import view.scenes.SetUpGame;
  * This is the main class of the view and implements the View Interface.
  */
 public class ViewImpl implements View {
+
+    private static final Language DEFAULT_LANGUAGE = Language.EN;
 
     private static Game playScene;
     private static SetUpGame setUpScene;
@@ -26,6 +29,7 @@ public class ViewImpl implements View {
 
     @Override
     public void start() {
+        observer.setLanguage(DEFAULT_LANGUAGE);
         Application.launch(MainFrame.class);
     }
 

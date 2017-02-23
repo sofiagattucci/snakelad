@@ -60,6 +60,8 @@ public final class Instructions extends BasicScene {
      * It sets the instructions' text displayed on the GUI.
      */
     public void setInstructions() {
+        this.title.setText(LanguageStringMap.get().getMap().get("instructions.title"));
         this.instr.setText(LanguageStringMap.get().getMap().get("instructions"));
+        this.back.setText(LanguageStringMap.get().getMap().get("back"));
     }
 }
