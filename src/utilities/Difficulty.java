@@ -5,7 +5,7 @@ package utilities;
  */
 public enum Difficulty {
     /**
-     * Beginner mode, scenery 3.
+     * Beginner mode, scenery 1.
      */
     BEGINNER,
     /**
@@ -13,7 +13,7 @@ public enum Difficulty {
      */
     EASY,
     /**
-     * Medium mode, scenery 1.
+     * Medium mode, scenery 3.
      */
     MEDIUM;
 }

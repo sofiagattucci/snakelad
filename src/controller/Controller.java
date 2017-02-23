@@ -84,16 +84,16 @@ public final class Controller implements ViewObserver {
                 .build());
         switch(scenery) {
             case BEGINNER:
-                this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
                 break;
             case EASY:
                 this.game.startGame(SceneryDataManager.get().readFromFile(DATA2), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
                 break;
             case MEDIUM:
-                this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
                 break;
                 default:
-                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
                     break;
             }
         this.counter = 0;
