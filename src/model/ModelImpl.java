@@ -141,7 +141,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public void giveUpGame() {
-       this.dice.setLastNumberAppeared(Optional.empty());
+        this.dice.setLastNumberAppeared(Optional.empty());
     }
 
 }

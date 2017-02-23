@@ -3,6 +3,8 @@ package tests;
 import org.junit.Test;
 
 import tests.model.ClassicDiceTest;
+import tests.model.Dice5To10Test;
+import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
 import tests.view.PawnTest;
 import tests.view.PawnTypesTest;
@@ -20,6 +22,8 @@ public final class TestLauncher {
     @Test
     public void testModel() {
         new ClassicDiceTest().testClassicDice();
+        new Dice5To10Test().testDice5To10();
+        new NegativeDiceTest().testNegativeDice();
         new PlayerTest().testPlayer();
     }
 

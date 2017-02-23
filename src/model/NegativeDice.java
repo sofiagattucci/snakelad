@@ -10,7 +10,8 @@ import java.util.Random;
  */
 public class NegativeDice implements Dice {
 
-    private static final int MAX_NUMBER_FROM_DICE = 5;
+    private static final int MAX_NUMBER = 5;
+    private static final int MIN_NUMBER = -2;
     private static final int DELTA = 3;
     private static final int RANDOM_BOUND = 2;
 
@@ -29,8 +30,8 @@ public class NegativeDice implements Dice {
 
     //calculates a number uniformly distributed between -2 and 5 included
     private int calculateFinalNumber(final int initialNumber) {
-        if (initialNumber > MAX_NUMBER_FROM_DICE) {
-            final int finalNumber = this.calculateFinalNumber(this.rand.nextInt(MAX_NUMBER_FROM_DICE) + 1);
+        if (initialNumber > MAX_NUMBER) {
+            final int finalNumber = this.calculateFinalNumber(this.rand.nextInt(MAX_NUMBER) + 1);
             this.classicDice.setLastNumberAppeared(Optional.of(finalNumber));
             return finalNumber;
         }
@@ -56,8 +57,15 @@ public class NegativeDice implements Dice {
     }
 
     @Override
-    public void setLastNumberAppeared(final Optional<Integer> lastNumberAppeared) {
-        this.classicDice.setLastNumberAppeared(lastNumberAppeared);
+    public void setLastNumberAppeared(final Optional<Integer> lastNumberAppeared) throws IllegalArgumentException {
+        if (lastNumberAppeared.isPresent()) {
+            if (lastNumberAppeared.get() < MIN_NUMBER || lastNumberAppeared.get() > MAX_NUMBER || lastNumberAppeared.get() == 0) {
+                throw new IllegalArgumentException("Argument out of bounds (" + MIN_NUMBER + " and " + MAX_NUMBER + " included) or equal to 0");
+            }
+            this.classicDice.setLastNumberAppeared(lastNumberAppeared);
+        } else {
+            this.classicDice.setLastNumberAppeared(Optional.empty()); //reset the dice to initial configuration.
+        }
     }
 
     @Override

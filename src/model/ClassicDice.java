@@ -12,12 +12,10 @@ public final class ClassicDice implements Dice {
     private static final ClassicDice SINGLETON = new ClassicDice();
     private static final int NUMBER_OF_SIDES = 6;
 
-    private final int numberOfSides;
     private Optional<Integer> lastNumberAppeared;
 
     // private constructor
     private ClassicDice() {
-        this.numberOfSides = NUMBER_OF_SIDES;
         this.lastNumberAppeared = Optional.empty();
     }
 
@@ -32,13 +30,13 @@ public final class ClassicDice implements Dice {
     @Override
     public int roll() {
         final Random randomNumber = new Random();
-        this.lastNumberAppeared = Optional.of(randomNumber.nextInt(this.numberOfSides) + 1);
+        this.lastNumberAppeared = Optional.of(randomNumber.nextInt(NUMBER_OF_SIDES) + 1);
         return this.lastNumberAppeared.get();
     }
 
     @Override
     public void setLastNumberAppeared(final Optional<Integer> lastNumberAppeared) {
-        this.lastNumberAppeared = lastNumberAppeared;
+            this.lastNumberAppeared = lastNumberAppeared;
     }
 
     @Override

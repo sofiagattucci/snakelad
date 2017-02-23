@@ -9,6 +9,8 @@ import java.util.Optional;
 public final class Dice5To10 implements Dice {
 
     private static final int DELTA = 4;
+    private static final int MIN_NUMBER = 5;
+    private static final int MAX_NUMBER = 10;
 
     private final Dice classicDice;
 
@@ -24,17 +26,26 @@ public final class Dice5To10 implements Dice {
 
     @Override
     public int roll() {
-        return this.classicDice.roll() + DELTA;
+        final int finalNumber = this.classicDice.roll() + DELTA;
+        this.classicDice.setLastNumberAppeared(Optional.of(finalNumber));
+        return finalNumber;
     }
 
     @Override
-    public void setLastNumberAppeared(final Optional<Integer> lastNumberAppeared) {
-        this.classicDice.setLastNumberAppeared(lastNumberAppeared);
+    public void setLastNumberAppeared(final Optional<Integer> lastNumberAppeared) throws IllegalArgumentException {
+        if (lastNumberAppeared.isPresent()) {
+            if (lastNumberAppeared.get() < MIN_NUMBER || lastNumberAppeared.get() > MAX_NUMBER) {
+                throw new IllegalArgumentException("Argument out of bounds (" + MIN_NUMBER + " and " + MAX_NUMBER + " included)");
+            }
+            this.classicDice.setLastNumberAppeared(lastNumberAppeared);
+        } else {
+            this.classicDice.setLastNumberAppeared(Optional.empty()); //reset the dice to initial configuration.
+        }
     }
 
     @Override
     public int getLastNumberAppeared() throws IllegalStateException {
-        return this.classicDice.getLastNumberAppeared() + DELTA;
+        return this.classicDice.getLastNumberAppeared();
     }
 
 }
