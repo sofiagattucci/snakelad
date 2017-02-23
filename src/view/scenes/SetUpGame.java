@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import utilities.Difficulty;
 import view.BasicButton;
 import view.Dimension;
+import view.LanguageStringMap;
 import view.Toolbar;
 import view.ViewImpl;
 
@@ -203,6 +204,20 @@ public final class SetUpGame extends BasicScene {
 
     private static void setDice(final int n) {
         diceType = n;
+    }
+
+    /**
+     * It updates the language of this scene. 
+     */
+    public void updateLanguage() {
+        this.title.setText(LanguageStringMap.get().getMap().get("setUp.title"));
+        this.back.setText(LanguageStringMap.get().getMap().get("back"));
+        this.single.setText(LanguageStringMap.get().getMap().get("setUp.single"));
+        this.multi.setText(LanguageStringMap.get().getMap().get("setUp.multi"));
+        this.howMany.setText(LanguageStringMap.get().getMap().get("setUp.selectPlayers"));
+        this.scenaryLabel.setText(LanguageStringMap.get().getMap().get("setUp.selectBoard"));
+        this.diceLabel.setText(LanguageStringMap.get().getMap().get("setUp.selectDice"));
+        this.start.setText(LanguageStringMap.get().getMap().get("setUp.start"));
     }
 
     /**
