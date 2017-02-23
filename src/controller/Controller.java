@@ -76,7 +76,7 @@ public final class Controller implements ViewObserver {
     }
 
     @Override
-    public void play(final int numberOfPlayers, final Difficulty scenery, final int dice) {
+    public void play(final int numberOfPlayers, final Difficulty scenery, final TypesOfDice dice) {
         this.settings = Optional.of(new GameSettingsBuilder()
                 .numOfPlayers(numberOfPlayers)
                 .sceneryChoose(scenery)
@@ -84,16 +84,16 @@ public final class Controller implements ViewObserver {
                 .build());
         switch(scenery) {
             case BEGINNER:
-                this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
                 break;
             case EASY:
-                this.game.startGame(SceneryDataManager.get().readFromFile(DATA2), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                this.game.startGame(SceneryDataManager.get().readFromFile(DATA2), this.settings.get().getNumberOfPlayer(), dice);
                 break;
             case MEDIUM:
-                this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), dice);
                 break;
                 default:
-                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), TypesOfDice.CLASSIC_DICE);
+                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
                     break;
             }
         this.counter = 0;

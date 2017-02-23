@@ -1,6 +1,7 @@
 package controller;
 
 import utilities.Difficulty;
+import utilities.TypesOfDice;
 
 /**
  * Class for set the settings of game.
@@ -10,7 +11,7 @@ public class GameSettings {
 
     private final int numberOfPlayers;
     private final Difficulty scenery;
-    private final int dice;
+    private final TypesOfDice dice;
 
     /**
      * Constructor.
@@ -21,7 +22,7 @@ public class GameSettings {
      * @param dice
      *          the dice choose
      */
-    public GameSettings(final int numOfPlayers, final Difficulty scenery, final int dice) {
+    public GameSettings(final int numOfPlayers, final Difficulty scenery, final TypesOfDice dice) {
         this.numberOfPlayers = numOfPlayers;
         this.scenery = scenery;
         this.dice = dice;
@@ -47,7 +48,7 @@ public class GameSettings {
      * Getter for dice choose.
      * @return the dice choose.
      */
-    public int getDice() {
+    public TypesOfDice getDice() {
         return this.dice;
     }
 

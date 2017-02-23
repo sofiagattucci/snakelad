@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.Difficulty;
+import utilities.TypesOfDice;
 import view.BasicButton;
 import view.Dimension;
 import view.LanguageStringMap;
@@ -33,7 +34,7 @@ public final class SetUpGame extends BasicScene {
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 6;
     private static final int NUM_SCENARY = 3;
-    private static final int NUM_DICE = 1;
+    private static final int NUM_DICE = 3;
     private static final int FONT = 20;
     private static final int TITLE_FONT = 65;
     private static final double Y_TITLE_TRANSLATE = -Dimension.SCREEN_H / 10; 
@@ -43,7 +44,7 @@ public final class SetUpGame extends BasicScene {
     private static SetUpGame setUpScene = new SetUpGame();
     private static int numPlayers;
     private static Difficulty boardType;
-    private static int diceType;
+    private static TypesOfDice diceType;
 
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
     private final Button single = new BasicButton(LanguageStringMap.get().getMap().get(SINGLE_KEY));
@@ -191,11 +192,11 @@ public final class SetUpGame extends BasicScene {
     private static void setScenary(final int n) {
         switch(n) {
         case 1: boardType = Difficulty.BEGINNER; 
-                            break;
+                break;
         case 2: boardType = Difficulty.EASY;
-                            break;
+                break;
         case 3: boardType = Difficulty.MEDIUM;
-                            break;
+                break;
         default:
         }
     }
@@ -205,7 +206,15 @@ public final class SetUpGame extends BasicScene {
     }
 
     private static void setDice(final int n) {
-        diceType = n;
+        switch(n) {
+        case 1: diceType = TypesOfDice.CLASSIC_DICE;
+                break;
+        case 2: diceType = TypesOfDice._5_TO_10_DICE;
+                break;
+        case 3: diceType = TypesOfDice.NEGATIVE_DICE;
+                break;
+        default:
+        }
     }
 
     /**
@@ -272,5 +281,14 @@ public final class SetUpGame extends BasicScene {
      */
     public static Difficulty getBoardType() {
         return boardType;
+    }
+
+    /**
+     * Getter of the dice selected for this game.
+     * @return
+     *     The selected dice 
+     */
+    public static TypesOfDice getSelectedDice() {
+        return diceType;
     }
 }

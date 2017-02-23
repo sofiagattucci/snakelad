@@ -1,6 +1,7 @@
 package controller;
 
 import utilities.Difficulty;
+import utilities.TypesOfDice;
 
 /**
  * Builder for GameSettings class.
@@ -10,7 +11,7 @@ public class GameSettingsBuilder {
 
     private int numberOfPlayers;
     private Difficulty scenery;
-    private int dice;
+    private TypesOfDice dice;
 
     /**
      * Set number of player.
@@ -40,7 +41,7 @@ public class GameSettingsBuilder {
      *              the type of dice choose
      * @return the Builder
      */
-    public GameSettingsBuilder diceChoose(final int dice) {
+    public GameSettingsBuilder diceChoose(final TypesOfDice dice) {
         this.dice = dice;
         return this;
     }
