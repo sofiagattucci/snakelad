@@ -1,23 +1,29 @@
 #number of cells on the game board n.3
-35
+63
 #snake positions
-31
+61
 24
-29
+59
+2
+55
 26
-20
-4
-12
-8
-6
-3
+48
+22
+29
+5
+19
+1
 #ladder positions
+3
+12
+7
+24
 11
-13
-14
-33
-16
-28
-30
+43
+18
 32
+51
+60
+53
+56
 #END
