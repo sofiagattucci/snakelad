@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import tests.model.ClassicDiceTest;
 import tests.model.PlayerTest;
-import tests.view.PawnTest;
+import tests.view.LanguageMapTest;
 import tests.view.PawnTypesTest;
 
 /**
@@ -37,6 +37,6 @@ public final class TestLauncher {
     @Test
     public void testView() {
         new PawnTypesTest().pawnTypesTest();
-        new PawnTest().pawnTest();
+        new LanguageMapTest().test();
     }
 }
