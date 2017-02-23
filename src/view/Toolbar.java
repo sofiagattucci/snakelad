@@ -23,10 +23,10 @@ import view.scenes.SinglePlayerGame;
  */
 public class Toolbar {
 
-    private static final String PAUSE = "Pause";
-    private static final String ROLL = "Roll";
-    private static final String PLAYER = "Player";
+    private static final String PAUSE_KEY = "game.pause";
+    private static final String ROLL_KEY = "game.roll";
     private static final String CPU = "CPU";
+    private static final String PLAYER_KEY = "game.player";
     private static final String BLACK_LABEL = "-fx-text-fill: black";
     private static final String YELLOW_LABEL = "-fx-text-fill: yellow";
     private static final String BOX_COLOR = "-fx-background-color: #336699;";
@@ -43,8 +43,9 @@ public class Toolbar {
 
     private static Stage toolStage;
 
-    private final Button pause = new BasicButton(PAUSE);
-    private final Button roll = new BasicButton(ROLL); 
+    private static Label playerLabel = new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY));
+    private final Button pause = new BasicButton(LanguageStringMap.get().getMap().get(PAUSE_KEY));
+    private final Button roll = new BasicButton(LanguageStringMap.get().getMap().get(ROLL_KEY)); 
     private final Font smallFont = new Font(SMALL_FONT_SIZE);
     private final Font bigFont = new Font(BIG_FONT_SIZE);
     private final GridPane gp = new GridPane();
@@ -52,6 +53,9 @@ public class Toolbar {
     private final ImageView diceImView = new ImageView(dice.getDiceImage());
     private final VBox box = new VBox(gp, roll, diceImView, pause);
     private final List<Label> pawnLabel = new ArrayList<>();
+    private final PauseBox pauseBox = new PauseBox(toolStage);
+    private int numPlayers;
+    private boolean singleFlag;
 
     /**
      * Constructor of the tool bar.
@@ -72,7 +76,7 @@ public class Toolbar {
         this.pause.setPrefWidth(BUTTON_WIDTH);
         this.pause.setPrefHeight(BUTTON_HEIGHT);
 
-        this.pause.setOnAction(e ->  new PauseBox(toolStage).show());
+        this.pause.setOnAction(e ->  this.pauseBox.show());
 
         this.roll.setOnAction(e -> {
             this.roll.setVisible(false);
@@ -86,8 +90,9 @@ public class Toolbar {
      *     The number of players of the game
      */
     public void putLabels(final int nPlayers) {
+        this.numPlayers = nPlayers;
         for (int i = 0; i < nPlayers; i++) {
-            this.pawnLabel.add(new Label(PLAYER + (i + 1)));
+            this.pawnLabel.add(new Label(playerLabel.getText() + (i + 1)));
             this.pawnLabel.get(i).setFont(smallFont);
             this.gp.addRow(i, new PawnImpl(PawnTypes.get().getPawn(i)).getPawn(), this.pawnLabel.get(i));
         }
@@ -98,6 +103,23 @@ public class Toolbar {
      */
     public void setCPU() {
         this.pawnLabel.get(SinglePlayerGame.getCPUIndex()).setText(CPU);
+        this.singleFlag = true;
+    }
+
+    /**
+     * It updates the language of the elements of this class.
+     */
+    public void updateLanguage() {
+        this.roll.setText(LanguageStringMap.get().getMap().get(ROLL_KEY));
+        this.pause.setText(LanguageStringMap.get().getMap().get(PAUSE_KEY));
+        playerLabel.setText(LanguageStringMap.get().getMap().get(PLAYER_KEY));
+        for (int i = 0; i < numPlayers; i++) {
+            this.pawnLabel.get(i).setText(playerLabel.getText() + (i + 1));
+        }
+        if (this.singleFlag) {
+            this.setCPU();
+        }
+        this.pauseBox.updateLanguage();
     }
 
     /**

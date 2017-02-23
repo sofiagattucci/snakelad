@@ -1,14 +1,17 @@
 package view.dialog_boxes;
 
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import view.LanguageStringMap;
 
 /**
  * It handles the end of a player versus player game.
  */
 public class MultiPlayerGameOver extends GameOver {
 
-    private static final String MESSAGE = "The winner is: Player ";
-    private static final String MESSAGE2 = "\nWhat do you want to do?";
+    private static final String PLAYER_KEY = "game.player";
+
+    private final Label player = new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY));
 
     /**
      * Constructor of this class.
@@ -19,6 +22,6 @@ public class MultiPlayerGameOver extends GameOver {
      */
     public MultiPlayerGameOver(final Stage parentStage, final int winnerIndex) {
         super(parentStage);
-        this.getBox().setHeaderText(MESSAGE + winnerIndex + MESSAGE2);
+        this.getBox().setHeaderText(this.getMsg().getText() + this.player.getText() + winnerIndex + "\n" + this.getMsg2().getText());
     }
 }

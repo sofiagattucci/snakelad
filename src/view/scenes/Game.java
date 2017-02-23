@@ -121,6 +121,13 @@ public abstract class Game extends BasicScene {
     }
 
     /**
+     * It updates the language of this scene.
+     */
+    public void updateLanguage() {
+        this.toolbar.updateLanguage();
+    }
+
+    /**
      * It holds the number of players in the game. At this time we don' t know the number so an abstract method is needed.
      * @return
      *     The number of players in the game
