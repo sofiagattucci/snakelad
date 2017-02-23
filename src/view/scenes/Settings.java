@@ -20,11 +20,10 @@ import view.ViewImpl;
  */
 public final class Settings extends BasicScene {
 
-    private static final String TITLE = "Settings";
-    private static final String BACK = "Back";
+    private static final String TITLE = LanguageStringMap.get().getMap().get("settings.title");
+    private static final String BACK = LanguageStringMap.get().getMap().get("back");
     private static final String PAWN_COLOR = "Change pawns' color";
     private static final String LANGUAGE_MSG = LanguageStringMap.get().getMap().get("settings.languageLabel");
-    private static final String DEFAULT_LANGUAGE = Language.EN.name();
     private static final int TITLE_FONT = 60;
     private static final int FONT = 20;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
@@ -55,7 +54,7 @@ public final class Settings extends BasicScene {
         for (final Language elem: Language.values()) {
             this.languages.getItems().add(elem);
         }
-        this.languages.setPromptText(DEFAULT_LANGUAGE);
+        this.languages.setPromptText(ViewImpl.getDefaultLanguage().name());
         this.languages.setOnAction(e -> {
             ViewImpl.getObserver().setLanguage(this.languages.getValue());
             this.updateLanguage();

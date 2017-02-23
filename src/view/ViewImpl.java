@@ -78,6 +78,15 @@ public class ViewImpl implements View {
         return setUpScene;
     }
 
+    /**
+     * Getter of the default language of the game.
+     * @return
+     *     The default language of the game. An element of the enumeration Language
+     */
+    public static Language getDefaultLanguage() {
+        return DEFAULT_LANGUAGE;
+    }
+
     private void setObserver(final ViewObserver obs) {
         observer = obs;
     }

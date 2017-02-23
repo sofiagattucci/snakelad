@@ -16,8 +16,8 @@ import view.LanguageStringMap;
  */
 public final class Instructions extends BasicScene {
 
-    private static final String BACK = "Back";
-    private static final String TITLE = "Instructions";
+    private static final String BACK = LanguageStringMap.get().getMap().get("back");
+    private static final String TITLE = LanguageStringMap.get().getMap().get("instructions.title");
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 2;
     private static final int FONT_SIZE = 20;
     private static final int TITLE_FONT_SIZE = 60;

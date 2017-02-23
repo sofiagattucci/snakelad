@@ -18,11 +18,11 @@ import view.dialog_boxes.ClosureHandler;
  */
 public final class Menu extends BasicScene {
 
-    private static final String PLAY = "PLAY";
-    private static final String INSTRUCTIONS = "INSTRUCTIONS";
-    private static final String QUIT = "QUIT";
+    private static final String PLAY = LanguageStringMap.get().getMap().get("menu.play");
+    private static final String INSTRUCTIONS = LanguageStringMap.get().getMap().get("menu.instructions");
+    private static final String SETTINGS = LanguageStringMap.get().getMap().get("menu.settings");
+    private static final String QUIT = LanguageStringMap.get().getMap().get("menu.quit");
     private static final String TITLE = "SnakeNLadder";
-    private static final String SETTINGS = "SETTINGS";
     private static final double TITLE_TOP_PADDING = Dimension.SCREEN_H / 6;
     private static final int FONT_SIZE = 65;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
