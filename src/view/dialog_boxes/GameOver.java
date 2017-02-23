@@ -1,7 +1,9 @@
 package view.dialog_boxes;
 
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import view.LanguageStringMap;
 import view.ViewImpl;
 import view.scenes.Menu;
 
@@ -10,12 +12,17 @@ import view.scenes.Menu;
  */
 public class GameOver extends BasicDialogBox {
 
-    private static final String GAME_OVER = "GAME OVER";
-    private static final String RESTART = "Restart";
-    private static final String MAIN_MENU = "Main Menu";
+    private static final String TITLE_KEY = "gameOver.title";
+    private static final String RESTART_KEY = "gameOver.restart";
+    private static final String MAIN_MENU_KEY = "gameOver.mainMenu";
+    private static final String MSG_KEY = "gameOver.msg";
+    private static final String MSG2_KEY = "gameOver.msg2";
 
-    private final ButtonType mainMenu = new ButtonType(MAIN_MENU);
-    private final ButtonType restart = new ButtonType(RESTART);
+    private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
+    private final ButtonType mainMenu = new ButtonType(LanguageStringMap.get().getMap().get(MAIN_MENU_KEY));
+    private final ButtonType restart = new ButtonType(LanguageStringMap.get().getMap().get(RESTART_KEY));
+    private final Label msg = new Label(LanguageStringMap.get().getMap().get(MSG_KEY));
+    private final Label msg2 = new Label(LanguageStringMap.get().getMap().get(MSG2_KEY));
 
     /**
      * Constructor of this class.
@@ -24,8 +31,26 @@ public class GameOver extends BasicDialogBox {
      */
     public GameOver(final Stage parentStage) {
         super(parentStage);
-        this.getBox().setTitle(GAME_OVER);
-        this.getBox().getButtonTypes().setAll(mainMenu, restart);
+        this.getBox().setTitle(this.title.getText());
+        this.getBox().getButtonTypes().addAll(this.mainMenu, this.restart);
+    }
+
+    /**
+     * Getter of the msg label.
+     * @return
+     *      The label containing the msg
+     */
+    protected Label getMsg() {
+        return this.msg;
+    }
+
+    /**
+     * Getter of the msg2 label.
+     * @return
+     *      The label containing the msg2
+     */
+    protected Label getMsg2() {
+        return this.msg2;
     }
 
     /**
@@ -33,7 +58,7 @@ public class GameOver extends BasicDialogBox {
      */
     @Override
     public void show() {
-        if (this.getBox().showAndWait().get().getText().equals(MAIN_MENU)) {
+        if (this.getBox().showAndWait().get().getText().equals(this.mainMenu.getText())) {
             ViewImpl.getObserver().giveUp();
             this.getStage().setScene(Menu.getScene(this.getStage()));
         } else {

@@ -61,7 +61,6 @@ public final class Settings extends BasicScene {
             Menu.getScene(settingStage).updateLanguage();
             Instructions.getScene(settingStage).updateLanguage();
             SetUpGame.getScene(settingStage).updateLanguage();
-            ViewImpl.getPlayScene().updateLanguage();
         });
 
         this.back.setOnAction(e -> {

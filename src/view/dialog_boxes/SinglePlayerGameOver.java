@@ -2,14 +2,12 @@ package view.dialog_boxes;
 
 import javafx.stage.Stage;
 import utilities.Turn;
+import view.LanguageStringMap;
 
 /**
  * It handles the end of the game.
  */
 public class SinglePlayerGameOver extends GameOver {
-
-    private static final String MESSAGE = "The winner is: ";
-    private static final String MESSAGE2 = "\nWhat do you want to do?";
 
     /**
      * Constructor of this class.
@@ -20,6 +18,12 @@ public class SinglePlayerGameOver extends GameOver {
      */
     public SinglePlayerGameOver(final Stage parentStage, final Turn winner) {
         super(parentStage);
-        this.getBox().setHeaderText(MESSAGE + winner + MESSAGE2);
+        String win;
+        if (winner == Turn.PLAYER) {
+            win = LanguageStringMap.get().getMap().get("game.player");
+        } else {
+            win = winner.name();
+        }
+        this.getBox().setHeaderText(this.getMsg().getText() + win + "\n" + this.getMsg2().getText());
     }
 }

@@ -169,12 +169,14 @@ public final class SetUpGame extends BasicScene {
             if (singleGameMode) {
                 SinglePlayerGame.getScene(setUpStage).setScenary(boardType);
                 ViewImpl.setPlayScene(SinglePlayerGame.getScene(setUpStage));
+                ViewImpl.getPlayScene().updateLanguage();
                 ViewImpl.getObserver().play(numPlayers, boardType, diceType);
                 setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
             } else {
                 MultiPlayerScenes.get(setUpStage).insert(numPlayers);
                 MultiPlayerScenes.get(setUpStage).getScene(numPlayers).setScenary(boardType);
                 ViewImpl.setPlayScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
+                ViewImpl.getPlayScene().updateLanguage();
                 ViewImpl.getObserver().play(numPlayers, boardType, diceType);
                 setUpStage.setScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
             }

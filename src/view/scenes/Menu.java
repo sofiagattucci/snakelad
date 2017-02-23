@@ -75,6 +75,7 @@ public final class Menu extends BasicScene {
         this.instructions.setText(LanguageStringMap.get().getMap().get(INSTRUCTIONS_KEY));
         this.settings.setText(LanguageStringMap.get().getMap().get(SETTINGS_KEY));
         this.quit.setText(LanguageStringMap.get().getMap().get(QUIT_KEY));
+        this.closure.updateLanguage();
     }
 
     /**
