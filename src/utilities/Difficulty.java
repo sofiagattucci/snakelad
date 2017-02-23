@@ -1,4 +1,5 @@
 package utilities;
+
 /**
  * Enumeration to set difficulty of game.
  *
