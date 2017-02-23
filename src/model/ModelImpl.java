@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import utilities.TypesOfDice;
@@ -17,17 +18,30 @@ import java.util.LinkedList;
  */
 public final class ModelImpl implements Model {
 
+    private static final Supplier<RuntimeException> EXCEPTION_SUPPLIER = () -> new IllegalStateException("The method statGame() "
+                                                                                                       + "must be called before "
+                                                                                                       + "calling this method!");
     private static final int PLAYER_INITIAL_POSITION = 0;
     private static final int SEPARATOR = 0;
 
-    //the number of cells in the game board
+    //the number of cells in the game board.
     private int numberOfCells;
-    //map which contains positions of all snakes in the game board
+    //map which contains positions of all snakes in the game board.
     private final Map<Integer, Integer> snakesMap = new HashMap<>();
-    //map which contains positions of all ladders in the game board
+    //map which contains positions of all ladders in the game board.
     private final Map<Integer, Integer> laddersMap = new HashMap<>();
     private final List<Player> playersList = new LinkedList<>();
     private Dice dice;
+    //'isReady' is false if the method called startGame() has never been called, otherwise 
+    //true. In fact, the method statGame() must be called before any other method.
+    private boolean isReady;
+
+    /**
+     * ModelImpl constructor.
+     */
+    public ModelImpl() {
+        this.isReady = false;
+    }
 
     private void clearEntities() {
         this.playersList.stream()
@@ -73,6 +87,9 @@ public final class ModelImpl implements Model {
 
     @Override
     public Optional<Integer> getPlayerPosition(final int playerIndex) {
+        if (!this.isReady) {
+            throw EXCEPTION_SUPPLIER.get();
+        }
 
         int partialPlayerPosition = this.playersList.get(playerIndex).getPosition() 
                                     + this.dice.getLastNumberAppeared();
@@ -98,6 +115,8 @@ public final class ModelImpl implements Model {
 
     @Override
     public void startGame(final List<Integer> data, final int numberOfPlayers, final TypesOfDice dice) {
+        this.isReady = true;
+
         final List<Integer> dataList = data;
 
         //get the first number from dataList. It represents the number of cells in the scenery
@@ -134,19 +153,32 @@ public final class ModelImpl implements Model {
 
     @Override
     public int getNumberFromDice() {
+        if (!this.isReady) {
+            throw EXCEPTION_SUPPLIER.get();
+        }
+
         return this.dice.roll();
     }
 
     @Override
     public void restartGame() {
+        if (!this.isReady) {
+            throw EXCEPTION_SUPPLIER.get();
+        }
+
         this.clearEntities();
     }
 
     @Override
     public void giveUpGame() {
+        if (!this.isReady) {
+            throw EXCEPTION_SUPPLIER.get();
+        }
+
         this.clearEntities();
         this.snakesMap.clear();
         this.laddersMap.clear();
+        this.isReady = false;
     }
 
 }
