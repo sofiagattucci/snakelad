@@ -29,6 +29,13 @@ public final class ModelImpl implements Model {
     private final List<Player> playersList = new LinkedList<>();
     private Dice dice;
 
+    private void clearEntities() {
+        this.playersList.stream()
+                        .forEach(player -> player.setNewPosition(PLAYER_INITIAL_POSITION));
+
+        this.dice.setLastNumberAppeared(Optional.empty());
+    }
+
     private Map<Integer, Integer> fillMap(final List<Integer> list) {
         final Iterator<Integer> iterator = list.iterator();
         final Map<Integer, Integer> map = new HashMap<>();
@@ -91,7 +98,6 @@ public final class ModelImpl implements Model {
 
     @Override
     public void startGame(final List<Integer> data, final int numberOfPlayers, final TypesOfDice dice) {
-
         final List<Integer> dataList = data;
 
         //get the first number from dataList. It represents the number of cells in the scenery
@@ -133,13 +139,14 @@ public final class ModelImpl implements Model {
 
     @Override
     public void restartGame() {
-        this.playersList.stream()
-                        .forEach(player -> player.setNewPosition(PLAYER_INITIAL_POSITION));
+        this.clearEntities();
     }
 
     @Override
     public void giveUpGame() {
-        this.dice.setLastNumberAppeared(Optional.empty());
+        this.clearEntities();
+        this.snakesMap.clear();
+        this.laddersMap.clear();
     }
 
 }
