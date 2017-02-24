@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import utilities.Pair;
 import utilities.TypesOfDice;
 import java.util.Collections;
 import java.util.HashMap;
@@ -79,14 +81,8 @@ public final class ModelImpl implements Model {
         return Collections.unmodifiableList(list);
     }
 
-    //private method called to avoid too much repetition of identical code in getPlayerPosition()
-    private Optional<Integer> playerPositionUtils(final int index, final int position) {
-        this.playersList.get(index).setNewPosition(position);
-        return Optional.of(this.playersList.get(index).getPosition());
-    }
-
     @Override
-    public Optional<Integer> getPlayerPosition(final int playerIndex) {
+    public Pair<Integer, Boolean> getPlayerPositionAndJump(final int playerIndex) {
         if (!this.isReady) {
             throw EXCEPTION_SUPPLIER.get();
         }
@@ -100,17 +96,20 @@ public final class ModelImpl implements Model {
 
         if (this.snakesMap.containsKey(partialPlayerPosition)) {
             final int finalPlayerPosition = this.snakesMap.get(partialPlayerPosition);
-            return this.playerPositionUtils(playerIndex, finalPlayerPosition);
+            this.playersList.get(playerIndex).setNewPosition(finalPlayerPosition);
+            return new Pair<>(finalPlayerPosition, true);
         }
 
         if (this.laddersMap.containsKey(partialPlayerPosition)) {
             final int finalPlayerPosition = this.laddersMap.get(partialPlayerPosition);
-            return this.playerPositionUtils(playerIndex, finalPlayerPosition);
+            this.playersList.get(playerIndex).setNewPosition(finalPlayerPosition);
+            return new Pair<>(finalPlayerPosition, true);
         }
 
         //the specified player don't achieve neither a snake or a ladder
-        this.playerPositionUtils(playerIndex, partialPlayerPosition);
-        return Optional.empty();
+        final int finalPlayerPosition = partialPlayerPosition < 0 ? 0 : partialPlayerPosition; 
+        this.playersList.get(playerIndex).setNewPosition(finalPlayerPosition);
+        return new Pair<>(finalPlayerPosition, false);
     }
 
     @Override

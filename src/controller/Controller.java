@@ -7,6 +7,7 @@ import model.ModelImpl;
 import utilities.SceneryDataManager;
 import utilities.TypesOfDice;
 import utilities.LanguageLoader;
+import utilities.Pair;
 import utilities.Difficulty;
 import utilities.Language;
 import view.View;
@@ -49,12 +50,16 @@ public final class Controller implements ViewObserver {
     @Override
     public void rollDice() {
         final int value = this.game.getNumberFromDice();
-        final Optional<Integer> position;
-        position = this.game.getPlayerPosition(counter);
-        if (position.isPresent()) {
-            this.view.updateInfo(value, position.get());
+        final Pair<Integer, Boolean> positionAndJump;
+        positionAndJump = this.game.getPlayerPositionAndJump(counter);
+        if (value < 0 && positionAndJump.getFirst() == 0) {
+            this.view.updateInfo(0);
         } else {
-            this.view.updateInfo(value);
+            if (positionAndJump.getSecond()) {
+                    this.view.updateInfo(value, positionAndJump.getFirst());
+            } else {
+                this.view.updateInfo(value);
+            }
         }
         if (this.counter < this.settings.get().getNumberOfPlayer() - 1) {
             this.counter++;

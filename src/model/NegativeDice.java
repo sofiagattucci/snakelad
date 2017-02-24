@@ -70,11 +70,7 @@ public class NegativeDice implements Dice {
 
     @Override
     public int getLastNumberAppeared() throws IllegalStateException {
-        final int lastNumberAppeared = this.classicDice.getLastNumberAppeared();
-        if (lastNumberAppeared < 0) {
-            return 0;
-        }
-        return lastNumberAppeared;
+        return this.classicDice.getLastNumberAppeared();
     }
 
 }

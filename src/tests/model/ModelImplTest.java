@@ -21,7 +21,7 @@ public class ModelImplTest {
 
         //call methods without calling startGame() method. It must throw IllegalStateException
         try {
-            model.getPlayerPosition(0);
+            model.getPlayerPositionAndJump(0);
             fail("cannot call getPlayerPosition() because there is no last number relased from dice.");
         } catch (final IllegalStateException e) {
             final ConsoleLog log = ConsoleLog.get();
