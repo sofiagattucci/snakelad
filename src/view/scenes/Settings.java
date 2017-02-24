@@ -22,7 +22,6 @@ import view.Dimension;
 import view.FlagsMap;
 import view.LanguageStringMap;
 import view.ViewImpl;
-import view.pawn.PawnsColor;
 
 /**
  * It' s a scene of the application. It manages some optional features of the game
