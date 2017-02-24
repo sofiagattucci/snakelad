@@ -35,7 +35,7 @@ public final class SetUpGame extends BasicScene {
     private static final int MAX_PLAYERS = 6;
     private static final int FONT = 20;
     private static final int TITLE_FONT = 65;
-    private static final double Y_TITLE_TRANSLATE = -Dimension.SCREEN_H / 10; 
+    private static final double Y_TITLE_TRANSLATE = -Dimension.SCREEN_H / 20; 
     private static final int SINGLE_MODE_PLAYERS = 2;
 
     private static Stage setUpStage;

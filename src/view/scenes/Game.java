@@ -20,6 +20,7 @@ import view.gameboard.GameBoardTypes;
 import view.pawn.Pawn;
 import view.pawn.PawnImpl;
 import view.pawn.PawnTypes;
+import view.pawn.PawnsColor;
 
 /**
  * This class creates and initializes a generic game scene.
@@ -40,7 +41,7 @@ public abstract class Game extends BasicScene {
         this.getDefaultLayout().setRight(this.toolbar.getBox());
         this.setBackground();
         for (int i = 0; i < this.getTag(); i++) {
-            final Pawn newPawn = new PawnImpl(PawnTypes.get().getPawn(i));
+            final Pawn newPawn = new PawnImpl(PawnTypes.get().getPawn(PawnsColor.get().getColor(i)));
             this.getPawnList().add(newPawn);
             this.getDefaultLayout().getChildren().add(newPawn.getPawn());
         }

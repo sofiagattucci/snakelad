@@ -43,7 +43,7 @@ public abstract class ImagesCircularList<X> {
      * @param type
      *     A starting value for the parameter.
      * @param next
-     *     A node in the GUI graph whose visibility depends on this class
+     *     A node in the GUI graph whose visibility depends on this class. Actually it' s set visible by this class
      */
     public ImagesCircularList(final int n, final String s, final double dim, final X type, final Node next) {
 
@@ -117,16 +117,6 @@ public abstract class ImagesCircularList<X> {
      *     The image to show in the GUI
      */
     protected abstract Image getImage();
-
-    /**
-     * It gets a list of the nodes shown in the image view.
-     * @return
-     *     A list of the nodes shown in the GUI
-     */
-    public List<Node> getNodes() {
-        return Collections.unmodifiableList(
-                new ArrayList<>(Arrays.asList(this.titleLabel, this.prev, this.image, this.next, this.ok, this.descLabel)));
-    }
  
     /**
      * Getter of the description label of this class, a label that shows info about the selected element.
@@ -156,6 +146,16 @@ public abstract class ImagesCircularList<X> {
     }
 
     /**
+     * Getter of a list of the nodes (managed by this class) shown in the image view.
+     * @return
+     *     A (unmodifiable) list of the nodes shown in the GUI
+     */
+    public List<Node> getNodes() {
+        return Collections.unmodifiableList(
+                new ArrayList<>(Arrays.asList(this.titleLabel, this.prev, this.image, this.next, this.ok, this.descLabel)));
+    }
+
+    /**
      * Getter of the parameter of the selected type.
      * @return
      *     The value of the parameter 
@@ -178,7 +178,7 @@ public abstract class ImagesCircularList<X> {
      * @param newTitle
      *     The new text to put in the title label
      */
-    public void updateLanguage(final String newTitle) {
+    protected void updateLanguage(final String newTitle) {
         this.getTitleLabel().setText(LanguageStringMap.get().getMap().get(newTitle));
     }
 }
