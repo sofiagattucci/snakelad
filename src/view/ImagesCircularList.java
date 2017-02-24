@@ -2,6 +2,7 @@ package view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.scene.Node;
@@ -13,8 +14,10 @@ import javafx.scene.text.Font;
 
 /**
  * This class manages a circular list of elements and its elements in the GUI.
+ * @param <X>
+ *     The type of a parameter used in this class.
  */
-public abstract class ImagesCircularList {
+public abstract class ImagesCircularList<X> {
 
     private static final String OK = "OK";
     private static final int FONT_SIZE = 20;
@@ -27,6 +30,7 @@ public abstract class ImagesCircularList {
     private final Button prev = new Button("<");
     private final Button ok = new Button(OK);
     private int counter;
+    private X typeParam;
 
     /**
      * Constructor of this class.
@@ -35,10 +39,13 @@ public abstract class ImagesCircularList {
      * @param s
      *     The string to put in the title label
      * @param dim
-     *     The dimension of the image shown in the GUI 
+     *     The dimension of the image shown in the GUI
+     * @param type
+     *     A starting value for the parameter. 
      */
-    public ImagesCircularList(final int n, final String s, final double dim) {
+    public ImagesCircularList(final int n, final String s, final double dim, final X type) {
 
+        this.typeParam = type;
         this.titleLabel.setText(LanguageStringMap.get().getMap().get(s));
         this.image.setFitWidth(dim);
         this.image.setFitHeight(dim);
@@ -122,7 +129,8 @@ public abstract class ImagesCircularList {
      *     A list of the nodes shown in the GUI
      */
     public List<Node> getNodes() {
-        return new ArrayList<>(Arrays.asList(this.titleLabel, this.prev, this.image, this.next, this.ok, this.descLabel));
+        return Collections.unmodifiableList(
+                new ArrayList<>(Arrays.asList(this.titleLabel, this.prev, this.image, this.next, this.ok, this.descLabel)));
     }
  
     /**
@@ -159,5 +167,32 @@ public abstract class ImagesCircularList {
      */
     protected Label getTitleLabel() {
         return this.titleLabel;
+    }
+
+    /**
+     * Getter of the parameter of the selected type.
+     * @return
+     *     The value of the parameter 
+     */
+    public X getParameterValue() {
+        return this.typeParam;
+    }
+
+    /**
+     * Setter of the parameter of the selected type.
+     * @param newP
+     *     The new value of the parameter
+     */
+    public void setParameterValue(final X newP) {
+        this.typeParam = newP;
+    }
+
+    /**
+     * It updates the language of the elements of this class.
+     * @param newTitle
+     *     The new text to put in the title label
+     */
+    public void updateLanguage(final String newTitle) {
+        this.getTitleLabel().setText(LanguageStringMap.get().getMap().get(newTitle));
     }
 }

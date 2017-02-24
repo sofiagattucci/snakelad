@@ -11,7 +11,7 @@ import view.scenes.SetUpGame;
  * This class manages the choice of the dice and its elements in the GUI.
  * It implemented by using a circular list defined in the extended class CircularList.
  */
-public class DiceCircularList extends ImagesCircularList {
+public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
 
     private static final String CLASSIC_DICE_KEY = "dice.classic";
     private static final String TO10_DICE_KEY = "dice.to10";
@@ -21,7 +21,6 @@ public class DiceCircularList extends ImagesCircularList {
     private static final double DICE_SIZE = BasicButton.getButtonHeight() * 1.5;
     private static final int DEFAULT_DICE_IMAGE_INDEX = 5;
 
-    private TypesOfDice diceType = TypesOfDice.CLASSIC_DICE;
     private final Node nextNode;
 
     /**
@@ -30,7 +29,7 @@ public class DiceCircularList extends ImagesCircularList {
      *     The next node of the layout graph to show in the GUI
      */
     public DiceCircularList(final Node next) {
-        super(NUM_DICE, DICE_LABEL_KEY, DICE_SIZE);
+        super(NUM_DICE, DICE_LABEL_KEY, DICE_SIZE, TypesOfDice.CLASSIC_DICE);
         this.nextNode = next;
     }
 
@@ -59,15 +58,15 @@ public class DiceCircularList extends ImagesCircularList {
    @Override
    protected void setParameter(final int n) {
        switch(n) {
-           case 0: this.diceType = TypesOfDice.CLASSIC_DICE;
+           case 0: this.setParameterValue(TypesOfDice.CLASSIC_DICE);
                    break;
-           case 1: this.diceType = TypesOfDice._5_TO_10_DICE;
+           case 1: this.setParameterValue(TypesOfDice._5_TO_10_DICE);
                    break;
-           case 2: this.diceType = TypesOfDice.NEGATIVE_DICE;
+           case 2: this.setParameterValue(TypesOfDice.NEGATIVE_DICE);
                    break;
            default:
        }
-       SetUpGame.setDiceType(this.diceType);
+       SetUpGame.setDiceType(this.getParameterValue());
    }
 
     @Override
@@ -82,19 +81,9 @@ public class DiceCircularList extends ImagesCircularList {
     }
 
     /**
-     * Getter of the type of the selected dice.
-     * @return
-     *     The type of the selected board
-     */
-    public TypesOfDice getSelectedType() {
-        return this.diceType;
-    }
-
-    /**
      * It updates the language of the elements of this class.
      */
     public void updateLanguage() {
-        this.getTitleLabel().setText(LanguageStringMap.get().getMap().get(DICE_LABEL_KEY));
+        super.updateLanguage(DICE_LABEL_KEY);
     }
-
 }

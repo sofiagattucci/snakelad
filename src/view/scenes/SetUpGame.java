@@ -117,18 +117,18 @@ public final class SetUpGame extends BasicScene {
 
         this.start.setOnAction(e -> {
             if (singleGameMode) {
-                SinglePlayerGame.getScene(setUpStage).updateScene(this.board.getSelectedType(), this.dice.getSelectedType());
+                SinglePlayerGame.getScene(setUpStage).updateScene(this.board.getParameterValue(), this.dice.getParameterValue());
                 ViewImpl.setPlayScene(SinglePlayerGame.getScene(setUpStage));
                 ViewImpl.getPlayScene().updateLanguage();
-                ViewImpl.getObserver().play(numPlayers, this.board.getSelectedType(), diceType);
+                ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType);
                 setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
             } else {
                 MultiPlayerScenes.get(setUpStage).insert(numPlayers);
                 MultiPlayerScenes.get(setUpStage).getScene(numPlayers).updateScene(
-                       this.board.getSelectedType(), this.dice.getSelectedType());
+                       this.board.getParameterValue(), this.dice.getParameterValue());
                 ViewImpl.setPlayScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
                 ViewImpl.getPlayScene().updateLanguage();
-                ViewImpl.getObserver().play(numPlayers, this.board.getSelectedType(), diceType);
+                ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType);
                 setUpStage.setScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
             }
         });
@@ -153,7 +153,7 @@ public final class SetUpGame extends BasicScene {
         this.multi.setText(LanguageStringMap.get().getMap().get(MULTI_KEY));
         this.howMany.setText(LanguageStringMap.get().getMap().get(HOW_MANY_KEY));
         this.board.updateLanguage();
-        this.dice.reset();
+        this.dice.updateLanguage();
         this.start.setText(LanguageStringMap.get().getMap().get(START_KEY));
     }
 

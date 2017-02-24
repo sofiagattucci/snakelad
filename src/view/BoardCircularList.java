@@ -11,7 +11,7 @@ import view.scenes.SetUpGame;
  * This class manages the choice of the scenery and its elements in the GUI.
  * It implemented by using a circular list defined in the extended class CircularList.
  */
-public class BoardCircularList extends ImagesCircularList {
+public class BoardCircularList extends ImagesCircularList<Difficulty> {
 
     private static final String BEGINNER_KEY = "difficulty.beginner";
     private static final String EASY_KEY = "difficulty.easy";
@@ -20,7 +20,6 @@ public class BoardCircularList extends ImagesCircularList {
     private static final int NUM_SCENARY = 3;
     private static final double BOARD_SIZE = BasicButton.getButtonHeight() * 1.5;
 
-    private Difficulty boardType = Difficulty.BEGINNER;
     private final Node nextNode;
 
     /**
@@ -29,7 +28,7 @@ public class BoardCircularList extends ImagesCircularList {
      *     The next node of the layout graph to show in the GUI
      */
     public BoardCircularList(final Node next) {
-        super(NUM_SCENARY, SCENERY_LABEL_KEY, BOARD_SIZE);
+        super(NUM_SCENARY, SCENERY_LABEL_KEY, BOARD_SIZE, Difficulty.BEGINNER);
         this.nextNode = next;
         for (final Difficulty d: Difficulty.values()) {
             this.insertElem(ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(d)));
@@ -61,15 +60,15 @@ public class BoardCircularList extends ImagesCircularList {
     @Override
     protected void setParameter(final int n) {
         switch(n) {
-            case 0: this.boardType = Difficulty.BEGINNER; 
+            case 0: this.setParameterValue(Difficulty.BEGINNER); 
                     break;
-            case 1: this.boardType = Difficulty.EASY;
+            case 1: this.setParameterValue(Difficulty.EASY);
                     break;
-            case 2: this.boardType = Difficulty.MEDIUM;
+            case 2: this.setParameterValue(Difficulty.MEDIUM);
                     break;
             default:
         }
-        SetUpGame.setBoardType(this.boardType);
+        SetUpGame.setBoardType(this.getParameterValue());
     }
 
     @Override
@@ -83,18 +82,9 @@ public class BoardCircularList extends ImagesCircularList {
     }
 
     /**
-     * Getter of the type of the selected board.
-     * @return
-     *     The type of the selected board
-     */
-    public Difficulty getSelectedType() {
-        return this.boardType;
-    }
-
-    /**
      * It updates the language of the elements of this class.
      */
     public void updateLanguage() {
-        this.getTitleLabel().setText(LanguageStringMap.get().getMap().get(SCENERY_LABEL_KEY));
+        super.updateLanguage(SCENERY_LABEL_KEY);
     }
 }
