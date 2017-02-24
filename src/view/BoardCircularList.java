@@ -20,19 +20,13 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
     private static final int NUM_SCENARY = 3;
     private static final double BOARD_SIZE = BasicButton.getButtonHeight() * 1.5;
 
-    private final Node nextNode;
-
     /**
      * Constructor of this class.
      * @param next
      *     The next node of the layout graph to show in the GUI
      */
     public BoardCircularList(final Node next) {
-        super(NUM_SCENARY, SCENERY_LABEL_KEY, BOARD_SIZE, Difficulty.BEGINNER);
-        this.nextNode = next;
-        for (final Difficulty d: Difficulty.values()) {
-            this.insertElem(ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(d)));
-        }
+        super(NUM_SCENARY, SCENERY_LABEL_KEY, BOARD_SIZE, Difficulty.BEGINNER, next);
     }
 
     private Difficulty calculateDifficulty(final int n) {
@@ -74,11 +68,6 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
     @Override
     protected Image getImage() {
         return ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(this.calculateDifficulty(this.getCounter())));
-    }
-
-    @Override
-    protected Node nextToShow() {
-        return this.nextNode;
     }
 
     /**

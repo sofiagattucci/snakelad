@@ -41,9 +41,11 @@ public abstract class ImagesCircularList<X> {
      * @param dim
      *     The dimension of the image shown in the GUI
      * @param type
-     *     A starting value for the parameter. 
+     *     A starting value for the parameter.
+     * @param next
+     *     A node in the GUI graph whose visibility depends on this class
      */
-    public ImagesCircularList(final int n, final String s, final double dim, final X type) {
+    public ImagesCircularList(final int n, final String s, final double dim, final X type, final Node next) {
 
         this.typeParam = type;
         this.titleLabel.setText(LanguageStringMap.get().getMap().get(s));
@@ -79,7 +81,7 @@ public abstract class ImagesCircularList<X> {
             this.prev.setDisable(true);
             this.next.setDisable(true);
             this.setParameter(this.counter);
-            this.nextToShow().setVisible(true);
+            next.setVisible(true);
         });
         this.reset();
     }
@@ -117,13 +119,6 @@ public abstract class ImagesCircularList<X> {
     protected abstract Image getImage();
 
     /**
-     * It specifies the next node of the layout graph to show in the GUI. 
-     * @return
-     *     The next node in the layout graph to show
-     */
-    protected abstract Node nextToShow();
-
-    /**
      * It gets a list of the nodes shown in the image view.
      * @return
      *     A list of the nodes shown in the GUI
@@ -140,15 +135,6 @@ public abstract class ImagesCircularList<X> {
      */
     protected Label getDescLabel() {
         return this.descLabel;
-    }
-
-    /**
-     * It inserts the selected element in the list.
-     * @param im
-     *     The element to add in the list
-     */
-    protected void insertElem(final Image im) {
-        this.list.add(im);
     }
 
     /**

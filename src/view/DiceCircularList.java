@@ -23,16 +23,13 @@ public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
     private static final int TO10_DICE_IMAGE_INDEX = 7;
     private static final int NEGATIVE_DICE_IMAGE_INDEX = -2;
 
-    private final Node nextNode;
-
     /**
      * Constructor of this class.
      * @param next
      *     The next node of the layout graph to show in the GUI
      */
     public DiceCircularList(final Node next) {
-        super(NUM_DICE, DICE_LABEL_KEY, DICE_SIZE, TypesOfDice.CLASSIC_DICE);
-        this.nextNode = next;
+        super(NUM_DICE, DICE_LABEL_KEY, DICE_SIZE, TypesOfDice.CLASSIC_DICE, next);
     }
 
     @Override
@@ -82,11 +79,6 @@ public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
         }
         return ImageManager.get().readFromFile(
                 DiceTypes.get().getSpecificDiceMap(this.calculateDice(this.getCounter())).get(diceImageIndex));
-    }
-
-    @Override
-    protected Node nextToShow() {
-        return this.nextNode;
     }
 
     /**
