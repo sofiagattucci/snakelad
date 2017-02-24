@@ -2,7 +2,7 @@ package view.scenes;
 
 import javafx.stage.Stage;
 import view.Toolbar;
-import view.dialog_boxes.MultiPlayerGameOver;
+import view.dialogBoxes.MultiPlayerGameOver;
 
 /**
  * This class creates and initializes the game scene for a player versus player game.

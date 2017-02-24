@@ -55,9 +55,11 @@ public final class SetUpGame extends BasicScene {
     private final Label howMany = new Label(LanguageStringMap.get().getMap().get(HOW_MANY_KEY));
     private final HBox chooseNumber = new HBox(howMany);
     private final List<Button> boardList = new ArrayList<>();
+    private final Label boardDesc = new Label();
     private final Label scenaryLabel = new Label(LanguageStringMap.get().getMap().get(SCENERY_LABEL_KEY));
     private final HBox scenaryChoose = new HBox(scenaryLabel);
     private final List<Button> diceList = new ArrayList<>();
+    private final Label diceDesc = new Label();
     private final Label diceLabel = new Label(LanguageStringMap.get().getMap().get(DICE_LABEL_KEY));
     private final HBox diceChoose = new HBox(diceLabel);
     private final Button start = new BasicButton(LanguageStringMap.get().getMap().get(START_KEY));
@@ -76,10 +78,14 @@ public final class SetUpGame extends BasicScene {
         this.scenaryChoose.setAlignment(Pos.CENTER);
         this.diceChoose.setAlignment(Pos.CENTER);
 
+        this.scenaryChoose.setSpacing(BOX_SPACING);
+        this.diceChoose.setSpacing(BOX_SPACING);
         this.title.setFont(new Font(TITLE_FONT));
         this.howMany.setFont(new Font(FONT));
         this.scenaryLabel.setFont(new Font(FONT));
         this.diceLabel.setFont(new Font(FONT));
+        this.boardDesc.setFont(new Font(FONT));
+        this.diceDesc.setFont(new Font(FONT));
 
         for (int i = 2; i <= MAX_PLAYERS; i++) {
             this.nPlayer.add(new Button(String.valueOf(i)));
@@ -101,6 +107,8 @@ public final class SetUpGame extends BasicScene {
             for (final Button b: boardList) {
                 b.setDisable(false);
             }
+            this.diceDesc.setText("");
+            this.boardDesc.setText("");
             this.chooseNumber.setVisible(false);
             this.scenaryChoose.setVisible(true);
             this.diceChoose.setVisible(false);
@@ -117,6 +125,8 @@ public final class SetUpGame extends BasicScene {
             this.chooseNumber.setVisible(true);
             this.scenaryChoose.setVisible(false);
             this.diceChoose.setVisible(false);
+            this.diceDesc.setText("");
+            this.boardDesc.setText("");
             this.start.setVisible(false);
         });
 
@@ -145,10 +155,12 @@ public final class SetUpGame extends BasicScene {
                     elem.setDisable(false);
                 }
                 setScenary(Integer.valueOf(b.getText()));
+                this.updateBoardDesc(Integer.valueOf(b.getText()));
                 this.diceChoose.setVisible(true);
             });
             this.scenaryChoose.getChildren().add(b);
         }
+        this.scenaryChoose.getChildren().add(this.boardDesc);
 
         for (final Button b: diceList) {
             b.setOnAction(e -> {
@@ -157,10 +169,12 @@ public final class SetUpGame extends BasicScene {
                 }
                 b.setDisable(true);
                 setDice(Integer.valueOf(b.getText()));
+                this.updateDiceDesc(Integer.valueOf(b.getText()));
                 this.start.setVisible(true);
             });
             this.diceChoose.getChildren().add(b);
         }
+        this.diceChoose.getChildren().add(this.diceDesc);
 
         this.back.setOnAction(e -> {
             setUpStage.setScene(Menu.getScene(setUpStage));
@@ -183,6 +197,30 @@ public final class SetUpGame extends BasicScene {
             }
         });
         this.reset();
+    }
+
+    private void updateBoardDesc(final int n) {
+        switch(n) {
+            case 1: this.boardDesc.setText(Difficulty.BEGINNER.name()); 
+                    break;
+            case 2: this.boardDesc.setText(Difficulty.EASY.name());
+                    break;
+            case 3: this.boardDesc.setText(Difficulty.MEDIUM.name());
+                    break;
+            default:
+        }
+    }
+
+    private void updateDiceDesc(final int n) {
+        switch(n) {
+            case 1: this.diceDesc.setText(TypesOfDice.CLASSIC_DICE.name()); 
+                    break;
+            case 2: this.diceDesc.setText(TypesOfDice._5_TO_10_DICE.name());
+                    break;
+            case 3: this.diceDesc.setText(TypesOfDice.NEGATIVE_DICE.name());
+                    break;
+            default:
+        }
     }
 
     private void setMode(final boolean b) {

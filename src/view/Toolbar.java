@@ -13,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import view.dialog_boxes.PauseBox;
+import view.dialogBoxes.PauseBox;
 import view.dice.Dice;
 import view.dice.DiceImpl;
 import view.pawn.PawnImpl;

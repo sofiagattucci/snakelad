@@ -11,7 +11,7 @@ import view.BasicButton;
 import view.Dimension;
 import view.LanguageStringMap;
 import view.ViewImpl;
-import view.dialog_boxes.ClosureHandler;
+import view.dialogBoxes.ClosureHandler;
 /**
  * This class creates and initializes the main menu scene. 
  * It' s built using a Singleton pattern.

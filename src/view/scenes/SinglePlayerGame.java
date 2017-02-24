@@ -4,7 +4,7 @@ import javafx.stage.Stage;
 import utilities.Turn;
 import view.Toolbar;
 import view.ViewImpl;
-import view.dialog_boxes.SinglePlayerGameOver;
+import view.dialogBoxes.SinglePlayerGameOver;
 
 /**
  * This class creates and initializes the game scene for a player versus CPU game.
