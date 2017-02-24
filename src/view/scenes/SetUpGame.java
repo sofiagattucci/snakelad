@@ -20,6 +20,7 @@ import view.Dimension;
 import view.LanguageStringMap;
 import view.Toolbar;
 import view.ViewImpl;
+import view.dice.DiceTypes;
 import view.gameboard.GameBoardTypes;
 
 /**
@@ -50,6 +51,9 @@ public final class SetUpGame extends BasicScene {
     private static final double BOARD_SIZE = BasicButton.getButtonHeight() * 1.5;
     private static final Difficulty DEFAULT_DIFFICULTY = Difficulty.BEGINNER;
     private static final int DEFAULT_DIFFICULTY_INDEX = 1;
+    private static final TypesOfDice DEFAULT_DICE = TypesOfDice.CLASSIC_DICE;
+    private static final int DEFAULT_DICE_INDEX = 1;
+    private static final int DEFAULT_DICE_IMAGE_INDEX = 5;
 
     private static Stage setUpStage;
     private static SetUpGame setUpScene = new SetUpGame();
@@ -69,18 +73,24 @@ public final class SetUpGame extends BasicScene {
     private final ImageView board = new ImageView();
     private final Label boardDesc = new Label();
     private final Label scenaryLabel = new Label(LanguageStringMap.get().getMap().get(SCENERY_LABEL_KEY));
-    private final Button next = new Button(">");
-    private final Button prev = new Button("<");
-    private final Button ok = new Button(OK);
-    private final HBox scenaryChoose = new HBox(scenaryLabel, prev, board, next, ok);
-    private final List<Button> diceList = new ArrayList<>();
+    private final Button nextBoard = new Button(">");
+    private final Button prevBoard = new Button("<");
+    private final Button okBoard = new Button(OK);
+    private final HBox scenaryChoose = new HBox(this.scenaryLabel, this.prevBoard, this.board, this.nextBoard, 
+                                                this.okBoard, this.boardDesc);
+    private final List<Image> diceList = new ArrayList<>();
+    private final ImageView dice = new ImageView();
     private final Label diceDesc = new Label();
     private final Label diceLabel = new Label(LanguageStringMap.get().getMap().get(DICE_LABEL_KEY));
-    private final HBox diceChoose = new HBox(diceLabel);
+    private final Button nextDice = new Button(">");
+    private final Button prevDice = new Button("<");
+    private final Button okDice = new Button(OK);
+    private final HBox diceChoose = new HBox(this.diceLabel, this.prevDice, this.dice, this.nextDice, this.okDice, this.diceDesc);
     private final Button start = new BasicButton(LanguageStringMap.get().getMap().get(START_KEY));
-    private final VBox box = new VBox(title, modes, chooseNumber, scenaryChoose, diceChoose, start);
+    private final VBox box = new VBox(this.title, this.modes, this.chooseNumber, this.scenaryChoose, this.diceChoose, this.start);
     private boolean singleGameMode;
     private int diffCounter = 1;
+    private int diceCounter = 1;
 
     private SetUpGame() {
 
@@ -114,8 +124,8 @@ public final class SetUpGame extends BasicScene {
             this.boardList.add(ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(d)));
         }
 
-        for (int i = 1; i <= NUM_DICE; i++) {
-            this.diceList.add(new Button(String.valueOf(i)));
+        for (final TypesOfDice t: TypesOfDice.values()) {
+            this.diceList.add(ImageManager.get().readFromFile(DiceTypes.get().getSpecificDiceMap(t).get(DEFAULT_DICE_IMAGE_INDEX)));
         }
 
         this.single.setOnAction(e -> {
@@ -145,46 +155,57 @@ public final class SetUpGame extends BasicScene {
             this.chooseNumber.getChildren().add(b);
         }
 
-        this.prev.setOnAction(e -> {
+        this.prevBoard.setOnAction(e -> {
             this.diffCounter--;
             if (this.diffCounter <= 0) {
                 this.diffCounter = NUM_SCENARY;
             }
             this.board.setImage(ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(this.calculateDifficulty(this.diffCounter))));
-            this.updateBoardDesc(diffCounter);
+            this.updateBoardDesc(this.diffCounter);
         });
 
-        this.next.setOnAction(e -> {
+        this.nextBoard.setOnAction(e -> {
             this.diffCounter++;
             if (this.diffCounter > NUM_SCENARY) {
                 this.diffCounter = 1;
             }
             this.board.setImage(ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(this.calculateDifficulty(this.diffCounter))));
-            this.updateBoardDesc(diffCounter);
+            this.updateBoardDesc(this.diffCounter);
         });
 
-        this.ok.setOnAction(e -> {
-            this.prev.setDisable(true);
-            this.next.setDisable(true);
+        this.okBoard.setOnAction(e -> {
+            this.prevBoard.setDisable(true);
+            this.nextBoard.setDisable(true);
             setScenary(this.diffCounter);
             this.diceChoose.setVisible(true);
         });
 
-        this.scenaryChoose.getChildren().add(this.boardDesc);
+        this.prevDice.setOnAction(e -> {
+            this.diceCounter--;
+            if (this.diceCounter <= 0) {
+                this.diceCounter = NUM_DICE;
+            }
+            this.dice.setImage(ImageManager.get().readFromFile(
+                    DiceTypes.get().getSpecificDiceMap(this.calculateDice(this.diceCounter)).get(DEFAULT_DICE_IMAGE_INDEX)));
+            this.updateDiceDesc(this.diceCounter);
+        });
 
-        for (final Button b: diceList) {
-            b.setOnAction(e -> {
-                for (final Button elem: diceList) {
-                    elem.setDisable(false);
-                }
-                b.setDisable(true);
-                setDice(Integer.valueOf(b.getText()));
-                this.updateDiceDesc(Integer.valueOf(b.getText()));
-                this.start.setVisible(true);
-            });
-            this.diceChoose.getChildren().add(b);
-        }
-        this.diceChoose.getChildren().add(this.diceDesc);
+        this.nextDice.setOnAction(e -> {
+            this.diceCounter++;
+            if (this.diceCounter > NUM_DICE) {
+                this.diceCounter = 1;
+            }
+            this.dice.setImage(ImageManager.get().readFromFile(
+                    DiceTypes.get().getSpecificDiceMap(this.calculateDice(this.diceCounter)).get(DEFAULT_DICE_IMAGE_INDEX)));
+            this.updateDiceDesc(this.diceCounter);
+        });
+
+        this.okDice.setOnAction(e -> {
+            this.prevDice.setDisable(true);
+            this.nextDice.setDisable(true);
+            setDice(this.diceCounter);
+            this.start.setVisible(true);
+        });
 
         this.back.setOnAction(e -> {
             setUpStage.setScene(Menu.getScene(setUpStage));
@@ -215,7 +236,16 @@ public final class SetUpGame extends BasicScene {
         case 2: return Difficulty.EASY;
         case 3: return Difficulty.MEDIUM;
         default: return Difficulty.BEGINNER;
+        }
     }
+
+    private TypesOfDice calculateDice(final int n) {
+        switch(n) {
+        case 1: return TypesOfDice.CLASSIC_DICE; 
+        case 2: return TypesOfDice._5_TO_10_DICE;
+        case 3: return TypesOfDice.NEGATIVE_DICE;
+        default: return TypesOfDice.CLASSIC_DICE;
+        }
     }
 
     private void updateBoardDesc(final int n) {
@@ -300,16 +330,18 @@ public final class SetUpGame extends BasicScene {
             b.setDisable(false);
         }
         this.scenaryChoose.setVisible(false);
-        this.prev.setDisable(false);
-        this.next.setDisable(false);
+        this.prevBoard.setDisable(false);
+        this.nextBoard.setDisable(false);
         this.board.setImage(ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(DEFAULT_DIFFICULTY)));
         this.diffCounter = DEFAULT_DIFFICULTY_INDEX;
         this.updateBoardDesc(this.diffCounter);
+
         this.diceChoose.setVisible(false);
-        this.updateDiceDesc(1);
-        for (final Button b: diceList) {
-            b.setDisable(false);
-        }
+        this.prevDice.setDisable(false);
+        this.nextDice.setDisable(false);
+        this.dice.setImage(ImageManager.get().readFromFile(DiceTypes.get().getSpecificDiceMap(DEFAULT_DICE).get(DEFAULT_DICE_IMAGE_INDEX)));
+        this.diceCounter = DEFAULT_DICE_INDEX;
+        this.updateDiceDesc(this.diceCounter);
     }
 
     /**
