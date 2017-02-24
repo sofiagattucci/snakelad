@@ -45,16 +45,17 @@ public abstract class ImagesCircularList {
         this.titleLabel.setFont(new Font(FONT_SIZE));
         this.descLabel.setFont(new Font(FONT_SIZE));
 
-        for (int i = 0; i < n; i++) {
+        for (this.counter = 0; this.counter < n; this.counter++) {
             this.list.add(this.getImage());
         }
+        this.counter = 0;
 
         this.prev.setOnAction(e -> {
             this.counter--;
             if (this.counter < 0) {
                 this.counter = n - 1;
             }
-            this.image.setImage(this.getImage());
+            this.image.setImage(this.list.get(this.counter));
             this.updateDescLabel(this.counter);
         });
 
@@ -63,14 +64,14 @@ public abstract class ImagesCircularList {
             if (this.counter >= n) {
                 this.counter = 0;
             }
-            this.image.setImage(this.getImage());
+            this.image.setImage(this.list.get(this.counter));
             this.updateDescLabel(this.counter);
         });
 
         this.ok.setOnAction(e -> {
             this.prev.setDisable(true);
             this.next.setDisable(true);
-            this.setScenery(this.counter);
+            this.setParameter(this.counter);
             this.nextToShow().setVisible(true);
         });
         this.reset();
@@ -83,7 +84,7 @@ public abstract class ImagesCircularList {
         this.prev.setDisable(false);
         this.next.setDisable(false);
         this.counter = 0;
-        this.image.setImage(this.getImage());
+        this.image.setImage(this.list.get(this.counter));
         this.updateDescLabel(this.counter);
     }
 
@@ -99,7 +100,7 @@ public abstract class ImagesCircularList {
      * @param n
      *     The index of the selected element in the list
      */
-    protected abstract void setScenery(int n);
+    protected abstract void setParameter(int n);
 
     /**
      * It gets the image to put in the image view.

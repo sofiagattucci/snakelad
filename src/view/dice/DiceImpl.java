@@ -16,15 +16,13 @@ public class DiceImpl implements Dice {
     private static final String DEFAULT_DICE = "./res/Dice/ClassicDice/DiceSide1.png";
 
     private final Image diceImage = ImageManager.get().readFromFile(DEFAULT_DICE);
-    private final Map<Integer, String> diceSides;
+    private Map<Integer, String> diceSides;
 
     /**
      * Constructor of this class.
      */
     public DiceImpl() {
-        final TypesOfDice type = SetUpGame.getSelectedDice();
-        this.diceSides = DiceTypes.get().getSpecificDiceMap(type);
-
+        this.diceSides = DiceTypes.get().getSpecificDiceMap(SetUpGame.getSelectedDice());
     }
 
     @Override
@@ -37,4 +35,8 @@ public class DiceImpl implements Dice {
         return Collections.unmodifiableMap(this.diceSides);
     }
 
+    @Override
+    public void changeDice(final TypesOfDice newDice) {
+        this.diceSides = DiceTypes.get().getSpecificDiceMap(newDice);
+    }
 }

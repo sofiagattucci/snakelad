@@ -11,6 +11,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import utilities.Difficulty;
 import utilities.ImageManager;
+import utilities.TypesOfDice;
 import view.Dimension;
 import view.Toolbar;
 import view.gameboard.GameBoard;
@@ -110,14 +111,17 @@ public abstract class Game extends BasicScene {
     }
 
     /**
-     * Updates the difficulty of the scenery.
+     * Updates the scenery and the dice used for the game.
      * @param newDiff
      *     The new difficulty
+     * @param newDice
+     *     The new dice to use
      */
-    public void setScenary(final Difficulty newDiff) {
+    public void updateScene(final Difficulty newDiff, final TypesOfDice newDice) {
         boardPath = GameBoardTypes.get().getBoard(newDiff);
         board.newBoard(boardPath);
         this.setBackground();
+        this.toolbar.updateDice(newDice);
     }
 
     /**

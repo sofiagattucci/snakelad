@@ -6,49 +6,37 @@ import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.Difficulty;
-import utilities.ImageManager;
 import utilities.TypesOfDice;
 import view.BasicButton;
 import view.BoardCircularList;
+import view.DiceCircularList;
 import view.Dimension;
 import view.LanguageStringMap;
 import view.Toolbar;
 import view.ViewImpl;
-import view.dice.DiceTypes;
 
 /**
  * It's the scene shown when the user pushes the play button. It manages the settings to use for this game. 
  */
 public final class SetUpGame extends BasicScene {
 
-    private static final String CLASSIC_DICE_KEY = "dice.classic";
-    private static final String TO10_DICE_KEY = "dice.to10";
-    private static final String NEGATIVE_DICE_KEY = "dice.negative";
     private static final String SINGLE_KEY = "setUp.single";
     private static final String MULTI_KEY = "setUp.multi";
     private static final String BACK_KEY = "back";
     private static final String START_KEY = "setUp.start";
     private static final String HOW_MANY_KEY = "setUp.selectPlayers";
-    private static final String DICE_LABEL_KEY = "setUp.selectDice";
     private static final String TITLE_KEY = "setUp.title";
-    private static final String OK = "OK";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 6;
-    private static final int NUM_DICE = 3;
     private static final int FONT = 20;
     private static final int TITLE_FONT = 65;
     private static final double Y_TITLE_TRANSLATE = -Dimension.SCREEN_H / 10; 
     private static final int SINGLE_MODE_PLAYERS = 2;
-    private static final TypesOfDice DEFAULT_DICE = TypesOfDice.CLASSIC_DICE;
-    private static final int DEFAULT_DICE_INDEX = 1;
-    private static final int DEFAULT_DICE_IMAGE_INDEX = 5;
 
     private static Stage setUpStage;
     private static SetUpGame setUpScene = new SetUpGame();
@@ -64,20 +52,13 @@ public final class SetUpGame extends BasicScene {
     private final List<Button> nPlayer = new ArrayList<>();
     private final Label howMany = new Label(LanguageStringMap.get().getMap().get(HOW_MANY_KEY));
     private final HBox chooseNumber = new HBox(howMany);
-    private final List<Image> diceList = new ArrayList<>();
-    private final ImageView dice = new ImageView();
-    private final Label diceDesc = new Label();
-    private final Label diceLabel = new Label(LanguageStringMap.get().getMap().get(DICE_LABEL_KEY));
-    private final Button nextDice = new Button(">");
-    private final Button prevDice = new Button("<");
-    private final Button okDice = new Button(OK);
-    private final HBox diceChoose = new HBox(this.diceLabel, this.prevDice, this.dice, this.nextDice, this.okDice, this.diceDesc);
+    private final Button start = new BasicButton(LanguageStringMap.get().getMap().get(START_KEY));
+    private final DiceCircularList dice = new DiceCircularList(this.start);
+    private final HBox diceChoose = new HBox();
     private final BoardCircularList board = new BoardCircularList(this.diceChoose);
     private final HBox scenaryChoose = new HBox();
-    private final Button start = new BasicButton(LanguageStringMap.get().getMap().get(START_KEY));
     private final VBox box = new VBox(this.title, this.modes, this.chooseNumber, this.scenaryChoose, this.diceChoose, this.start);
     private boolean singleGameMode;
-    private int diceCounter = 1;
 
     private SetUpGame() {
 
@@ -92,20 +73,15 @@ public final class SetUpGame extends BasicScene {
         this.diceChoose.setAlignment(Pos.CENTER);
 
         this.scenaryChoose.getChildren().addAll(this.board.getNodes());
+        this.diceChoose.getChildren().addAll(this.dice.getNodes());
 
         this.scenaryChoose.setSpacing(BOX_SPACING);
         this.diceChoose.setSpacing(BOX_SPACING);
         this.title.setFont(new Font(TITLE_FONT));
         this.howMany.setFont(new Font(FONT));
-        this.diceLabel.setFont(new Font(FONT));
-        this.diceDesc.setFont(new Font(FONT));
 
         for (int i = 2; i <= MAX_PLAYERS; i++) {
             this.nPlayer.add(new Button(String.valueOf(i)));
-        }
-
-        for (final TypesOfDice t: TypesOfDice.values()) {
-            this.diceList.add(ImageManager.get().readFromFile(DiceTypes.get().getSpecificDiceMap(t).get(DEFAULT_DICE_IMAGE_INDEX)));
         }
 
         this.single.setOnAction(e -> {
@@ -135,47 +111,21 @@ public final class SetUpGame extends BasicScene {
             this.chooseNumber.getChildren().add(b);
         }
 
-        this.prevDice.setOnAction(e -> {
-            this.diceCounter--;
-            if (this.diceCounter <= 0) {
-                this.diceCounter = NUM_DICE;
-            }
-            this.dice.setImage(ImageManager.get().readFromFile(
-                    DiceTypes.get().getSpecificDiceMap(this.calculateDice(this.diceCounter)).get(DEFAULT_DICE_IMAGE_INDEX)));
-            this.updateDiceDesc(this.diceCounter);
-        });
-
-        this.nextDice.setOnAction(e -> {
-            this.diceCounter++;
-            if (this.diceCounter > NUM_DICE) {
-                this.diceCounter = 1;
-            }
-            this.dice.setImage(ImageManager.get().readFromFile(
-                    DiceTypes.get().getSpecificDiceMap(this.calculateDice(this.diceCounter)).get(DEFAULT_DICE_IMAGE_INDEX)));
-            this.updateDiceDesc(this.diceCounter);
-        });
-
-        this.okDice.setOnAction(e -> {
-            this.prevDice.setDisable(true);
-            this.nextDice.setDisable(true);
-            setDice(this.diceCounter);
-            this.start.setVisible(true);
-        });
-
         this.back.setOnAction(e -> {
             setUpStage.setScene(Menu.getScene(setUpStage));
         });
 
         this.start.setOnAction(e -> {
             if (singleGameMode) {
-                SinglePlayerGame.getScene(setUpStage).setScenary(this.board.getSelectedType());
+                SinglePlayerGame.getScene(setUpStage).updateScene(this.board.getSelectedType(), this.dice.getSelectedType());
                 ViewImpl.setPlayScene(SinglePlayerGame.getScene(setUpStage));
                 ViewImpl.getPlayScene().updateLanguage();
                 ViewImpl.getObserver().play(numPlayers, this.board.getSelectedType(), diceType);
                 setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
             } else {
                 MultiPlayerScenes.get(setUpStage).insert(numPlayers);
-                MultiPlayerScenes.get(setUpStage).getScene(numPlayers).setScenary(this.board.getSelectedType());
+                MultiPlayerScenes.get(setUpStage).getScene(numPlayers).updateScene(
+                       this.board.getSelectedType(), this.dice.getSelectedType());
                 ViewImpl.setPlayScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
                 ViewImpl.getPlayScene().updateLanguage();
                 ViewImpl.getObserver().play(numPlayers, this.board.getSelectedType(), diceType);
@@ -185,45 +135,12 @@ public final class SetUpGame extends BasicScene {
         this.reset();
     }
 
-    private TypesOfDice calculateDice(final int n) {
-        switch(n) {
-        case 1: return TypesOfDice.CLASSIC_DICE; 
-        case 2: return TypesOfDice._5_TO_10_DICE;
-        case 3: return TypesOfDice.NEGATIVE_DICE;
-        default: return TypesOfDice.CLASSIC_DICE;
-        }
-    }
-
-    private void updateDiceDesc(final int n) {
-        switch(n) {
-            case 1: this.diceDesc.setText(LanguageStringMap.get().getMap().get(CLASSIC_DICE_KEY)); 
-                    break;
-            case 2: this.diceDesc.setText(LanguageStringMap.get().getMap().get(TO10_DICE_KEY));
-                    break;
-            case 3: this.diceDesc.setText(LanguageStringMap.get().getMap().get(NEGATIVE_DICE_KEY));
-                    break;
-            default:
-        }
-    }
-
     private void setMode(final boolean b) {
         this.singleGameMode = b;
     }
 
     private static void setNumPlayers(final int n) {
         numPlayers = n;
-    }
-
-    private static void setDice(final int n) {
-        switch(n) {
-        case 1: diceType = TypesOfDice.CLASSIC_DICE;
-                break;
-        case 2: diceType = TypesOfDice._5_TO_10_DICE;
-                break;
-        case 3: diceType = TypesOfDice.NEGATIVE_DICE;
-                break;
-        default:
-        }
     }
 
     /**
@@ -236,7 +153,7 @@ public final class SetUpGame extends BasicScene {
         this.multi.setText(LanguageStringMap.get().getMap().get(MULTI_KEY));
         this.howMany.setText(LanguageStringMap.get().getMap().get(HOW_MANY_KEY));
         this.board.updateLanguage();
-        this.diceLabel.setText(LanguageStringMap.get().getMap().get(DICE_LABEL_KEY));
+        this.dice.reset();
         this.start.setText(LanguageStringMap.get().getMap().get(START_KEY));
     }
 
@@ -254,12 +171,7 @@ public final class SetUpGame extends BasicScene {
         this.scenaryChoose.setVisible(false);
         this.board.reset();
         this.diceChoose.setVisible(false);
-        this.prevDice.setDisable(false);
-        this.nextDice.setDisable(false);
-        this.dice.setImage(ImageManager.get().readFromFile(
-                DiceTypes.get().getSpecificDiceMap(DEFAULT_DICE).get(DEFAULT_DICE_IMAGE_INDEX)));
-        this.diceCounter = DEFAULT_DICE_INDEX;
-        this.updateDiceDesc(this.diceCounter);
+        this.dice.reset();
     }
 
     /**
@@ -309,5 +221,14 @@ public final class SetUpGame extends BasicScene {
      */
     public static TypesOfDice getSelectedDice() {
         return diceType;
+    }
+
+    /**
+     * Setter of the dice selected for this game.
+     * @param d
+     *     The dice to put as the selected one 
+     */
+    public static void setDiceType(final TypesOfDice d) {
+        diceType = d;
     }
 }

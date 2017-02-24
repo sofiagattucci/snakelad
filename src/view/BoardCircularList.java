@@ -20,7 +20,7 @@ public class BoardCircularList extends ImagesCircularList {
     private static final int NUM_SCENARY = 3;
     private static final double BOARD_SIZE = BasicButton.getButtonHeight() * 1.5;
 
-    private Difficulty boardType;
+    private Difficulty boardType = Difficulty.BEGINNER;
     private final Node nextNode;
 
     /**
@@ -38,36 +38,36 @@ public class BoardCircularList extends ImagesCircularList {
 
     private Difficulty calculateDifficulty(final int n) {
         switch(n) {
-        case 0: return Difficulty.BEGINNER; 
-        case 1: return Difficulty.EASY;
-        case 2: return Difficulty.MEDIUM;
-        default: return Difficulty.BEGINNER;
+            case 0: return Difficulty.BEGINNER; 
+            case 1: return Difficulty.EASY;
+            case 2: return Difficulty.MEDIUM;
+            default: return Difficulty.BEGINNER;
         }
     }
 
     @Override
     protected void updateDescLabel(final int n) {
         switch(n) {
-        case 0: this.getDescLabel().setText(LanguageStringMap.get().getMap().get(BEGINNER_KEY)); 
-                break;
-        case 1: this.getDescLabel().setText(LanguageStringMap.get().getMap().get(EASY_KEY));
-                break;
-        case 2: this.getDescLabel().setText(LanguageStringMap.get().getMap().get(MEDIUM_KEY));
-                break;
-        default:
+            case 0: this.getDescLabel().setText(LanguageStringMap.get().getMap().get(BEGINNER_KEY)); 
+                    break;
+            case 1: this.getDescLabel().setText(LanguageStringMap.get().getMap().get(EASY_KEY));
+                    break;
+            case 2: this.getDescLabel().setText(LanguageStringMap.get().getMap().get(MEDIUM_KEY));
+                    break;
+            default:
         }
     }
 
     @Override
-    protected void setScenery(final int n) {
+    protected void setParameter(final int n) {
         switch(n) {
-        case 0: this.boardType = Difficulty.BEGINNER; 
-                break;
-        case 1: this.boardType = Difficulty.EASY;
-                break;
-        case 2: this.boardType = Difficulty.MEDIUM;
-                break;
-        default:
+            case 0: this.boardType = Difficulty.BEGINNER; 
+                    break;
+            case 1: this.boardType = Difficulty.EASY;
+                    break;
+            case 2: this.boardType = Difficulty.MEDIUM;
+                    break;
+            default:
         }
         SetUpGame.setBoardType(this.boardType);
     }

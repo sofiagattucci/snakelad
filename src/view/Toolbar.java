@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import utilities.TypesOfDice;
 import view.dialogboxes.PauseBox;
 import view.dice.Dice;
 import view.dice.DiceImpl;
@@ -207,5 +208,14 @@ public class Toolbar {
      */
     public void endTurn() {
         this.roll.setVisible(true);
+    }
+
+    /**
+     * It updates the dice used.
+     * @param newDice
+     *     The new dice to use.
+     */
+    public void updateDice(final TypesOfDice newDice) {
+        this.dice.changeDice(newDice);
     }
 }
