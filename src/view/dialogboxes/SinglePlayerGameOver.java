@@ -1,4 +1,4 @@
-package view.dialogBoxes;
+package view.dialogboxes;
 
 import javafx.stage.Stage;
 import utilities.Turn;

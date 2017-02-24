@@ -6,7 +6,7 @@ import utilities.Pair;
 import view.Dimension;
 import view.Direction;
 import view.Toolbar;
-import view.gameBoard.GameBoardImpl;
+import view.gameboard.GameBoardImpl;
 /**
  * This class represents a pawn of the game.
  */

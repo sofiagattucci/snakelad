@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import view.Dimension;
 import view.Direction;
 import view.ViewImpl;
-import view.gameBoard.GameBoardImpl;
+import view.gameboard.GameBoardImpl;
 
 /**
  * This class handles the movement of a pawn.

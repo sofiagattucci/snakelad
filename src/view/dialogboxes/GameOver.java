@@ -1,4 +1,4 @@
-package view.dialogBoxes;
+package view.dialogboxes;
 
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;

@@ -2,7 +2,7 @@ package view;
 
 import java.awt.Toolkit;
 
-import view.gameBoard.GameBoardImpl;
+import view.gameboard.GameBoardImpl;
 
 /**
  * This class contains fixed values for the dimension of elements of the GUI.

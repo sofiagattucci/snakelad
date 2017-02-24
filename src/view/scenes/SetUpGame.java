@@ -20,13 +20,16 @@ import view.Dimension;
 import view.LanguageStringMap;
 import view.Toolbar;
 import view.ViewImpl;
-import view.gameBoard.GameBoardTypes;
+import view.gameboard.GameBoardTypes;
 
 /**
  * It's the scene shown when the user pushes the play button. It manages the settings to use for this game. 
  */
 public final class SetUpGame extends BasicScene {
 
+    private static final String BEGINNER_KEY = "difficulty.beginner";
+    private static final String EASY_KEY = "difficulty.easy";
+    private static final String MEDIUM_KEY = "difficulty.medium";
     private static final String SINGLE_KEY = "setUp.single";
     private static final String MULTI_KEY = "setUp.multi";
     private static final String BACK_KEY = "back";
@@ -35,6 +38,7 @@ public final class SetUpGame extends BasicScene {
     private static final String SCENERY_LABEL_KEY = "setUp.selectBoard";
     private static final String DICE_LABEL_KEY = "setUp.selectDice";
     private static final String TITLE_KEY = "setUp.title";
+    private static final String OK = "OK";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 6;
     private static final int NUM_SCENARY = 3;
@@ -44,6 +48,8 @@ public final class SetUpGame extends BasicScene {
     private static final double Y_TITLE_TRANSLATE = -Dimension.SCREEN_H / 10; 
     private static final int SINGLE_MODE_PLAYERS = 2;
     private static final double BOARD_SIZE = BasicButton.getButtonHeight() * 1.5;
+    private static final Difficulty DEFAULT_DIFFICULTY = Difficulty.BEGINNER;
+    private static final int DEFAULT_DIFFICULTY_INDEX = 1;
 
     private static Stage setUpStage;
     private static SetUpGame setUpScene = new SetUpGame();
@@ -60,12 +66,12 @@ public final class SetUpGame extends BasicScene {
     private final Label howMany = new Label(LanguageStringMap.get().getMap().get(HOW_MANY_KEY));
     private final HBox chooseNumber = new HBox(howMany);
     private final List<Image> boardList = new ArrayList<>();
-    private final ImageView board = new ImageView(ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(Difficulty.BEGINNER)));
+    private final ImageView board = new ImageView();
     private final Label boardDesc = new Label();
     private final Label scenaryLabel = new Label(LanguageStringMap.get().getMap().get(SCENERY_LABEL_KEY));
     private final Button next = new Button(">");
     private final Button prev = new Button("<");
-    private final Button ok = new Button("OK");
+    private final Button ok = new Button(OK);
     private final HBox scenaryChoose = new HBox(scenaryLabel, prev, board, next, ok);
     private final List<Button> diceList = new ArrayList<>();
     private final Label diceDesc = new Label();
@@ -214,11 +220,11 @@ public final class SetUpGame extends BasicScene {
 
     private void updateBoardDesc(final int n) {
         switch(n) {
-            case 1: this.boardDesc.setText(Difficulty.BEGINNER.name()); 
+            case 1: this.boardDesc.setText(LanguageStringMap.get().getMap().get(BEGINNER_KEY)); 
                     break;
-            case 2: this.boardDesc.setText(Difficulty.EASY.name());
+            case 2: this.boardDesc.setText(LanguageStringMap.get().getMap().get(EASY_KEY));
                     break;
-            case 3: this.boardDesc.setText(Difficulty.MEDIUM.name());
+            case 3: this.boardDesc.setText(LanguageStringMap.get().getMap().get(MEDIUM_KEY));
                     break;
             default:
         }
@@ -296,10 +302,9 @@ public final class SetUpGame extends BasicScene {
         this.scenaryChoose.setVisible(false);
         this.prev.setDisable(false);
         this.next.setDisable(false);
-        this.board.setImage(ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(Difficulty.BEGINNER)));
-        this.boardDesc.setText(Difficulty.BEGINNER.name());
-        this.diffCounter = 1;
-        this.updateBoardDesc(1);
+        this.board.setImage(ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(DEFAULT_DIFFICULTY)));
+        this.diffCounter = DEFAULT_DIFFICULTY_INDEX;
+        this.updateBoardDesc(this.diffCounter);
         this.diceChoose.setVisible(false);
         this.updateDiceDesc(1);
         for (final Button b: diceList) {
