@@ -52,14 +52,10 @@ public final class Controller implements ViewObserver {
         final int value = this.game.getNumberFromDice();
         final Pair<Integer, Boolean> positionAndJump;
         positionAndJump = this.game.getPlayerPositionAndJump(counter);
-        if (value < 0 && positionAndJump.getFirst() == 0) {
-            this.view.updateInfo(0);
+        if (positionAndJump.getSecond()) {
+            this.view.updateInfo(value, positionAndJump.getFirst());
         } else {
-            if (positionAndJump.getSecond()) {
-                    this.view.updateInfo(value, positionAndJump.getFirst());
-            } else {
-                this.view.updateInfo(value);
-            }
+            this.view.updateInfo(value);
         }
         if (this.counter < this.settings.get().getNumberOfPlayer() - 1) {
             this.counter++;
