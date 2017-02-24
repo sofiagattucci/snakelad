@@ -31,6 +31,9 @@ public final class SetUpGame extends BasicScene {
     private static final String BEGINNER_KEY = "difficulty.beginner";
     private static final String EASY_KEY = "difficulty.easy";
     private static final String MEDIUM_KEY = "difficulty.medium";
+    private static final String CLASSIC_DICE_KEY = "dice.classic";
+    private static final String TO10_DICE_KEY = "dice.to10";
+    private static final String NEGATIVE_DICE_KEY = "dice.negative";
     private static final String SINGLE_KEY = "setUp.single";
     private static final String MULTI_KEY = "setUp.multi";
     private static final String BACK_KEY = "back";
@@ -262,11 +265,11 @@ public final class SetUpGame extends BasicScene {
 
     private void updateDiceDesc(final int n) {
         switch(n) {
-            case 1: this.diceDesc.setText(TypesOfDice.CLASSIC_DICE.name()); 
+            case 1: this.diceDesc.setText(LanguageStringMap.get().getMap().get(CLASSIC_DICE_KEY)); 
                     break;
-            case 2: this.diceDesc.setText(TypesOfDice._5_TO_10_DICE.name());
+            case 2: this.diceDesc.setText(LanguageStringMap.get().getMap().get(TO10_DICE_KEY));
                     break;
-            case 3: this.diceDesc.setText(TypesOfDice.NEGATIVE_DICE.name());
+            case 3: this.diceDesc.setText(LanguageStringMap.get().getMap().get(NEGATIVE_DICE_KEY));
                     break;
             default:
         }
@@ -339,7 +342,8 @@ public final class SetUpGame extends BasicScene {
         this.diceChoose.setVisible(false);
         this.prevDice.setDisable(false);
         this.nextDice.setDisable(false);
-        this.dice.setImage(ImageManager.get().readFromFile(DiceTypes.get().getSpecificDiceMap(DEFAULT_DICE).get(DEFAULT_DICE_IMAGE_INDEX)));
+        this.dice.setImage(ImageManager.get().readFromFile(
+                DiceTypes.get().getSpecificDiceMap(DEFAULT_DICE).get(DEFAULT_DICE_IMAGE_INDEX)));
         this.diceCounter = DEFAULT_DICE_INDEX;
         this.updateDiceDesc(this.diceCounter);
     }
