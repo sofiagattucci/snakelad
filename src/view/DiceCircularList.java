@@ -19,7 +19,9 @@ public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
     private static final String DICE_LABEL_KEY = "setUp.selectDice";
     private static final int NUM_DICE = 3;
     private static final double DICE_SIZE = BasicButton.getButtonHeight() * 1.5;
-    private static final int DEFAULT_DICE_IMAGE_INDEX = 5;
+    private static final int CLASSIC_DICE_IMAGE_INDEX = 4;
+    private static final int TO10_DICE_IMAGE_INDEX = 7;
+    private static final int NEGATIVE_DICE_IMAGE_INDEX = -2;
 
     private final Node nextNode;
 
@@ -71,8 +73,15 @@ public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
 
     @Override
     protected Image getImage() {
+        int diceImageIndex = CLASSIC_DICE_IMAGE_INDEX;
+        if (this.getParameterValue() == TypesOfDice._5_TO_10_DICE) {
+            diceImageIndex = TO10_DICE_IMAGE_INDEX;
+        }
+        if (this.getParameterValue() == TypesOfDice.NEGATIVE_DICE) {
+            diceImageIndex = NEGATIVE_DICE_IMAGE_INDEX;
+        }
         return ImageManager.get().readFromFile(
-                DiceTypes.get().getSpecificDiceMap(this.calculateDice(this.getCounter())).get(DEFAULT_DICE_IMAGE_INDEX));
+                DiceTypes.get().getSpecificDiceMap(this.calculateDice(this.getCounter())).get(diceImageIndex));
     }
 
     @Override

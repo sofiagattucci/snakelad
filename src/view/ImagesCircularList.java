@@ -53,9 +53,9 @@ public abstract class ImagesCircularList<X> {
         this.descLabel.setFont(new Font(FONT_SIZE));
 
         for (this.counter = 0; this.counter < n; this.counter++) {
+            this.setParameter(this.counter);
             this.list.add(this.getImage());
         }
-        this.counter = 0;
 
         this.prev.setOnAction(e -> {
             this.counter--;
