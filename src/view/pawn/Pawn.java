@@ -1,4 +1,4 @@
-package view.pawns;
+package view.pawn;
 
 import javafx.scene.image.ImageView;
 import utilities.Pair;

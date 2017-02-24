@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import view.pawns.PawnTypes;
+import view.pawn.PawnTypes;
 
 /**
  * Junit test used to test the PawnTypes class in package view.pawns.

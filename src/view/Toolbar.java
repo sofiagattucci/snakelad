@@ -14,8 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.dialog_boxes.PauseBox;
-import view.pawns.PawnImpl;
-import view.pawns.PawnTypes;
+import view.dice.Dice;
+import view.dice.DiceImpl;
+import view.pawn.PawnImpl;
+import view.pawn.PawnTypes;
 import view.scenes.SinglePlayerGame;
 
 /**

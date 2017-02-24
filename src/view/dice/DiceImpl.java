@@ -1,4 +1,4 @@
-package view;
+package view.dice;
 
 import java.util.Collections;
 import java.util.Map;

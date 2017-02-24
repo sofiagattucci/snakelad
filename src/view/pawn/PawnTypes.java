@@ -1,4 +1,4 @@
-package view.pawns;
+package view.pawn;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -16,9 +16,9 @@ import view.Toolbar;
 import view.game_board.GameBoard;
 import view.game_board.GameBoardImpl;
 import view.game_board.GameBoardTypes;
-import view.pawns.Pawn;
-import view.pawns.PawnImpl;
-import view.pawns.PawnTypes;
+import view.pawn.Pawn;
+import view.pawn.PawnImpl;
+import view.pawn.PawnTypes;
 
 /**
  * This class creates and initializes a generic game scene.

@@ -1,4 +1,4 @@
-package view.pawns;
+package view.pawn;
 
 import javafx.application.Platform;
 import view.Dimension;
