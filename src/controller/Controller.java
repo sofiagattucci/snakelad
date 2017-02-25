@@ -118,4 +118,11 @@ public final class Controller implements ViewObserver {
     public void setLanguage(final Language language) {
         view.setLanguageMap(LanguageLoader.get().getLanguage(language));
     }
+    /**
+     * Getter for counter field.
+     * @return the counter field
+     */
+    public int getCounter() {
+        return this.counter;
+    }
 }
