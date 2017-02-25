@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.Test;
 
+import tests.controller.ControllerTest;
 import tests.model.ClassicDiceTest;
 import tests.model.Dice5To10Test;
 import tests.model.NegativeDiceTest;
@@ -32,6 +33,7 @@ public final class TestLauncher {
      */
     @Test
     public void testController() {
+        new ControllerTest().controllerTest();
 
     }
 
