@@ -6,8 +6,6 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import utilities.Pair;
 import utilities.TypesOfDice;
 import java.util.Collections;
 import java.util.HashMap;
@@ -65,14 +63,14 @@ public final class ModelImpl implements Model {
         return map;
     }
 
-    private List<Integer> fillSnakesMap(final List<Integer> dataList) {
+    private List<Integer> findSnakesList(final List<Integer> dataList) {
         final List<Integer> list = dataList.stream()
                                            .limit(dataList.indexOf(SEPARATOR))
                                            .collect(Collectors.toList());
         return Collections.unmodifiableList(list);
     }
 
-    private List<Integer> fillLaddersMap(final List<Integer> dataList) {
+    private List<Integer> findLaddersList(final List<Integer> dataList) {
         final List<Integer> list = dataList.stream()
                                            .skip(dataList.indexOf(SEPARATOR) + 1)
                                            .collect(Collectors.toList());
@@ -81,8 +79,14 @@ public final class ModelImpl implements Model {
         return Collections.unmodifiableList(list);
     }
 
+    //private method called to avoid too much repetition of identical code in getPlayerPosition()
+    private Optional<Integer> playerPositionUtils(final int index, final int position) {
+        this.playersList.get(index).setNewPosition(position);
+        return Optional.of(this.playersList.get(index).getPosition());
+    }
+
     @Override
-    public Pair<Integer, Boolean> getPlayerPositionAndJump(final int playerIndex) {
+    public Optional<Integer> getPlayerPosition(final int playerIndex) {
         if (!this.isReady) {
             throw EXCEPTION_SUPPLIER.get();
         }
@@ -96,20 +100,17 @@ public final class ModelImpl implements Model {
 
         if (this.snakesMap.containsKey(partialPlayerPosition)) {
             final int finalPlayerPosition = this.snakesMap.get(partialPlayerPosition);
-            this.playersList.get(playerIndex).setNewPosition(finalPlayerPosition);
-            return new Pair<>(finalPlayerPosition, true);
+            return this.playerPositionUtils(playerIndex, finalPlayerPosition);
         }
 
         if (this.laddersMap.containsKey(partialPlayerPosition)) {
             final int finalPlayerPosition = this.laddersMap.get(partialPlayerPosition);
-            this.playersList.get(playerIndex).setNewPosition(finalPlayerPosition);
-            return new Pair<>(finalPlayerPosition, true);
+            return this.playerPositionUtils(playerIndex, finalPlayerPosition);
         }
 
         //the specified player don't achieve neither a snake or a ladder
-        final int finalPlayerPosition = partialPlayerPosition < 0 ? 0 : partialPlayerPosition; 
-        this.playersList.get(playerIndex).setNewPosition(finalPlayerPosition);
-        return new Pair<>(finalPlayerPosition, false);
+        this.playerPositionUtils(playerIndex, partialPlayerPosition);
+        return Optional.empty();
     }
 
     @Override
@@ -125,9 +126,9 @@ public final class ModelImpl implements Model {
         dataList.remove(0);
         dataList.remove(0);
         //fill snakesMap with snakes positions
-        this.snakesMap.putAll(this.fillMap(this.fillSnakesMap(dataList)));
+        this.snakesMap.putAll(this.fillMap(this.findSnakesList(dataList)));
         //fill laddersMap with ladders positions
-        this.laddersMap.putAll(this.fillMap(this.fillLaddersMap(dataList)));
+        this.laddersMap.putAll(this.fillMap(this.findLaddersList(dataList)));
         //fill playersList with the exact number of players playing the game and set their initial positions
         this.playersList.addAll(IntStream.range(0, numberOfPlayers)
                                          .mapToObj(value -> new Player())
