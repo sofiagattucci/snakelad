@@ -11,17 +11,6 @@ import javafx.scene.paint.Color;
  */
 public final class PawnsColor {
 
-    //private static final int MAX_PLAYERS = 6;
-    /*private static final int N0 = 0;
-    private static final int N1 = 1;
-    private static final int N2 = 2;
-    private static final int N3 = 3;
-    private static final int N4 = 4;
-    private static final int N5 = 5;
-    private static final int N6 = 6;
-    private static final int N7 = 7;
-    private static final int N8 = 8;*/
-
     private static final PawnsColor INSTANCE = new PawnsColor();
     private final List<Color> singleColorAssigned = new ArrayList<>();
 

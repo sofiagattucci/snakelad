@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import utilities.ImageManager;
+import utilities.Pair;
 import utilities.TypesOfDice;
 import view.dialogboxes.PauseBox;
 import view.dice.Dice;
@@ -56,7 +58,7 @@ public class Toolbar {
     private final Dice dice = new DiceImpl();
     private final ImageView diceImView = new ImageView(dice.getDiceImage());
     private final VBox box = new VBox(gp, roll, diceImView, pause);
-    private final List<Label> pawnLabel = new ArrayList<>();
+    private final List<Pair<ImageView, Label>> pawnLabel = new ArrayList<>();
     private final PauseBox pauseBox = new PauseBox(toolStage);
     private int numPlayers;
     private boolean singleFlag;
@@ -96,9 +98,21 @@ public class Toolbar {
     public void putLabels(final int nPlayers) {
         this.numPlayers = nPlayers;
         for (int i = 0; i < nPlayers; i++) {
-            this.pawnLabel.add(new Label(playerLabel.getText() + (i + 1)));
-            this.pawnLabel.get(i).setFont(smallFont);
-            this.gp.addRow(i, new PawnImpl(PawnTypes.get().getPawn(PawnsColor.get().getColor(i))).getPawn(), this.pawnLabel.get(i));
+            final Pair<ImageView, Label> p = new Pair<>(new PawnImpl(PawnTypes.get().getPawn(PawnsColor.get().getColor(i))).getPawn(), 
+                new Label(playerLabel.getText() + (i + 1)));
+            this.pawnLabel.add(p);
+            this.pawnLabel.get(i).getSecond().setFont(smallFont);
+            this.gp.addRow(i, p.getFirst(), p.getSecond());
+        }
+    }
+
+    /**
+     * It updates the images (color) of the pawn shown in the tool bar.
+     */
+    public void updateLabelsColor() {
+        for (int i = 0; i < numPlayers; i++) {
+            this.pawnLabel.get(i).getFirst().setImage(
+                    ImageManager.get().readFromFile(PawnTypes.get().getPawn(PawnsColor.get().getColor(i))));
         }
     }
 
@@ -106,7 +120,7 @@ public class Toolbar {
      * It sets the CPU player in single player game mode.
      */
     public void setCPU() {
-        this.pawnLabel.get(SinglePlayerGame.getCPUIndex()).setText(CPU);
+        this.pawnLabel.get(SinglePlayerGame.getCPUIndex()).getSecond().setText(CPU);
         this.singleFlag = true;
     }
 
@@ -118,7 +132,7 @@ public class Toolbar {
         this.pause.setText(LanguageStringMap.get().getMap().get(PAUSE_KEY));
         playerLabel.setText(LanguageStringMap.get().getMap().get(PLAYER_KEY));
         for (int i = 0; i < numPlayers; i++) {
-            this.pawnLabel.get(i).setText(playerLabel.getText() + (i + 1));
+            this.pawnLabel.get(i).getSecond().setText(playerLabel.getText() + (i + 1));
         }
         if (this.singleFlag) {
             this.setCPU();
@@ -133,12 +147,12 @@ public class Toolbar {
      */
     public void changeTurn(final int newTurn) {
 
-        for (final Label l: pawnLabel) {
-            l.setFont(smallFont);
-            l.setStyle(BLACK_LABEL);
+        for (final Pair<ImageView, Label> l: this.pawnLabel) {
+            l.getSecond().setFont(smallFont);
+            l.getSecond().setStyle(BLACK_LABEL);
         }
-        this.pawnLabel.get(newTurn).setFont(bigFont);
-        this.pawnLabel.get(newTurn).setStyle(YELLOW_LABEL);
+        this.pawnLabel.get(newTurn).getSecond().setFont(bigFont);
+        this.pawnLabel.get(newTurn).getSecond().setStyle(YELLOW_LABEL);
     }
 
     /**
@@ -151,12 +165,12 @@ public class Toolbar {
     }
 
     private void resetTurn() {
-        for (final Label l: pawnLabel) {
-            l.setFont(smallFont);
-            l.setStyle(BLACK_LABEL);
+        for (final Pair<ImageView, Label> l: this.pawnLabel) {
+            l.getSecond().setFont(smallFont);
+            l.getSecond().setStyle(BLACK_LABEL);
         }
-        this.pawnLabel.get(0).setFont(bigFont);
-        this.pawnLabel.get(0).setStyle(YELLOW_LABEL);
+        this.pawnLabel.get(0).getSecond().setFont(bigFont);
+        this.pawnLabel.get(0).getSecond().setStyle(YELLOW_LABEL);
     }
 
     /**

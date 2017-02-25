@@ -12,7 +12,7 @@ import view.gameboard.GameBoardImpl;
  */
 public class PawnImpl implements Pawn {
 
-    private ImageView pawnIm;
+    private final ImageView pawnIm;
     private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
             + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() / 2 - Dimension.PAWN_HEIGHT / 1.80,
             Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
