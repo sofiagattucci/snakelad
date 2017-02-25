@@ -18,7 +18,7 @@ public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
     private static final String NEGATIVE_DICE_KEY = "dice.negative";
     private static final String DICE_LABEL_KEY = "setUp.selectDice";
     private static final int NUM_DICE = 3;
-    private static final double DICE_SIZE = BasicButton.getButtonHeight() * 1.8;
+    private static final double DICE_SIZE = BasicButton.getButtonHeight() * 1.5;
     private static final int CLASSIC_DICE_IMAGE_INDEX = 6;
     private static final int TO10_DICE_IMAGE_INDEX = 10;
     private static final int NEGATIVE_DICE_IMAGE_INDEX = -2;
