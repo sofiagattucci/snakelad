@@ -4,7 +4,7 @@ import java.util.Map;
 import controller.ViewObserver;
 import javafx.application.Application;
 import utilities.Language;
-import view.scenes.Game;
+import view.scenes.GameInt;
 import view.scenes.SetUpGame;
 
 /**
@@ -14,7 +14,7 @@ public class ViewImpl implements View {
 
     private static final Language DEFAULT_LANGUAGE = Language.EN;
 
-    private static Game playScene;
+    private static GameInt playScene;
     private static SetUpGame setUpScene;
     private static ViewObserver observer;
 
@@ -38,7 +38,7 @@ public class ViewImpl implements View {
      * @param scene
      *     The scene to link.
      */
-    public static void setPlayScene(final Game scene) {
+    public static void setPlayScene(final GameInt scene) {
         playScene = scene;
     }
 
@@ -65,7 +65,7 @@ public class ViewImpl implements View {
      * @return
      *     The play scene used in the game
      */
-    public static Game getPlayScene() {
+    public static GameInt getPlayScene() {
         return playScene;
     }
 

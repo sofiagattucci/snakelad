@@ -2,20 +2,19 @@ package view.scenes;
 
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import utilities.Difficulty;
-import utilities.TypesOfDice;
+import view.MultiPlayerToolbar;
 import view.Toolbar;
 import view.dialogboxes.MultiPlayerGameOver;
-import view.pawn.PawnTypes;
 import view.pawn.PawnsColor;
 
 /**
  * This class creates and initializes the game scene for a player versus player game.
  */
-public final class MultiPlayerGame extends Game {
+public final class MultiPlayerGame extends Game<MultiPlayerToolbar> {
 
     private final int numPlayers;
     private Stage playStage;
+    private final MultiPlayerToolbar multiTool = new MultiPlayerToolbar();
 
     /**
      * Constructor of this class.
@@ -25,20 +24,7 @@ public final class MultiPlayerGame extends Game {
     public MultiPlayerGame(final int n) {
         super();
         this.numPlayers = n;
-    }
-
-    /**
-     * Updates the scenery and the dice used for the game.
-     * @param newDiff
-     *     The new difficulty
-     * @param newDice
-     *     The new dice to use
-     */
-    public void updateScene(final Difficulty newDiff, final TypesOfDice newDice) {
-        super.updateScene(newDiff, newDice);
-        for (int i = 0; i < this.getPawnList().size(); i++) {
-            this.getPawnList().get(i).updateColor(PawnTypes.get().getPawn(PawnsColor.get().getMultiColor(i)));
-        }
+        this.putToolbar(this.multiTool);
     }
 
     @Override

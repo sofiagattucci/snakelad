@@ -24,11 +24,13 @@ import view.pawn.PawnTypes;
 
 /**
  * This class creates and initializes a generic game scene.
+ * @param <X>
+ *     The type of tool bar to use for the game. It depends on the game mode selected
  */
-public abstract class Game extends BasicScene { 
+public abstract class Game<X extends Toolbar> extends BasicScene implements GameInt { 
 
     private static String boardPath = GameBoardTypes.get().getBoard(SetUpGame.getBoardType());
-    private final Toolbar toolbar = new Toolbar();
+    private Toolbar toolbar;
     private final GameBoard board = new GameBoardImpl(boardPath);
     private final List<Pawn> pawnList = new ArrayList<>();
     private int currentTurn;
@@ -38,14 +40,12 @@ public abstract class Game extends BasicScene {
      */
     protected Game() {
 
-        this.getDefaultLayout().setRight(this.toolbar.getBox());
         this.setBackground();
         for (int i = 0; i < this.getTag(); i++) {
             final Pawn newPawn = new PawnImpl(PawnTypes.get().getPawn(this.getColor(i)));
             this.getPawnList().add(newPawn);
             this.getDefaultLayout().getChildren().add(newPawn.getPawn());
         }
-        this.getToolbar().putLabels(getTag());
     }
 
     private void setBackground() {
@@ -77,10 +77,7 @@ public abstract class Game extends BasicScene {
         this.currentTurn++;
     }
 
-    /**
-     * It resets the displayed values at the beginning of each game. Indeed at the beginning 
-     * there is no value shown in the GUI for the dice value. 
-     */
+    @Override
     public void firstTurn() {
         this.toolbar.reset();
         for (final Pawn elem: pawnList) {
@@ -89,60 +86,39 @@ public abstract class Game extends BasicScene {
         this.currentTurn = 0;
     }
 
-    /**
-     * It updates the game screen each turn.
-     * @param newDiceValue
-     *     The new value of the dice
-     */
+    @Override
     public void updateInfo(final int newDiceValue) {
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue);
     }
 
-    /**
-     * It updates the game screen each turn.
-     * @param newDiceValue
-     *     The new value of the dice
-     * @param finalPosition
-     *     The new position after a jump due to a snake/ladder
-     */
+    @Override
     public void updateInfo(final int newDiceValue, final int finalPosition) {
         this.updateDiceValue(newDiceValue);
         this.movePawn(newDiceValue, finalPosition);
     }
 
-    /**
-     * Updates the scenery and the dice used for the game.
-     * @param newDiff
-     *     The new difficulty
-     * @param newDice
-     *     The new dice to use
-     */
+    @Override
     public void updateScene(final Difficulty newDiff, final TypesOfDice newDice) {
         boardPath = GameBoardTypes.get().getBoard(newDiff);
         board.newBoard(boardPath);
         this.setBackground();
         this.getToolbar().updateLabelsColor();
         this.toolbar.updateDice(newDice);
+        for (int i = 0; i < this.getPawnList().size(); i++) {
+            this.getPawnList().get(i).updateColor(PawnTypes.get().getPawn(this.getColor(i)));
+        }
     }
 
-    /**
-     * It updates the language of this scene.
-     */
+    @Override
     public void updateLanguage() {
         this.toolbar.updateLanguage();
     }
 
-    /**
-     * It holds the number of players in the game. At this time we don' t know the number so an abstract method is needed.
-     * @return
-     *     The number of players in the game
-     */
+    @Override
     public abstract int getTag();
 
-    /**
-     * It handles the end of the game.
-     */
+    @Override
     public abstract void gameOver();
 
     /**
@@ -154,9 +130,7 @@ public abstract class Game extends BasicScene {
      */
     protected abstract Color getColor(int n);
 
-    /**
-     * It manages the end of the turn, so it updates some informations.
-     */
+    @Override
     public abstract void endTurn();
 
     /**
@@ -194,4 +168,25 @@ public abstract class Game extends BasicScene {
     protected int getCurrentTurn() {
         return this.currentTurn;
     }
+
+    /**
+     * It sets up the right tool bar in the scene. 
+     * @param t
+     *     The tool bar to use in the scene
+     */
+    protected void setToolbar(final Toolbar t) {
+        this.toolbar = t;
+    }
+
+    /**
+     * It puts the tool bar in the game scene and adds it in the layout scene graph.
+     * @param t
+     *     The tool bar to use in the scene
+     */
+    protected void putToolbar(final X t) {
+        this.toolbar = t;
+        this.getDefaultLayout().setRight(this.toolbar.getBox());
+        this.getToolbar().putLabels(getTag());
+    }
+
 }

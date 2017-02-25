@@ -2,19 +2,16 @@ package view.scenes;
 
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import utilities.Difficulty;
 import utilities.Turn;
-import utilities.TypesOfDice;
-import view.Toolbar;
+import view.SinglePlayerToolbar;
 import view.ViewImpl;
 import view.dialogboxes.SinglePlayerGameOver;
-import view.pawn.PawnTypes;
 import view.pawn.PawnsColor;
 
 /**
  * This class creates and initializes the game scene for a player versus CPU game.
  */
-public final class SinglePlayerGame extends Game {
+public final class SinglePlayerGame extends Game<SinglePlayerToolbar> {
 
     private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
@@ -23,23 +20,11 @@ public final class SinglePlayerGame extends Game {
     private static SinglePlayerGame playScene = new SinglePlayerGame();
     private static Stage playStage;
 
+    private final SinglePlayerToolbar singleTool = new SinglePlayerToolbar();
+
     private SinglePlayerGame() {
         super();
-        this.getToolbar().setCPU();
-    }
-
-    /**
-     * Updates the scenery and the dice used for the game.
-     * @param newDiff
-     *     The new difficulty
-     * @param newDice
-     *     The new dice to use
-     */
-    public void updateScene(final Difficulty newDiff, final TypesOfDice newDice) {
-        super.updateScene(newDiff, newDice);
-        for (int i = 0; i < this.getPawnList().size(); i++) {
-            this.getPawnList().get(i).updateColor(PawnTypes.get().getPawn(PawnsColor.get().getSingleColor(i)));
-        }
+        this.putToolbar(this.singleTool);
     }
 
     @Override
@@ -60,9 +45,9 @@ public final class SinglePlayerGame extends Game {
      * @return
      *     The game scene
      */
-    public static Game getScene(final Stage stage) {
+    public static Game<SinglePlayerToolbar> getScene(final Stage stage) {
         playStage = stage;
-        Toolbar.setStage(stage);
+        SinglePlayerToolbar.setStage(stage);
         return playScene;
     }
 

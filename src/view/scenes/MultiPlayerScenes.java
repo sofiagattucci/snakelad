@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.stage.Stage;
+import view.MultiPlayerToolbar;
 
 /**
  * It handles the different types of player versus player scenes depending on the number of players.
@@ -48,7 +49,7 @@ public final class MultiPlayerScenes {
      * @return
      *     The scene selected
      */
-    public Game getScene(final int n) {
+    public Game<MultiPlayerToolbar> getScene(final int n) {
         return this.scenesMap.get(n);
     }
 }
