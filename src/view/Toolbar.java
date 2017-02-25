@@ -98,8 +98,14 @@ public class Toolbar {
     public void putLabels(final int nPlayers) {
         this.numPlayers = nPlayers;
         for (int i = 0; i < nPlayers; i++) {
-            final Pair<ImageView, Label> p = new Pair<>(new PawnImpl(PawnTypes.get().getPawn(PawnsColor.get().getColor(i))).getPawn(), 
-                new Label(playerLabel.getText() + (i + 1)));
+            final Pair<ImageView, Label> p;
+            if (this.singleFlag) {
+                p = new Pair<>(new PawnImpl(PawnTypes.get().getPawn(PawnsColor.get().getSingleColor(i))).getPawn(), 
+                        new Label(playerLabel.getText() + (i + 1)));
+            } else {
+                p = new Pair<>(new PawnImpl(PawnTypes.get().getPawn(PawnsColor.get().getMultiColor(i))).getPawn(), 
+                        new Label(playerLabel.getText() + (i + 1)));
+            }
             this.pawnLabel.add(p);
             this.pawnLabel.get(i).getSecond().setFont(smallFont);
             this.gp.addRow(i, p.getFirst(), p.getSecond());
@@ -110,9 +116,16 @@ public class Toolbar {
      * It updates the images (color) of the pawn shown in the tool bar.
      */
     public void updateLabelsColor() {
-        for (int i = 0; i < numPlayers; i++) {
-            this.pawnLabel.get(i).getFirst().setImage(
-                    ImageManager.get().readFromFile(PawnTypes.get().getPawn(PawnsColor.get().getColor(i))));
+        if (this.singleFlag) {
+            for (int i = 0; i < numPlayers; i++) {
+                this.pawnLabel.get(i).getFirst().setImage(
+                        ImageManager.get().readFromFile(PawnTypes.get().getPawn(PawnsColor.get().getSingleColor(i))));
+            }
+        } else {
+            for (int i = 0; i < numPlayers; i++) {
+                this.pawnLabel.get(i).getFirst().setImage(
+                        ImageManager.get().readFromFile(PawnTypes.get().getPawn(PawnsColor.get().getMultiColor(i))));
+            }
         }
     }
 

@@ -1,10 +1,15 @@
 package view.scenes;
 
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import utilities.Difficulty;
 import utilities.Turn;
+import utilities.TypesOfDice;
 import view.Toolbar;
 import view.ViewImpl;
 import view.dialogboxes.SinglePlayerGameOver;
+import view.pawn.PawnTypes;
+import view.pawn.PawnsColor;
 
 /**
  * This class creates and initializes the game scene for a player versus CPU game.
@@ -13,7 +18,7 @@ public final class SinglePlayerGame extends Game {
 
     private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
-    private static final int N_PLAYERS = SetUpGame.getPlayers();
+    private static final int N_PLAYERS = 2;
 
     private static SinglePlayerGame playScene = new SinglePlayerGame();
     private static Stage playStage;
@@ -21,6 +26,20 @@ public final class SinglePlayerGame extends Game {
     private SinglePlayerGame() {
         super();
         this.getToolbar().setCPU();
+    }
+
+    /**
+     * Updates the scenery and the dice used for the game.
+     * @param newDiff
+     *     The new difficulty
+     * @param newDice
+     *     The new dice to use
+     */
+    public void updateScene(final Difficulty newDiff, final TypesOfDice newDice) {
+        super.updateScene(newDiff, newDice);
+        for (int i = 0; i < this.getPawnList().size(); i++) {
+            this.getPawnList().get(i).updateColor(PawnTypes.get().getPawn(PawnsColor.get().getSingleColor(i)));
+        }
     }
 
     @Override
@@ -73,4 +92,8 @@ public final class SinglePlayerGame extends Game {
         return CPU_INDEX;
     }
 
+    @Override
+    protected Color getColor(final int n) {
+        return PawnsColor.get().getSingleColor(n);
+    }
 }

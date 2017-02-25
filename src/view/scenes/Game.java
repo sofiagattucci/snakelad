@@ -9,6 +9,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.paint.Color;
 import utilities.Difficulty;
 import utilities.ImageManager;
 import utilities.TypesOfDice;
@@ -20,7 +21,6 @@ import view.gameboard.GameBoardTypes;
 import view.pawn.Pawn;
 import view.pawn.PawnImpl;
 import view.pawn.PawnTypes;
-import view.pawn.PawnsColor;
 
 /**
  * This class creates and initializes a generic game scene.
@@ -41,7 +41,7 @@ public abstract class Game extends BasicScene {
         this.getDefaultLayout().setRight(this.toolbar.getBox());
         this.setBackground();
         for (int i = 0; i < this.getTag(); i++) {
-            final Pawn newPawn = new PawnImpl(PawnTypes.get().getPawn(PawnsColor.get().getColor(i)));
+            final Pawn newPawn = new PawnImpl(PawnTypes.get().getPawn(this.getColor(i)));
             this.getPawnList().add(newPawn);
             this.getDefaultLayout().getChildren().add(newPawn.getPawn());
         }
@@ -122,10 +122,8 @@ public abstract class Game extends BasicScene {
         boardPath = GameBoardTypes.get().getBoard(newDiff);
         board.newBoard(boardPath);
         this.setBackground();
+        this.getToolbar().updateLabelsColor();
         this.toolbar.updateDice(newDice);
-        for (int i = 0; i < this.pawnList.size(); i++) {
-            this.pawnList.get(i).updateColor(PawnTypes.get().getPawn(PawnsColor.get().getColor(i)));
-        }
     }
 
     /**
@@ -146,6 +144,15 @@ public abstract class Game extends BasicScene {
      * It handles the end of the game.
      */
     public abstract void gameOver();
+
+    /**
+     * Getter of the color to use for a pawn. It depends on the game mode selected.
+     * @param n
+     *     The index of the pawn
+     * @return
+     *     The right color to use for the selected pawn
+     */
+    protected abstract Color getColor(int n);
 
     /**
      * It manages the end of the turn, so it updates some informations.
