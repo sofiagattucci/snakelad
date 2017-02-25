@@ -1,16 +1,18 @@
 package tests.model;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import org.junit.Test;
 import model.Model;
 import model.ModelImpl;
 import utilities.ConsoleLog;
-import utilities.FileManager;
 import utilities.SceneryDataManager;
 import utilities.TypesOfDice;
 
@@ -21,15 +23,21 @@ import utilities.TypesOfDice;
 public class ModelImplTest {
 
     private static final int TWO_PLAYERS = 2;
-    private static final int THREE_PLAYERS = 3;
-    private static final int FOUR_PLAYERS = 4;
-    private static final int FIVE_PLAYERS = 5;
+    //private static final int THREE_PLAYERS = 3;
+    //private static final int FOUR_PLAYERS = 4;
+    //private static final int FIVE_PLAYERS = 5;
     private static final int SIX_PLAYERS = 6;
-    private static final int NUMBER_OF_ITERATIONS = 300;
+    private static final int NUMBER_OF_ITERATIONS = 1000;
     private static final String GAME_BOARD_1 = "./res/GameBoards/GameBoard1/file.txt";
-    private static final String GAME_BOARD_2 = "./res/GameBoards/GameBoard2/file.txt";
-    private static final String GAME_BOARD_3 = "./res/GameBoards/GameBoard3/file.txt";
+    //private static final String GAME_BOARD_2 = "./res/GameBoards/GameBoard2/file.txt";
+    //private static final String GAME_BOARD_3 = "./res/GameBoards/GameBoard3/file.txt";
 
+    private final List<Integer> snakesListGameBoard1 = Arrays.asList(3, 4, 8, 24, 26);
+    private final List<Integer> laddersListGameBoard1 = Arrays.asList(13, 28, 32, 33);
+    //private final List<Integer> snakesListGameBoard2 = Arrays.asList(7, 9, 14, 47, 55);
+    //private final List<Integer> laddersListGameBoard2 = Arrays.asList(16, 30, 51, 54, 62);
+    //private final List<Integer> snakesListGameBoard3 = Arrays.asList(1, 2, 5, 22, 24, 26);
+    //private final List<Integer> laddersListGameBoard3 = Arrays.asList(12, 24, 32, 43, 56, 60);
 
     private void logPrintIllegalStateException() {
         final ConsoleLog log = ConsoleLog.get();
@@ -153,14 +161,24 @@ public class ModelImplTest {
         } catch (final Exception e) {
             this.failDuringExceptionThrowing(e);
         }
-/*
-        model.startGame(SceneryDataManager.get().readFromFile(GAME_BOARD_1), SIX_PLAYERS, TypesOfDice.CLASSIC_DICE);
-        for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            for (int j = 0; j < SIX_PLAYERS; j++) {
-                final int value = model.getNumberFromDice();
-            }
 
-        }*/
+        //check everything work correctly with game board n.1
+        model.startGame(SceneryDataManager.get().readFromFile(GAME_BOARD_1), SIX_PLAYERS, TypesOfDice.CLASSIC_DICE);
+        final List<Integer> list = new ArrayList<>();
+        list.addAll(snakesListGameBoard1);
+        list.addAll(laddersListGameBoard1);
+        for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+            model.getNumberFromDice();
+            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS);
+            if (position.isPresent()) { //the player jumps
+                final boolean isOk = list.contains(position.get());
+                assertTrue(isOk);
+            }
+            /*if ((i % (NUMBER_OF_ITERATIONS / 20)) == 1) {
+                model.restartGame();
+                System.out.println("ciuao");
+            }*/
+        }
     }
 
 }
