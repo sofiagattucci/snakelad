@@ -79,7 +79,7 @@ public final class ModelImpl implements Model {
         return Collections.unmodifiableList(list);
     }
 
-    //private method called to avoid too much repetition of identical code in getPlayerPosition()
+    //private method called to avoid too much repetition of identical code in getPlayerPosition() method.
     private Optional<Integer> playerPositionUtils(final int index, final int position) {
         this.playersList.get(index).setNewPosition(position);
         return Optional.of(this.playersList.get(index).getPosition());

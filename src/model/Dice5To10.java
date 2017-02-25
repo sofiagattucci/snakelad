@@ -3,7 +3,7 @@ package model;
 import java.util.Optional;
 
 /**
- * Defines a dice with 6 sides between the numbers 5 to 10 inclusive.
+ * Defines a dice with 6 sides between the numbers 5 to 10 included.
  * It's designed using Decorator pattern.
  */
 public final class Dice5To10 implements Dice {

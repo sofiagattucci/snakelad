@@ -4,8 +4,8 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * Defines a dice withwith 7 sides between the negative number -2 to the
- * positive number 5 included. The number 0 is not consider as a dice's side.
+ * Defines a dice with 7 sides between the negative number -2 to the
+ * positive number 5 included. The number 0 is not considered as a dice side.
  * It's designed using Decorator pattern.
  */
 public class NegativeDice implements Dice {
