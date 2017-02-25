@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.ImageManager;
@@ -21,17 +22,14 @@ import view.dice.Dice;
 import view.dice.DiceImpl;
 import view.pawn.PawnImpl;
 import view.pawn.PawnTypes;
-import view.pawn.PawnsColor;
-import view.scenes.SinglePlayerGame;
 
 /**
- * It sets up the tool bar in the game screen.
+ * It manages the tool bar in the game screen.
  */
-public class Toolbar {
+public abstract class Toolbar {
 
     private static final String PAUSE_KEY = "game.pause";
     private static final String ROLL_KEY = "game.roll";
-    private static final String CPU = "CPU";
     private static final String PLAYER_KEY = "game.player";
     private static final String BLACK_LABEL = "-fx-text-fill: black";
     private static final String YELLOW_LABEL = "-fx-text-fill: yellow";
@@ -58,10 +56,9 @@ public class Toolbar {
     private final Dice dice = new DiceImpl();
     private final ImageView diceImView = new ImageView(dice.getDiceImage());
     private final VBox box = new VBox(gp, roll, diceImView, pause);
-    private final List<Pair<ImageView, Label>> pawnLabel = new ArrayList<>();
+    private final List<Pair<ImageView, Label>> pawnList = new ArrayList<>();
     private final PauseBox pauseBox = new PauseBox(toolStage);
     private int numPlayers;
-    private boolean singleFlag;
 
     /**
      * Constructor of the tool bar.
@@ -98,10 +95,10 @@ public class Toolbar {
     public void putLabels(final int nPlayers) {
         this.numPlayers = nPlayers;
         for (int i = 0; i < nPlayers; i++) {
-            final Pair<ImageView, Label> p = new Pair<>(new PawnImpl(PawnTypes.get().getPawn(PawnsColor.get().getColor(i))).getPawn(), 
-                new Label(playerLabel.getText() + (i + 1)));
-            this.pawnLabel.add(p);
-            this.pawnLabel.get(i).getSecond().setFont(smallFont);
+            final Pair<ImageView, Label> p = new Pair<>(new PawnImpl(PawnTypes.get().getPawn(this.getColorFromMode(i))).getPawn(),
+                                                        new Label(playerLabel.getText() + (i + 1)));
+            this.pawnList.add(p);
+            this.pawnList.get(i).getSecond().setFont(smallFont);
             this.gp.addRow(i, p.getFirst(), p.getSecond());
         }
     }
@@ -111,17 +108,9 @@ public class Toolbar {
      */
     public void updateLabelsColor() {
         for (int i = 0; i < numPlayers; i++) {
-            this.pawnLabel.get(i).getFirst().setImage(
-                    ImageManager.get().readFromFile(PawnTypes.get().getPawn(PawnsColor.get().getColor(i))));
+            this.pawnList.get(i).getFirst().setImage(
+                    ImageManager.get().readFromFile(PawnTypes.get().getPawn(this.getColorFromMode(i))));
         }
-    }
-
-    /**
-     * It sets the CPU player in single player game mode.
-     */
-    public void setCPU() {
-        this.pawnLabel.get(SinglePlayerGame.getCPUIndex()).getSecond().setText(CPU);
-        this.singleFlag = true;
     }
 
     /**
@@ -132,10 +121,7 @@ public class Toolbar {
         this.pause.setText(LanguageStringMap.get().getMap().get(PAUSE_KEY));
         playerLabel.setText(LanguageStringMap.get().getMap().get(PLAYER_KEY));
         for (int i = 0; i < numPlayers; i++) {
-            this.pawnLabel.get(i).getSecond().setText(playerLabel.getText() + (i + 1));
-        }
-        if (this.singleFlag) {
-            this.setCPU();
+            this.pawnList.get(i).getSecond().setText(playerLabel.getText() + (i + 1));
         }
         this.pauseBox.updateLanguage();
     }
@@ -147,12 +133,12 @@ public class Toolbar {
      */
     public void changeTurn(final int newTurn) {
 
-        for (final Pair<ImageView, Label> l: this.pawnLabel) {
+        for (final Pair<ImageView, Label> l: this.pawnList) {
             l.getSecond().setFont(smallFont);
             l.getSecond().setStyle(BLACK_LABEL);
         }
-        this.pawnLabel.get(newTurn).getSecond().setFont(bigFont);
-        this.pawnLabel.get(newTurn).getSecond().setStyle(YELLOW_LABEL);
+        this.pawnList.get(newTurn).getSecond().setFont(bigFont);
+        this.pawnList.get(newTurn).getSecond().setStyle(YELLOW_LABEL);
     }
 
     /**
@@ -165,12 +151,12 @@ public class Toolbar {
     }
 
     private void resetTurn() {
-        for (final Pair<ImageView, Label> l: this.pawnLabel) {
+        for (final Pair<ImageView, Label> l: this.pawnList) {
             l.getSecond().setFont(smallFont);
             l.getSecond().setStyle(BLACK_LABEL);
         }
-        this.pawnLabel.get(0).getSecond().setFont(bigFont);
-        this.pawnLabel.get(0).getSecond().setStyle(YELLOW_LABEL);
+        this.pawnList.get(0).getSecond().setFont(bigFont);
+        this.pawnList.get(0).getSecond().setStyle(YELLOW_LABEL);
     }
 
     /**
@@ -232,5 +218,23 @@ public class Toolbar {
      */
     public void updateDice(final TypesOfDice newDice) {
         this.dice.changeDice(newDice);
+    }
+
+    /**
+     * Getter of the color of the selected pawn. The color depends on the game mode selected.
+     * @param i
+     *     The index of the pawn
+     * @return
+     *     The pawn used color
+     */
+    protected abstract Color getColorFromMode(int i);
+
+    /**
+     * Getter of the list which holds the pairs Image/Label shown in the tool bar.
+     * @return
+     *     The list of pairs ImageView, Pair of the pawns
+     */
+    protected List<Pair<ImageView, Label>> getPawnList() {
+        return this.pawnList;
     }
 }

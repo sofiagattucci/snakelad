@@ -1,26 +1,30 @@
 package view.scenes;
 
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utilities.Turn;
-import view.Toolbar;
+import view.SinglePlayerToolbar;
 import view.ViewImpl;
 import view.dialogboxes.SinglePlayerGameOver;
+import view.pawn.PawnsColor;
 
 /**
  * This class creates and initializes the game scene for a player versus CPU game.
  */
-public final class SinglePlayerGame extends Game {
+public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
 
     private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
-    private static final int N_PLAYERS = SetUpGame.getPlayers();
+    private static final int N_PLAYERS = 2;
 
     private static SinglePlayerGame playScene = new SinglePlayerGame();
     private static Stage playStage;
 
+    private final SinglePlayerToolbar singleTool = new SinglePlayerToolbar();
+
     private SinglePlayerGame() {
         super();
-        this.getToolbar().setCPU();
+        this.putToolbar(this.singleTool);
     }
 
     @Override
@@ -41,9 +45,9 @@ public final class SinglePlayerGame extends Game {
      * @return
      *     The game scene
      */
-    public static Game getScene(final Stage stage) {
+    public static GameImpl<SinglePlayerToolbar> getScene(final Stage stage) {
         playStage = stage;
-        Toolbar.setStage(stage);
+        SinglePlayerToolbar.setStage(stage);
         return playScene;
     }
 
@@ -73,4 +77,8 @@ public final class SinglePlayerGame extends Game {
         return CPU_INDEX;
     }
 
+    @Override
+    protected Color getColor(final int n) {
+        return PawnsColor.get().getSingleColor(n);
+    }
 }

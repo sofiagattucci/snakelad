@@ -13,9 +13,11 @@ public final class PawnsColor {
 
     private static final PawnsColor INSTANCE = new PawnsColor();
     private final List<Color> singleColorAssigned = new ArrayList<>();
+    private final List<Color> multiColorAssigned = new ArrayList<>();
 
     private PawnsColor() {
         this.singleColorAssigned.addAll(Arrays.asList(Color.RED, Color.LIGHTBLUE));
+        this.multiColorAssigned.addAll(Arrays.asList(Color.RED, Color.LIGHTBLUE, Color.YELLOW, Color.GREEN, Color.FUCHSIA, Color.BLUE));
     }
 
     /**
@@ -28,14 +30,25 @@ public final class PawnsColor {
     }
 
     /**
-     * Getter of the color of the selected pawn.
+     * Getter of the color of the selected pawn (single player).
      * @param index
      *     The index of the pawn I want to know the color
      * @return
      *     The color used for the selected pawn
      */
-    public Color getColor(final int index) {
+    public Color getSingleColor(final int index) {
         return this.singleColorAssigned.get(index);
+    }
+
+    /**
+     * Getter of the color of the selected pawn (player versus player).
+     * @param index
+     *     The index of the pawn I want to know the color
+     * @return
+     *     The color used for the selected pawn
+     */
+    public Color getMultiColor(final int index) {
+        return this.multiColorAssigned.get(index);
     }
 
     /**

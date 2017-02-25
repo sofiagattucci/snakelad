@@ -81,6 +81,7 @@ public abstract class ImagesCircularList<X> {
             this.prev.setDisable(true);
             this.next.setDisable(true);
             this.setParameter(this.counter);
+            this.ok.setDisable(true);
             next.setVisible(true);
         });
         this.reset();
@@ -92,6 +93,7 @@ public abstract class ImagesCircularList<X> {
     public final void reset() {
         this.prev.setDisable(false);
         this.next.setDisable(false);
+        this.ok.setDisable(false);
         this.counter = 0;
         this.image.setImage(this.list.get(this.counter));
         this.updateDescLabel(this.counter);

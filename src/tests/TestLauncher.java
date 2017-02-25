@@ -8,7 +8,6 @@ import tests.model.Dice5To10Test;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
 import tests.view.LanguageMapTest;
-import tests.view.PawnTypesTest;
 
 /**
  * This class has the task of calling all Junit tests within the 
@@ -42,7 +41,6 @@ public final class TestLauncher {
      */
     @Test
     public void testView() {
-        new PawnTypesTest().pawnTypesTest();
         new LanguageMapTest().test();
     }
 }

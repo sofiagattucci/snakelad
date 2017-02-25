@@ -1,16 +1,20 @@
 package view.scenes;
 
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import view.MultiPlayerToolbar;
 import view.Toolbar;
 import view.dialogboxes.MultiPlayerGameOver;
+import view.pawn.PawnsColor;
 
 /**
  * This class creates and initializes the game scene for a player versus player game.
  */
-public final class MultiPlayerGame extends Game {
+public final class MultiPlayerGame extends GameImpl<MultiPlayerToolbar> {
 
     private final int numPlayers;
     private Stage playStage;
+    private final MultiPlayerToolbar multiTool = new MultiPlayerToolbar();
 
     /**
      * Constructor of this class.
@@ -20,6 +24,7 @@ public final class MultiPlayerGame extends Game {
     public MultiPlayerGame(final int n) {
         super();
         this.numPlayers = n;
+        this.putToolbar(this.multiTool);
     }
 
     @Override
@@ -52,5 +57,10 @@ public final class MultiPlayerGame extends Game {
     @Override
     public int getTag() {
         return SetUpGame.getPlayers();
+    }
+
+    @Override
+    protected Color getColor(final int n) {
+        return PawnsColor.get().getMultiColor(n);
     }
 }
