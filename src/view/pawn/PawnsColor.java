@@ -51,13 +51,24 @@ public final class PawnsColor {
     }
 
     /**
-     * It permits to change the assigned color of a pawn with another.
+     * It permits to change the assigned color of a pawn with another (Single game).
      * @param index
      *     The index of the pawn I want to change the color
      * @param color
      *     The new color for the pawn
      */
-    public void switchColor(final int index, final AvailableColor color) {
+    public void switchColorSingle(final int index, final AvailableColor color) {
         this.singleColorAssigned.set(index, color);
+    }
+
+    /**
+     * It permits to change the assigned color of a pawn with another (Player versus player).
+     * @param index
+     *     The index of the pawn I want to change the color
+     * @param color
+     *     The new color for the pawn
+     */
+    public void switchColorMulti(final int index, final AvailableColor color) {
+        this.multiColorAssigned.set(index, color);
     }
 }
