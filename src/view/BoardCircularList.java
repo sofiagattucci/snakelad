@@ -67,7 +67,7 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
 
     @Override
     protected Image getImage() {
-        return ImageManager.get().readFromFile(GameBoardTypes.get().getBoard(this.calculateDifficulty(this.getCounter())));
+        return ImageManager.get().readFromFile(GameBoardTypes.get().getBoardMini(this.calculateDifficulty(this.getCounter())));
     }
 
     /**

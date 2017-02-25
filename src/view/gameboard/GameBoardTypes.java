@@ -4,23 +4,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 import utilities.Difficulty;
+import utilities.Pair;
 
 /**
  * This class manages the different types of game boards (images) available in the game.
  */
 public final class GameBoardTypes {
 
-    private static final String BOARD_PATH1 = "./res/GameBoards/GameBoard1/GameBoard1.png";
-    private static final String BOARD_PATH2 = "./res/GameBoards/GameBoard2/GameBoard2.png";
-    private static final String BOARD_PATH3 = "./res/GameBoards/GameBoard3/GameBoard3.png";
+    private static final String STANDARD_BOARD_PATH = "./res/GameBoards/";
+    private static final String GAME_BOARD = "GameBoard";
+    private static final String ESCAPE = "/";
+    private static final String MINI = "_mini";
+    private static final String PNG = ".png";
+    private static final int NUM_SCENERY = 3;
 
     private static final GameBoardTypes BOARD_TYPES = new GameBoardTypes();
-    private final Map<Difficulty, String> boardMap = new HashMap<>();
+    private final Map<Difficulty, Pair<String, String>> boardMap = new HashMap<>();
 
     private GameBoardTypes() {
-        this.boardMap.put(Difficulty.BEGINNER, BOARD_PATH1);
-        this.boardMap.put(Difficulty.EASY, BOARD_PATH2);
-        this.boardMap.put(Difficulty.MEDIUM, BOARD_PATH3);
+
+        for (int i = 1; i <= NUM_SCENERY; i++) {
+        this.boardMap.put(this.calculateDifficulty(i), new Pair<>(
+                STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + PNG,
+                STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + MINI + PNG));
+        }
+    }
+
+    private Difficulty calculateDifficulty(final int n) {
+        switch(n) {
+            case 1: return Difficulty.BEGINNER;
+            case 2: return Difficulty.EASY;
+            case 3: return Difficulty.MEDIUM;
+            default: return Difficulty.BEGINNER;
+        }
     }
 
     /**
@@ -33,13 +49,24 @@ public final class GameBoardTypes {
     }
 
     /**
-     * It select the right pawn image to use.
+     * It select the right board image to use.
      * @param diff
      *     The difficulty of the board
      * @return
      *     The path to the selected board 
      */
     public String getBoard(final Difficulty diff) {
-        return this.boardMap.get(diff);
+        return this.boardMap.get(diff).getFirst();
+    }
+
+    /**
+     * It select the right board thumb nail image to use.
+     * @param diff
+     *     The difficulty of the board
+     * @return
+     *     The path to the selected board thumb nail
+     */
+    public String getBoardMini(final Difficulty diff) {
+        return this.boardMap.get(diff).getSecond();
     }
 }
