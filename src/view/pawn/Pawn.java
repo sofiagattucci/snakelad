@@ -85,4 +85,11 @@ public interface Pawn {
      */
     void changeDirection();
 
+    /**
+     * It updates the color of the pawn by using the new one.
+     * @param path
+     *     The path to the new image to use
+     */
+    void updateColor(String path);
+
 }

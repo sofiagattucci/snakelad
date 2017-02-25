@@ -12,7 +12,7 @@ import view.gameboard.GameBoardImpl;
  */
 public class PawnImpl implements Pawn {
 
-    private final ImageView pawnIm;
+    private ImageView pawnIm;
     private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
             + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() / 2 - Dimension.PAWN_HEIGHT / 1.80,
             Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
@@ -40,6 +40,11 @@ public class PawnImpl implements Pawn {
         this.pawnIm.setX(this.pawnStartingPos.getFirst());
         this.pawnIm.setY(this.pawnStartingPos.getSecond());
         this.row = 0;
+    }
+
+    @Override
+    public void updateColor(final String path) {
+        this.pawnIm.setImage(ImageManager.get().readFromFile(path));
     }
 
     @Override

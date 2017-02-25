@@ -22,6 +22,7 @@ import view.Dimension;
 import view.FlagsMap;
 import view.LanguageStringMap;
 import view.ViewImpl;
+import view.pawn.PawnsColor;
 
 /**
  * It' s a scene of the application. It manages some optional features of the game
@@ -53,9 +54,8 @@ public final class Settings extends BasicScene {
     private final Label player = new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY));
     private final Label cpu = new Label(CPU);
     private final GridPane singleGrid = new GridPane();
-    private final ComboBox<Integer> singleComboP = new ComboBox<>();
-    private final ComboBox<Integer> singleComboC = new ComboBox<>();
-    private final List<Color> pawnColor = new ArrayList<>();
+    private final ComboBox<Color> singleComboP = new ComboBox<>();
+    private final ComboBox<Color> singleComboC = new ComboBox<>();
     private final HBox pawnBox = new HBox(this.singleGrid);
     private final Label langLabel = new Label(LanguageStringMap.get().getMap().get(LANGUAGE_MSG_KEY));
     private final List<Pair<Language, ImageView>> flagList = new ArrayList<>();
@@ -78,6 +78,22 @@ public final class Settings extends BasicScene {
         this.singleGrid.add(this.singleComboC, 1, 1);
         this.singleGrid.setHgap(COMBO_BOX_GAP);
         this.singleGrid.setVgap(COMBO_BOX_GAP);
+
+        this.singleComboP.getItems().add(Color.RED);
+        this.singleComboP.getItems().add(Color.LIGHTBLUE);
+        this.singleComboP.getItems().add(Color.YELLOW);
+
+        this.singleComboC.getItems().add(Color.RED);
+        this.singleComboC.getItems().add(Color.LIGHTBLUE);
+        this.singleComboC.getItems().add(Color.YELLOW);
+
+        this.singleComboP.setOnAction(e -> {
+            PawnsColor.get().switchColor(0, this.singleComboP.getValue());
+        });
+
+        this.singleComboC.setOnAction(e -> {
+            PawnsColor.get().switchColor(1, this.singleComboC.getValue());
+        });
 
         this.pawnBox.setAlignment(Pos.CENTER);
         this.flagsBox.setAlignment(Pos.CENTER);

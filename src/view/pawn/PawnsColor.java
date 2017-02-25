@@ -1,22 +1,32 @@
 package view.pawn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import javafx.scene.paint.Color;
 
 /**
  * It manages the colors of the pawns used in the game and permits to switch it.
  */
 public final class PawnsColor {
 
-    private static final int MAX_PLAYERS = 6;
+    //private static final int MAX_PLAYERS = 6;
+    /*private static final int N0 = 0;
+    private static final int N1 = 1;
+    private static final int N2 = 2;
+    private static final int N3 = 3;
+    private static final int N4 = 4;
+    private static final int N5 = 5;
+    private static final int N6 = 6;
+    private static final int N7 = 7;
+    private static final int N8 = 8;*/
 
     private static final PawnsColor INSTANCE = new PawnsColor();
-    private final List<Integer> colorAssigned = new ArrayList<>();
+    private final List<Color> singleColorAssigned = new ArrayList<>();
 
     private PawnsColor() {
-        for (int i = 0; i < MAX_PLAYERS; i++) {
-            this.colorAssigned.add(i);
-        }
+        this.singleColorAssigned.addAll(Arrays.asList(Color.RED, Color.LIGHTBLUE));
     }
 
     /**
@@ -35,8 +45,8 @@ public final class PawnsColor {
      * @return
      *     The color used for the selected pawn
      */
-    public int getColor(final int index) {
-        return this.colorAssigned.get(index);
+    public Color getColor(final int index) {
+        return this.singleColorAssigned.get(index);
     }
 
     /**
@@ -46,7 +56,7 @@ public final class PawnsColor {
      * @param color
      *     The new color for the pawn
      */
-    public void switchColor(final int index, final int color) {
-        this.colorAssigned.set(index, color);
+    public void switchColor(final int index, final Color color) {
+        this.singleColorAssigned.set(index, color);
     }
 }

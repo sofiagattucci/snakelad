@@ -123,6 +123,9 @@ public abstract class Game extends BasicScene {
         board.newBoard(boardPath);
         this.setBackground();
         this.toolbar.updateDice(newDice);
+        for (int i = 0; i < this.pawnList.size(); i++) {
+            this.pawnList.get(i).updateColor(PawnTypes.get().getPawn(PawnsColor.get().getColor(i)));
+        }
     }
 
     /**

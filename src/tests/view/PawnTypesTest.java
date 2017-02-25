@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 import view.pawn.PawnTypes;
+import view.pawn.PawnsColor;
 
 /**
  * Junit test used to test the PawnTypes class in package view.pawns.
@@ -36,7 +37,7 @@ public class PawnTypesTest {
     public void pawnTypesTest() {
         assertEquals(PawnTypes.get().getClass(), PawnTypes.class);
         for (int i = 0; i < NUM_COLORS; i++) {
-            assertEquals(PawnTypes.get().getPawn(i), pawnColor.get(i));
+            assertEquals(PawnTypes.get().getPawn(PawnsColor.get().getColor(i)), pawnColor.get(i));
         }
     }
 }

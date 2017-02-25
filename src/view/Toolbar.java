@@ -19,6 +19,7 @@ import view.dice.Dice;
 import view.dice.DiceImpl;
 import view.pawn.PawnImpl;
 import view.pawn.PawnTypes;
+import view.pawn.PawnsColor;
 import view.scenes.SinglePlayerGame;
 
 /**
@@ -97,7 +98,7 @@ public class Toolbar {
         for (int i = 0; i < nPlayers; i++) {
             this.pawnLabel.add(new Label(playerLabel.getText() + (i + 1)));
             this.pawnLabel.get(i).setFont(smallFont);
-            this.gp.addRow(i, new PawnImpl(PawnTypes.get().getPawn(i)).getPawn(), this.pawnLabel.get(i));
+            this.gp.addRow(i, new PawnImpl(PawnTypes.get().getPawn(PawnsColor.get().getColor(i))).getPawn(), this.pawnLabel.get(i));
         }
     }
 
