@@ -1,11 +1,11 @@
 package view.scenes;
 
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utilities.Turn;
 import view.SinglePlayerToolbar;
 import view.ViewImpl;
 import view.dialogboxes.SinglePlayerGameOver;
+import view.pawn.AvailableColor;
 import view.pawn.PawnsColor;
 
 /**
@@ -78,7 +78,7 @@ public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
     }
 
     @Override
-    protected Color getColor(final int n) {
+    protected AvailableColor getColor(final int n) {
         return PawnsColor.get().getSingleColor(n);
     }
 }

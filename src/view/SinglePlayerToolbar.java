@@ -1,7 +1,7 @@
 package view;
 
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import view.pawn.AvailableColor;
 import view.pawn.PawnsColor;
 import view.scenes.SinglePlayerGame;
 
@@ -43,7 +43,7 @@ public class SinglePlayerToolbar  extends Toolbar {
     }
 
     @Override
-    protected Color getColorFromMode(final int i) {
+    protected AvailableColor getColorFromMode(final int i) {
         return PawnsColor.get().getSingleColor(i);
     }
 }

@@ -4,20 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.scene.paint.Color;
-
 /**
  * It manages the colors of the pawns used in the game and permits to switch it.
  */
 public final class PawnsColor {
 
     private static final PawnsColor INSTANCE = new PawnsColor();
-    private final List<Color> singleColorAssigned = new ArrayList<>();
-    private final List<Color> multiColorAssigned = new ArrayList<>();
+    private final List<AvailableColor> singleColorAssigned = new ArrayList<>();
+    private final List<AvailableColor> multiColorAssigned = new ArrayList<>();
 
     private PawnsColor() {
-        this.singleColorAssigned.addAll(Arrays.asList(Color.RED, Color.LIGHTBLUE));
-        this.multiColorAssigned.addAll(Arrays.asList(Color.RED, Color.LIGHTBLUE, Color.YELLOW, Color.GREEN, Color.FUCHSIA, Color.BLUE));
+        this.singleColorAssigned.addAll(Arrays.asList(AvailableColor.RED, AvailableColor.LIGHTBLUE));
+        this.multiColorAssigned.addAll(Arrays.asList(AvailableColor.RED, AvailableColor.LIGHTBLUE,
+                AvailableColor.YELLOW, AvailableColor.GREEN, AvailableColor.FUCHSIA, AvailableColor.BLUE));
     }
 
     /**
@@ -36,7 +35,7 @@ public final class PawnsColor {
      * @return
      *     The color used for the selected pawn
      */
-    public Color getSingleColor(final int index) {
+    public AvailableColor getSingleColor(final int index) {
         return this.singleColorAssigned.get(index);
     }
 
@@ -47,7 +46,7 @@ public final class PawnsColor {
      * @return
      *     The color used for the selected pawn
      */
-    public Color getMultiColor(final int index) {
+    public AvailableColor getMultiColor(final int index) {
         return this.multiColorAssigned.get(index);
     }
 
@@ -58,7 +57,7 @@ public final class PawnsColor {
      * @param color
      *     The new color for the pawn
      */
-    public void switchColor(final int index, final Color color) {
+    public void switchColor(final int index, final AvailableColor color) {
         this.singleColorAssigned.set(index, color);
     }
 }

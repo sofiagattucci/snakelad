@@ -9,7 +9,6 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.paint.Color;
 import utilities.Difficulty;
 import utilities.ImageManager;
 import utilities.TypesOfDice;
@@ -18,6 +17,7 @@ import view.Toolbar;
 import view.gameboard.GameBoard;
 import view.gameboard.GameBoardImpl;
 import view.gameboard.GameBoardTypes;
+import view.pawn.AvailableColor;
 import view.pawn.Pawn;
 import view.pawn.PawnImpl;
 import view.pawn.PawnTypes;
@@ -128,7 +128,7 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
      * @return
      *     The right color to use for the selected pawn
      */
-    protected abstract Color getColor(int n);
+    protected abstract AvailableColor getColor(int n);
 
     @Override
     public abstract void endTurn();

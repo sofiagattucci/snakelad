@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.ImageManager;
@@ -22,6 +21,7 @@ import view.Dimension;
 import view.FlagsMap;
 import view.LanguageStringMap;
 import view.ViewImpl;
+import view.pawn.AvailableColor;
 import view.pawn.PawnsColor;
 
 /**
@@ -54,8 +54,8 @@ public final class Settings extends BasicScene {
     private final Label player = new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY));
     private final Label cpu = new Label(CPU);
     private final GridPane singleGrid = new GridPane();
-    private final ComboBox<Color> singleComboP = new ComboBox<>();
-    private final ComboBox<Color> singleComboC = new ComboBox<>();
+    private final ComboBox<AvailableColor> singleComboP = new ComboBox<>();
+    private final ComboBox<AvailableColor> singleComboC = new ComboBox<>();
     private final HBox pawnBox = new HBox(this.singleGrid);
     private final Label langLabel = new Label(LanguageStringMap.get().getMap().get(LANGUAGE_MSG_KEY));
     private final List<Pair<Language, ImageView>> flagList = new ArrayList<>();
@@ -79,13 +79,13 @@ public final class Settings extends BasicScene {
         this.singleGrid.setHgap(COMBO_BOX_GAP);
         this.singleGrid.setVgap(COMBO_BOX_GAP);
 
-        this.singleComboP.getItems().add(Color.RED);
-        this.singleComboP.getItems().add(Color.LIGHTBLUE);
-        this.singleComboP.getItems().add(Color.YELLOW);
+        this.singleComboP.getItems().add(AvailableColor.RED);
+        this.singleComboP.getItems().add(AvailableColor.LIGHTBLUE);
+        this.singleComboP.getItems().add(AvailableColor.YELLOW);
 
-        this.singleComboC.getItems().add(Color.RED);
-        this.singleComboC.getItems().add(Color.LIGHTBLUE);
-        this.singleComboC.getItems().add(Color.YELLOW);
+        this.singleComboC.getItems().add(AvailableColor.RED);
+        this.singleComboC.getItems().add(AvailableColor.LIGHTBLUE);
+        this.singleComboC.getItems().add(AvailableColor.YELLOW);
 
         this.singleComboP.setOnAction(e -> {
             PawnsColor.get().switchColor(0, this.singleComboP.getValue());

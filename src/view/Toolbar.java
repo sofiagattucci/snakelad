@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.ImageManager;
@@ -20,6 +19,7 @@ import utilities.TypesOfDice;
 import view.dialogboxes.PauseBox;
 import view.dice.Dice;
 import view.dice.DiceImpl;
+import view.pawn.AvailableColor;
 import view.pawn.PawnImpl;
 import view.pawn.PawnTypes;
 
@@ -227,7 +227,7 @@ public abstract class Toolbar {
      * @return
      *     The pawn used color
      */
-    protected abstract Color getColorFromMode(int i);
+    protected abstract AvailableColor getColorFromMode(int i);
 
     /**
      * Getter of the list which holds the pairs Image/Label shown in the tool bar.

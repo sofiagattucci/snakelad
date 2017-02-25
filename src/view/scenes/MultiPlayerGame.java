@@ -1,10 +1,10 @@
 package view.scenes;
 
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import view.MultiPlayerToolbar;
 import view.Toolbar;
 import view.dialogboxes.MultiPlayerGameOver;
+import view.pawn.AvailableColor;
 import view.pawn.PawnsColor;
 
 /**
@@ -60,7 +60,7 @@ public final class MultiPlayerGame extends GameImpl<MultiPlayerToolbar> {
     }
 
     @Override
-    protected Color getColor(final int n) {
+    protected AvailableColor getColor(final int n) {
         return PawnsColor.get().getMultiColor(n);
     }
 }

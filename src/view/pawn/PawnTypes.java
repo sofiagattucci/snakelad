@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.scene.paint.Color;
-
 /**
  * This class manages the different types of pawns available in the game.
  */
@@ -22,18 +20,18 @@ public final class PawnTypes {
     private static final String VIOLET_PAWN_PATH = "./res/Pawns/VioletPawn.png";
 
     private static final PawnTypes PAWN_TYPES = new PawnTypes();
-    private final Map<Color, String> pawnColor = new HashMap<>();
+    private final Map<AvailableColor, String> pawnColor = new HashMap<>();
 
     private PawnTypes() {
-        this.pawnColor.put(Color.RED, RED_PAWN_PATH);
-        this.pawnColor.put(Color.LIGHTBLUE, LIGHTBLUE_PAWN_PATH); 
-        this.pawnColor.put(Color.YELLOW, YELLOW_PAWN_PATH);
-        this.pawnColor.put(Color.GREEN, GREEN_PAWN_PATH);
-        this.pawnColor.put(Color.FUCHSIA, FUCHSIA_PAWN_PATH);
-        this.pawnColor.put(Color.BLUE, BLUE_PAWN_PATH);
-        this.pawnColor.put(Color.BROWN, BROWN_PAWN_PATH);
-        this.pawnColor.put(Color.PINK, PINK_PAWN_PATH);
-        this.pawnColor.put(Color.VIOLET, VIOLET_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.RED, RED_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.LIGHTBLUE, LIGHTBLUE_PAWN_PATH); 
+        this.pawnColor.put(AvailableColor.YELLOW, YELLOW_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.GREEN, GREEN_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.FUCHSIA, FUCHSIA_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.BLUE, BLUE_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.BROWN, BROWN_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.PINK, PINK_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.VIOLET, VIOLET_PAWN_PATH);
     }
 
     /**
@@ -52,7 +50,7 @@ public final class PawnTypes {
      * @return
      *     The path to the selected pawn
      */
-    public String getPawn(final Color color) {
+    public String getPawn(final AvailableColor color) {
         return this.pawnColor.get(color);
     }
 
@@ -61,7 +59,7 @@ public final class PawnTypes {
      * @return
      *     The (unmodifiable) map that holds the different types of colors possible for the pawns
      */
-    public Map<Color, String> getMap() {
+    public Map<AvailableColor, String> getMap() {
         return Collections.unmodifiableMap(this.pawnColor);
     }
 }
