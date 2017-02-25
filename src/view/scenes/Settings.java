@@ -1,6 +1,7 @@
 package view.scenes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.geometry.Pos;
@@ -52,15 +53,12 @@ public final class Settings extends BasicScene {
 
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
     private final Label pawnLabel = new Label(LanguageStringMap.get().getMap().get(PAWN_LABEL_KEY));
-    private final Label player = new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY));
-    private final Label cpu = new Label(CPU);
+    private final Label langLabel = new Label(LanguageStringMap.get().getMap().get(LANGUAGE_MSG_KEY));
+    private final List<Pair<Label, ComboBox<String>>> singlePawnList = new ArrayList<>();
+    private final List<Pair<Label, ComboBox<String>>> multiPawnList = new ArrayList<>();
     private final GridPane singleGrid = new GridPane();
-    private final ComboBox<String> singleComboP = new ComboBox<>();
-    private final ComboBox<String> singleComboC = new ComboBox<>();
     private final GridPane multiGrid = new GridPane();
     private final HBox pawnBox = new HBox(this.singleGrid, this.multiGrid);
-    private final List<Pair<Label, ComboBox<String>>> multiPawnList = new ArrayList<>();
-    private final Label langLabel = new Label(LanguageStringMap.get().getMap().get(LANGUAGE_MSG_KEY));
     private final List<Pair<Language, ImageView>> flagList = new ArrayList<>();
     private final HBox flagsBox = new HBox();
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
@@ -74,14 +72,35 @@ public final class Settings extends BasicScene {
         this.title.setFont(new Font(TITLE_FONT));
         this.title.setTranslateY(Y_TITLE_TRANSLATE);
 
-        this.singleGrid.add(this.player, 0, 0);
-        this.singleGrid.add(this.singleComboP, 1, 0);
-        this.singleGrid.add(this.cpu, 0, 1);
-        this.singleGrid.add(this.singleComboC, 1, 1);
         this.singleGrid.setHgap(COMBO_BOX_GAP);
         this.singleGrid.setVgap(COMBO_BOX_GAP);
         this.multiGrid.setHgap(COMBO_BOX_GAP);
         this.multiGrid.setVgap(COMBO_BOX_GAP);
+        this.pawnBox.setAlignment(Pos.CENTER);
+        this.pawnBox.setSpacing(BOX_SPACING);
+        this.flagsBox.setAlignment(Pos.CENTER);
+        this.langLabel.setFont(new Font(FONT));
+        this.pawnLabel.setFont(new Font(FONT));
+
+        this.singlePawnList.addAll(Arrays.asList(new Pair<>(new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY)), 
+                new ComboBox<String>()), new Pair<>(new Label(CPU), new ComboBox<String>())));
+
+        for (int i = 1; i <= 2; i++) {
+            this.singlePawnList.get(i - 1).getFirst().setFont(new Font(FONT));
+            final int j = i;
+            this.singlePawnList.get(i - 1).getSecond().setOnAction(e -> {
+                PawnsColor.get().switchColorSingle(j - 1, this.findColor(this.singlePawnList.get(j - 1).getSecond().getValue()));
+            });
+
+            this.singlePawnList.get(i - 1).getSecond().setPromptText(
+                    LanguageStringMap.get().getMap().get(PawnsColor.get().getSingleColor(i - 1).toString()));
+        }
+
+        for (int i = 0; i < 2; i++) {
+            this.singleGrid.addRow(i, this.singlePawnList.get(i).getFirst(), this.singlePawnList.get(i).getSecond());
+            this.singlePawnList.get(i).getSecond().setPromptText(
+                    LanguageStringMap.get().getMap().get(PawnsColor.get().getSingleColor(i).toString()));
+        }
 
         for (int i = 1; i <= MAX_PLAYERS; i++) {
             this.multiPawnList.add(new Pair<>(new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY) + i),
@@ -91,6 +110,8 @@ public final class Settings extends BasicScene {
             this.multiPawnList.get(i - 1).getSecond().setOnAction(e -> {
                 PawnsColor.get().switchColorMulti(j - 1, this.findColor(this.multiPawnList.get(j - 1).getSecond().getValue()));
             });
+            this.multiPawnList.get(i - 1).getSecond().setPromptText(
+                    LanguageStringMap.get().getMap().get(PawnsColor.get().getMultiColor(i - 1).toString()));
         }
 
         for (int i = 0; i < MAX_PLAYERS / 2; i++) {  //N.B: MAX_PLAYERS is even
@@ -99,28 +120,13 @@ public final class Settings extends BasicScene {
         }
 
         for (final AvailableColor c: AvailableColor.values()) {
-            this.singleComboP.getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
-            this.singleComboC.getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
             for (final Pair<Label, ComboBox<String>> elem: this.multiPawnList) {
                 elem.getSecond().getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
             }
+            for (final Pair<Label, ComboBox<String>> elem: this.singlePawnList) {
+                elem.getSecond().getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
+            }
         }
-
-        this.singleComboP.setOnAction(e -> {
-            PawnsColor.get().switchColorSingle(0, this.findColor(this.singleComboP.getValue()));
-        });
-
-        this.singleComboC.setOnAction(e -> {
-            PawnsColor.get().switchColorSingle(1, this.findColor(this.singleComboC.getValue()));
-        });
-
-        this.pawnBox.setAlignment(Pos.CENTER);
-        this.pawnBox.setSpacing(BOX_SPACING);
-        this.flagsBox.setAlignment(Pos.CENTER);
-        this.langLabel.setFont(new Font(FONT));
-        this.pawnLabel.setFont(new Font(FONT));
-        this.cpu.setFont(new Font(FONT));
-        this.player.setFont(new Font(FONT));
 ////////////////back button
         this.back.setOnAction(e -> {
             settingStage.setScene(Menu.getScene(settingStage));
@@ -163,7 +169,6 @@ public final class Settings extends BasicScene {
     private void updateLanguage() {
         this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
         this.pawnLabel.setText(LanguageStringMap.get().getMap().get(PAWN_LABEL_KEY));
-        this.player.setText(LanguageStringMap.get().getMap().get(PLAYER_KEY));
         this.langLabel.setText(LanguageStringMap.get().getMap().get(LANGUAGE_MSG_KEY));
         this.back.setText(LanguageStringMap.get().getMap().get(BACK_KEY));
         for (int i = 1; i <= MAX_PLAYERS; i++) {
