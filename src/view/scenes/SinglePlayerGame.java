@@ -11,7 +11,7 @@ import view.pawn.PawnsColor;
 /**
  * This class creates and initializes the game scene for a player versus CPU game.
  */
-public final class SinglePlayerGame extends Game<SinglePlayerToolbar> {
+public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
 
     private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
@@ -45,7 +45,7 @@ public final class SinglePlayerGame extends Game<SinglePlayerToolbar> {
      * @return
      *     The game scene
      */
-    public static Game<SinglePlayerToolbar> getScene(final Stage stage) {
+    public static GameImpl<SinglePlayerToolbar> getScene(final Stage stage) {
         playStage = stage;
         SinglePlayerToolbar.setStage(stage);
         return playScene;

@@ -49,7 +49,7 @@ public final class MultiPlayerScenes {
      * @return
      *     The scene selected
      */
-    public Game<MultiPlayerToolbar> getScene(final int n) {
+    public GameImpl<MultiPlayerToolbar> getScene(final int n) {
         return this.scenesMap.get(n);
     }
 }

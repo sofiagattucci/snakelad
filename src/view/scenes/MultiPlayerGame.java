@@ -10,7 +10,7 @@ import view.pawn.PawnsColor;
 /**
  * This class creates and initializes the game scene for a player versus player game.
  */
-public final class MultiPlayerGame extends Game<MultiPlayerToolbar> {
+public final class MultiPlayerGame extends GameImpl<MultiPlayerToolbar> {
 
     private final int numPlayers;
     private Stage playStage;

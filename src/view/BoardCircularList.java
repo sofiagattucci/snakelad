@@ -18,7 +18,7 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
     private static final String MEDIUM_KEY = "difficulty.medium";
     private static final String SCENERY_LABEL_KEY = "setUp.selectBoard";
     private static final int NUM_SCENARY = 3;
-    private static final double BOARD_SIZE = BasicButton.getButtonHeight() * 1.5;
+    private static final double BOARD_SIZE = BasicButton.getButtonHeight() * 1.8;
 
     /**
      * Constructor of this class.
