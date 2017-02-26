@@ -50,6 +50,7 @@ public final class Menu extends BasicScene {
         });
 
         this.settings.setOnAction(e -> {
+            ViewImpl.setSettingsScene(Settings.getScene(menuStage));
             menuStage.setScene(Settings.getScene(menuStage));
         });
 

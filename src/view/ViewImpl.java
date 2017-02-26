@@ -6,6 +6,7 @@ import javafx.application.Application;
 import utilities.Language;
 import view.scenes.Game;
 import view.scenes.SetUpGame;
+import view.scenes.Settings;
 
 /**
  * This is the main class of the view and implements the View Interface.
@@ -16,6 +17,7 @@ public class ViewImpl implements View {
 
     private static Game playScene;
     private static SetUpGame setUpScene;
+    private static Settings settingsScene;
     private static ViewObserver observer;
 
     /**
@@ -52,6 +54,15 @@ public class ViewImpl implements View {
     }
 
     /**
+     * Setter of the settings scene. It links a settings scene to this class.
+     * @param scene
+     *    The settings scene used in the application
+     */
+    public static void setSettingsScene(final Settings scene) {
+        settingsScene = scene;
+    }
+
+    /**
      * Getter of the observer.
      * @return
      *     The observer linked to this class
@@ -68,6 +79,16 @@ public class ViewImpl implements View {
     public static Game getPlayScene() {
         return playScene;
     }
+
+    /**
+     * Getter of the settings scene.
+     * @return
+     *     The settings scene used in the game
+     */
+    public static Settings getSettingsScene() {
+        return settingsScene;
+    }
+
 
     /**
      * Getter of the set up scene.
