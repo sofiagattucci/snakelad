@@ -56,6 +56,13 @@ public final class Settings extends BasicScene {
     }
 
     /**
+     * It updates the elements shown in the combo boxes.
+     */
+    public void updateComboLang() {
+        this.pawnSwitcher.updatePrompt();
+    }
+
+    /**
      * Getter of the scene.
      * @param stage
      *     The scene where this scene is placed

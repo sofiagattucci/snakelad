@@ -44,11 +44,13 @@ public class PawnColorSwitcher {
     private final HBox pawnBox = new HBox(this.singleBox, this.multiBox);
     private final VBox box = new VBox(this.pawnLabel, this.pawnBox);
     private final Font stdFont = new Font(FONT_SIZE);
+    private final List<AvailableColor> singlePrevC = new ArrayList<>();
+    private final List<AvailableColor> multiPrevC = new ArrayList<>();
 
     /**
      * Constructor of this class.
      */
-   public PawnColorSwitcher() {
+    public PawnColorSwitcher() {
 
        this.singleGrid.setHgap(COMBO_BOX_GAP);
        this.singleGrid.setVgap(COMBO_BOX_GAP);
@@ -73,11 +75,12 @@ public class PawnColorSwitcher {
            final AvailableColor oldColor = PawnsColor.get().getSingleColor(j - 1);
            this.singlePawnList.get(i - 1).getSecond().setOnAction(e -> {
                PawnsColor.get().switchColorSingle(j - 1, this.findColor(this.singlePawnList.get(j - 1).getSecond().getValue()));
-               this.updateSingleComboElem(j - 1, this.findColor(this.singlePawnList.get(j - 1).getSecond().getValue()), oldColor);
+               this.updateSingleComboElem(j - 1, this.findColor(this.singlePawnList.get(j - 1).getSecond().getValue()),
+                       oldColor);
            });
-
            this.singlePawnList.get(i - 1).getSecond().setPromptText(
                    LanguageStringMap.get().getMap().get(PawnsColor.get().getSingleColor(i - 1).toString()));
+           this.singlePrevC.add(PawnsColor.get().getSingleColor(i - 1));
        }
 
        for (int i = 0; i < 2; i++) {
@@ -98,6 +101,7 @@ public class PawnColorSwitcher {
            });
            this.multiPawnList.get(i - 1).getSecond().setPromptText(
                    LanguageStringMap.get().getMap().get(PawnsColor.get().getMultiColor(i - 1).toString()));
+           this.multiPrevC.add(PawnsColor.get().getMultiColor(i - 1));
        }
 
        for (int i = 0; i < MAX_PLAYERS / 2; i++) {  //N.B: MAX_PLAYERS is even
@@ -146,31 +150,76 @@ public class PawnColorSwitcher {
        }
    }
 
-   /**
-    * It updates the language of the elements of this class.
-    */
-   public void updateLanguage() {
-       this.pawnLabel.setText(LanguageStringMap.get().getMap().get(PAWN_LABEL_KEY));
-       this.singleLabel.setText(LanguageStringMap.get().getMap().get(SINGLE_KEY));
-       this.multiLabel.setText(LanguageStringMap.get().getMap().get(MULTI_KEY));
+    /**
+     * It updates the language of the elements of this class.
+     */
+    public void updateLanguage() {
+        this.pawnLabel.setText(LanguageStringMap.get().getMap().get(PAWN_LABEL_KEY));
+        this.singleLabel.setText(LanguageStringMap.get().getMap().get(SINGLE_KEY));
+        this.multiLabel.setText(LanguageStringMap.get().getMap().get(MULTI_KEY));
 
-       final List<String> newItems = new ArrayList<>();
-       for (final AvailableColor c: AvailableColor.values()) {
-           newItems.add(LanguageStringMap.get().getMap().get(c.toString()));
-       }
-       for (int i = 1; i <= MAX_PLAYERS; i++) {
-           this.multiPawnList.get(i - 1).getFirst().setText(LanguageStringMap.get().getMap().get(PLAYER_KEY) + i);
-           this.multiPawnList.get(i - 1).getSecond().setValue((LanguageStringMap.get().getMap().get(
-                   PawnsColor.get().getMultiColor(i - 1).toString())));
-           this.multiPawnList.get(i - 1).getSecond().getItems().setAll(newItems);
-       }
-       this.singlePawnList.get(0).getFirst().setText((LanguageStringMap.get().getMap().get(PLAYER_KEY)));
-       for (int i = 1; i <= 2; i++) {
-           this.singlePawnList.get(i - 1).getSecond().setValue((LanguageStringMap.get().getMap().get(
-                   PawnsColor.get().getSingleColor(i - 1).toString())));
-           this.singlePawnList.get(i - 1).getSecond().getItems().setAll(newItems);
-       }
-   }
+        for (int i = 1; i <= MAX_PLAYERS; i++) {
+            this.multiPawnList.get(i - 1).getFirst().setText(LanguageStringMap.get().getMap().get(PLAYER_KEY) + i);
+            this.multiPawnList.get(i - 1).getSecond().setValue((LanguageStringMap.get().getMap().get(
+                    PawnsColor.get().getMultiColor(i - 1).toString())));
+        }
+        this.singlePawnList.get(0).getFirst().setText((LanguageStringMap.get().getMap().get(PLAYER_KEY)));
+        for (int i = 1; i <= 2; i++) {
+            this.singlePawnList.get(i - 1).getSecond().setValue((LanguageStringMap.get().getMap().get(
+                    PawnsColor.get().getSingleColor(i - 1).toString())));
+        }
+        for (final Pair<Label, ComboBox<String>> elem: this.multiPawnList) {
+            elem.getSecond().getItems().clear();
+        }
+        for (final Pair<Label, ComboBox<String>> elem: this.singlePawnList) {
+            elem.getSecond().getItems().clear();
+        }
+        for (final AvailableColor c: AvailableColor.values()) {
+            if (!PawnsColor.get().getMultiList().contains(c)) {
+                for (final Pair<Label, ComboBox<String>> elem: this.multiPawnList) {
+                    elem.getSecond().getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
+                }
+            }
+            if (!PawnsColor.get().getSingleList().contains(c)) {
+                for (final Pair<Label, ComboBox<String>> elem: this.singlePawnList) {
+                    elem.getSecond().getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
+                }
+            }
+        }
+
+        for (int i = 0; i < MAX_PLAYERS; i++) {
+            this.multiPawnList.get(i).getSecond().setValue((LanguageStringMap.get().getMap().get(multiPrevC.get(i).toString())));
+        }
+        for (int i = 0; i < 2; i++) {
+            this.singlePawnList.get(i).getSecond().setValue((LanguageStringMap.get().getMap().get(singlePrevC.get(i).toString())));
+        }
+    }
+
+    /**
+     * It updates the language of the color shown in each combo box.
+     */
+    public void updatePrompt() {
+
+        for (int i = 0; i < MAX_PLAYERS; i++) {
+            String oldValue = this.multiPawnList.get(i).getSecond().getValue();
+            if (oldValue == null) {
+                oldValue = this.multiPawnList.get(i).getSecond().getPromptText();
+                this.multiPrevC.set(i, this.findColor(oldValue));
+            } else {
+                this.multiPrevC.set(i, this.findColor(oldValue));
+            }
+        }
+
+        for (int i = 0; i < 2; i++) {
+            String oldValue = this.singlePawnList.get(i).getSecond().getValue();
+            if (oldValue == null) {
+                oldValue = this.singlePawnList.get(i).getSecond().getPromptText();
+                this.singlePrevC.set(i, this.findColor(oldValue));
+            } else {
+                this.singlePrevC.set(i, this.findColor(oldValue));
+            }
+        }
+    }
 
    /**
     * Getter of the parent node of the entire pawn color switcher.

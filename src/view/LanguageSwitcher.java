@@ -56,6 +56,7 @@ public class LanguageSwitcher {
             elem.getSecond().setFitHeight(SMALL_FLAG_H);
             elem.getSecond().setFitWidth(SMALL_FLAG_W);
             elem.getSecond().setOnMouseClicked(e -> {
+                ViewImpl.getSettingsScene().updateComboLang();
                 ViewImpl.getObserver().setLanguage(elem.getFirst());
                 Menu.getScene(stage).updateLanguage();
                 Instructions.getScene(stage).updateLanguage();
