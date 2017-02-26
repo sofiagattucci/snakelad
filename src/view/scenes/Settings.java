@@ -171,13 +171,21 @@ public final class Settings extends BasicScene {
         this.pawnLabel.setText(LanguageStringMap.get().getMap().get(PAWN_LABEL_KEY));
         this.langLabel.setText(LanguageStringMap.get().getMap().get(LANGUAGE_MSG_KEY));
         this.back.setText(LanguageStringMap.get().getMap().get(BACK_KEY));
+        final List<String> newItems = new ArrayList<>();
+        for (final AvailableColor c: AvailableColor.values()) {
+            newItems.add(LanguageStringMap.get().getMap().get(c.toString()));
+        }
         for (int i = 1; i <= MAX_PLAYERS; i++) {
             this.multiPawnList.get(i - 1).getFirst().setText(LanguageStringMap.get().getMap().get(PLAYER_KEY) + i);
-            final List<String> newItems = new ArrayList<>();
-            for (final AvailableColor c: AvailableColor.values()) {
-                newItems.add(LanguageStringMap.get().getMap().get(c.toString()));
-            }
+            this.multiPawnList.get(i - 1).getSecond().setValue((LanguageStringMap.get().getMap().get(
+                    PawnsColor.get().getMultiColor(i - 1).toString())));
             this.multiPawnList.get(i - 1).getSecond().getItems().setAll(newItems);
+        }
+        this.singlePawnList.get(0).getFirst().setText((LanguageStringMap.get().getMap().get(PLAYER_KEY)));
+        for (int i = 1; i <= 2; i++) {
+            this.singlePawnList.get(i - 1).getSecond().setValue((LanguageStringMap.get().getMap().get(
+                    PawnsColor.get().getSingleColor(i - 1).toString())));
+            this.singlePawnList.get(i - 1).getSecond().getItems().setAll(newItems);
         }
     }
 
