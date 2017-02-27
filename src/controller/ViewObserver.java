@@ -49,4 +49,9 @@ public interface ViewObserver {
      */
     void setLanguage(Language language);
 
+    /**
+     * Start the background music.
+     */
+    void startMusic();
+
 }
