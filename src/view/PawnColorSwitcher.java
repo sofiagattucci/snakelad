@@ -69,39 +69,34 @@ public class PawnColorSwitcher {
        this.singlePawnList.addAll(Arrays.asList(new Pair<>(new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY)), 
                new ComboBox<String>()), new Pair<>(new Label(CPU), new ComboBox<String>())));
 
-       for (int i = 1; i <= 2; i++) {
-           this.singlePawnList.get(i - 1).getFirst().setFont(this.stdFont);
+       for (int i = 0; i < 2; i++) {
+           this.singlePawnList.get(i).getFirst().setFont(this.stdFont);
            final int j = i;
-           final AvailableColor oldColor = PawnsColor.get().getSingleColor(j - 1);
-           this.singlePawnList.get(i - 1).getSecond().setOnAction(e -> {
-               PawnsColor.get().switchColorSingle(j - 1, this.findColor(this.singlePawnList.get(j - 1).getSecond().getValue()));
-               this.updateSingleComboElem(j - 1, this.findColor(this.singlePawnList.get(j - 1).getSecond().getValue()),
-                       oldColor);
+           this.singlePawnList.get(i).getSecond().setOnAction(e -> {
+               PawnsColor.get().switchColorSingle(j, this.findColor(this.singlePawnList.get(j).getSecond().getValue()));
            });
-           this.singlePawnList.get(i - 1).getSecond().setPromptText(
-                   LanguageStringMap.get().getMap().get(PawnsColor.get().getSingleColor(i - 1).toString()));
-           this.singlePrevC.add(PawnsColor.get().getSingleColor(i - 1));
+           this.singlePawnList.get(i).getSecond().setValue(
+                   LanguageStringMap.get().getMap().get(PawnsColor.get().getSingleColor(i).toString()));
+           this.singlePrevC.add(PawnsColor.get().getSingleColor(i));
+           this.singlePawnList.get(i).getSecond().setValue(
+                   LanguageStringMap.get().getMap().get(PawnsColor.get().getSingleColor(i).toString()));
        }
 
        for (int i = 0; i < 2; i++) {
            this.singleGrid.addRow(i, this.singlePawnList.get(i).getFirst(), this.singlePawnList.get(i).getSecond());
-           this.singlePawnList.get(i).getSecond().setPromptText(
-                   LanguageStringMap.get().getMap().get(PawnsColor.get().getSingleColor(i).toString()));
        }
 
-       for (int i = 1; i <= MAX_PLAYERS; i++) {
+       for (int i = 0; i < MAX_PLAYERS; i++) {
            this.multiPawnList.add(new Pair<>(new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY) + i),
                new ComboBox<String>()));
-           this.multiPawnList.get(i - 1).getFirst().setFont(this.stdFont);
+           this.multiPawnList.get(i).getFirst().setFont(this.stdFont);
            final int j = i;
-           final AvailableColor oldColor = PawnsColor.get().getMultiColor(j - 1);
-           this.multiPawnList.get(i - 1).getSecond().setOnAction(e -> {
-               PawnsColor.get().switchColorMulti(j - 1, this.findColor(this.multiPawnList.get(j - 1).getSecond().getValue()));
-               this.updateMultiComboElem(j - 1, this.findColor(this.multiPawnList.get(j - 1).getSecond().getValue()), oldColor);
+           this.multiPawnList.get(i).getSecond().setOnAction(e -> {
+               PawnsColor.get().switchColorMulti(j, this.findColor(this.multiPawnList.get(j).getSecond().getValue()));
            });
-           this.multiPawnList.get(i - 1).getSecond().setPromptText(
-                   LanguageStringMap.get().getMap().get(PawnsColor.get().getMultiColor(i - 1).toString()));
-           this.multiPrevC.add(PawnsColor.get().getMultiColor(i - 1));
+           this.multiPawnList.get(i).getSecond().setValue(
+                   LanguageStringMap.get().getMap().get(PawnsColor.get().getMultiColor(i).toString()));
+           this.multiPrevC.add(PawnsColor.get().getMultiColor(i));
        }
 
        for (int i = 0; i < MAX_PLAYERS / 2; i++) {  //N.B: MAX_PLAYERS is even
@@ -110,15 +105,11 @@ public class PawnColorSwitcher {
        }
 
        for (final AvailableColor c: AvailableColor.values()) {
-           if (!PawnsColor.get().getMultiList().contains(c)) {
                for (final Pair<Label, ComboBox<String>> elem: this.multiPawnList) {
                    elem.getSecond().getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
                }
-           }
-           if (!PawnsColor.get().getSingleList().contains(c)) {
                for (final Pair<Label, ComboBox<String>> elem: this.singlePawnList) {
                    elem.getSecond().getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
-               }
            }
        }
    }
@@ -131,24 +122,6 @@ public class PawnColorSwitcher {
         }
         return DEFAULT_COLOR;
     }
-
-   private void updateSingleComboElem(final int index, final AvailableColor newColor, final AvailableColor oldColor) {
-       for (int i = 0; i < 2; i++) {
-           if (i != index) {
-               this.singlePawnList.get(i).getSecond().getItems().remove(LanguageStringMap.get().getMap().get(newColor.toString()));
-               this.singlePawnList.get(i).getSecond().getItems().add(LanguageStringMap.get().getMap().get(oldColor.toString()));
-           }
-       }
-   }
-
-   private void updateMultiComboElem(final int index, final AvailableColor newColor, final AvailableColor oldColor) {
-       for (int i = 0; i < MAX_PLAYERS; i++) {
-           if (i != index) {
-               this.multiPawnList.get(i).getSecond().getItems().remove(LanguageStringMap.get().getMap().get(newColor.toString()));
-               this.multiPawnList.get(i).getSecond().getItems().add(LanguageStringMap.get().getMap().get(oldColor.toString()));
-           }
-       }
-   }
 
     /**
      * It updates the language of the elements of this class.
@@ -175,15 +148,11 @@ public class PawnColorSwitcher {
             elem.getSecond().getItems().clear();
         }
         for (final AvailableColor c: AvailableColor.values()) {
-            if (!PawnsColor.get().getMultiList().contains(c)) {
                 for (final Pair<Label, ComboBox<String>> elem: this.multiPawnList) {
                     elem.getSecond().getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
-                }
             }
-            if (!PawnsColor.get().getSingleList().contains(c)) {
                 for (final Pair<Label, ComboBox<String>> elem: this.singlePawnList) {
                     elem.getSecond().getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
-                }
             }
         }
 
@@ -201,23 +170,10 @@ public class PawnColorSwitcher {
     public void updatePrompt() {
 
         for (int i = 0; i < MAX_PLAYERS; i++) {
-            String oldValue = this.multiPawnList.get(i).getSecond().getValue();
-            if (oldValue == null) {
-                oldValue = this.multiPawnList.get(i).getSecond().getPromptText();
-                this.multiPrevC.set(i, this.findColor(oldValue));
-            } else {
-                this.multiPrevC.set(i, this.findColor(oldValue));
-            }
+            this.multiPrevC.set(i, this.findColor(this.multiPawnList.get(i).getSecond().getValue()));
         }
-
         for (int i = 0; i < 2; i++) {
-            String oldValue = this.singlePawnList.get(i).getSecond().getValue();
-            if (oldValue == null) {
-                oldValue = this.singlePawnList.get(i).getSecond().getPromptText();
-                this.singlePrevC.set(i, this.findColor(oldValue));
-            } else {
-                this.singlePrevC.set(i, this.findColor(oldValue));
-            }
+            this.singlePrevC.set(i, this.findColor(this.singlePawnList.get(i).getSecond().getValue()));
         }
     }
 
