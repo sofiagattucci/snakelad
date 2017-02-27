@@ -19,15 +19,15 @@ import view.ViewImpl;
  */
 public final class Controller implements ViewObserver {
 
-    private final Model game;
-    private final View view;
-    private int counter;
-    private Optional<GameSettings> settings;
-    private final Song playSong;
     private static final Controller SINGLETON = new Controller();
     private static final String DATA1 = "./res/GameBoards/GameBoard1/file.txt";
     private static final String DATA2 = "./res/GameBoards/GameBoard2/file.txt";
     private static final String DATA3 = "./res/GameBoards/GameBoard3/file.txt";
+    private final Model game;
+    private final View view;
+    private final Song playSong;
+    private int counter;
+    private Optional<GameSettings> settings;
 
     /**
      * Constructor.
@@ -68,13 +68,11 @@ public final class Controller implements ViewObserver {
     @Override
     public void quit() {
         this.playSong.setStop(false);
-        this.game.giveUpGame();
+        //this.game.giveUpGame();
     }
 
     @Override
     public void restart() {
-        this.playSong.setStop(false);
-        new Thread(new SongImpl()).start();
         this.game.restartGame();
         this.counter = 0;
         this.view.firstTurn();
@@ -103,14 +101,10 @@ public final class Controller implements ViewObserver {
             }
         this.counter = 0;
         this.view.firstTurn();
-        this.playSong.start();
-        new Thread(new SongImpl()).start();
     }
 
     @Override
     public void giveUp() {
-        this.playSong.setStop(false);
-        this.game.giveUpGame();
         this.view.firstTurn();
         this.counter = 0;
     }
@@ -118,6 +112,7 @@ public final class Controller implements ViewObserver {
      * Start the view.
      */
     public void start() {
+        new SongImpl().start();
         this.view.start();
     }
 
