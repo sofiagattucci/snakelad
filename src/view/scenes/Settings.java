@@ -10,7 +10,7 @@ import view.BasicButton;
 import view.Dimension;
 import view.LanguageStringMap;
 import view.LanguageSwitcher;
-import view.PawnColorSwitcher;
+import view.PawnColorSwitcherManager;
 
 /**
  * It' s a scene of the application. It manages some optional features of the game
@@ -29,7 +29,7 @@ public final class Settings extends BasicScene {
 
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
     private final LanguageSwitcher langSwitcher = new LanguageSwitcher(settingStage);
-    private final PawnColorSwitcher pawnSwitcher = new PawnColorSwitcher();
+    private final PawnColorSwitcherManager pawnSwitcher = new PawnColorSwitcherManager();
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
     private final VBox box = new VBox(this.title, this.pawnSwitcher.getParentNode(), this.langSwitcher.getParentNode(), this.back);
 
