@@ -9,8 +9,10 @@ import view.pawn.PawnsColor;
 public class SinglePawnSwitcher extends PawnColorSwitcher {
 
     private static final String SINGLE_KEY = "setUp.single";
+    private static final String PLAYER_KEY = "game.player";
     private static final String CPU = "CPU";
     private static final int NUM_PLAYERS = 2;
+    private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
 
     /**
@@ -18,11 +20,12 @@ public class SinglePawnSwitcher extends PawnColorSwitcher {
      */
     public SinglePawnSwitcher() {
         super(SINGLE_KEY, NUM_PLAYERS);
-        this.setCPU();
+        this.setLabels();
     }
 
-    private void setCPU() {
+    private void setLabels() {
         this.getPawnList().get(CPU_INDEX).getFirst().setText(CPU);
+        this.getPawnList().get(PLAYER_INDEX).getFirst().setText(LanguageStringMap.get().getMap().get(PLAYER_KEY));
     }
 
     @Override
@@ -35,7 +38,7 @@ public class SinglePawnSwitcher extends PawnColorSwitcher {
      */
     public void updateLanguage() {
         super.updateLanguage();
-        this.setCPU();
+        this.setLabels();
     }
 
     @Override
