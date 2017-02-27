@@ -83,6 +83,7 @@ public abstract class Toolbar {
 
         this.roll.setOnAction(e -> {
             this.roll.setVisible(false);
+            this.pause.setVisible(false);
             ViewImpl.getObserver().rollDice();
         });
     }
@@ -209,6 +210,7 @@ public abstract class Toolbar {
      */
     public void endTurn() {
         this.roll.setVisible(true);
+        this.pause.setVisible(true);
     }
 
     /**

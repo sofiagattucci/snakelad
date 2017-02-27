@@ -8,45 +8,60 @@ public enum AvailableColor {
     /**
      * Red color.
      */
-    RED,
+    RED("color.red"),
 
     /**
      * Light blue color.
      */
-    LIGHTBLUE,
+    LIGHTBLUE("color.lightblue"),
 
     /**
      * Yellow color.
      */
-    YELLOW,
+    YELLOW("color.yellow"),
 
     /**
      * Green color.
      */
-    GREEN,
+    GREEN("color.green"),
 
     /**
      * Fuchsia color.
      */
-    FUCHSIA,
+    FUCHSIA("color.fuchsia"),
 
     /**
      * Blue color.
      */
-    BLUE,
+    BLUE("color.blue"),
 
     /**
      * Brown color.
      */
-    BROWN,
+    BROWN("color.brown"),
 
     /**
      * Pink color.
      */
-    PINK,
+    PINK("color.pink"),
 
     /**
      * Violet color.
      */
-    VIOLET;
+    VIOLET("color.violet");
+
+    private final String name;
+
+    AvailableColor(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * ToString of enumeration.
+     * @return
+     *          the name of enumeration
+     */
+    public String toString() {
+        return this.name;
+    }
 }

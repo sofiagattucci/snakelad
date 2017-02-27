@@ -5,6 +5,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import view.LanguageStringMap;
+import view.ViewImpl;
 
 /**
  * This class handles the closure of the application. 
@@ -32,6 +33,7 @@ public final class ClosureHandler extends BasicDialogBox {
     public void show() {
         if (this.getBox().showAndWait().get() == ButtonType.OK) {
              Platform.exit();
+             ViewImpl.getObserver().quit();
         }
     }
 
