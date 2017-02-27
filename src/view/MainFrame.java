@@ -29,5 +29,6 @@ public class MainFrame extends Application {
 
         defaultStage.setScene(Menu.getScene(defaultStage));
         defaultStage.show();
+        ViewImpl.getObserver().startMusic();
     }
 }
