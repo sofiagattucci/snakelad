@@ -42,6 +42,12 @@ public interface Model {
     Optional<Integer> getPlayerPosition(int playerIndex);
 
     /**
+     * Returns the side's size of the active game board.
+     * @return the side's size of the active game board.
+     */
+    int getGameBoardSideSize();
+
+    /**
      * Restarts the game, setting all needed in order to restart it.
      */
     void restartGame();

@@ -98,6 +98,8 @@ public final class ModelImpl implements Model {
                                 ? this.numberOfCells - (partialPlayerPosition - this.numberOfCells) 
                                 : partialPlayerPosition;
 
+        partialPlayerPosition = partialPlayerPosition < 0 ? 0 : partialPlayerPosition;
+
         if (this.snakesMap.containsKey(partialPlayerPosition)) {
             final int finalPlayerPosition = this.snakesMap.get(partialPlayerPosition);
             return this.playerPositionUtils(playerIndex, finalPlayerPosition);
@@ -153,6 +155,16 @@ public final class ModelImpl implements Model {
         default:
             break;
         }
+    }
+
+    @Override
+    public int getGameBoardSideSize() {
+        if (!this.isReady) {
+            throw EXCEPTION_SUPPLIER.get();
+        }
+
+        final Double doubleValue = new Double(Math.sqrt(this.numberOfCells + 1));
+        return doubleValue.intValue();
     }
 
     @Override

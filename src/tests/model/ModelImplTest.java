@@ -1,5 +1,6 @@
 package tests.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -36,6 +37,9 @@ public class ModelImplTest {
     private static final int NEGATIVE_DICE_MIN_VALUE = -2;
     private static final int NUMBER_OF_ITERATIONS = 10000;
     private static final int NUMBER_SUB_ITERATION = 80;
+    private static final int GAME_BOARD_1_SIDE_SIZE = 6;
+    private static final int GAME_BOARD_2_SIDE_SIZE = 8;
+    private static final int GAME_BOARD_3_SIDE_SIZE = 8;
     private static final String GAME_BOARD_1 = "./res/GameBoards/GameBoard1/file.txt";
     private static final String GAME_BOARD_2 = "./res/GameBoards/GameBoard2/file.txt";
     private static final String GAME_BOARD_3 = "./res/GameBoards/GameBoard3/file.txt";
@@ -70,7 +74,7 @@ public class ModelImplTest {
     public void testBasicModelImpl() {
         final Model model = new ModelImpl();
 
-        //call methods without calling startGame() method. It must throw IllegalStateException
+        //call methods without calling startGame() method. It must throw IllegalStateException.
         try {
             model.getPlayerPosition(0);
             fail("cannot call getPlayerPositionAndJump() because the method statGame() must be called before any ModelImpl's other method.");
@@ -167,6 +171,16 @@ public class ModelImplTest {
             this.failIllegalStateExceptionThrowing(e);
         }
 
+        //call getGameBoardSideSize() method after calling giveUpGame() method. It must throw an IllegalStateException.
+        try {
+            model.getGameBoardSideSize();
+            fail("cannot call getGameBoardSideSize() because the method statGame() must be called before any other ModelImpl's method.");
+        } catch (final IllegalStateException e) {
+            this.printIllegalStateException();
+        } catch (final Exception e) {
+            this.failIllegalStateExceptionThrowing(e);
+        }
+
         //call giveUpGame() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
             model.giveUpGame();
@@ -186,6 +200,7 @@ public class ModelImplTest {
         } catch (final Exception e) {
             this.failExceptionThrowing(e);
         }
+
     }
 
     /**
@@ -269,6 +284,11 @@ public class ModelImplTest {
                 model.restartGame();
             }
         }
+
+        //call getGameBoardSideSize() method inside ModelImpl, checking everything works correctly.
+        final int gameBoard1SideSize = model.getGameBoardSideSize();
+        assertEquals(gameBoard1SideSize, GAME_BOARD_1_SIDE_SIZE);
+
         model.giveUpGame(); //end the game
 
     }
@@ -354,6 +374,11 @@ public class ModelImplTest {
                 model.restartGame();
             }
         }
+
+        //call getGameBoardSideSize() method inside ModelImpl, checking everything works correctly.
+        final int gameBoard2SideSize = model.getGameBoardSideSize();
+        assertEquals(gameBoard2SideSize, GAME_BOARD_2_SIDE_SIZE);
+
         model.giveUpGame(); //end the game
 
     }
@@ -439,6 +464,11 @@ public class ModelImplTest {
                 model.restartGame();
             }
         }
+
+        //call getGameBoardSideSize() method inside ModelImpl, checking everything works correctly.
+        final int gameBoard3SideSize = model.getGameBoardSideSize();
+        assertEquals(gameBoard3SideSize, GAME_BOARD_3_SIDE_SIZE);
+
         model.giveUpGame(); //end the game
 
     }
