@@ -94,11 +94,11 @@ public final class ModelImpl implements Model {
         int partialPlayerPosition = this.playersList.get(playerIndex).getPosition() 
                                     + this.dice.getLastNumberAppeared();
 
+        partialPlayerPosition = partialPlayerPosition < 0 ? 0 : partialPlayerPosition;
+
         partialPlayerPosition = partialPlayerPosition > this.numberOfCells
                                 ? this.numberOfCells - (partialPlayerPosition - this.numberOfCells) 
                                 : partialPlayerPosition;
-
-        partialPlayerPosition = partialPlayerPosition < 0 ? 0 : partialPlayerPosition;
 
         if (this.snakesMap.containsKey(partialPlayerPosition)) {
             final int finalPlayerPosition = this.snakesMap.get(partialPlayerPosition);

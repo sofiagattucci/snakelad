@@ -5,8 +5,8 @@ import static org.junit.Assert.fail;
 import java.util.Optional;
 import java.util.Random;
 import org.junit.Test;
-import model.ClassicDice;
-import model.Dice5To10;
+import model.Dice;
+import model.DiceFactoryImpl;
 import utilities.ConsoleLog;
 
 /**
@@ -37,7 +37,8 @@ public final class Dice5To10Test {
      */
     @Test
     public void testDice5To10() {
-        final Dice5To10 dice = new Dice5To10(ClassicDice.get());
+        //create dice object using DiceFactory 
+        final Dice dice = new DiceFactoryImpl().create5To10Dice(new DiceFactoryImpl().createClassicDice());
 
         //call getLastNumberAppeared() when there are no number appeared! It must throw IllegalStateException
         try {
