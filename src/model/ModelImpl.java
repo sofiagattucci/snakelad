@@ -30,7 +30,7 @@ public final class ModelImpl implements Model {
     private final Map<Integer, Integer> snakesMap = new HashMap<>();
     //map which contains positions of all ladders in the game board.
     private final Map<Integer, Integer> laddersMap = new HashMap<>();
-    private final List<Player> playersList = new LinkedList<>();
+    private final List<PlayerImpl> playersList = new LinkedList<>();
     private Dice dice;
     //'isReady' is false if the method called startGame() has never been called, otherwise 
     //true. In fact, the method statGame() must be called before any other method.
@@ -135,7 +135,7 @@ public final class ModelImpl implements Model {
         this.laddersMap.putAll(this.fillMap(this.findLaddersList(dataList)));
         //fill playersList with the exact number of players playing the game and set their initial positions
         this.playersList.addAll(IntStream.range(0, numberOfPlayers)
-                                         .mapToObj(value -> new Player())
+                                         .mapToObj(value -> new PlayerImpl())
                                          .peek(player -> player.setNewPosition(PLAYER_INITIAL_POSITION))
                                          .collect(Collectors.toList()));
 
