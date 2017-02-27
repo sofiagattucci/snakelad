@@ -29,7 +29,8 @@ public interface Model {
     void startGame(List<Integer> data, int numberOfPlayers, TypesOfDice dice);
 
     /**
-     * Returns an Optional<Integer> which represents the movement of the required player.
+     * Calculate the position of the player whose index is specified, returning an 
+     * Optional<Integer> which represents the movement of the required player.
      * @param playerIndex
      *          The index which identifies the player whose position is required.
      * @return an Optional<Integer> which represents the movement of the required player. It's 

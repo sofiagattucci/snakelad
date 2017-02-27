@@ -5,6 +5,7 @@ import org.junit.Test;
 import tests.controller.ControllerTest;
 import tests.model.ClassicDiceTest;
 import tests.model.Dice5To10Test;
+import tests.model.ModelImplTest;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
 import tests.view.LanguageMapTest;
@@ -14,17 +15,27 @@ import tests.view.LanguageMapTest;
  * package 'tests' in order of testing the entire project.
  * This class has to achieve success in all its tests.
  */
-public final class TestLauncher {
+public final class TestsLauncher {
 
     /**
      * Calls all Junit tests of Model.
      */
     @Test
     public void testModel() {
-       new ClassicDiceTest().testClassicDice();
+        //dice tests
+        new ClassicDiceTest().testClassicDice();
         new Dice5To10Test().testDice5To10();
         new NegativeDiceTest().testNegativeDice();
+
+        //player test
         new PlayerTest().testPlayer();
+
+        //modelImpl tests
+        final ModelImplTest modelImplTest = new ModelImplTest();
+        modelImplTest.testBasicModelImpl();
+        modelImplTest.testGameBoard1ModelImpl();
+        modelImplTest.testGameBoard2ModelImpl();
+        modelImplTest.testGameBoard3ModelImpl();
     }
 
     /**

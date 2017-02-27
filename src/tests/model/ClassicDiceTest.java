@@ -18,6 +18,17 @@ public final class ClassicDiceTest {
     private static final int NUMBER_OF_ROLLS = 200;
     private static final int NUMBER_OF_SIDES = 6;
 
+    //private method called to avoid too much repetition of identical code.
+    private void printIllegalStateException() {
+        final ConsoleLog log = ConsoleLog.get();
+        log.print("IllegalStateException thrown with success inside ClassicDiceTest.");
+    }
+
+    //private method called to avoid too much repetition of identical code.
+    private void failIllegalStateExceptionThrowing(final Exception e) {
+        fail("should throw an IllegalStateException, not a " + e.getClass());
+    }
+
     /**
      * Tests all methods inside ClassicDice class.
      */
@@ -31,10 +42,9 @@ public final class ClassicDiceTest {
             dice.getLastNumberAppeared();
             fail("cannot call getLastNumberAppeared() because there is no last number relased from dice.");
         } catch (final IllegalStateException e) {
-            final ConsoleLog log = ConsoleLog.get();
-            log.print("IllegalStateException thrown with success.");
+            this.printIllegalStateException();
         } catch (final Exception e) {
-            fail("should throw an IllegalStateException, not a " + e.getClass());
+            this.failIllegalStateExceptionThrowing(e);
         }
 
         //roll the dice and check if everything works correctly
@@ -60,10 +70,9 @@ public final class ClassicDiceTest {
             dice.getLastNumberAppeared();
             fail("cannot call getLastNumberAppeared() because it's empty.");
         } catch (final IllegalStateException e) {
-            final ConsoleLog log = ConsoleLog.get();
-            log.print("IllegalStateException thrown with success.");
+            this.printIllegalStateException();
         } catch (final Exception e) {
-            fail("should throw an IllegalStateException, not a " + e.getClass());
+            this.failIllegalStateExceptionThrowing(e);
         }
     }
 

@@ -115,6 +115,10 @@ public final class ModelImpl implements Model {
 
     @Override
     public void startGame(final List<Integer> data, final int numberOfPlayers, final TypesOfDice dice) {
+        if (numberOfPlayers <= 1) {
+            throw new IllegalArgumentException();
+        }
+
         this.isReady = true;
 
         final List<Integer> dataList = data;

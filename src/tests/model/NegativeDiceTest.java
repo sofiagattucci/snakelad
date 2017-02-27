@@ -20,6 +20,17 @@ public final class NegativeDiceTest {
     private static final int MIN_NUMBER = -2;
     private static final int MAX_NUMBER = 5;
 
+    //private method called to avoid too much repetition of identical code.
+    private void printIllegalStateException() {
+        final ConsoleLog log = ConsoleLog.get();
+        log.print("IllegalStateException thrown with success inside NegativeDiceTest.");
+    }
+
+    //private method called to avoid too much repetition of identical code.
+    private void failIllegalStateExceptionThrowing(final Exception e) {
+        fail("should throw an IllegalStateException, not a " + e.getClass());
+    }
+
     /**
      * Tests all methods inside NegativeDice class.
      */
@@ -32,10 +43,9 @@ public final class NegativeDiceTest {
             dice.getLastNumberAppeared();
             fail("cannot call getLastNumberAppeared() because it's empty.");
         } catch (final IllegalStateException e) {
-            final ConsoleLog log = ConsoleLog.get();
-            log.print("IllegalStateException thrown with success.");
+            this.printIllegalStateException();
         } catch (final Exception e) {
-            fail("should throw an IllegalStateException, not a " + e.getClass());
+            this.failIllegalStateExceptionThrowing(e);
         }
 
         //roll the dice and check if everything works correctly
@@ -64,7 +74,7 @@ public final class NegativeDiceTest {
             fail("Argument out of bounds.");
         } catch (final IllegalArgumentException e) {
             final ConsoleLog log = ConsoleLog.get();
-            log.print("IllegalArgumentException thrown with success.");
+            log.print("IllegalArgumentException thrown with success inside NegativeDiceTest.");
         } catch (final Exception e) {
             fail("should throw an IllegalArgumentException, not a " + e.getClass());
         }
@@ -75,10 +85,9 @@ public final class NegativeDiceTest {
             dice.getLastNumberAppeared();
             fail("cannot call getLastNumberAppeared() because it's empty.");
         } catch (final IllegalStateException e) {
-            final ConsoleLog log = ConsoleLog.get();
-            log.print("IllegalStateException thrown with success.");
+            this.printIllegalStateException();
         } catch (final Exception e) {
-            fail("should throw an IllegalStateException, not a " + e.getClass());
+            this.failIllegalStateExceptionThrowing(e);
         }
     }
 
