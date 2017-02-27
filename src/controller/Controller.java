@@ -68,7 +68,6 @@ public final class Controller implements ViewObserver {
     @Override
     public void quit() {
         this.playSong.setStop(false);
-        //this.game.giveUpGame();
     }
 
     @Override
@@ -106,6 +105,7 @@ public final class Controller implements ViewObserver {
     @Override
     public void giveUp() {
         this.view.firstTurn();
+        this.game.giveUpGame();
         this.counter = 0;
     }
     /**
