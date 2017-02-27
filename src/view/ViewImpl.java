@@ -131,5 +131,10 @@ public class ViewImpl implements View {
     public void setLanguageMap(final Map<String, String> map) {
         LanguageStringMap.get().setLanguage(map);
     }
+
+    @Override
+    public void setBoardSize(final int n) {
+
+    }
 } 
 
