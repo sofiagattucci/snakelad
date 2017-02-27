@@ -112,7 +112,6 @@ public final class Controller implements ViewObserver {
      * Start the view.
      */
     public void start() {
-        new SongImpl().start();
         this.view.start();
     }
 
@@ -126,5 +125,10 @@ public final class Controller implements ViewObserver {
      */
     public int getCounter() {
         return this.counter;
+    }
+
+    @Override
+    public void startMusic() {
+        new SongImpl().start();
     }
 }
