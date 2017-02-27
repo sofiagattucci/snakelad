@@ -30,18 +30,23 @@ public class SongImpl implements Runnable, Song {
             final Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(1000);
-            while (stopField) {
+            while (this.stopField) {
                 try {
                     Thread.sleep(1000);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            clip.setFramePosition(0);
-            clip.stop();
-            clip.close();
+//            clip.stop();
+//            clip.setFramePosition(0);
+//            clip.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -56,8 +61,8 @@ public class SongImpl implements Runnable, Song {
     }
 
     @Override
-    public synchronized void start() {
+    public void start() {
         this.stopField = this.stopField ? false : true;
-        new Thread(this.t).start();
+        this.t.start();
     }
 }
