@@ -7,6 +7,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import model.Player;
+import model.PlayerImpl;
 
 /**
  * Junit test used in order to test Player class inside Model.
@@ -22,7 +23,7 @@ public final class PlayerTest {
     @Test
     public void testPlayer() {
         //initialize player object
-        final Player player = new Player();
+        final Player player = new PlayerImpl();
         //call getPosition() and setNewPosition(), checking if everything works correctly
         assertEquals(player.getPosition(), 0);
         for (int i = 1; i <= NUMBER_OF_ITERATIONS; i++) {
