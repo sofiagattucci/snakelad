@@ -1,4 +1,4 @@
-package view;
+package view.scenes.game;
 
 import javafx.stage.Stage;
 import view.pawn.AvailableColor;

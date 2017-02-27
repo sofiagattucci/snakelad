@@ -1,4 +1,4 @@
-package view;
+package view.scenes.setup;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
+import view.LanguageStringMap;
 
 /**
  * This class manages a circular list of elements and its elements in the GUI.

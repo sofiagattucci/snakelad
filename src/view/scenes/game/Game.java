@@ -1,4 +1,4 @@
-package view.scenes;
+package view.scenes.game;
 
 import utilities.Difficulty;
 import utilities.TypesOfDice;

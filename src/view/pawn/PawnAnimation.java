@@ -2,7 +2,6 @@ package view.pawn;
 
 import javafx.application.Platform;
 import view.Dimension;
-import view.Direction;
 import view.ViewImpl;
 import view.gameboard.GameBoardImpl;
 

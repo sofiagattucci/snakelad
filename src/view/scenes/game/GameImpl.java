@@ -1,4 +1,4 @@
-package view.scenes;
+package view.scenes.game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,6 @@ import utilities.Difficulty;
 import utilities.ImageManager;
 import utilities.TypesOfDice;
 import view.Dimension;
-import view.Toolbar;
 import view.gameboard.GameBoard;
 import view.gameboard.GameBoardImpl;
 import view.gameboard.GameBoardTypes;
@@ -21,6 +20,8 @@ import view.pawn.AvailableColor;
 import view.pawn.Pawn;
 import view.pawn.PawnImpl;
 import view.pawn.PawnTypes;
+import view.scenes.BasicScene;
+import view.scenes.setup.SetUpGame;
 
 /**
  * This class creates and initializes a generic game scene.

@@ -1,4 +1,4 @@
-package view;
+package view.scenes.settings;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +11,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import utilities.Pair;
+import view.BasicButton;
+import view.LanguageStringMap;
 import view.pawn.AvailableColor;
 
 

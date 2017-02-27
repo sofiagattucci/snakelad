@@ -1,22 +1,21 @@
-package view.scenes;
+package view.scenes.game;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javafx.stage.Stage;
-import view.MultiPlayerToolbar;
 
 /**
  * It handles the different types of player versus player scenes depending on the number of players.
  */
-public final class MultiPlayerScenes {
+public final class MultiPlayerGameScenes {
 
     private static Stage stage;
 
-    private static final MultiPlayerScenes INSTANCE = new MultiPlayerScenes();
+    private static final MultiPlayerGameScenes INSTANCE = new MultiPlayerGameScenes();
     private final Map<Integer, MultiPlayerGame> scenesMap = new HashMap<>();
 
-    private MultiPlayerScenes() {
+    private MultiPlayerGameScenes() {
 
     }
 
@@ -27,7 +26,7 @@ public final class MultiPlayerScenes {
      * @return
      *     This class unique instance
      */
-    public static MultiPlayerScenes get(final Stage st) {
+    public static MultiPlayerGameScenes get(final Stage st) {
         stage = st;
         return INSTANCE;
     }

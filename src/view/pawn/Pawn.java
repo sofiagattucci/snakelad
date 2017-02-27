@@ -2,7 +2,6 @@ package view.pawn;
 
 import javafx.scene.image.ImageView;
 import utilities.Pair;
-import view.Direction;
 
 /**
  * Interface for a generic pawn.

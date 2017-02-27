@@ -1,4 +1,4 @@
-package view;
+package view.scenes.settings;
 
 import java.util.Collections;
 import java.util.HashMap;

@@ -1,11 +1,10 @@
-package view.scenes;
+package view.scenes.game;
 
 import javafx.stage.Stage;
-import view.MultiPlayerToolbar;
-import view.Toolbar;
 import view.dialogboxes.MultiPlayerGameOver;
 import view.pawn.AvailableColor;
 import view.pawn.PawnsColor;
+import view.scenes.setup.SetUpGame;
 
 /**
  * This class creates and initializes the game scene for a player versus player game.

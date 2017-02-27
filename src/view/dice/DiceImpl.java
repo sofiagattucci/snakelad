@@ -6,7 +6,7 @@ import java.util.Map;
 import javafx.scene.image.Image;
 import utilities.ImageManager;
 import utilities.TypesOfDice;
-import view.scenes.SetUpGame;
+import view.scenes.setup.SetUpGame;
 
 /**
  * This class represents and manages the dice shown in the tool bar. 

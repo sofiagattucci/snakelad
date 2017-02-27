@@ -1,4 +1,4 @@
-package view.scenes;
+package view.scenes.settings;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 import view.BasicButton;
 import view.Dimension;
 import view.LanguageStringMap;
-import view.LanguageSwitcher;
-import view.PawnColorSwitcherManager;
+import view.scenes.BasicScene;
+import view.scenes.Menu;
 
 /**
  * It' s a scene of the application. It manages some optional features of the game

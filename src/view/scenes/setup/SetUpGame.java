@@ -1,4 +1,4 @@
-package view.scenes;
+package view.scenes.setup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +13,14 @@ import javafx.stage.Stage;
 import utilities.Difficulty;
 import utilities.TypesOfDice;
 import view.BasicButton;
-import view.BoardCircularList;
-import view.DiceCircularList;
 import view.Dimension;
 import view.LanguageStringMap;
-import view.Toolbar;
 import view.ViewImpl;
+import view.scenes.BasicScene;
+import view.scenes.Menu;
+import view.scenes.game.MultiPlayerGameScenes;
+import view.scenes.game.SinglePlayerGame;
+import view.scenes.game.Toolbar;
 
 /**
  * It's the scene shown when the user pushes the play button. It manages the settings to use for this game. 
@@ -123,13 +125,13 @@ public final class SetUpGame extends BasicScene {
                 ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType);
                 setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
             } else {
-                MultiPlayerScenes.get(setUpStage).insert(numPlayers);
-                MultiPlayerScenes.get(setUpStage).getScene(numPlayers).updateScene(
+                MultiPlayerGameScenes.get(setUpStage).insert(numPlayers);
+                MultiPlayerGameScenes.get(setUpStage).getScene(numPlayers).updateScene(
                        this.board.getParameterValue(), this.dice.getParameterValue());
-                ViewImpl.setPlayScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
+                ViewImpl.setPlayScene(MultiPlayerGameScenes.get(setUpStage).getScene(numPlayers));
                 ViewImpl.getPlayScene().updateLanguage();
                 ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType);
-                setUpStage.setScene(MultiPlayerScenes.get(setUpStage).getScene(numPlayers));
+                setUpStage.setScene(MultiPlayerGameScenes.get(setUpStage).getScene(numPlayers));
             }
         });
         this.reset();

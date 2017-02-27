@@ -1,4 +1,4 @@
-package view;
+package view.scenes.game;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +16,10 @@ import javafx.stage.Stage;
 import utilities.ImageManager;
 import utilities.Pair;
 import utilities.TypesOfDice;
+import view.BasicButton;
+import view.Dimension;
+import view.LanguageStringMap;
+import view.ViewImpl;
 import view.dialogboxes.PauseBox;
 import view.dice.Dice;
 import view.dice.DiceImpl;

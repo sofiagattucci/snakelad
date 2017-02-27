@@ -1,11 +1,12 @@
-package view;
+package view.scenes.setup;
 
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import utilities.ImageManager;
 import utilities.TypesOfDice;
+import view.BasicButton;
+import view.LanguageStringMap;
 import view.dice.DiceTypes;
-import view.scenes.SetUpGame;
 
 /**
  * This class manages the choice of the dice and its elements in the GUI.

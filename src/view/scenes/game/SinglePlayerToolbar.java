@@ -1,9 +1,8 @@
-package view;
+package view.scenes.game;
 
 import javafx.stage.Stage;
 import view.pawn.AvailableColor;
 import view.pawn.PawnsColor;
-import view.scenes.SinglePlayerGame;
 
 /**
  * It manages the tool bar shown in the screen in a single player game.

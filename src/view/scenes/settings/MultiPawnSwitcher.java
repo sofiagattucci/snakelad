@@ -1,4 +1,4 @@
-package view;
+package view.scenes.settings;
 
 import view.pawn.AvailableColor;
 import view.pawn.PawnsColor;

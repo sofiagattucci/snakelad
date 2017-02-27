@@ -1,5 +1,6 @@
-package view;
+package view.scenes.settings;
 
+import view.LanguageStringMap;
 import view.pawn.AvailableColor;
 import view.pawn.PawnsColor;
 

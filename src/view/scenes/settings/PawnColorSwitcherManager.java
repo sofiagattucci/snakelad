@@ -1,4 +1,4 @@
-package view;
+package view.scenes.settings;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import view.BasicButton;
+import view.LanguageStringMap;
 
 /**
  * It manages the elements of the GUI that permit the switch the color of the pawns. 

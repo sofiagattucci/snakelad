@@ -4,9 +4,8 @@ import javafx.scene.image.ImageView;
 import utilities.ImageManager;
 import utilities.Pair;
 import view.Dimension;
-import view.Direction;
-import view.Toolbar;
 import view.gameboard.GameBoardImpl;
+import view.scenes.game.Toolbar;
 /**
  * This class represents a pawn of the game.
  */

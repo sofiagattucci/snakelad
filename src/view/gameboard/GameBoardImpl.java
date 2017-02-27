@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import utilities.ImageManager;
 import utilities.Pair;
 import view.Dimension;
-import view.Toolbar;
+import view.scenes.game.Toolbar;
 
 /**
  * This class manages the game board.

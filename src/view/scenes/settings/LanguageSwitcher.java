@@ -1,4 +1,4 @@
-package view;
+package view.scenes.settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +14,12 @@ import javafx.stage.Stage;
 import utilities.ImageManager;
 import utilities.Language;
 import utilities.Pair;
+import view.BasicButton;
+import view.LanguageStringMap;
+import view.ViewImpl;
 import view.scenes.Instructions;
 import view.scenes.Menu;
-import view.scenes.SetUpGame;
+import view.scenes.setup.SetUpGame;
 
 /**
  * It manages the elements of the GUI that permit the switch of the language. 

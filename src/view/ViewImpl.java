@@ -4,9 +4,9 @@ import java.util.Map;
 import controller.ViewObserver;
 import javafx.application.Application;
 import utilities.Language;
-import view.scenes.Game;
-import view.scenes.SetUpGame;
-import view.scenes.Settings;
+import view.scenes.game.Game;
+import view.scenes.settings.Settings;
+import view.scenes.setup.SetUpGame;
 
 /**
  * This is the main class of the view and implements the View Interface.

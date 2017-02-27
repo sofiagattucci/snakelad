@@ -1,11 +1,12 @@
-package view;
+package view.scenes.setup;
 
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import utilities.Difficulty;
 import utilities.ImageManager;
+import view.BasicButton;
+import view.LanguageStringMap;
 import view.gameboard.GameBoardTypes;
-import view.scenes.SetUpGame;
 
 /**
  * This class manages the choice of the scenery and its elements in the GUI.

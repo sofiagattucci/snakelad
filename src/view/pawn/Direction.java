@@ -1,4 +1,4 @@
-package view;
+package view.pawn;
 
 /**
  * Choose the direction used to move the pawn when it needs to be horizontally translated.
