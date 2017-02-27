@@ -11,7 +11,7 @@ import javax.sound.sampled.Clip;
  */
 public class SongImpl implements Runnable, Song {
 
-    private static final String PATH = "./res/Snakelad(1).wav";
+    private static final String PATH = "./res/Snakelad.wav";
     private final Thread t;
     private volatile boolean stopField;
 

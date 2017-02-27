@@ -39,7 +39,7 @@ public interface View {
      *     The new map containing the new language.
      */
     void setLanguageMap(Map<String, String> map);
-    
+
     /**
      * It sets the size per side of the active game board.
      * @param n
