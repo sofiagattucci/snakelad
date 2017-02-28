@@ -1,6 +1,9 @@
 package tests.controller;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import controller.Controller;
 
 /**
@@ -14,6 +17,8 @@ public class ControllerTest {
     /**
      * Test for all method in Controller class.
      */
+
+    @Test
     public void controllerTest() {
         final Controller controller = Controller.getController();
         //test to verify the counter for turn

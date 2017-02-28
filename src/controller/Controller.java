@@ -100,6 +100,7 @@ public final class Controller implements ViewObserver {
             }
         this.counter = 0;
         this.view.firstTurn();
+        this.view.setBoardSize(this.game.getGameBoardSideSize());
     }
 
     @Override
