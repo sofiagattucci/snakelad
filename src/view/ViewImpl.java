@@ -135,8 +135,8 @@ public class ViewImpl implements View {
     @Override
     public void setBoardSize(final int n) {
         Dimension.setPawnHeight(n);
-        playScene.resizePawns();
         playScene.getBoard().setSize(n);
+        playScene.resizePawns();
     }
 } 
 
