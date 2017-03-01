@@ -54,4 +54,9 @@ public interface ViewObserver {
      */
     void startMusic();
 
+    /**
+     * Stop the background music.
+     */
+    void stopMusic();
+
 }

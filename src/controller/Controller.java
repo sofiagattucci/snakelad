@@ -27,6 +27,7 @@ public final class Controller implements ViewObserver {
     private final View view;
     private final Song playSong;
     private int counter;
+    private boolean control;
     private Optional<GameSettings> settings;
 
     /**
@@ -50,75 +51,100 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void rollDice() {
-        final int value = this.game.getNumberFromDice();
-        final Optional<Integer> positionAndJump;
-        positionAndJump = this.game.getPlayerPosition(counter);
-        if (positionAndJump.isPresent()) {
-            this.view.updateInfo(value, positionAndJump.get());
+        if (this.control) {
+            final int value = this.game.getNumberFromDice();
+            final Optional<Integer> positionAndJump;
+            positionAndJump = this.game.getPlayerPosition(counter);
+            if (positionAndJump.isPresent()) {
+                this.view.updateInfo(value, positionAndJump.get());
+            } else {
+                this.view.updateInfo(value);
+            }
+            if (this.counter < this.settings.get().getNumberOfPlayer() - 1) {
+                this.counter++;
+            }  else {
+                this.counter = 0;
+            }
         } else {
-            this.view.updateInfo(value);
-        }
-        if (this.counter < this.settings.get().getNumberOfPlayer() - 1) {
-            this.counter++;
-        }  else {
-            this.counter = 0;
+            throw new IllegalStateException();
         }
     }
 
     @Override
     public void quit() {
-        this.playSong.setStop(false);
+        if (this.control) {
+            this.stopMusic();
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void restart() {
-        this.game.restartGame();
-        this.counter = 0;
-        this.view.firstTurn();
+        if (this.control) {
+            this.game.restartGame();
+            this.counter = 0;
+            this.view.firstTurn();
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void play(final int numberOfPlayers, final Difficulty scenery, final TypesOfDice dice) {
-        this.settings = Optional.of(new GameSettingsBuilder()
-                .numOfPlayers(numberOfPlayers)
-                .sceneryChoose(scenery)
-                .diceChoose(dice)
-                .build());
-        switch(scenery) {
-            case BEGINNER:
-                this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
-                break;
-            case EASY:
-                this.game.startGame(SceneryDataManager.get().readFromFile(DATA2), this.settings.get().getNumberOfPlayer(), dice);
-                break;
-            case MEDIUM:
-                this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), dice);
-                break;
-                default:
+        if (this.control) {
+            this.settings = Optional.of(new GameSettingsBuilder()
+                    .numOfPlayers(numberOfPlayers)
+                    .sceneryChoose(scenery)
+                    .diceChoose(dice)
+                    .build());
+            switch(scenery) {
+                case BEGINNER:
                     this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
                     break;
-            }
-        this.counter = 0;
-        this.view.firstTurn();
-        this.view.setBoardSize(this.game.getGameBoardSideSize());
+                case EASY:
+                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA2), this.settings.get().getNumberOfPlayer(), dice);
+                    break;
+                case MEDIUM:
+                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), dice);
+                    break;
+                    default:
+                        this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
+                        break;
+                }
+            this.counter = 0;
+            this.view.firstTurn();
+            this.view.setBoardSize(this.game.getGameBoardSideSize());
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void giveUp() {
-        this.view.firstTurn();
-        this.game.giveUpGame();
+        if (this.control) {
+            this.view.firstTurn();
+            this.game.giveUpGame();
+        } else {
+            throw new IllegalStateException();
+        }
         this.counter = 0;
     }
     /**
      * Start the view.
      */
     public void start() {
+        this.control = true;
         this.view.start();
     }
 
     @Override
     public void setLanguage(final Language language) {
+        if (this.control) {
         view.setLanguageMap(LanguageLoader.get().getLanguage(language));
+        } else {
+            throw new IllegalStateException();
+        }
     }
     /**
      * Getter for counter field.
@@ -128,8 +154,18 @@ public final class Controller implements ViewObserver {
         return this.counter;
     }
 
+
     @Override
     public void startMusic() {
-        new SongImpl().start();
+        if (this.control) {
+            new SongImpl().start();
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    @Override
+    public void stopMusic() {
+        this.playSong.setStop(false);
     }
 }
