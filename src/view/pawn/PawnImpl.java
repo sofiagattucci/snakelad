@@ -32,11 +32,7 @@ public class PawnImpl implements Pawn {
         this.pawnIm = ImageManager.get().getImageView(pawnPath);
         this.pawnIm.setFitHeight(Dimension.getPawnHeight());
         this.pawnIm.setPreserveRatio(true);
-        pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
-                + (Dimension.BOARD_H / scene.getBoard().getBoxesPerRow()) / 2 - Dimension.getPawnHeight() / PAWN_HEIGHT_PARAM,
-                Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
-                - Dimension.getPawnHeight() - (Dimension.BOARD_H / scene.getBoard().getBoxesPerRow() - Dimension.getPawnHeight()) / 2);
-        this.setInitPosition();
+        this.resizePawn();
         this.direction = Direction.RIGHT;
         this.positionInRow = 0;
         this.row = 0;
