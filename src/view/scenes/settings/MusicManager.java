@@ -3,6 +3,7 @@ package view.scenes.settings;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -22,10 +23,14 @@ public class MusicManager {
     private static final int FONT_SIZE = 20;
     private static final double SPEAKER_SIZE = BasicButton.getButtonHeight() / 2;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
+    private static final double SLIDER_MIN = 0;
+    private static final double SLIDER_MAX = 100;
+    private static final double SLIDER_DEFAULT = 50;
 
     private final Label title = new Label(LanguageStringMap.get().getMap().get(MUSIC_KEY));
     private final ImageView speaker = ImageManager.get().getImageView(SPEAKER_ON);
-    private final HBox box = new HBox(this.title, this.speaker);
+    private final Slider slider = new Slider(SLIDER_MIN, SLIDER_MAX, SLIDER_DEFAULT);
+    private final HBox box = new HBox(this.title, this.speaker, this.slider);
     private boolean musicOn = true;
 
     /**
