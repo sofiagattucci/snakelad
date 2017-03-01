@@ -86,7 +86,7 @@ public interface Pawn {
     void changeDirection();
 
     /**
-     * It updates the the pawn by using the new one.
+     * It updates the the color of the pawn by using the new one.
      * @param path
      *     The path to the new image to use
      */
