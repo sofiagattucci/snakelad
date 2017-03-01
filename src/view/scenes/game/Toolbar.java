@@ -94,14 +94,16 @@ public abstract class Toolbar {
 
     /**
      * It inserts the player' s name in the tool bar.
+     * @param scene
+     *     The scene where this tool bar is put
      * @param nPlayers
      *     The number of players of the game
      */
-    public void putLabels(final int nPlayers) {
+    public void putLabels(final Game scene, final int nPlayers) {
         this.numPlayers = nPlayers;
         for (int i = 0; i < nPlayers; i++) {
-            final Pair<ImageView, Label> p = new Pair<>(new PawnImpl(PawnTypes.get().getPawn(this.getColorFromMode(i))).getPawn(),
-                                                        new Label(playerLabel.getText() + (i + 1)));
+            final Pair<ImageView, Label> p = new Pair<>(new PawnImpl(scene,
+                    PawnTypes.get().getPawn(this.getColorFromMode(i))).getPawn(), new Label(playerLabel.getText() + (i + 1)));
             this.pawnList.add(p);
             this.pawnList.get(i).getSecond().setFont(smallFont);
             this.gp.addRow(i, p.getFirst(), p.getSecond());

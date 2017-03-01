@@ -2,6 +2,7 @@ package view.scenes.game;
 
 import utilities.Difficulty;
 import utilities.TypesOfDice;
+import view.gameboard.GameBoard;
 
 /**
  * Interface for a generic class Game.
@@ -61,4 +62,15 @@ public interface Game {
      */
     void endTurn();
 
+    /**
+     * Getter of the game board used in the game.
+     * @return
+     *     The game board instance used in the game
+     */
+     GameBoard getBoard();
+
+     /**
+      * It resizes the pawns to fit the game board.
+      */
+     void resizePawns();
 }

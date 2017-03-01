@@ -28,4 +28,18 @@ public interface GameBoard {
      */
     void newBoard(String path);
 
+    /**
+     * Setter of the size of the board.
+     * @param n
+     *     The number of boxes per side of the board
+     */
+    void setSize(final int n);
+
+    /**
+     * Getter of the size of the board.
+     * @return
+     *     The number of boxes per side of the board
+     */
+     int getBoxesPerRow();
+
 }

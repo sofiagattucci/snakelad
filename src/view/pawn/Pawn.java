@@ -2,6 +2,7 @@ package view.pawn;
 
 import javafx.scene.image.ImageView;
 import utilities.Pair;
+import view.scenes.game.Game;
 
 /**
  * Interface for a generic pawn.
@@ -85,10 +86,22 @@ public interface Pawn {
     void changeDirection();
 
     /**
-     * It updates the color of the pawn by using the new one.
+     * It updates the the pawn by using the new one.
      * @param path
      *     The path to the new image to use
      */
     void updateColor(String path);
+
+    /**
+     * Getter of the parent scene of the pawn(the scene where the pawn is shown in the GUI).
+     * @return
+     *     The scene where the pawn is located in the GUI.
+     */
+    Game getParentScene();
+
+    /**
+     * It resized the dimensions of the pawn to fit the board.
+     */
+    void resizePawn();
 
 }

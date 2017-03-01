@@ -11,12 +11,13 @@ import view.scenes.game.Toolbar;
  */
 public class GameBoardImpl  implements GameBoard {
 
-    private static final int N_BOXES_PER_ROW = 8;
+    private static final int DEFAULT_SIZE = 8;
 
     private Image board;
     private final Pair<Double, Double> boardPosition = new Pair<Double, Double>(
             (Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2,
             (Dimension.SCREEN_H - Dimension.BOARD_H) / 2);
+    private int size = DEFAULT_SIZE;
 
     /**
      * Constructor of this class.
@@ -26,35 +27,29 @@ public class GameBoardImpl  implements GameBoard {
     public GameBoardImpl(final String path) {
         this.board = ImageManager.get().readFromFile(path);
     }
-    /**
-     * Getter of the board.
-     * @return
-     *     The board image
-     */
+
+    @Override
     public Image getBoard() {
         return this.board;
     }
 
-    /**
-     * Getter of the board position.
-     * @return
-     *     A pair containing the X and Y coordinates of the board position
-     */
+    @Override
     public Pair<Double, Double> getPosition() {
         return this.boardPosition;
     }
 
-    /**
-     * Getter of the number of boxes per row in the game board.
-     * @return
-     *     The number of the boxes per row in the game board
-     */
-    public static int getBoxesPerRaw() {
-        return N_BOXES_PER_ROW;
+    @Override
+    public int getBoxesPerRow() {
+        return this.size;
     }
 
     @Override
     public void newBoard(final String path) {
         this.board = ImageManager.get().readFromFile(path);
+    }
+
+    @Override
+    public void setSize(final int n) {
+        this.size = n;
     }
 }

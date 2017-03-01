@@ -43,8 +43,8 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
 
         this.setBackground();
         for (int i = 0; i < this.getTag(); i++) {
-            final Pawn newPawn = new PawnImpl(PawnTypes.get().getPawn(this.getColor(i)));
-            this.getPawnList().add(newPawn);
+            final Pawn newPawn = new PawnImpl(this, PawnTypes.get().getPawn(this.getColor(i)));
+            this.pawnList.add(newPawn);
             this.getDefaultLayout().getChildren().add(newPawn.getPawn());
         }
     }
@@ -102,18 +102,30 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     @Override
     public void updateScene(final Difficulty newDiff, final TypesOfDice newDice) {
         boardPath = GameBoardTypes.get().getBoard(newDiff);
-        board.newBoard(boardPath);
+        this.board.newBoard(boardPath);
         this.setBackground();
         this.getToolbar().updateLabelsColor();
         this.toolbar.updateDice(newDice);
-        for (int i = 0; i < this.getPawnList().size(); i++) {
-            this.getPawnList().get(i).updateColor(PawnTypes.get().getPawn(this.getColor(i)));
+        for (int i = 0; i < this.pawnList.size(); i++) {
+            this.pawnList.get(i).updateColor(PawnTypes.get().getPawn(this.getColor(i)));
+        }
+    }
+
+    @Override
+    public void resizePawns() {
+        for (int i = 0; i < this.pawnList.size(); i++) {
+            this.pawnList.get(i).resizePawn();
         }
     }
 
     @Override
     public void updateLanguage() {
         this.toolbar.updateLanguage();
+    }
+
+    @Override
+    public GameBoard getBoard() {
+        return this.board;
     }
 
     @Override
@@ -144,39 +156,12 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     }
 
     /**
-     * Getter of the game board in the game screen.
-     * @return
-     *     The game board in the game screen
-     */
-    protected GameBoard getBoard() {
-        return this.board;
-    }
-
-    /**
-     * Getter of the pawn list, a list that contains the pawn usad in the game.
-     * @return
-     *     A list containing the pawns in the game screen
-     */
-    protected List<Pawn> getPawnList() {
-        return this.pawnList;
-    }
-
-    /**
      * Getter of the current turn (integer index).
      * @return
      *     An index that represents the pawn that is used in this turn. 
      */
     protected int getCurrentTurn() {
         return this.currentTurn;
-    }
-
-    /**
-     * It sets up the right tool bar in the scene. 
-     * @param t
-     *     The tool bar to use in the scene
-     */
-    protected void setToolbar(final Toolbar t) {
-        this.toolbar = t;
     }
 
     /**
@@ -187,7 +172,7 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     protected void putToolbar(final X t) {
         this.toolbar = t;
         this.getDefaultLayout().setRight(this.toolbar.getBox());
-        this.getToolbar().putLabels(getTag());
+        this.getToolbar().putLabels(this, getTag());
     }
 
 }

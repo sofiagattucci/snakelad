@@ -4,31 +4,38 @@ import javafx.scene.image.ImageView;
 import utilities.ImageManager;
 import utilities.Pair;
 import view.Dimension;
-import view.gameboard.GameBoardImpl;
+import view.scenes.game.Game;
 import view.scenes.game.Toolbar;
 /**
  * This class represents a pawn of the game.
  */
 public class PawnImpl implements Pawn {
 
+    private static final double PAWN_HEIGHT_PARAM = 2;
+
     private final ImageView pawnIm;
-    private final Pair<Double, Double> pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
-            + Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() / 2 - Dimension.PAWN_HEIGHT / 1.80,
-            Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
-            - Dimension.PAWN_HEIGHT - (Dimension.BOARD_H / GameBoardImpl.getBoxesPerRaw() - Dimension.PAWN_HEIGHT) / 2);
+    private Pair<Double, Double> pawnStartingPos;
     private Direction direction;
     private int positionInRow;
     private int row;
+    private final Game parentScene;
 
     /**
      * Constructor of this class.
      * @param pawnPath
      *     The path to the pawn to create
+     * @param scene
+     *     The parent scene of this pawn (The scene where this pawn is shown)
      */
-    public PawnImpl(final String pawnPath) {
+    public PawnImpl(final Game scene, final String pawnPath) {
+        this.parentScene = scene;
         this.pawnIm = ImageManager.get().getImageView(pawnPath);
-        this.pawnIm.setFitHeight(Dimension.PAWN_HEIGHT);
+        this.pawnIm.setFitHeight(Dimension.getPawnHeight());
         this.pawnIm.setPreserveRatio(true);
+        pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
+                + (Dimension.BOARD_H / scene.getBoard().getBoxesPerRow()) / 2 - Dimension.getPawnHeight() / PAWN_HEIGHT_PARAM,
+                Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
+                - Dimension.getPawnHeight() - (Dimension.BOARD_H / scene.getBoard().getBoxesPerRow() - Dimension.getPawnHeight()) / 2);
         this.setInitPosition();
         this.direction = Direction.RIGHT;
         this.positionInRow = 0;
@@ -44,6 +51,17 @@ public class PawnImpl implements Pawn {
     @Override
     public void updateColor(final String path) {
         this.pawnIm.setImage(ImageManager.get().readFromFile(path));
+    }
+
+    @Override
+    public final void resizePawn() {
+        this.pawnIm.setFitHeight(Dimension.getPawnHeight());
+        pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
+                + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) / 2 - Dimension.getPawnHeight() / PAWN_HEIGHT_PARAM,
+                Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
+                - Dimension.getPawnHeight() - (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow() 
+                        - Dimension.getPawnHeight()) / 2);
+        this.setInitPosition();
     }
 
     @Override
@@ -102,5 +120,10 @@ public class PawnImpl implements Pawn {
     @Override
     public void changeDirection() {
         this.direction = this.direction == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT; 
+    }
+
+    @Override
+    public Game getParentScene() {
+        return this.parentScene;
     }
 }
