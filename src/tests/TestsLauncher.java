@@ -22,15 +22,15 @@ public final class TestsLauncher {
      */
     @Test
     public void testModel() {
-        //dice tests
+        //Dice tests
         new ClassicDiceTest().testClassicDice();
         new Dice5To10Test().testDice5To10();
         new NegativeDiceTest().testNegativeDice();
 
-        //player test
+        //Player test
         new PlayerTest().testPlayer();
 
-        //modelImpl tests
+        //ModelImpl tests
         final ModelImplTest modelImplTest = new ModelImplTest();
         modelImplTest.testBasicModelImpl();
         modelImplTest.testGameBoard1ModelImpl();

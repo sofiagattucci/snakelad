@@ -1,9 +1,7 @@
 package tests.controller;
 
 import static org.junit.Assert.fail;
-
 import org.junit.Test;
-
 import controller.Controller;
 import utilities.Difficulty;
 import utilities.Language;
@@ -17,7 +15,7 @@ public class ControllerTest {
 
 //    private static final int ZERO = 0;
 //    private static final int ONE_PLAYER = 1;
-    private static final int TWO_PLAYER = 2;
+      private static final int TWO_PLAYER = 2;
 //    private static final int THREE_PLAYER = 3;
 //    private static final int FOUR_PLAYER = 4;
 //    private static final int FIVE_PLAYER = 5;
