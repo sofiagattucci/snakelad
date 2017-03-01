@@ -4,7 +4,7 @@ import java.util.Optional;
 
 /** 
  * Interface of a generic Dice. 
- * Defines default dice's methods inside the model.
+ * Defines default dice's methods.
  */
 public interface Dice {
 

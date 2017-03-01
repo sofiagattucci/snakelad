@@ -14,7 +14,7 @@ public final class ClassicDice implements Dice {
 
     private Optional<Integer> lastNumberAppeared;
 
-    // private constructor
+    //private constructor
     private ClassicDice() {
         this.lastNumberAppeared = Optional.empty();
     }
@@ -23,7 +23,7 @@ public final class ClassicDice implements Dice {
      * Static method which returns a ClassicDice unique instance.
      * @return a ClassicDice unique instance.
      */
-    public static ClassicDice get() {
+    public static Dice get() {
         return ClassicDice.SINGLETON;
     }
 

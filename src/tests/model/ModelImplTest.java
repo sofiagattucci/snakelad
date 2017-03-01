@@ -391,7 +391,7 @@ public class ModelImplTest {
     public void testGameBoard3ModelImpl() {
         final Model model = new ModelImpl();
 
-      //check everything work correctly with game board n.3, five players and a classic dice.
+        //check everything work correctly with game board n.3, five players and a classic dice.
         model.startGame(SceneryDataManager.get().readFromFile(GAME_BOARD_3), FIVE_PLAYERS, TypesOfDice.CLASSIC_DICE);
         final List<Integer> list = new ArrayList<>();
         list.addAll(snakesListGameBoard3);
