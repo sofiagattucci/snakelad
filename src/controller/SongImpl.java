@@ -37,9 +37,9 @@ public class SongImpl implements Runnable, Song {
                     e.printStackTrace();
                 }
             }
-//            clip.stop();
-//            clip.setFramePosition(0);
-//            clip.close();
+            clip.stop();
+            clip.setFramePosition(0);
+            clip.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
