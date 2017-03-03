@@ -16,7 +16,7 @@ public final class GameBoardTypes {
     private static final String ESCAPE = "/";
     private static final String MINI = "_mini";
     private static final String PNG = ".png";
-    private static final int NUM_SCENERY = 3;
+    private static final int NUM_SCENERY = 4;
 
     private static final GameBoardTypes BOARD_TYPES = new GameBoardTypes();
     private final Map<Difficulty, Pair<String, String>> boardMap = new HashMap<>();
@@ -35,6 +35,7 @@ public final class GameBoardTypes {
             case 1: return Difficulty.BEGINNER;
             case 2: return Difficulty.EASY;
             case 3: return Difficulty.MEDIUM;
+            case 4: return Difficulty.HIGH;
             default: return Difficulty.BEGINNER;
         }
     }
