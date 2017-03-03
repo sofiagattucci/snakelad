@@ -1,8 +1,10 @@
 package view;
 
 import java.util.Map;
+
 import controller.ViewObserver;
 import javafx.application.Application;
+import javafx.stage.Stage;
 import utilities.Language;
 import view.scenes.game.Game;
 import view.scenes.settings.Settings;
@@ -15,6 +17,7 @@ public class ViewImpl implements View {
 
     private static final Language DEFAULT_LANGUAGE = Language.EN;
 
+    private static Stage appStage;
     private static Game playScene;
     private static SetUpGame setUpScene;
     private static Settings settingsScene;
@@ -33,6 +36,15 @@ public class ViewImpl implements View {
     public void start() {
         observer.setLanguage(DEFAULT_LANGUAGE);
         Application.launch(MainFrame.class);
+    }
+
+    /**
+     * It links the main stage of the application to this class.
+     * @param stage
+     *     The main stage of the application
+     */
+    public static void setAppStage(final Stage stage) {
+        appStage = stage;
     }
 
     /**
@@ -140,8 +152,8 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void setMusicVolume(final int min, final int max, final int current) {
-
+    public void setMusicVolume(final float min, final float max, final float current) {
+        Settings.getScene(appStage).getMusicManger().setSliderValues(min, max, current);
     }
 } 
 

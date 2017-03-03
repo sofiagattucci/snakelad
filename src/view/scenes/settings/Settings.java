@@ -76,4 +76,13 @@ public final class Settings extends BasicScene {
         settingStage = stage;
         return settingsScene;
     }
+
+    /**
+     * Getter of the music manager.
+     * @return
+     *     The MusicManager used in this class
+     */
+    public MusicManager getMusicManger() {
+        return this.musicManager;
+    }
 }
