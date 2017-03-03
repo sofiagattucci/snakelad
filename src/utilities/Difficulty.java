@@ -1,25 +1,27 @@
 package utilities;
 
 /**
- * Enumeration to set difficulty of game.
- *
+ * Enumeration of difficulties belonging to the game.
  */
 public enum Difficulty {
+
     /**
-     * Beginner mode, scenery 1.
+     * Beginner difficulty, scenery n.1.
      */
     BEGINNER,
+
     /**
-     * Easy mode, scenery 2.
+     * Easy difficulty, scenery n.2.
      */
     EASY,
+
     /**
-     * Medium mode, scenery 3.
+     * Medium difficulty, scenery n.3.
      */
     MEDIUM,
 
     /**
-     * High mode, scenery 4.
+     * High difficulty, scenery n.4.
      */
     HIGH;
 }
