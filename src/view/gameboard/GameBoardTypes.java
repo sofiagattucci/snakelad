@@ -70,4 +70,13 @@ public final class GameBoardTypes {
     public String getBoardMini(final Difficulty diff) {
         return this.boardMap.get(diff).getSecond();
     }
+
+    /**
+     * Getter of the number of sceneries available in the game.
+     * @return
+     *     The number of sceneries available in the game
+     */
+    public static int getNumScenery() {
+        return NUM_SCENERY;
+    }
 }

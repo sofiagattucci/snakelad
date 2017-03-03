@@ -68,4 +68,13 @@ public final class DiceTypes {
     public Map<Integer, String> getSpecificDiceMap(final TypesOfDice t) {
         return Collections.unmodifiableMap(this.diceMap.get(t));
     }
+
+    /**
+     * Getter of the number of dices available in the game.
+     * @return
+     *     The number of dices available in the game
+     */
+    public int getNumDices() {
+        return this.diceMap.size();
+    }
 }

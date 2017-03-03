@@ -18,7 +18,6 @@ public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
     private static final String TO10_DICE_KEY = "dice.to10";
     private static final String NEGATIVE_DICE_KEY = "dice.negative";
     private static final String DICE_LABEL_KEY = "setUp.selectDice";
-    private static final int NUM_DICE = 3;
     private static final double DICE_SIZE = BasicButton.getButtonHeight() * 1.5;
     private static final int CLASSIC_DICE_IMAGE_INDEX = 6;
     private static final int TO10_DICE_IMAGE_INDEX = 10;
@@ -30,7 +29,7 @@ public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
      *     The next node of the layout graph to show in the GUI
      */
     public DiceCircularList(final Node next) {
-        super(NUM_DICE, DICE_LABEL_KEY, DICE_SIZE, TypesOfDice.CLASSIC_DICE, next);
+        super(DiceTypes.get().getNumDices(), DICE_LABEL_KEY, DICE_SIZE, TypesOfDice.CLASSIC_DICE, next);
     }
 
     @Override
