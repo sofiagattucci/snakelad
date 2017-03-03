@@ -56,5 +56,5 @@ public interface View {
      * @param current
      *     The current value of the music volume
      */
-    void setMusicVolume(int min, int max, int current);
+    void setMusicVolume(float min, float max, float current);
 }

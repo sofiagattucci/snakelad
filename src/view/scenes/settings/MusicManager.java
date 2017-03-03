@@ -23,13 +23,10 @@ public class MusicManager {
     private static final int FONT_SIZE = 20;
     private static final double SPEAKER_SIZE = BasicButton.getButtonHeight() / 2;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
-    private static final double SLIDER_MIN = 0;
-    private static final double SLIDER_MAX = 100;
-    private static final double SLIDER_DEFAULT = 50;
 
     private final Label title = new Label(LanguageStringMap.get().getMap().get(MUSIC_KEY));
     private final ImageView speaker = ImageManager.get().getImageView(SPEAKER_ON);
-    private final Slider slider = new Slider(SLIDER_MIN, SLIDER_MAX, SLIDER_DEFAULT);
+    private final Slider slider = new Slider();
     private final HBox box = new HBox(this.title, this.speaker, this.slider);
     private boolean musicOn = true;
 
@@ -61,6 +58,21 @@ public class MusicManager {
      */
     public void updateLanguage() {
         this.title.setText(LanguageStringMap.get().getMap().get(MUSIC_KEY));
+    }
+
+    /**
+     * It sets the values to be used in the slider bar.
+     * @param min
+     *     The minimum value of the music volume
+     * @param max
+     *     The maximum value if the music volume
+     * @param current
+     *     The current value of the music volume
+     */
+    public void setSliderValues(final float min, final float max, final float current) {
+        this.slider.setMin(min);
+        this.slider.setMax(max);
+        this.slider.setValue(current);
     }
 
     /**
