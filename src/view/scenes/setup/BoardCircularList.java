@@ -19,7 +19,6 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
     private static final String MEDIUM_KEY = "difficulty.medium";
     private static final String HIGH_KEY = "difficulty.high";
     private static final String SCENERY_LABEL_KEY = "setUp.selectBoard";
-    private static final int NUM_SCENARY = 4;
     private static final double BOARD_SIZE = BasicButton.getButtonHeight() * 1.8;
 
     /**
@@ -28,7 +27,7 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
      *     The next node of the layout graph to show in the GUI
      */
     public BoardCircularList(final Node next) {
-        super(NUM_SCENARY, SCENERY_LABEL_KEY, BOARD_SIZE, Difficulty.BEGINNER, next);
+        super(GameBoardTypes.getNumScenery(), SCENERY_LABEL_KEY, BOARD_SIZE, Difficulty.BEGINNER, next);
     }
 
     private Difficulty calculateDifficulty(final int n) {
