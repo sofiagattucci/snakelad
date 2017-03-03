@@ -24,4 +24,21 @@ public interface Song {
      */
     void start();
 
+    /**
+     * Get minimum volume of music.
+     * @return minimum volume
+     */
+    float getMinimum();
+
+    /**
+     * Get maximum volume of music.
+     * @return maximum volume
+     */
+    float getMaximum();
+
+    /**
+     * Get current volume of music.
+     * @return current volume
+     */
+    float getCurrent();
 }
