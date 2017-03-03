@@ -46,4 +46,15 @@ public interface View {
      *     The number of boxes per side of the active game board
      */
     void setBoardSize(int n);
+
+    /**
+     * It sets the elements of the GUI that manage the music.
+     * @param min
+     *     The minimum value of the music volume
+     * @param max
+     *     The maximum value of the music volume
+     * @param current
+     *     The current value of the music volume
+     */
+    void setMusicVolume(int min, int max, int current);
 }

@@ -3,6 +3,7 @@ package tests.controller;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 import controller.Controller;
+import utilities.ConsoleLog;
 import utilities.Difficulty;
 import utilities.Language;
 import utilities.TypesOfDice;
@@ -23,7 +24,8 @@ public class ControllerTest {
 
 
     private void printErrorMessage() {
-        System.out.println("Must calling start method!");
+        final ConsoleLog log = ConsoleLog.get();
+        log.print("IllegalStateException throw with succes inside ControllerTest.");
     }
     /**
      * Test for all method in Controller class.
@@ -36,6 +38,7 @@ public class ControllerTest {
             controller.giveUp();
             fail("Must invoke start method before calling giveUp!");
         } catch (IllegalStateException s) {
+            ConsoleLog.get().print("");
             this.printErrorMessage();
         }
         try {

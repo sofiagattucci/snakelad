@@ -159,6 +159,7 @@ public final class Controller implements ViewObserver {
     public void startMusic() {
         if (this.control) {
             new SongImpl().start();
+            this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
         } else {
             throw new IllegalStateException();
         }

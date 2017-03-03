@@ -138,5 +138,10 @@ public class ViewImpl implements View {
         playScene.getBoard().setSize(n);
         playScene.resizePawns();
     }
+
+    @Override
+    public void setMusicVolume(final int min, final int max, final int current) {
+
+    }
 } 
 
