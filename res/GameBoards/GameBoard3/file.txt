@@ -1,4 +1,4 @@
-#number of cells on the game board n.3
+#number of cells on the game board n.3 (Difficulty: Medium)
 63
 #snake positions
 61
