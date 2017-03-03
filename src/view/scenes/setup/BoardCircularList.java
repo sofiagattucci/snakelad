@@ -17,8 +17,9 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
     private static final String BEGINNER_KEY = "difficulty.beginner";
     private static final String EASY_KEY = "difficulty.easy";
     private static final String MEDIUM_KEY = "difficulty.medium";
+    private static final String HIGH_KEY = "difficulty.high";
     private static final String SCENERY_LABEL_KEY = "setUp.selectBoard";
-    private static final int NUM_SCENARY = 3;
+    private static final int NUM_SCENARY = 4;
     private static final double BOARD_SIZE = BasicButton.getButtonHeight() * 1.8;
 
     /**
@@ -35,6 +36,7 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
             case 0: return Difficulty.BEGINNER; 
             case 1: return Difficulty.EASY;
             case 2: return Difficulty.MEDIUM;
+            case 3: return Difficulty.HIGH;
             default: return Difficulty.BEGINNER;
         }
     }
@@ -48,6 +50,8 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
                     break;
             case 2: this.getDescLabel().setText(LanguageStringMap.get().getMap().get(MEDIUM_KEY));
                     break;
+            case 3: this.getDescLabel().setText(LanguageStringMap.get().getMap().get(HIGH_KEY));
+            break;
             default:
         }
     }
@@ -61,6 +65,8 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
                     break;
             case 2: this.setParameterValue(Difficulty.MEDIUM);
                     break;
+            case 3: this.setParameterValue(Difficulty.HIGH);
+            break;
             default:
         }
         SetUpGame.setBoardType(this.getParameterValue());

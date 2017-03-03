@@ -16,5 +16,10 @@ public enum Difficulty {
     /**
      * Medium mode, scenery 3.
      */
-    MEDIUM;
+    MEDIUM,
+
+    /**
+     * High mode, scenery 4.
+     */
+    HIGH;
 }
