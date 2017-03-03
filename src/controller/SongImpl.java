@@ -14,6 +14,7 @@ public class SongImpl implements Runnable, Song {
     private static final String PATH = "./res/Music/Snakelad.wav";
     private final Thread t;
     private volatile boolean stopField;
+    private static Clip clip;
 
     /**
      * Constructor.
@@ -27,31 +28,26 @@ public class SongImpl implements Runnable, Song {
     public void run() {
         try {
             final AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(PATH).getAbsoluteFile());
-            final Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(1000);
             while (this.stopField) {
                 try {
                     Thread.sleep(1000);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    this.t.interrupt();
                 }
             }
-            clip.stop();
-            clip.setFramePosition(0);
-            clip.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException ie) {
-            Thread.currentThread().interrupt();
         }
     }
 
     @Override
-    public void setStop(final boolean stop) {
+    public synchronized void setStop(final boolean stop) {
+        clip.stop();
+        clip.setFramePosition(0);
+        clip.close();
         this.stopField = stop;
     }
 
@@ -61,7 +57,7 @@ public class SongImpl implements Runnable, Song {
     }
 
     @Override
-    public void start() {
+    public synchronized void start() {
         this.stopField = this.stopField ? false : true;
         this.t.start();
     }

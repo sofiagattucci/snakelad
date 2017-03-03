@@ -18,6 +18,7 @@ public interface Song {
      */
     boolean isStopped();
 
+
     /**
      * Start the thread.
      */
