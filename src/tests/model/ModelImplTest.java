@@ -40,9 +40,11 @@ public class ModelImplTest {
     private static final int GAME_BOARD_1_SIDE_SIZE = 6;
     private static final int GAME_BOARD_2_SIDE_SIZE = 8;
     private static final int GAME_BOARD_3_SIDE_SIZE = 8;
+    private static final int GAME_BOARD_4_SIDE_SIZE = 10;
     private static final String GAME_BOARD_1 = "./res/GameBoards/GameBoard1/file.txt";
     private static final String GAME_BOARD_2 = "./res/GameBoards/GameBoard2/file.txt";
     private static final String GAME_BOARD_3 = "./res/GameBoards/GameBoard3/file.txt";
+    private static final String GAME_BOARD_4 = "./res/GameBoards/GameBoard4/file.txt";
 
     private final List<Integer> snakesListGameBoard1 = Arrays.asList(3, 4, 8, 24, 26);
     private final List<Integer> laddersListGameBoard1 = Arrays.asList(13, 28, 32, 33);
@@ -50,6 +52,8 @@ public class ModelImplTest {
     private final List<Integer> laddersListGameBoard2 = Arrays.asList(16, 30, 51, 54, 62);
     private final List<Integer> snakesListGameBoard3 = Arrays.asList(1, 2, 5, 22, 24, 26);
     private final List<Integer> laddersListGameBoard3 = Arrays.asList(12, 24, 32, 43, 56, 60);
+    private final List<Integer> snakesListGameBoard4 = Arrays.asList(76, 3, 48, 32, 29, 6);
+    private final List<Integer> laddersListGameBoard4 = Arrays.asList(15, 60, 85);
 
     //private method called to avoid too much repetition of identical code.
     private void printIllegalStateException() {
@@ -65,6 +69,21 @@ public class ModelImplTest {
     //private method called to avoid too much repetition of identical code.
     private void failExceptionThrowing(final Exception e) {
         fail("It mustn't throw any exception! " + e.getClass() + " was thrown.");
+    }
+
+    //private method called to avoid too much repetition of identical code.
+    private void failBoundsClassicDice() {
+        fail("diceValue out of bounds (Classic Dice)!");
+    }
+
+    //private method called to avoid too much repetition of identical code.
+    private void failBounds5To10Dice() {
+        fail("diceValue out of bounds (5to10 Dice)!");
+    }
+
+    //private method called to avoid too much repetition of identical code.
+    private void failBoundsNegativeDice() {
+        fail("diceValue out of bounds or equal to 0 (Negative Dice)!");
     }
 
     /**
@@ -208,7 +227,7 @@ public class ModelImplTest {
      * This test is applied only on gameboard number 1.
      */
     @Test
-    public void testGameBoard1ModelImpl() {
+    public void testGameBoard1() {
         final Model model = new ModelImpl();
 
         //check everything work correctly with game board n.1, six players and a classic dice.
@@ -221,7 +240,7 @@ public class ModelImplTest {
             final int diceValue = model.getNumberFromDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
-                fail("diceValue out of bounds (Classic Dice)!");
+                this.failBoundsClassicDice();
             }
             final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS);
             if (position.isPresent()) { //the player jumps
@@ -246,7 +265,7 @@ public class ModelImplTest {
             final int diceValue = model.getNumberFromDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
-                fail("diceValue out of bounds (5to10 Dice)!");
+                this.failBounds5To10Dice();
             }
             final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS);
             if (position.isPresent()) { //the player jumps
@@ -271,7 +290,7 @@ public class ModelImplTest {
             final int diceValue = model.getNumberFromDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
-                fail("diceValue out of bounds or equal to 0 (Negative Dice)!");
+                this.failBoundsNegativeDice();
             }
             final Optional<Integer> position = model.getPlayerPosition(i % FIVE_PLAYERS);
             if (position.isPresent()) { //the player jumps
@@ -298,7 +317,7 @@ public class ModelImplTest {
      * This test is applied only on gameboard number 2.
      */
     @Test
-    public void testGameBoard2ModelImpl() {
+    public void testGameBoard2() {
         final Model model = new ModelImpl();
 
       //check everything work correctly with game board n.2, four players and a classic dice.
@@ -311,7 +330,7 @@ public class ModelImplTest {
             final int diceValue = model.getNumberFromDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
-                fail("diceValue out of bounds (Classic Dice)!");
+                this.failBoundsClassicDice();
             }
             final Optional<Integer> position = model.getPlayerPosition(i % FOUR_PLAYERS);
             if (position.isPresent()) { //the player jumps
@@ -336,7 +355,7 @@ public class ModelImplTest {
             final int diceValue = model.getNumberFromDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
-                fail("diceValue out of bounds (5to10 Dice)!");
+                this.failBounds5To10Dice();
             }
             final Optional<Integer> position = model.getPlayerPosition(i % THREE_PLAYERS);
             if (position.isPresent()) { //the player jumps
@@ -361,7 +380,7 @@ public class ModelImplTest {
             final int diceValue = model.getNumberFromDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
-                fail("diceValue out of bounds or equal to 0 (Negative Dice)!");
+                this.failBoundsNegativeDice();
             }
             final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS);
             if (position.isPresent()) { //the player jumps
@@ -388,7 +407,7 @@ public class ModelImplTest {
      * This test is applied only on gameboard number 3.
      */
     @Test
-    public void testGameBoard3ModelImpl() {
+    public void testGameBoard3() {
         final Model model = new ModelImpl();
 
         //check everything work correctly with game board n.3, five players and a classic dice.
@@ -401,7 +420,7 @@ public class ModelImplTest {
             final int diceValue = model.getNumberFromDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
-                fail("diceValue out of bounds (Classic Dice)!");
+                this.failBoundsClassicDice();
             }
             final Optional<Integer> position = model.getPlayerPosition(i % FIVE_PLAYERS);
             if (position.isPresent()) { //the player jumps
@@ -426,7 +445,7 @@ public class ModelImplTest {
             final int diceValue = model.getNumberFromDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
-                fail("diceValue out of bounds (5to10 Dice)!");
+                this.failBounds5To10Dice();
             }
             final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS);
             if (position.isPresent()) { //the player jumps
@@ -451,7 +470,7 @@ public class ModelImplTest {
             final int diceValue = model.getNumberFromDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
-                fail("diceValue out of bounds or equal to 0 (Negative Dice)!");
+                this.failBoundsNegativeDice();
             }
             final Optional<Integer> position = model.getPlayerPosition(i % FOUR_PLAYERS);
             if (position.isPresent()) { //the player jumps
@@ -468,6 +487,96 @@ public class ModelImplTest {
         //call getGameBoardSideSize() method inside ModelImpl, checking everything works correctly.
         final int gameBoard3SideSize = model.getGameBoardSideSize();
         assertEquals(gameBoard3SideSize, GAME_BOARD_3_SIDE_SIZE);
+
+        model.giveUpGame(); //end the game
+
+    }
+
+    /**
+     * Tests a minimal simulation game.
+     * This test is applied only on gameboard number 4.
+     */
+    @Test
+    public void testGameBoard4() {
+        final Model model = new ModelImpl();
+
+        //check everything work correctly with game board n.4, three players and a classic dice.
+        model.startGame(SceneryDataManager.get().readFromFile(GAME_BOARD_4), THREE_PLAYERS, TypesOfDice.CLASSIC_DICE);
+        final List<Integer> list = new ArrayList<>();
+        list.addAll(snakesListGameBoard4);
+        list.addAll(laddersListGameBoard4);
+        int counter = NUMBER_SUB_ITERATION;
+        for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+            final int diceValue = model.getNumberFromDice();
+            //check if dice value is between the bounds
+            if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
+                this.failBoundsClassicDice();
+            }
+            final Optional<Integer> position = model.getPlayerPosition(i % THREE_PLAYERS);
+            if (position.isPresent()) { //the player jumps
+                final boolean isOk = list.contains(position.get());
+                assertTrue(isOk);
+            }
+            counter--;
+            if (counter == 0) {
+                counter = NUMBER_SUB_ITERATION;
+                model.restartGame();
+            }
+        }
+        model.giveUpGame(); //end the game
+
+        //check everything work correctly with game board n.4, six players and a 5to10 dice
+        model.startGame(SceneryDataManager.get().readFromFile(GAME_BOARD_4), SIX_PLAYERS, TypesOfDice._5_TO_10_DICE);
+        list.clear();
+        list.addAll(snakesListGameBoard4);
+        list.addAll(laddersListGameBoard4);
+        counter = NUMBER_SUB_ITERATION;
+        for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+            final int diceValue = model.getNumberFromDice();
+            //check if dice value is between the bounds
+            if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
+                this.failBounds5To10Dice();
+            }
+            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS);
+            if (position.isPresent()) { //the player jumps
+                final boolean isOk = list.contains(position.get());
+                assertTrue(isOk);
+            }
+            counter--;
+            if (counter == 0) {
+                counter = NUMBER_SUB_ITERATION;
+                model.restartGame();
+            }
+        }
+        model.giveUpGame(); //end the game
+
+        //check everything work correctly with game board n.4, two players and a negative dice
+        model.startGame(SceneryDataManager.get().readFromFile(GAME_BOARD_4), TWO_PLAYERS, TypesOfDice.NEGATIVE_DICE);
+        list.clear();
+        list.addAll(snakesListGameBoard4);
+        list.addAll(laddersListGameBoard4);
+        counter = NUMBER_SUB_ITERATION;
+        for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+            final int diceValue = model.getNumberFromDice();
+            //check if dice value is between the bounds
+            if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
+                this.failBoundsNegativeDice();
+            }
+            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS);
+            if (position.isPresent()) { //the player jumps
+                final boolean isOk = list.contains(position.get());
+                assertTrue(isOk);
+            }
+            counter--;
+            if (counter == 0) {
+                counter = NUMBER_SUB_ITERATION;
+                model.restartGame();
+            }
+        }
+
+        //call getGameBoardSideSize() method inside ModelImpl, checking everything works correctly.
+        final int gameBoard4SideSize = model.getGameBoardSideSize();
+        assertEquals(gameBoard4SideSize, GAME_BOARD_4_SIDE_SIZE);
 
         model.giveUpGame(); //end the game
 

@@ -33,9 +33,10 @@ public final class TestsLauncher {
         //ModelImpl tests
         final ModelImplTest modelImplTest = new ModelImplTest();
         modelImplTest.testBasicModelImpl();
-        modelImplTest.testGameBoard1ModelImpl();
-        modelImplTest.testGameBoard2ModelImpl();
-        modelImplTest.testGameBoard3ModelImpl();
+        modelImplTest.testGameBoard1();
+        modelImplTest.testGameBoard2();
+        modelImplTest.testGameBoard3();
+        modelImplTest.testGameBoard4();
     }
 
     /**
@@ -44,7 +45,6 @@ public final class TestsLauncher {
     @Test
     public void testController() {
         new ControllerTest().controllerTest();
-
     }
 
     /**
