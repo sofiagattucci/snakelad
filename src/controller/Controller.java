@@ -23,6 +23,7 @@ public final class Controller implements ViewObserver {
     private static final String DATA1 = "./res/GameBoards/GameBoard1/file.txt";
     private static final String DATA2 = "./res/GameBoards/GameBoard2/file.txt";
     private static final String DATA3 = "./res/GameBoards/GameBoard3/file.txt";
+    private static final String DATA4 = "./res/GameBoards/GameBoard4/file.txt";
     private final Model game;
     private final View view;
     private final Song playSong;
@@ -108,6 +109,8 @@ public final class Controller implements ViewObserver {
                 case MEDIUM:
                     this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), dice);
                     break;
+                case HIGH:
+                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA4), this.settings.get().getNumberOfPlayer(), dice);
                     default:
                         this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
                         break;
@@ -159,7 +162,7 @@ public final class Controller implements ViewObserver {
     public void startMusic() {
         if (this.control) {
             new SongImpl().start();
-            this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
+            //this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
         } else {
             throw new IllegalStateException();
         }
