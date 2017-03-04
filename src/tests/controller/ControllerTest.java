@@ -25,7 +25,7 @@ public class ControllerTest {
 
     private void printErrorMessage() {
         final ConsoleLog log = ConsoleLog.get();
-        log.print("IllegalStateException throw with succes inside ControllerTest.");
+        log.print("IllegalStateException thrown with success inside ControllerTest.");
     }
     /**
      * Test for all method in Controller class.
