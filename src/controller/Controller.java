@@ -111,7 +111,8 @@ public final class Controller implements ViewObserver {
                     break;
                 case HIGH:
                     this.game.startGame(SceneryDataManager.get().readFromFile(DATA4), this.settings.get().getNumberOfPlayer(), dice);
-                    default:
+                    break;
+                default:
                         this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
                         break;
                 }
