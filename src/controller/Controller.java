@@ -174,4 +174,9 @@ public final class Controller implements ViewObserver {
     public void stopMusic() {
         this.playSong.setStop(false);
     }
+
+    @Override
+    public void setVolume(final float volume) {
+       this.playSong.setVolume(volume);
+    }
 }

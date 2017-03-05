@@ -41,4 +41,11 @@ public interface Song {
      * @return current volume
      */
     float getCurrent();
+
+    /**
+     * Set the volume of music.
+     * @param volume
+     *          the volume to set
+     */
+    void setVolume(float volume);
 }

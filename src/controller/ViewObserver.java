@@ -59,4 +59,11 @@ public interface ViewObserver {
      */
     void stopMusic();
 
+    /**
+     * Set the volume of music.
+     * @param volume
+     *          the volume of music to set
+     */
+    void setVolume(float volume);
+
 }

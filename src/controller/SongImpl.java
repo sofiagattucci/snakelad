@@ -113,4 +113,9 @@ public class SongImpl implements Runnable, Song {
         }
         return this.volume.getValue();
     }
+
+    @Override
+    public void setVolume(final float volume) {
+        this.volume.setValue(volume);
+    }
 }
