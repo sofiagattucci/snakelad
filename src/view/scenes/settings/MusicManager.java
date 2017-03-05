@@ -29,6 +29,7 @@ public class MusicManager {
     private final Slider slider = new Slider();
     private final HBox box = new HBox(this.title, this.speaker, this.slider);
     private boolean musicOn = true;
+    private float sliderMin;
 
     /**
      * Constructor of this class.
@@ -45,14 +46,32 @@ public class MusicManager {
                 this.musicOn = false;
                 this.speaker.setImage(ImageManager.get().readFromFile(SPEAKER_OFF));
                 ViewImpl.getObserver().stopMusic();
+                this.slider.setValue(this.sliderMin);
             } else {
                 this.musicOn = true;
                 this.speaker.setImage(ImageManager.get().readFromFile(SPEAKER_ON));
                 ViewImpl.getObserver().startMusic();
             }
         });
+        this.slider.setOnMouseDragged(e -> {
+            final double slValue = this.slider.getValue();
+            if (!this.musicOn) {
+                this.musicOn = true;
+                this.speaker.setImage(ImageManager.get().readFromFile(SPEAKER_ON));
+                ViewImpl.getObserver().startMusic();
+                this.slider.setValue(slValue);
+            }
+            ViewImpl.getObserver().setVolume((float) slValue); 
+        });
         this.slider.setOnMouseClicked(e -> {
-            ViewImpl.getObserver().setVolume((float) this.slider.getValue()); 
+            final double slValue = this.slider.getValue();
+            if (!this.musicOn) {
+                this.musicOn = true;
+                this.speaker.setImage(ImageManager.get().readFromFile(SPEAKER_ON));
+                ViewImpl.getObserver().startMusic();
+                this.slider.setValue(slValue);
+            }
+            ViewImpl.getObserver().setVolume((float) slValue); 
         });
     }
 
@@ -73,6 +92,7 @@ public class MusicManager {
      *     The current value of the music volume
      */
     public void setSliderValues(final float min, final float max, final float current) {
+        this.sliderMin = min;
         this.slider.setMin(min);
         this.slider.setMax(max);
         this.slider.setValue(current);
