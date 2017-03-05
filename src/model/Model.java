@@ -25,8 +25,9 @@ public interface Model {
      *          Number of players who want to play the game.
      * @param dice
      *          The dice which players want to play with.
+     * @throws IllegalArgumentException if argument 'numberOfPlayers' or 'dice' is not permitted.
      */
-    void startGame(List<Integer> data, int numberOfPlayers, TypesOfDice dice);
+    void startGame(List<Integer> data, int numberOfPlayers, TypesOfDice dice) throws IllegalArgumentException;
 
     /**
      * Calculate the position of the player whose index is specified, returning an 

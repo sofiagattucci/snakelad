@@ -78,7 +78,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void startGame(final List<Integer> data, final int numberOfPlayers, final TypesOfDice dice) {
+    public void startGame(final List<Integer> data, final int numberOfPlayers, final TypesOfDice dice) throws IllegalArgumentException {
         if (numberOfPlayers <= 1) {
             throw new IllegalArgumentException("Number of players less or equal to 1!");
         }
@@ -88,9 +88,9 @@ public final class ModelImpl implements Model {
 
         //fill playersList with the exact number of players playing the game and set their initial positions
         this.playersList.addAll(IntStream.range(0, numberOfPlayers)
-                .mapToObj(value -> new PlayerImpl())
-                .peek(player -> player.setNewPosition(PLAYER_INITIAL_POSITION))
-                .collect(Collectors.toList()));
+                        .mapToObj(value -> new PlayerImpl())
+                        .peek(player -> player.setNewPosition(PLAYER_INITIAL_POSITION))
+                        .collect(Collectors.toList()));
 
         final DiceFactory diceFactory = new DiceFactoryImpl();
         switch (dice) {
@@ -104,7 +104,7 @@ public final class ModelImpl implements Model {
             this.dice = diceFactory.createNegativeDice(diceFactory.createClassicDice());
             break;
         default:
-            break;
+            throw new IllegalArgumentException("The type of dice passed in argument is not supported!");
         }
     }
 

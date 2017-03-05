@@ -68,7 +68,7 @@ public class ModelImplTest {
 
     //private method called to avoid too much repetition of identical code.
     private void failExceptionThrowing(final Exception e) {
-        fail("It mustn't throw any exception! " + e.getClass() + " was thrown.");
+        fail("It mustn't throw any exception! " + e.getClass() + " was thrown!");
     }
 
     //private method called to avoid too much repetition of identical code.
