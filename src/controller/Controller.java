@@ -162,8 +162,9 @@ public final class Controller implements ViewObserver {
     @Override
     public void startMusic() {
         if (this.control) {
-            new SongImpl().start();
-            //this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
+            final Song currentSong = new SongImpl();
+            currentSong.start();
+            this.view.setMusicVolume(currentSong.getMinimum(), currentSong.getMaximum(), currentSong.getCurrent());
         } else {
             throw new IllegalStateException();
         }
