@@ -36,7 +36,7 @@ public final class ClassicDice implements Dice {
 
     @Override
     public void setLastNumberAppeared(final Optional<Integer> lastNumberAppeared) {
-            this.lastNumberAppeared = lastNumberAppeared;
+        this.lastNumberAppeared = lastNumberAppeared;
     }
 
     @Override

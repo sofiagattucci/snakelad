@@ -15,6 +15,7 @@ public class SongImpl implements Song {
     private static final String PATH = "./res/Music/Snakelad.wav";
     private static final float MAX = 0;
     private static final float MIN = -30;
+    private static final float CURRENT = -8;
     private Clip clip;
     private FloatControl volume;
 
@@ -43,6 +44,7 @@ public class SongImpl implements Song {
         try {
             clip.open(AudioSystem.getAudioInputStream(new File(PATH).getAbsoluteFile()));
             this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            this.volume.setValue(CURRENT);
         } catch (Exception e) {
             e.printStackTrace();
         }
