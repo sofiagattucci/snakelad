@@ -2,6 +2,8 @@ package controller;
 
 import java.util.Optional;
 
+import javax.sound.sampled.LineUnavailableException;
+
 import model.Model;
 import model.ModelImpl;
 import utilities.SceneryDataManager;
@@ -33,6 +35,7 @@ public final class Controller implements ViewObserver {
 
     /**
      * Constructor.
+     * @throws LineUnavailableException 
      */
     private Controller() {
         this.playSong = new SongImpl();
@@ -162,9 +165,8 @@ public final class Controller implements ViewObserver {
     @Override
     public void startMusic() {
         if (this.control) {
-            final Song currentSong = new SongImpl();
-            currentSong.start();
-            this.view.setMusicVolume(currentSong.getMinimum(), currentSong.getMaximum(), currentSong.getCurrent());
+            this.playSong.start();
+            this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
         } else {
             throw new IllegalStateException();
         }
@@ -172,7 +174,7 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void stopMusic() {
-        this.playSong.setStop(false);
+        this.playSong.setStop();
     }
 
     @Override
