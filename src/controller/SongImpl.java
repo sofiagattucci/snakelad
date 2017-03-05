@@ -13,6 +13,8 @@ import javax.sound.sampled.FloatControl;
 public class SongImpl implements Song {
 
     private static final String PATH = "./res/Music/Snakelad.wav";
+    private static final float MAX = 0;
+    private static final float MIN = -30;
     private Clip clip;
     private FloatControl volume;
 
@@ -49,12 +51,12 @@ public class SongImpl implements Song {
 
     @Override
     public synchronized float getMinimum() {
-        return this.volume.getMinimum();
+        return MIN;
     }
 
     @Override
     public synchronized float getMaximum() {
-        return this.volume.getMaximum();
+        return MAX;
     }
 
     @Override
