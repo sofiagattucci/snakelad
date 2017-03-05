@@ -33,7 +33,7 @@ public interface GameBoard {
      * @param n
      *     The number of boxes per side of the board
      */
-    void setSize(final int n);
+    void setSize(int n);
 
     /**
      * Getter of the size of the board.
