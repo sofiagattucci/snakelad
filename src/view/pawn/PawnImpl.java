@@ -1,5 +1,8 @@
 package view.pawn;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import javafx.scene.image.ImageView;
 import utilities.ImageManager;
 import utilities.Pair;
@@ -19,6 +22,7 @@ public class PawnImpl implements Pawn {
     private int positionInRow;
     private int row;
     private final Game parentScene;
+    private final Executor executor = Executors.newSingleThreadExecutor();
 
     /**
      * Constructor of this class.
@@ -62,7 +66,7 @@ public class PawnImpl implements Pawn {
 
     @Override
     public void movePawn(final int nMoves) {
-        new Thread(new PawnAnimation(this, nMoves)).start();
+        this.executor.execute(new PawnAnimation(this, nMoves));
     }
 
     @Override

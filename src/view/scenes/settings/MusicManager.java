@@ -51,6 +51,9 @@ public class MusicManager {
                 ViewImpl.getObserver().startMusic();
             }
         });
+        this.slider.setOnMouseClicked(e -> {
+            ViewImpl.getObserver().setVolume((float) this.slider.getValue()); 
+        });
     }
 
     /**
