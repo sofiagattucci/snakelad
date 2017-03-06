@@ -1,5 +1,8 @@
 package view.scenes.settings;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -7,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import utilities.Pair;
 import view.BasicButton;
 import view.LanguageStringMap;
 import view.ViewImpl;
@@ -29,9 +33,9 @@ public class SkinSwitcher {
 
     private final HBox box = new HBox();
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
-    private final Button defaultSkin = new Button(LanguageStringMap.get().getMap().get(BLUE_SKIN_KEY));
-    private final Button lightSkin = new Button(LanguageStringMap.get().getMap().get(LIGHT_SKIN_KEY));
-    private final Button darkSkin = new Button(LanguageStringMap.get().getMap().get(DARK_SKIN_KEY));
+    private final List<Button> selectorList = Arrays.asList(new Button(), new Button(), new Button());
+    private final List<Pair<Color, String>> colorList = Arrays.asList(new Pair<>(Color.LIGHTBLUE, BLUE_SKIN_KEY),
+            new Pair<>(Color.ANTIQUEWHITE, LIGHT_SKIN_KEY), new Pair<>(Color.DARKMAGENTA, DARK_SKIN_KEY));
 
     /**
      * Constructor of this class.
@@ -40,43 +44,30 @@ public class SkinSwitcher {
 
         this.box.setAlignment(Pos.CENTER);
         this.box.setSpacing(BOX_SPACING);
-        this.box.getChildren().addAll(this.title, this.defaultSkin, this.lightSkin, this.darkSkin);
+        this.box.getChildren().add(this.title);
         this.title.setFont(new Font(FONT_SIZE));
-        this.defaultSkin.setDisable(true);
-        this.defaultSkin.setOnAction(e -> {
-            this.defaultSkin.setDisable(true);
-            this.lightSkin.setDisable(false);
-            this.darkSkin.setDisable(false);
-            ViewImpl.getSettingsScene().setSkin(Color.LIGHTBLUE);
-            ViewImpl.getMenuScene().setSkin(Color.LIGHTBLUE);
-            Instructions.getScene(ViewImpl.getAppStage()).setSkin(Color.LIGHTBLUE);
-            SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(Color.LIGHTBLUE);
-            SinglePlayerGame.getScene(ViewImpl.getAppStage()).setSkin(Color.LIGHTBLUE);
-            MultiPlayerGameScenes.get(ViewImpl.getAppStage()).setActiveSkin(Color.LIGHTBLUE);
-        });
-        this.lightSkin.setOnAction(e -> {
-            this.lightSkin.setDisable(true);
-            this.defaultSkin.setDisable(false);
-            this.darkSkin.setDisable(false);
-            ViewImpl.getSettingsScene().setSkin(Color.ANTIQUEWHITE);
-            ViewImpl.getMenuScene().setSkin(Color.ANTIQUEWHITE);
-            Instructions.getScene(ViewImpl.getAppStage()).setSkin(Color.ANTIQUEWHITE);
-            SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(Color.ANTIQUEWHITE);
-            SinglePlayerGame.getScene(ViewImpl.getAppStage()).setSkin(Color.ANTIQUEWHITE);
-            MultiPlayerGameScenes.get(ViewImpl.getAppStage()).setActiveSkin(Color.ANTIQUEWHITE);
-        });
-        this.darkSkin.setOnAction(e -> {
-            this.darkSkin.setDisable(true);
-            this.defaultSkin.setDisable(false);
-            this.defaultSkin.setDisable(false);
-            ViewImpl.getSettingsScene().setSkin(Color.DARKMAGENTA);
-            ViewImpl.getMenuScene().setSkin(Color.DARKMAGENTA);
-            Instructions.getScene(ViewImpl.getAppStage()).setSkin(Color.DARKMAGENTA);
-            SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(Color.DARKMAGENTA);
-            SinglePlayerGame.getScene(ViewImpl.getAppStage()).setSkin(Color.DARKMAGENTA);
-            MultiPlayerGameScenes.get(ViewImpl.getAppStage()).setActiveSkin(Color.DARKMAGENTA);
-        });
+        this.selectorList.get(0).setDisable(true);
 
+        for (int i = 0; i < this.selectorList.size(); i++) {
+            final int j = i;
+            this.box.getChildren().add(this.selectorList.get(i));
+            this.setButtonText(i);
+            this.selectorList.get(i).setOnAction(e -> {
+                for (final Button b: this.selectorList) {
+                    b.setDisable(false);
+                }
+                this.selectorList.get(j).setDisable(true);
+                ViewImpl.getSettingsScene().setSkin(this.colorList.get(j).getFirst());
+                ViewImpl.getMenuScene().setSkin(this.colorList.get(j).getFirst());
+                Instructions.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
+                SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
+                SinglePlayerGame.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
+                MultiPlayerGameScenes.get(ViewImpl.getAppStage()).setActiveSkin(this.colorList.get(j).getFirst());
+            });
+    }
+}
+    private void setButtonText(final int index) {
+        this.selectorList.get(index).setText(LanguageStringMap.get().getMap().get(this.colorList.get(index).getSecond()));
     }
 
     /**
@@ -84,9 +75,9 @@ public class SkinSwitcher {
      */
     public void updateLanguage() {
         this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
-        this.defaultSkin.setText(LanguageStringMap.get().getMap().get(BLUE_SKIN_KEY));
-        this.lightSkin.setText(LanguageStringMap.get().getMap().get(LIGHT_SKIN_KEY));
-        this.darkSkin.setText(LanguageStringMap.get().getMap().get(DARK_SKIN_KEY));
+        for (int i = 0; i < this.selectorList.size(); i++) {
+            this.setButtonText(i);
+        }
     }
 
     /**

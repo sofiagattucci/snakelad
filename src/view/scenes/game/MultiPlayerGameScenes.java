@@ -42,7 +42,6 @@ public final class MultiPlayerGameScenes {
         this.scenesMap.put(n, new MultiPlayerGame(n));
         this.scenesMap.get(n).setSkin(this.skin);
         this.scenesMap.get(n).setStage(stage);
-        System.out.println(this.scenesMap.size());
     }
 
     /**
