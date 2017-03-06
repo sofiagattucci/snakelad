@@ -3,7 +3,7 @@ package model;
 /**
  * Implements methods for a player.
  */
-public class PlayerImpl implements Player {
+public final class PlayerImpl implements Player {
 
     private static final int STARTING_POSITION = 0;
 

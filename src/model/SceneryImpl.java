@@ -28,8 +28,8 @@ public final class SceneryImpl implements Scenery {
     }
 
     /**
-     * Static method which returns a SceneryImpl unique instance.
-     * @return a SceneryImpl unique instance.
+     * Static method which returns the SceneryImpl unique instance.
+     * @return the SceneryImpl unique instance.
      */
     public static Scenery get() {
         return SceneryImpl.SINGLETON;

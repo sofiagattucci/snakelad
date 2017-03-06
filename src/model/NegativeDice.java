@@ -8,7 +8,7 @@ import java.util.Random;
  * positive number 5 included. The number 0 is not considered as a dice side.
  * It's designed using Decorator pattern.
  */
-public class NegativeDice implements Dice {
+public final class NegativeDice implements Dice {
 
     private static final int MAX_NUMBER = 5;
     private static final int MIN_NUMBER = -2;
