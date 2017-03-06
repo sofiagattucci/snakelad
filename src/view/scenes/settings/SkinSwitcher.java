@@ -28,14 +28,17 @@ public class SkinSwitcher {
     private static final String BLUE_SKIN_KEY = "settings.skin.blue";
     private static final String LIGHT_SKIN_KEY = "settings.skin.light";
     private static final String DARK_SKIN_KEY = "settings.skin.dark";
+    private static final String GOLD_SKIN_KEY = "settings.skin.golden";
+    private static final String SILVER_SKIN_KEY = "settings.skin.silver";
     private static final int FONT_SIZE = 30;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
 
     private final HBox box = new HBox();
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
-    private final List<Button> selectorList = Arrays.asList(new Button(), new Button(), new Button());
+    private final List<Button> selectorList = Arrays.asList(new Button(), new Button(), new Button(), new Button(), new Button());
     private final List<Pair<Color, String>> colorList = Arrays.asList(new Pair<>(Color.LIGHTBLUE, BLUE_SKIN_KEY),
-            new Pair<>(Color.ANTIQUEWHITE, LIGHT_SKIN_KEY), new Pair<>(Color.DARKMAGENTA, DARK_SKIN_KEY));
+            new Pair<>(Color.ANTIQUEWHITE, LIGHT_SKIN_KEY), new Pair<>(Color.DARKMAGENTA, DARK_SKIN_KEY), 
+            new Pair<>(Color.GOLD, GOLD_SKIN_KEY), new Pair<>(Color.SILVER, SILVER_SKIN_KEY));
 
     /**
      * Constructor of this class.
