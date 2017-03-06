@@ -28,7 +28,7 @@ public class SkinSwitcher {
     private static final String BLUE_SKIN_KEY = "settings.skin.blue";
     private static final String LIGHT_SKIN_KEY = "settings.skin.light";
     private static final String DARK_SKIN_KEY = "settings.skin.dark";
-    private static final int FONT_SIZE = 20;
+    private static final int FONT_SIZE = 30;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
 
     private final HBox box = new HBox();

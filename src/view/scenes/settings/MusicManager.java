@@ -20,7 +20,7 @@ public class MusicManager {
     private static final String SPEAKER_ON = "./res/Icons/volume_on.png";
     private static final String SPEAKER_OFF = "./res/Icons/volume_off.png";
     private static final String MUSIC_KEY = "settings.musicLabel";
-    private static final int FONT_SIZE = 20;
+    private static final int FONT_SIZE = 30;
     private static final double SPEAKER_SIZE = BasicButton.getButtonHeight() / 2;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
 
