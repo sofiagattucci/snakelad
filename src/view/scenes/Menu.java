@@ -41,6 +41,8 @@ public final class Menu extends BasicScene {
 
     private Menu() {
 
+        ViewImpl.setMenuScene(this);
+
         this.play.setOnAction(e -> {
             SetUpGame.getScene(menuStage).reset();
             ViewImpl.setSetUpScene(SetUpGame.getScene(menuStage));

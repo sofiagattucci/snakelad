@@ -28,12 +28,13 @@ public final class Settings extends BasicScene {
     private static Settings settingsScene = new Settings();
 
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
+    private final SkinSwitcher skinSwitcher = new SkinSwitcher();
     private final PawnColorSwitcherManager pawnSwitcher = new PawnColorSwitcherManager();
     private final LanguageSwitcher langSwitcher = new LanguageSwitcher(settingStage);
     private final MusicManager musicManager = new MusicManager();
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
-    private final VBox box = new VBox(this.title, this.pawnSwitcher.getParentNode(), this.langSwitcher.getParentNode(),
-            this.musicManager.getParentNode(), this.back);
+    private final VBox box = new VBox(this.title, this.skinSwitcher.getParentNode(), this.pawnSwitcher.getParentNode(),
+            this.langSwitcher.getParentNode(), this.musicManager.getParentNode(), this.back);
 
     private Settings() {
 
@@ -52,6 +53,7 @@ public final class Settings extends BasicScene {
      */
     public void updateLanguage() {
         this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
+        this.skinSwitcher.updateLanguage();
         this.langSwitcher.updateLanguage();
         this.pawnSwitcher.updateLanguage();
         this.musicManager.updateLanguage();
