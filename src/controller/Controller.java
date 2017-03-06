@@ -1,10 +1,16 @@
 package controller;
 
-import model.Game;
-import model.GameImpl;
+import java.util.Optional;
+
+import javax.sound.sampled.LineUnavailableException;
+
+import model.Model;
+import model.ModelImpl;
 import utilities.SceneryDataManager;
-import utilities.InstructionsManager;
-import utilities.Pair;
+import utilities.TypesOfDice;
+import utilities.LanguageLoader;
+import utilities.Difficulty;
+import utilities.Language;
 import view.View;
 import view.ViewImpl;
 
@@ -15,22 +21,28 @@ import view.ViewImpl;
  */
 public final class Controller implements ViewObserver {
 
-    private final Game game;
-    private final View view;
-    private String turn;
     private static final Controller SINGLETON = new Controller();
-    private static final String INSTRUCTIONS = "./res/Instructions.txt";
-    private static final String DATA = "./res/GameBoards/GameBoard1/file.txt";
-    private static final int PLAYER_INDEX = 0;
-    private static final int CPU_INDEX = 1;
+    private static final String DATA1 = "./res/GameBoards/GameBoard1/file.txt";
+    private static final String DATA2 = "./res/GameBoards/GameBoard2/file.txt";
+    private static final String DATA3 = "./res/GameBoards/GameBoard3/file.txt";
+    private static final String DATA4 = "./res/GameBoards/GameBoard4/file.txt";
+    private final Model game;
+    private final View view;
+    private final Song playSong;
+    private int counter;
+    private boolean control;
+    private Optional<GameSettings> settings;
 
     /**
      * Constructor.
+     * @throws LineUnavailableException 
      */
     private Controller() {
-        this.game = new GameImpl();
+        this.playSong = new SongImpl();
+        this.game = new ModelImpl();
         this.view = new ViewImpl(this);
-        this.turn = Turn.PLAYER.toString();
+        this.counter = 0;
+        this.settings = Optional.empty();
     }
 
     /**
@@ -43,73 +55,130 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void rollDice() {
-        changeTurn();
-        final int value = this.game.getNumberFromDice();
-
-        if (this.turn.equals(Turn.PLAYER.toString())) {
-            final Pair<Integer, Boolean> pair = this.game.getPlayerPosition(PLAYER_INDEX);
-            if (pair.getSecond()) {
-                this.view.updateInfo(this.turn, value, pair.getFirst());
+        if (this.control) {
+            final int value = this.game.getNumberFromDice();
+            final Optional<Integer> positionAndJump;
+            positionAndJump = this.game.getPlayerPosition(counter);
+            if (positionAndJump.isPresent()) {
+                this.view.updateInfo(value, positionAndJump.get());
             } else {
-                this.view.updateInfo(this.turn, value);
+                this.view.updateInfo(value);
+            }
+            if (this.counter < this.settings.get().getNumberOfPlayer() - 1) {
+                this.counter++;
+            }  else {
+                this.counter = 0;
             }
         } else {
-            final Pair<Integer, Boolean> pair = this.game.getPlayerPosition(CPU_INDEX);
-            if (pair.getSecond()) {
-                this.view.updateInfo(this.turn, value, pair.getFirst());
-            } else {
-                this.view.updateInfo(this.turn, value);
-            }
+            throw new IllegalStateException();
         }
     }
 
     @Override
-    public void getInstructions() {
-        this.view.setInstructions(InstructionsManager.get().readFromFile(INSTRUCTIONS));
-    }
-
-    @Override
     public void quit() {
-        this.game.giveUpGame();
+        if (this.control) {
+            this.stopMusic();
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void restart() {
-        this.game.restartGame();
-        this.turn = Turn.PLAYER.toString();
-        this.view.firstTurn();
-        this.view.showTurn(this.turn);
+        if (this.control) {
+            this.game.restartGame();
+            this.counter = 0;
+            this.view.firstTurn();
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
-    public void play() {
-        this.game.startGame(SceneryDataManager.get().readFromFile(DATA));
-        this.turn = Turn.PLAYER.toString();
-        this.view.firstTurn();
-        this.view.showTurn(this.turn);
+    public void play(final int numberOfPlayers, final Difficulty scenery, final TypesOfDice dice) {
+        if (this.control) {
+            this.settings = Optional.of(new GameSettingsBuilder()
+                    .numOfPlayers(numberOfPlayers)
+                    .sceneryChoose(scenery)
+                    .diceChoose(dice)
+                    .build());
+            switch(scenery) {
+                case BEGINNER:
+                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
+                    break;
+                case EASY:
+                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA2), this.settings.get().getNumberOfPlayer(), dice);
+                    break;
+                case MEDIUM:
+                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), dice);
+                    break;
+                case HIGH:
+                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA4), this.settings.get().getNumberOfPlayer(), dice);
+                    break;
+                default:
+                        this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
+                        break;
+                }
+            this.counter = 0;
+            this.view.firstTurn();
+            this.view.setBoardSize(this.game.getGameBoardSideSize());
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void giveUp() {
-        this.game.giveUpGame();
-        this.view.firstTurn();
-        this.turn = Turn.PLAYER.toString();
+        if (this.control) {
+            this.view.firstTurn();
+            this.game.giveUpGame();
+        } else {
+            throw new IllegalStateException();
+        }
+        this.counter = 0;
     }
     /**
      * Start the view.
      */
     public void start() {
+        this.control = true;
         this.view.start();
     }
-    /**
-     * Switch the turn of game.
-     */
-    private void changeTurn() {
-        if (this.turn.equals(Turn.CPU.toString())) {
-            this.turn = Turn.PLAYER.toString();
+
+    @Override
+    public void setLanguage(final Language language) {
+        if (this.control) {
+        view.setLanguageMap(LanguageLoader.get().getLanguage(language));
         } else {
-            this.turn = Turn.CPU.toString();
+            throw new IllegalStateException();
         }
-        this.view.showTurn(this.turn);
+    }
+    /**
+     * Getter for counter field.
+     * @return the counter field
+     */
+    public int getCounter() {
+        return this.counter;
+    }
+
+
+    @Override
+    public void startMusic() {
+        if (this.control) {
+            this.playSong.start();
+            this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    @Override
+    public void stopMusic() {
+        this.playSong.setStop();
+    }
+
+    @Override
+    public void setVolume(final float volume) {
+       this.playSong.setVolume(volume);
     }
 }

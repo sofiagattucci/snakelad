@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * Final class which defines a ClassicDice representing a dice with six sides.
+ * Defines a classic dice with 6 sides.
  * It's designed using Singleton pattern.
  */
 public final class ClassicDice implements Dice {
@@ -12,12 +12,10 @@ public final class ClassicDice implements Dice {
     private static final ClassicDice SINGLETON = new ClassicDice();
     private static final int NUMBER_OF_SIDES = 6;
 
-    private final int numberOfSides;
     private Optional<Integer> lastNumberAppeared;
 
-    // private constructor
+    //private constructor
     private ClassicDice() {
-        this.numberOfSides = NUMBER_OF_SIDES;
         this.lastNumberAppeared = Optional.empty();
     }
 
@@ -25,15 +23,20 @@ public final class ClassicDice implements Dice {
      * Static method which returns a ClassicDice unique instance.
      * @return a ClassicDice unique instance.
      */
-    public static ClassicDice get() {
+    public static Dice get() {
         return ClassicDice.SINGLETON;
     }
 
     @Override
     public int roll() {
         final Random randomNumber = new Random();
-        this.lastNumberAppeared = Optional.of(randomNumber.nextInt(this.numberOfSides) + 1);
+        this.lastNumberAppeared = Optional.of(randomNumber.nextInt(NUMBER_OF_SIDES) + 1);
         return this.lastNumberAppeared.get();
+    }
+
+    @Override
+    public void setLastNumberAppeared(final Optional<Integer> lastNumberAppeared) {
+        this.lastNumberAppeared = lastNumberAppeared;
     }
 
     @Override

@@ -1,0 +1,23 @@
+#number of cells on the game board n.4 (Difficulty: High)
+99
+#snake positions
+98
+76
+97
+3
+94
+48
+73
+32
+38
+6
+50
+29
+#ladder positions
+11
+15
+39
+60
+54
+85
+#END

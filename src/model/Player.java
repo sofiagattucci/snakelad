@@ -1,37 +1,22 @@
 package model;
 
 /**
- * The interface for a game player.
- * Defines the main methods of the Player class.
+ * The interface for a player.
  */
-public class Player {
-
-    private static final int STARTING_POSITION = 0;
-
-    private int position;
-
-    /**
-     * Player constructor.
-     */
-    public Player() {
-        this.position = STARTING_POSITION;
-    }
+public interface Player {
 
     /**
      * Returns the current position of the player on the game board.
-     * @return the number which represents the current position of the player on the numbered game board.
+     * @return the number which represents the current position of the player on the numbered gameboard.
      */
-    public int getPosition() {
-        return this.position;
-    }
+    int getPosition();
 
     /**
      * Sets the new position on the game board in which the player now stands.
      * @param newPosition
-     *          The number which represents the new position of the player on the numbered game board.
+     *          The number which represents the new position of the player on the numbered gameboard.
+     * @throws IllegalArgumentException if the param 'newPosition' is not allowed.
      */
-    public void setNewPosition(final int newPosition) {
-        this.position = newPosition;
-    }
+    void setNewPosition(int newPosition) throws IllegalArgumentException;
 
 }
