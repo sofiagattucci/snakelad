@@ -17,6 +17,14 @@ public final class DiceTypes {
     private static final int MAX_TO10 = 10;
     private static final int MIN_NEG = -2;
     private static final int MAX_NEG = 5;
+    private static final String STANDARD_DICE_PATH = "./res/Dice/";
+    private static final String DICE_SIDE = "DiceSide";
+    private static final String PNG = ".png";
+    private static final String CLASSIC_DICE = "ClassicDice/";
+    private static final String TO10_DICE = "5to10Dice/";
+    private static final String NEGATIVE_DICE = "NegativeDice/";
+    private static final String NEGATIVE = "Negative";
+    private static final String POSITIVE = "Positive";
 
     private static final DiceTypes INSTANCE = new DiceTypes();
     private final Map<TypesOfDice, Map<Integer, String>> diceMap = new HashMap<>();
@@ -27,19 +35,19 @@ public final class DiceTypes {
     private DiceTypes() {
 
         for (int i = MIN_CLASSIC; i <= MAX_CLASSIC; i++) {
-            this.classicDiceMap.put(i, "./res/Dice/ClassicDice/DiceSide" + i + ".png");
+            this.classicDiceMap.put(i, STANDARD_DICE_PATH + CLASSIC_DICE + DICE_SIDE + i + PNG);
         }
 
         for (int i = MIN_TO10; i <= MAX_TO10; i++) {
-            this.the5to10DiceMap.put(i, "./res/Dice/5to10Dice/DiceSide" + i + ".png");
+            this.the5to10DiceMap.put(i, STANDARD_DICE_PATH + TO10_DICE + DICE_SIDE + i + PNG);
         }
 
         for (int i = MIN_NEG; i <= MAX_NEG; i++) {
             if (i < 0) {
-                this.negativeDiceMap.put(i, "./res/Dice/NegativeDice/DiceSide" + (-i) + "Negative.png");
+                this.negativeDiceMap.put(i, STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + (-i) + NEGATIVE + PNG);
             }
             if (i > 0) {
-                this.negativeDiceMap.put(i, "./res/Dice/NegativeDice/DiceSide" + i + "Positive.png");
+                this.negativeDiceMap.put(i, STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + i + POSITIVE + PNG);
             }
 
         }

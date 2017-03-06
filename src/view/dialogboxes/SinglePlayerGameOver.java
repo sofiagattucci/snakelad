@@ -9,6 +9,8 @@ import view.LanguageStringMap;
  */
 public class SinglePlayerGameOver extends GameOver {
 
+    private static final String NEWLINE = "\n";
+
     /**
      * Constructor of this class.
      * @param parentStage
@@ -24,6 +26,6 @@ public class SinglePlayerGameOver extends GameOver {
         } else {
             win = winner.name();
         }
-        this.getBox().setHeaderText(this.getMsg().getText() + win + "\n" + this.getMsg2().getText());
+        this.getBox().setHeaderText(this.getMsg().getText() + win + NEWLINE + this.getMsg2().getText());
     }
 }
