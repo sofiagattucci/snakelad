@@ -11,6 +11,18 @@ import utilities.TypesOfDice;
 public interface Model {
 
     /**
+     * Returns the name of the user who's playing the game.
+     * @return the name of the user who's playing the game.
+     */
+    String getUserName();
+
+    /**
+     * Gets the scores of the user who's playing the game.
+     * @return the scores of the user who's playing the game.
+     */
+    int getUserScores();
+
+    /**
      * Return a random number rolling the dice.
      * @return the number released by the dice's roll.
      */

@@ -19,6 +19,7 @@ public final class ModelImpl implements Model {
                                                                                                        + "calling this method!");
     private static final int PLAYER_INITIAL_POSITION = 0;
 
+    private final User user = UserImpl.get();
     private Scenery scenery;
     private final List<Player> playersList = new LinkedList<>();
     private Dice dice;
@@ -106,6 +107,16 @@ public final class ModelImpl implements Model {
         default:
             throw new IllegalArgumentException("The type of dice passed in argument is not supported!");
         }
+    }
+
+    @Override
+    public String getUserName() {
+        return this.user.getName();
+    }
+
+    @Override
+    public int getUserScores() {
+        return this.user.getScores();
     }
 
     @Override
