@@ -33,8 +33,8 @@ public final class Settings extends BasicScene {
     private final LanguageSwitcher langSwitcher = new LanguageSwitcher(settingStage);
     private final MusicManager musicManager = new MusicManager();
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
-    private final VBox box = new VBox(this.title, this.skinSwitcher.getParentNode(), this.pawnSwitcher.getParentNode(),
-            this.langSwitcher.getParentNode(), this.musicManager.getParentNode(), this.back);
+    private final VBox box = new VBox(this.title, this.pawnSwitcher.getParentNode(), this.langSwitcher.getParentNode(),
+            this.skinSwitcher.getParentNode(), this.musicManager.getParentNode(), this.back);
 
     private Settings() {
 
