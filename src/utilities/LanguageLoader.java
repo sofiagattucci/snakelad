@@ -16,11 +16,13 @@ public final class LanguageLoader {
     private static final LanguageLoader SINGLETON = new LanguageLoader();
 
     // private constructor
-    private LanguageLoader() { }
+    private LanguageLoader() { 
+
+    }
 
     /**
-     * Static method which returns a LanguageLoader unique instance.
-     * @return a LanguageLoader unique instance.
+     * Static method which returns the LanguageLoader unique instance.
+     * @return the LanguageLoader unique instance.
      */
     public static LanguageLoader get() {
         return SINGLETON;

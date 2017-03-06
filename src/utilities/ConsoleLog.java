@@ -10,11 +10,13 @@ public final class ConsoleLog {
     private static final ConsoleLog SINGLETON = new ConsoleLog();
 
     // private constructor
-    private ConsoleLog() { }
+    private ConsoleLog() {
+
+    }
 
     /**
-     * Static method which returns a ConsoleLog unique instance.
-     * @return a ConsoleLog unique instance.
+     * Static method which returns the ConsoleLog unique instance.
+     * @return the ConsoleLog unique instance.
      */
     public static ConsoleLog get() {
         return ConsoleLog.SINGLETON;

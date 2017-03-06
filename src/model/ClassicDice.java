@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public final class ClassicDice implements Dice {
 
-    private static final Dice SINGLETON = new ClassicDice();
+    private static final ClassicDice SINGLETON = new ClassicDice();
     private static final int NUMBER_OF_SIDES = 6;
 
     private Optional<Integer> lastNumberAppeared;
@@ -23,7 +23,7 @@ public final class ClassicDice implements Dice {
      * Static method which returns the ClassicDice unique instance.
      * @return the ClassicDice unique instance.
      */
-    public static Dice get() {
+    public static ClassicDice get() {
         return ClassicDice.SINGLETON;
     }
 
