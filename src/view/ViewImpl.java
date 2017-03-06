@@ -6,6 +6,7 @@ import controller.ViewObserver;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import utilities.Language;
+import view.scenes.Menu;
 import view.scenes.game.Game;
 import view.scenes.settings.Settings;
 import view.scenes.setup.SetUpGame;
@@ -17,6 +18,7 @@ public class ViewImpl implements View {
 
     private static final Language DEFAULT_LANGUAGE = Language.EN;
 
+    private static Menu menuScene;
     private static Stage appStage;
     private static Game playScene;
     private static SetUpGame setUpScene;
@@ -75,6 +77,15 @@ public class ViewImpl implements View {
     }
 
     /**
+     * Setter of the menu scene. It links a menu scene to this class.
+     * @param scene
+     *    The menu scene used in the application
+     */
+    public static void setMenuScene(final Menu scene) {
+        menuScene = scene;
+    }
+
+    /**
      * Getter of the observer.
      * @return
      *     The observer linked to this class
@@ -99,6 +110,15 @@ public class ViewImpl implements View {
      */
     public static Settings getSettingsScene() {
         return settingsScene;
+    }
+
+    /**
+     * Getter of the menu scene.
+     * @return
+     *     The menu scene used in the game
+     */
+    public static Menu getMenuScene() {
+        return menuScene;
     }
 
 

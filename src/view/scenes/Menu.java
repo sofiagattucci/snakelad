@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -40,6 +41,8 @@ public final class Menu extends BasicScene {
     private final ClosureHandler closure = new ClosureHandler(menuStage);
 
     private Menu() {
+
+        ViewImpl.setMenuScene(this);
 
         this.play.setOnAction(e -> {
             SetUpGame.getScene(menuStage).reset();
@@ -79,6 +82,15 @@ public final class Menu extends BasicScene {
         this.settings.setText(LanguageStringMap.get().getMap().get(SETTINGS_KEY));
         this.quit.setText(LanguageStringMap.get().getMap().get(QUIT_KEY));
         this.closure.updateLanguage();
+    }
+
+    /**
+     * It updates the skin used in this scene.
+     * @param c
+     *     The new color of the skin
+     */
+    public void setSkin(final Color c) {
+        this.setBackColor(c);
     }
 
     /**

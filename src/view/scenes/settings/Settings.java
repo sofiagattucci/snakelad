@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.BasicButton;
@@ -28,12 +29,13 @@ public final class Settings extends BasicScene {
     private static Settings settingsScene = new Settings();
 
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
+    private final SkinSwitcher skinSwitcher = new SkinSwitcher();
     private final PawnColorSwitcherManager pawnSwitcher = new PawnColorSwitcherManager();
     private final LanguageSwitcher langSwitcher = new LanguageSwitcher(settingStage);
     private final MusicManager musicManager = new MusicManager();
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
-    private final VBox box = new VBox(this.title, this.pawnSwitcher.getParentNode(), this.langSwitcher.getParentNode(),
-            this.musicManager.getParentNode(), this.back);
+    private final VBox box = new VBox(this.title, this.skinSwitcher.getParentNode(), this.pawnSwitcher.getParentNode(),
+            this.langSwitcher.getParentNode(), this.musicManager.getParentNode(), this.back);
 
     private Settings() {
 
@@ -84,5 +86,14 @@ public final class Settings extends BasicScene {
      */
     public MusicManager getMusicManger() {
         return this.musicManager;
+    }
+
+    /**
+     * It updates the skin used in this scene.
+     * @param c
+     *     The new color of the skin
+     */
+    public void setSkin(final Color c) {
+        this.setBackColor(c);
     }
 }
