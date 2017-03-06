@@ -4,7 +4,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.BasicButton;
@@ -86,14 +85,5 @@ public final class Settings extends BasicScene {
      */
     public MusicManager getMusicManger() {
         return this.musicManager;
-    }
-
-    /**
-     * It updates the skin used in this scene.
-     * @param c
-     *     The new color of the skin
-     */
-    public void setSkin(final Color c) {
-        this.setBackColor(c);
     }
 }

@@ -9,6 +9,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import view.BasicButton;
 import view.ViewImpl;
+import view.scenes.Instructions;
+import view.scenes.setup.SetUpGame;
 
 /**
  * This class manages the elements of the GUI that allow to change the color the panels.
@@ -36,14 +38,20 @@ public class SkinSwitcher {
         this.defaultSkin.setOnAction(e -> {
             ViewImpl.getSettingsScene().setSkin(Color.LIGHTBLUE);
             ViewImpl.getMenuScene().setSkin(Color.LIGHTBLUE);
+            Instructions.getScene(ViewImpl.getAppStage()).setSkin(Color.LIGHTBLUE);
+            SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(Color.LIGHTBLUE);
         });
         this.lightSkin.setOnAction(e -> {
             ViewImpl.getSettingsScene().setSkin(Color.ANTIQUEWHITE);
             ViewImpl.getMenuScene().setSkin(Color.ANTIQUEWHITE);
+            Instructions.getScene(ViewImpl.getAppStage()).setSkin(Color.ANTIQUEWHITE);
+            SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(Color.ANTIQUEWHITE);
         });
         this.darkSkin.setOnAction(e -> {
             ViewImpl.getSettingsScene().setSkin(Color.DARKMAGENTA);
             ViewImpl.getMenuScene().setSkin(Color.DARKMAGENTA);
+            Instructions.getScene(ViewImpl.getAppStage()).setSkin(Color.DARKMAGENTA);
+            SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(Color.DARKMAGENTA);
         });
 
     }

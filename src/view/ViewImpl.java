@@ -50,6 +50,15 @@ public class ViewImpl implements View {
     }
 
     /**
+     * Getter of the application main stage.
+     * @return
+     *     The main stage of used in the application.
+     */
+    public static Stage getAppStage() {
+        return appStage;
+    }
+
+    /**
      * It links a Play scene to this class.
      * @param scene
      *     The scene to link.

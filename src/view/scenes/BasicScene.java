@@ -48,7 +48,7 @@ public class BasicScene extends Scene {
      * @param c
      *     The new Color used in the scene
      */
-    protected void setBackColor(final Color c) {
+    public void setSkin(final Color c) {
         this.backColor = c;
         this.bp.setBackground(new Background(new BackgroundFill(this.backColor, CornerRadii.EMPTY, Insets.EMPTY))); 
     }
