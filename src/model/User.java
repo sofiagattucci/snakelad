@@ -14,6 +14,22 @@ public interface User {
     void addScores(int scoresValue) throws IllegalArgumentException;
 
     /**
+     * Subtracts a number which represents the scores lost by the user who's playing the game.
+     * @param scoresValue
+     *                  The number which represents the scores lost by the user who's playing the game.
+     * @throws IllegalArgumentException if scoresValue's value is not permitted (less than 0).
+     */
+    void subtractScores(int scoresValue) throws IllegalArgumentException;
+
+    /**
+     * Sets a number which represents the total scores of the user who's playing the game.
+     * @param scoresValue
+     *                  The number which represents the total scores of the user who's playing the game.
+     * @throws IllegalArgumentException if scoresValue's value is not permitted (less than 0).
+     */
+    void setScores(int scoresValue) throws IllegalArgumentException;
+
+    /**
      * Returns the scores of the current user.
      * @return the scores of the current user.
      */
