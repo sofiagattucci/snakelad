@@ -18,12 +18,13 @@ public final class SceneryDataManager implements FileManager {
     private static final int SEPARATOR = 0;
 
     // private constructor
-    private SceneryDataManager() { }
+    private SceneryDataManager() {
 
+    }
 
     /**
-     * Method which returns a DataManager unique instance.
-     * @return a DataManager unique instance.
+     * Method which returns the SceneryDataManager unique instance.
+     * @return the SceneryDataManager unique instance.
      */
     public static SceneryDataManager get() {
         return SINGLETON;

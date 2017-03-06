@@ -6,7 +6,7 @@ package model;
  */
 public final class UserImpl implements User {
 
-    private static final User SINGLETON = new UserImpl();
+    private static final UserImpl SINGLETON = new UserImpl();
 
     private int scores;
 
@@ -19,7 +19,7 @@ public final class UserImpl implements User {
      * Static method which returns the UserImpl unique instance.
      * @return the UserImpl unique instance.
      */
-    public static User get() {
+    public static UserImpl get() {
         return UserImpl.SINGLETON;
     }
 

@@ -15,11 +15,13 @@ public final class ImageManager implements FileManager {
     private static final ImageManager SINGLETON = new ImageManager();
 
     // private constructor
-    private ImageManager() { }
+    private ImageManager() {
+
+    }
 
     /**
-     * Static method which returns an ImageLoader unique instance.
-     * @return an ImageLoader unique instance.
+     * Static method which returns the ImageManager unique instance.
+     * @return the ImageManager unique instance.
      */
     public static ImageManager get() {
         return SINGLETON;
