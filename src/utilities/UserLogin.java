@@ -1,9 +1,8 @@
 package utilities;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +24,7 @@ public final class UserLogin {
 
     private final User user = UserImpl.get();
 
-    // private constructor
+    //private constructor
     private UserLogin() { 
 
     }
@@ -75,13 +74,19 @@ public final class UserLogin {
             e.printStackTrace();
         }
 
-        try (final BufferedWriter bw = new BufferedWriter(new FileWriter(userFile))) {
-            bw.write(USER_SCORES_KEY + " = 0");
-            bw.newLine();
-        } catch (IOException exception) {
-            ConsoleLog.get().print("ERROR occurred during writing user file located at: " + userFile.getPath());
-            exception.printStackTrace();
+        final Properties properties = new Properties();
+        properties.setProperty(USER_SCORES_KEY, String.valueOf(0));
+
+        try {
+            final FileOutputStream fos = new FileOutputStream(userFile);
+            properties.store(fos, "User's initial scores");
+            fos.close();
+        } catch (IOException e) {
+            ConsoleLog.get().print("ERROR occurred during storing user's scores into properties "
+                                 + "file located at: " + userFile.getPath());
+            e.printStackTrace();
         }
+
     }
 
     /**
@@ -98,8 +103,10 @@ public final class UserLogin {
         final File file = new File(USERS_DIRECTORY + userName + USERS_SUFFIX);
 
         if (file.exists()) {
+            this.user.setName(userName);
             this.extractUserInfoFromFile(file);
         } else {
+            this.user.setName(userName);
             this.createNewUserDefaultFile(file);
         }
 
