@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Optional;
+
 /**
  * Represents the user who's playing the game, with his status and statistics.
  * It's designed using Singleton Pattern.
@@ -8,10 +10,12 @@ public final class UserImpl implements User {
 
     private static final UserImpl SINGLETON = new UserImpl();
 
+    private Optional<String> name;
     private int scores;
 
     //private constructor
     private UserImpl() {
+        this.name = Optional.empty();
         this.scores = 0;
     }
 
@@ -28,6 +32,20 @@ public final class UserImpl implements User {
         if (scoresValue < 0) {
             throw new IllegalArgumentException("Illegal score value (It's less than 0 or too big for the subtraction).");
         }
+    }
+
+    @Override
+    public void setName(final String name) {
+        this.name = Optional.of(name);
+    }
+
+    @Override
+    public String getName() throws IllegalStateException {
+        if (!this.name.isPresent()) {
+            throw new IllegalStateException("The user's name is absent!");
+        }
+
+        return this.name.get();
     }
 
     @Override
