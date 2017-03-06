@@ -53,6 +53,7 @@ public final class Settings extends BasicScene {
      */
     public void updateLanguage() {
         this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
+        this.skinSwitcher.updateLanguage();
         this.langSwitcher.updateLanguage();
         this.pawnSwitcher.updateLanguage();
         this.musicManager.updateLanguage();
