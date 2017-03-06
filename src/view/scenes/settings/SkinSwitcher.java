@@ -10,6 +10,8 @@ import javafx.scene.text.Font;
 import view.BasicButton;
 import view.ViewImpl;
 import view.scenes.Instructions;
+import view.scenes.game.MultiPlayerGameScenes;
+import view.scenes.game.SinglePlayerGame;
 import view.scenes.setup.SetUpGame;
 
 /**
@@ -40,18 +42,24 @@ public class SkinSwitcher {
             ViewImpl.getMenuScene().setSkin(Color.LIGHTBLUE);
             Instructions.getScene(ViewImpl.getAppStage()).setSkin(Color.LIGHTBLUE);
             SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(Color.LIGHTBLUE);
+            SinglePlayerGame.getScene(ViewImpl.getAppStage()).setSkin(Color.LIGHTBLUE);
+            MultiPlayerGameScenes.get(ViewImpl.getAppStage()).setActiveSkin(Color.LIGHTBLUE);
         });
         this.lightSkin.setOnAction(e -> {
             ViewImpl.getSettingsScene().setSkin(Color.ANTIQUEWHITE);
             ViewImpl.getMenuScene().setSkin(Color.ANTIQUEWHITE);
             Instructions.getScene(ViewImpl.getAppStage()).setSkin(Color.ANTIQUEWHITE);
             SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(Color.ANTIQUEWHITE);
+            SinglePlayerGame.getScene(ViewImpl.getAppStage()).setSkin(Color.ANTIQUEWHITE);
+            MultiPlayerGameScenes.get(ViewImpl.getAppStage()).setActiveSkin(Color.ANTIQUEWHITE);
         });
         this.darkSkin.setOnAction(e -> {
             ViewImpl.getSettingsScene().setSkin(Color.DARKMAGENTA);
             ViewImpl.getMenuScene().setSkin(Color.DARKMAGENTA);
             Instructions.getScene(ViewImpl.getAppStage()).setSkin(Color.DARKMAGENTA);
             SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(Color.DARKMAGENTA);
+            SinglePlayerGame.getScene(ViewImpl.getAppStage()).setSkin(Color.DARKMAGENTA);
+            MultiPlayerGameScenes.get(ViewImpl.getAppStage()).setActiveSkin(Color.DARKMAGENTA);
         });
 
     }
