@@ -32,7 +32,7 @@ public class LanguageSwitcher {
     private static final double BIG_FLAG_H = BasicButton.getButtonHeight() * 1.5; 
     private static final double BIG_FLAG_W = BIG_FLAG_H * 1.8;
     private static final int DEFAULT_LANG_INDEX = 0;
-    private static final int FONT_SIZE = 20;
+    private static final int FONT_SIZE = 30;
 
     private final Label langLabel = new Label(LanguageStringMap.get().getMap().get(LANGUAGE_MSG_KEY));
     private final List<Pair<Language, ImageView>> flagList = new ArrayList<>();
