@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.BasicButton;
 import view.LanguageStringMap;
+import view.ViewImpl;
 import view.dialogboxes.ClosureHandler;
 
 /**
@@ -43,6 +44,7 @@ public final class Login extends BasicScene {
         this.enter.setOnAction(e -> {
             if (!this.nameField.getText().isEmpty()) {
                 loginStage.setScene(Menu.getScene(loginStage));
+                ViewImpl.getObserver().login(this.nameField.getText());
             }
 
         });
