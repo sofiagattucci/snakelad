@@ -18,6 +18,7 @@ import view.BasicButton;
 import view.LanguageStringMap;
 import view.ViewImpl;
 import view.scenes.Instructions;
+import view.scenes.Login;
 import view.scenes.Menu;
 import view.scenes.setup.SetUpGame;
 
@@ -61,6 +62,7 @@ public class LanguageSwitcher {
             elem.getSecond().setOnMouseClicked(e -> {
                 ViewImpl.getSettingsScene().updateComboLang();
                 ViewImpl.getObserver().setLanguage(elem.getFirst());
+                Login.getScene(stage).updateLanguage();
                 Menu.getScene(stage).updateLanguage();
                 Instructions.getScene(stage).updateLanguage();
                 SetUpGame.getScene(stage).updateLanguage();
