@@ -8,6 +8,7 @@ import model.Model;
 import model.ModelImpl;
 import utilities.SceneryDataManager;
 import utilities.TypesOfDice;
+import utilities.UserLogin;
 import utilities.LanguageLoader;
 import utilities.Difficulty;
 import utilities.Language;
@@ -29,6 +30,7 @@ public final class Controller implements ViewObserver {
     private final Model game;
     private final View view;
     private final Song playSong;
+    private final UserLogin userLogin;
     private int counter;
     private boolean control;
     private Optional<GameSettings> settings;
@@ -43,6 +45,7 @@ public final class Controller implements ViewObserver {
         this.view = new ViewImpl(this);
         this.counter = 0;
         this.settings = Optional.empty();
+        this.userLogin = UserLogin.get();
     }
 
     /**
@@ -173,5 +176,10 @@ public final class Controller implements ViewObserver {
     @Override
     public void setVolume(final float volume) {
        this.playSong.setVolume(volume);
+    }
+
+    @Override
+    public void login(final String name) {
+        this.userLogin.login(name);
     }
 }

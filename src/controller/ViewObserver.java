@@ -66,4 +66,11 @@ public interface ViewObserver {
      */
     void setVolume(float volume);
 
+    /**
+     * Manage the user's login.
+     * @param name
+     *          the name of user.
+     */
+    void login(String name);
+
 }
