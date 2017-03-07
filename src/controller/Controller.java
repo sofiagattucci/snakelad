@@ -153,13 +153,6 @@ public final class Controller implements ViewObserver {
             throw new IllegalStateException();
         }
     }
-    /**
-     * Getter for counter field.
-     * @return the counter field
-     */
-    public int getCounter() {
-        return this.counter;
-    }
 
 
     @Override
