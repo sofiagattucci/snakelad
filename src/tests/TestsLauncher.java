@@ -1,8 +1,6 @@
 package tests;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import tests.controller.ControllerTest;
 import tests.model.ClassicDiceTest;
@@ -22,12 +20,6 @@ import tests.view.LanguageMapTest;
  * This class has to achieve success in all its tests.
  */
 public final class TestsLauncher {
-
-     /**
-     * Rule to manage expected exceptions.
-     */
-    @Rule
-    public final ExpectedException thrown  = ExpectedException.none();
 
     /**
      * Calls all Junit tests of Model.
