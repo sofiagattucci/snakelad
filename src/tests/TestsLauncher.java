@@ -8,6 +8,7 @@ import tests.model.Dice5To10Test;
 import tests.model.ModelImplTest;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
+import tests.model.UserImplTest;
 import tests.view.LanguageMapTest;
 
 /**
@@ -29,6 +30,9 @@ public final class TestsLauncher {
 
         //Player test
         new PlayerTest().testPlayer();
+
+        //User test
+        new UserImplTest().testUserImpl();
 
         //ModelImpl tests
         final ModelImplTest modelImplTest = new ModelImplTest();

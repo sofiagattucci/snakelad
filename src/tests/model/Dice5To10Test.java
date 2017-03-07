@@ -10,7 +10,7 @@ import model.DiceFactoryImpl;
 import utilities.ConsoleLog;
 
 /**
- * Junit test used in order to test Dice5To10 class inside Model.
+ * Junit test used in order to test Dice5To10 class.
  * This class has to achieve success in all its tests.
  */
 public final class Dice5To10Test {
