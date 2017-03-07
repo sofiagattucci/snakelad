@@ -12,7 +12,7 @@ import model.PlayerImpl;
 import utilities.ConsoleLog;
 
 /**
- * Junit test used in order to test Player class inside Model.
+ * Junit test used in order to test Player class.
  * This class has to achieve success in all its tests.
  */
 public final class PlayerTest {

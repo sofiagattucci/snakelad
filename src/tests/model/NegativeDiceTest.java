@@ -10,7 +10,7 @@ import model.DiceFactoryImpl;
 import utilities.ConsoleLog;
 
 /**
- * Junit test used in order to test NegativeDice class inside Model.
+ * Junit test used in order to test NegativeDice class.
  * This class has to achieve success in all its tests.
  */
 public final class NegativeDiceTest {
