@@ -10,7 +10,7 @@ import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
 
 import tests.view.DiceTypesTest;
-
+import tests.view.GameBoardTypesTest;
 import tests.model.UserImplTest;
 import tests.view.LanguageMapTest;
 
@@ -61,5 +61,6 @@ public final class TestsLauncher {
     public void testView() {
         new LanguageMapTest().test();
         new DiceTypesTest().test();
+        new GameBoardTypesTest().test();
     }
 }

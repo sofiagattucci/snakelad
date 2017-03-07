@@ -8,7 +8,7 @@ import utilities.TypesOfDice;
 import view.dice.DiceTypes;
 
 /**
- * Test for the class DiceTypes.
+ * JUnit test for the class DiceTypes.
  */
 public class DiceTypesTest {
 
