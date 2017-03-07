@@ -41,6 +41,14 @@ public final class Login extends BasicScene {
         this.box.setSpacing(BOX_SPACING);
         this.box.setMaxWidth(BasicButton.getButtonWidth());
         this.descLabel.setFont(new Font(FONT_SIZE));
+        this.nameField.setOnKeyReleased(e -> {
+            if (this.nameField.getText().isEmpty()) {
+                this.enter.setDisable(true);
+            } else {
+                this.enter.setDisable(false);
+            }
+        });
+        this.enter.setDisable(true);
         this.enter.setOnAction(e -> {
             if (!this.nameField.getText().isEmpty()) {
                 loginStage.setScene(Menu.getScene(loginStage));
@@ -49,15 +57,6 @@ public final class Login extends BasicScene {
 
         });
         this.quit.setOnAction(e -> this.closure.show());
-    }
-
-    /**
-     * It updates the language of this scene.
-     */
-    public void updateLanguage() {
-        this.descLabel.setText(LanguageStringMap.get().getMap().get(LABEL_KEY));
-        this.enter.setText(LanguageStringMap.get().getMap().get(ENTER_KEY));
-        this.quit.setText(LanguageStringMap.get().getMap().get(QUIT_KEY));
     }
 
     /**
