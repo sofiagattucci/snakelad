@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -18,16 +17,13 @@ import view.LanguageStringMap;
 public class LanguageMapTest {
 
     /**
-     * Rule to manage expected exceptions.
-     */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
-
-    /**
-     * JUnit Tests. 
+     * JUnit Tests.
+     * @param thrown
+     *     A generic exception to be thrown 
      */
     @Test
-    public void test() {
+    public void test(final ExpectedException thrown) {
+
         assertEquals(LanguageStringMap.get().getClass(), LanguageStringMap.class);
         assertTrue(LanguageStringMap.get().getMap().isEmpty());
         thrown.expect(UnsupportedOperationException.class);
