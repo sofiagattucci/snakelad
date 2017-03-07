@@ -4,9 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import utilities.ConsoleLog;
 import utilities.Language;
 import utilities.LanguageLoader;
 import view.LanguageStringMap;
@@ -17,17 +18,21 @@ import view.LanguageStringMap;
 public class LanguageMapTest {
 
     /**
+     * Rule to manage expected exceptions.
+     */
+    @Rule
+    public final ExpectedException thrown = ExpectedException.none();
+
+    /**
      * JUnit Tests. 
      */
     @Test
     public void test() {
         assertEquals(LanguageStringMap.get().getClass(), LanguageStringMap.class);
         assertTrue(LanguageStringMap.get().getMap().isEmpty());
-        try {
-            LanguageStringMap.get().getMap().put("A", "B");
-        } catch (UnsupportedOperationException e) {
-            ConsoleLog.get().print("\nUnsupportedOperationException thrown with success in line 27 of LanguageMapTest");
-        }
+        thrown.expect(UnsupportedOperationException.class);
+        LanguageStringMap.get().getMap().put("A", "B");
+
         for (final Language lang: Language.values()) {
             LanguageStringMap.get().setLanguage(LanguageLoader.get().getLanguage(lang));
             assertFalse(LanguageStringMap.get().getMap().isEmpty());
