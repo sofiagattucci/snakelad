@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import utilities.Language;
 import utilities.LanguageLoader;
@@ -18,17 +17,12 @@ public class LanguageMapTest {
 
     /**
      * JUnit Tests.
-     * @param thrown
-     *     A generic exception to be thrown 
      */
     @Test
-    public void test(final ExpectedException thrown) {
+    public void test() {
 
         assertEquals(LanguageStringMap.get().getClass(), LanguageStringMap.class);
         assertTrue(LanguageStringMap.get().getMap().isEmpty());
-        thrown.expect(UnsupportedOperationException.class);
-        LanguageStringMap.get().getMap().put("A", "B");
-
         for (final Language lang: Language.values()) {
             LanguageStringMap.get().setLanguage(LanguageLoader.get().getLanguage(lang));
             assertFalse(LanguageStringMap.get().getMap().isEmpty());
@@ -36,5 +30,13 @@ public class LanguageMapTest {
                 assertEquals(LanguageStringMap.get().getMap().get(elem), LanguageLoader.get().getLanguage(lang).get(elem));
             }
         }
+    }
+
+    /**
+     * JUnit test to verify that an exception is thrown.
+     */
+    @Test (expected = UnsupportedOperationException.class)
+    public void testException() {
+        LanguageStringMap.get().getMap().put("A", "B");
     }
 }

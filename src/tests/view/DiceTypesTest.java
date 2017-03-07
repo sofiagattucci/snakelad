@@ -2,10 +2,7 @@ package tests.view;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.naming.OperationNotSupportedException;
-
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import utilities.TypesOfDice;
 import view.dice.DiceTypes;
@@ -36,20 +33,12 @@ public class DiceTypesTest {
 
     /**
      * JUnit Tests.
-     * @param thrown
-     *     A generic exception to be thrown 
      */
     @Test
-    public void test(final ExpectedException thrown) {
+    public void test() {
 
         assertEquals(DiceTypes.get().getClass(), DiceTypes.class);
         assertEquals(DiceTypes.get().getNumDices(), N_DICES);
-        for (final TypesOfDice dice: TypesOfDice.values()) {
-            thrown.expect(UnsupportedOperationException.class);
-            DiceTypes.get().getSpecificDiceMap(dice);
-            thrown.expect(OperationNotSupportedException.class);
-            DiceTypes.get().getSpecificDiceMap(dice).put(0, "A");
-        }
         assertEquals(DiceTypes.get().getSpecificDiceMap(TypesOfDice.CLASSIC_DICE).size(), N_SIDES_CLASSIC);
         assertEquals(DiceTypes.get().getSpecificDiceMap(TypesOfDice._5_TO_10_DICE).size(), N_SIDES_TO10);
         assertEquals(DiceTypes.get().getSpecificDiceMap(TypesOfDice.NEGATIVE_DICE).size(), N_SIDES_NEGATIVE);
@@ -71,6 +60,16 @@ public class DiceTypesTest {
                 assertEquals(DiceTypes.get().getSpecificDiceMap(TypesOfDice.NEGATIVE_DICE).get(i),
                         STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + i + POSITIVE + PNG);
             }
+        }
+    }
+
+    /**
+     * JUnit test to verify that an exception is thrown.
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void testException() {
+        for (final TypesOfDice dice: TypesOfDice.values()) {
+            DiceTypes.get().getSpecificDiceMap(dice).put(0, "A");
         }
     }
 }

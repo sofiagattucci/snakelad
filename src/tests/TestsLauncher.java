@@ -67,7 +67,7 @@ public final class TestsLauncher {
      */
     @Test
     public void testView() {
-        new LanguageMapTest().test(this.thrown);
-        new DiceTypesTest().test(this.thrown);
+        new LanguageMapTest().test();
+        new DiceTypesTest().test();
     }
 }
