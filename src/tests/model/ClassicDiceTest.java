@@ -56,7 +56,7 @@ public final class ClassicDiceTest {
             assertEquals(number, dice.getLastNumberAppeared());
         }
 
-        //set random numbers as last number appreared on dice and check if everything works correctly
+        //set random numbers as last number appeared on dice and check if everything works correctly
         final Random rand = new Random();
         for (int i = 0; i < NUMBER_OF_ROLLS; i++) {
             final int value = rand.nextInt(NUMBER_OF_SIDES) + 1;

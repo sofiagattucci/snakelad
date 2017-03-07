@@ -58,7 +58,7 @@ public final class NegativeDiceTest {
             assertEquals(number, dice.getLastNumberAppeared());
         }
 
-        //set random numbers as last number appreared on dice and check if everything works correctly
+        //set random numbers as last number appeared on dice and check if everything works correctly
         final Random rand = new Random();
         for (int i = 0; i < NUMBER_OF_ROLLS; i++) {
             int value = rand.nextInt(NUMBER_OF_SIDES + 1) + MIN_NUMBER;

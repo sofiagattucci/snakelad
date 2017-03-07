@@ -1,7 +1,7 @@
 package utilities;
 
 /**
- * Enum to support multilingualism.
+ * Enumeration to support multilingualism.
  */
 public enum Language {
 

@@ -224,7 +224,7 @@ public class ModelImplTest {
 
     /**
      * Tests a minimal simulation game.
-     * This test is applied only on gameboard number 1.
+     * This test is applied only on game board number 1.
      */
     @Test
     public void testGameBoard1() {
@@ -314,7 +314,7 @@ public class ModelImplTest {
 
     /**
      * Tests a minimal simulation game.
-     * This test is applied only on gameboard number 2.
+     * This test is applied only on game board number 2.
      */
     @Test
     public void testGameBoard2() {
@@ -404,7 +404,7 @@ public class ModelImplTest {
 
     /**
      * Tests a minimal simulation game.
-     * This test is applied only on gameboard number 3.
+     * This test is applied only on game board number 3.
      */
     @Test
     public void testGameBoard3() {
@@ -494,7 +494,7 @@ public class ModelImplTest {
 
     /**
      * Tests a minimal simulation game.
-     * This test is applied only on gameboard number 4.
+     * This test is applied only on game board number 4.
      */
     @Test
     public void testGameBoard4() {

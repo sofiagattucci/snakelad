@@ -20,9 +20,9 @@ public interface User {
     String getName() throws IllegalStateException;
 
     /**
-     * Adds a number which represents the scores won by the user who's playing the game.
+     * Adds a number which represents the scores earned by the user who's playing the game.
      * @param scoresValue
-     *                  The number which represents the scores won by the user who's playing the game.
+     *                  The number which represents the scores earned by the user who's playing the game.
      * @throws IllegalArgumentException if scoresValue's value is not permitted (less than 0).
      */
     void addScores(int scoresValue) throws IllegalArgumentException;

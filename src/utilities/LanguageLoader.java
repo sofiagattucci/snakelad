@@ -48,7 +48,7 @@ public final class LanguageLoader {
      * Loads and returns the language data required.
      * @param language
      *          the language chosen.
-     * @return a map which contains the language data loaded from the file with traductions in specified language.
+     * @return a map which contains the language data loaded from the file with translations in specified language.
      */
     public Map<String, String> getLanguage(final Language language) {
 

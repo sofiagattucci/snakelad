@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Implemets a factory for various kind of dice.
+ * Implements a factory for various kind of dice.
  * It's designed using Factory Method pattern.
  */
 public class DiceFactoryImpl implements DiceFactory {

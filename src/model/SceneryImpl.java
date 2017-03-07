@@ -17,7 +17,7 @@ public final class SceneryImpl implements Scenery {
 
     //The number of boxes in the game board.
     private int numberOfBoxes;
-    //Map which contains positions of all snakes in the scerery.
+    //Map which contains positions of all snakes in the scenery.
     private final Map<Integer, Integer> snakesMap = new HashMap<>();
     //Map which contains positions of all ladders in the scenery.
     private final Map<Integer, Integer> laddersMap = new HashMap<>();

@@ -19,7 +19,7 @@ public interface Scenery {
     /**
      * Sets the snakes position map inside the scenery.
      * @param snakesMap
-     *                  Map which contains positions of all snakes in the scerery.
+     *                  Map which contains positions of all snakes in the scenery.
      * @throws IllegalArgumentException if the map argument is an empty map.
      */
     void setSnakesMap(Map<Integer, Integer> snakesMap) throws IllegalArgumentException;
@@ -28,7 +28,7 @@ public interface Scenery {
     /**
      * Sets the ladders position map inside the scenery.
      * @param laddersMap
-     *                  Map which contains positions of all ladders in the scerery.
+     *                  Map which contains positions of all ladders in the scenery.
      * @throws IllegalArgumentException if the map argument is an empty map.
      */
     void setLaddersMap(Map<Integer, Integer> laddersMap) throws IllegalArgumentException;
@@ -41,20 +41,20 @@ public interface Scenery {
     int getNumberOfBoxes() throws IllegalStateException;
 
     /**
-     * Returns a map which contains positions of all snakes in the scerery.
-     * @return a map which contains positions of all snakes in the scerery.
+     * Returns a map which contains positions of all snakes in the scenery.
+     * @return a map which contains positions of all snakes in the scenery.
      */
     Map<Integer, Integer> getSnakesMap();
 
     /**
-     * Returns a map which contains positions of all ladders in the scerery.
-     * @return a map which contains positions of all ladders in the scerery.
+     * Returns a map which contains positions of all ladders in the scenery.
+     * @return a map which contains positions of all ladders in the scenery.
      */
     Map<Integer, Integer> getLaddersMap();
 
     /**
-     * Returns the number which represents the lenght of the current game board's side.
-     * @return the number which represents the lenght of the current game board's side.
+     * Returns the number which represents the length of the current game board's side.
+     * @return the number which represents the length of the current game board's side.
      */
     int getSideSize();
 

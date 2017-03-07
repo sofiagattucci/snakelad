@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Implemets a factory for the game scenery.
+ * Implements a factory for the game scenery.
  */
 public class SceneryFactoryImpl implements SceneryFactory {
 
