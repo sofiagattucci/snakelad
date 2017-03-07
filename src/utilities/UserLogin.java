@@ -105,9 +105,18 @@ public final class UserLogin {
         if (file.exists()) {
             this.user.setName(userName);
             this.extractUserInfoFromFile(file);
-        } else {
-            this.user.setName(userName);
-            this.createNewUserDefaultFile(file);
+        } else { //the file doesn't exist or the User directory doesn't exist
+            final File dir = new File(USERS_DIRECTORY);
+            if (dir.isDirectory()) {
+                this.user.setName(userName);
+                this.createNewUserDefaultFile(file);
+            } else {
+                if (!dir.mkdir()) { //if the directory is not created (RuntimeException is thrown)
+                    throw new RuntimeException("Error during creating the empty directory 'User'.");
+                }
+                this.user.setName(userName);
+                this.createNewUserDefaultFile(file);
+            }
         }
 
     }
