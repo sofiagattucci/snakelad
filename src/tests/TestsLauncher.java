@@ -10,6 +10,7 @@ import tests.model.Dice5To10Test;
 import tests.model.ModelImplTest;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
+import tests.view.DiceTypesTest;
 import tests.view.LanguageMapTest;
 
 /**
@@ -60,7 +61,7 @@ public final class TestsLauncher {
      */
     @Test
     public void testView() {
-
         new LanguageMapTest().test(this.thrown);
+        new DiceTypesTest().test(this.thrown);
     }
 }
