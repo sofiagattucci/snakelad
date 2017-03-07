@@ -12,7 +12,7 @@ import model.User;
 import model.UserImpl;
 
 /**
- * It's used to read and write files which cointains login informations.
+ * It's used to read and write files which contains login informations.
  * It's designed using Singleton Pattern.
  */
 public final class UserLogin {

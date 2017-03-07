@@ -71,8 +71,7 @@ public class PawnImpl implements Pawn {
 
     @Override
     public void movePawnAndJump(final int nMoves, final int finalPos) {
-        final Thread th = new Thread(new PawnAnimation(this, nMoves, finalPos));
-        th.start();
+        this.executor.execute(new PawnAnimation(this, nMoves, finalPos));
     }
 
     @Override

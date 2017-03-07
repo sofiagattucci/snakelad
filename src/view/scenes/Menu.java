@@ -36,7 +36,7 @@ public final class Menu extends BasicScene {
     private final Button settings = new BasicButton(LanguageStringMap.get().getMap().get(SETTINGS_KEY));
     private final Button quit = new BasicButton(LanguageStringMap.get().getMap().get(QUIT_KEY));
     private final Text title = new Text(TITLE);
-    private final VBox box = new VBox(play, instructions, settings, quit);
+    private final VBox box = new VBox(this.play, this.instructions, this.settings, this.quit);
     private final ClosureHandler closure = new ClosureHandler(menuStage);
 
     private Menu() {
@@ -60,13 +60,13 @@ public final class Menu extends BasicScene {
 
         this.quit.setOnAction(e -> this.closure.show());
 
-        this.getDefaultLayout().setCenter(box);
+        this.getDefaultLayout().setCenter(this.box);
 
         this.box.setAlignment(Pos.CENTER);
         this.box.setSpacing(BOX_SPACING);
 
-        this.getDefaultLayout().setTop(title);
-        BorderPane.setAlignment(title, Pos.CENTER);
+        this.getDefaultLayout().setTop(this.title);
+        BorderPane.setAlignment(this.title, Pos.CENTER);
         this.title.setFont(new Font(FONT_SIZE));
         this.title.setTranslateY(TITLE_TOP_PADDING);
 
