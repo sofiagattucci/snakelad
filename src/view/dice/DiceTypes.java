@@ -34,12 +34,14 @@ public final class DiceTypes {
     private DiceTypes() {
 
         final Map<Integer, String> classicDiceMap = IntStream.range(MIN_CLASSIC, MAX_CLASSIC + 1)
-                                       .boxed()
-                                       .collect(Collectors.toMap(i -> i, i -> STANDARD_DICE_PATH + CLASSIC_DICE + DICE_SIDE + i + PNG));
+                                                             .boxed()
+                                                             .collect(Collectors.toMap(i -> i,
+                                                                  i -> STANDARD_DICE_PATH + CLASSIC_DICE + DICE_SIDE + i + PNG));
 
         final Map<Integer, String> to10DiceMap = IntStream.range(MIN_TO10, MAX_TO10 + 1)
-                .boxed()
-                .collect(Collectors.toMap(i -> i, i -> STANDARD_DICE_PATH + TO10_DICE + DICE_SIDE + i + PNG));
+                                                          .boxed()
+                                                          .collect(Collectors.toMap(i -> i,
+                                                               i -> STANDARD_DICE_PATH + TO10_DICE + DICE_SIDE + i + PNG));
 
         final Map<Integer, String> negativeDiceMap = new HashMap<>();
         for (int i = MIN_NEG; i <= MAX_NEG; i++) {
