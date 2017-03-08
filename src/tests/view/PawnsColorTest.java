@@ -1,9 +1,11 @@
 package tests.view;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import utilities.ConsoleLog;
 import view.pawn.AvailableColor;
 import view.pawn.PawnsColor;
 
@@ -51,21 +53,17 @@ public class PawnsColorTest {
             assertEquals(PawnsColor.get().getMultiColor(4), c);
             assertEquals(PawnsColor.get().getMultiColor(DOUBLE_PLAYERS - 1), c);
         }
-    }
-
-    /**
-     * JUnit test to verify that an exception is thrown.
-     */
-    @Test (expected = IndexOutOfBoundsException.class)
-    public void testSingleException() {
-        PawnsColor.get().getSingleColor(2);
-    }
-
-    /**
-     * JUnit test to verify that an exception is thrown.
-     */
-    @Test (expected = IndexOutOfBoundsException.class)
-    public void testMultiException() {
-        PawnsColor.get().getMultiColor(DOUBLE_PLAYERS); //List starting from index 0
+        try {
+            PawnsColor.get().getSingleColor(2);
+            fail("Failed test in PawnsColorTest line 57");
+        } catch (IndexOutOfBoundsException e) {
+            ConsoleLog.get().print("IndexOutOfBoundsException thrown with success in PawnsColorTest line 58");
+        }
+        try {
+            PawnsColor.get().getMultiColor(DOUBLE_PLAYERS);
+            fail("Failed test in PawnsColorTest line 63");
+        } catch (IndexOutOfBoundsException e) {
+            ConsoleLog.get().print("IndexOutOfBoundsException thrown with success in PawnsColorTest line 63");
+        }
     }
 }

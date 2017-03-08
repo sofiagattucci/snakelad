@@ -23,7 +23,7 @@ public class PawnTypesTest {
     private static final String VIOLET_PAWN_PATH = "./res/Pawns/VioletPawn.png";
 
     /**
-     * JUnit Tests.
+     * Starting JUnit Tests.
      */
     @Test
     public void test() {
