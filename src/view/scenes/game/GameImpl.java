@@ -43,8 +43,7 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     protected GameImpl() {
 
         this.setBackground(); 
-        IntStream.iterate(0, i -> i + 1)
-        .limit(this.getTag())
+        IntStream.range(0, this.getTag())
         .forEach(i -> {
             final Pawn newPawn = new PawnImpl(this, PawnTypes.get().getPawn(this.getColor(i)));
             this.pawnList.add(newPawn);
