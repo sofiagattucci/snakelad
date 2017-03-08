@@ -1,0 +1,12 @@
+#ErrorMsg {
+    -fx-text-fill: red;
+}
+#Toolbar {
+    -fx-background-color: #336699;
+}
+#Toolbar-black-label {
+    -fx-text-fill: black;
+}
+#Toolbar-yellow-label {
+    -fx-text-fill: yellow;
+}

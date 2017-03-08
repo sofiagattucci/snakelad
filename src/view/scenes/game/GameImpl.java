@@ -1,5 +1,6 @@
 package view.scenes.game;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -31,6 +32,8 @@ import view.scenes.setup.SetUpGame;
  */
 public abstract class GameImpl<X extends Toolbar> extends BasicScene implements Game { 
 
+    private static final String STYLESHEET_PATH = "./res/style.css";
+
     private static String boardPath = GameBoardTypes.get().getBoard(SetUpGame.getBoardType());
     private Toolbar toolbar;
     private final GameBoard board = new GameBoardImpl(boardPath);
@@ -49,6 +52,7 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
                       this.pawnList.add(newPawn);
                       this.getDefaultLayout().getChildren().add(newPawn.getPawn());
         });
+        this.getStylesheets().add(Paths.get(STYLESHEET_PATH).toUri().toString());
     }
 
     private void setBackground() {
