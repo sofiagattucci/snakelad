@@ -2,7 +2,6 @@ package model;
 
 import java.util.List;
 import java.util.Optional;
-import utilities.TypesOfDice;
 
 /**
  * It represents the interface for the model in MVC pattern.
@@ -70,5 +69,21 @@ public interface Model {
      * Quit the game, setting all needed in order to quit it.
      */
     void giveUpGame();
+
+    /**
+     * Tries to generate a coin, returning the Optional which describes the coin's position 
+     * on the scenery's grid.
+     * @return an Optional<Integer> if the coin has decided to appear on the scenery's grid and the 
+     * Integer represents the coin's position, an Optional<Empty> if the coin has decided not to appear.
+     */
+    Optional<Integer> tryGenerateCoin();
+
+    /**
+     * Tries to generate a diamond, returning the Optional which describes the diamond's position 
+     * on the scenery's grid.
+     * @return an Optional<Integer> if the diamond has decided to appear on the scenery's grid and the 
+     * Integer represents the diamond's position, an Optional<Empty> if the diamond has decided not to appear.
+     */
+    Optional<Integer> tryGenerateDiamond();
 
 }
