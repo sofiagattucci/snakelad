@@ -22,6 +22,7 @@ public final class Login extends BasicScene {
     private static final String QUIT_KEY = "menu.quit";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int FONT_SIZE = 30;
+    private static final String SPACE = " ";
 
     private static Login loginScene = new Login();
     private static Stage loginStage;
@@ -46,6 +47,9 @@ public final class Login extends BasicScene {
                 this.enter.setDisable(true);
             } else {
                 this.enter.setDisable(false);
+            }
+            if (this.nameField.getText().contains(SPACE)) {
+                this.enter.setDisable(true);
             }
         });
         this.enter.setDisable(true);
