@@ -9,19 +9,12 @@ import utilities.Language;
 import utilities.TypesOfDice;
 
 /**
- * Junit test for class Controller and all of his method.
+ * JUnit test for class Controller and all of his method.
  *
  */
 public class ControllerTest {
 
-//    private static final int ZERO = 0;
-//    private static final int ONE_PLAYER = 1;
       private static final int TWO_PLAYER = 2;
-//    private static final int THREE_PLAYER = 3;
-//    private static final int FOUR_PLAYER = 4;
-//    private static final int FIVE_PLAYER = 5;
-//    private static final int SIX_PLAYER = 6;
-
 
     private void printErrorMessage() {
         final ConsoleLog log = ConsoleLog.get();

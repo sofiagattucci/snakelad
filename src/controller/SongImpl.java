@@ -32,7 +32,7 @@ public class SongImpl implements Song {
     }
 
     @Override
-    public synchronized void setStop() {
+    public void setStop() {
         clip.stop();
         clip.setFramePosition(0);
         clip.close();
@@ -40,7 +40,7 @@ public class SongImpl implements Song {
 
 
     @Override
-    public synchronized void start() {
+    public void start() {
         try {
             clip.open(AudioSystem.getAudioInputStream(new File(PATH).getAbsoluteFile()));
             this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -52,22 +52,22 @@ public class SongImpl implements Song {
     }
 
     @Override
-    public synchronized float getMinimum() {
+    public float getMinimum() {
         return MIN;
     }
 
     @Override
-    public synchronized float getMaximum() {
+    public float getMaximum() {
         return MAX;
     }
 
     @Override
-    public synchronized float getCurrent() {
+    public float getCurrent() {
         return this.volume.getValue();
     }
 
     @Override
-    public synchronized void setVolume(final float volume) {
+    public void setVolume(final float volume) {
         this.volume.setValue(volume);
     }
 }
