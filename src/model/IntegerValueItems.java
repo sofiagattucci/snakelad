@@ -1,21 +1,26 @@
 package model;
 
 /**
- * Abstract class which shapes a basic item whose effect is to return an integer value. This value
- * may be used in different ways (to increase or decrease the player's scores for instance, etc.). 
+ * Abstract class which shapes a basic item which has a position on the scenery's grid and whose 
+ * effect is to return an integer value. This value can be used in different ways (to increase or 
+ * decrease the player's scores for instance, etc.). 
  * It's designed using Template Method.
  */
 public abstract class IntegerValueItems implements SpecialItems {
 
     private final int value;
+    private final int position;
 
     /**
      * IntegerValueItems constructor.
      * @param itemValue
      *                  the value of the item.
+     * @param position
+     *                  the item's position on the scenery's grid.
      */
-    public IntegerValueItems(final int itemValue) {
+    public IntegerValueItems(final int itemValue, final int position) {
         this.value = itemValue;
+        this.position = position;
     }
 
     /**
@@ -36,6 +41,11 @@ public abstract class IntegerValueItems implements SpecialItems {
     @Override
     public Object runEffectGettingResult() {
         return this.getItemValue();
+    }
+
+    @Override
+    public int getPosition() {
+        return this.position;
     }
 
     @Override

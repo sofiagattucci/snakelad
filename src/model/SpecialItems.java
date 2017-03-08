@@ -16,6 +16,12 @@ public interface SpecialItems {
     Object runEffectGettingResult();
 
     /**
+     * Returns a number which represents the position of the special item.
+     * @return a number which represents the position of the special item.
+     */
+    int getPosition();
+
+    /**
      * Randomly returns a boolean value. It's true if the special item "decides" to appear
      * on the scenery's grid, false otherwise.
      * @return true if the special item "decides" to appear on the scenery's grid, false otherwise.

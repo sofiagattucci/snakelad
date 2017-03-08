@@ -13,9 +13,9 @@ import java.util.Random;
 import org.junit.Test;
 import model.Model;
 import model.ModelImpl;
+import model.TypesOfDice;
 import utilities.ConsoleLog;
 import utilities.SceneryDataManager;
-import utilities.TypesOfDice;
 
 /**
  * Junit test used in order to test ModelImpl class.
