@@ -23,6 +23,7 @@ public final class Login extends BasicScene {
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int FONT_SIZE = 30;
     private static final String SPACE = " ";
+    private static final int MAX_CHARS = 15;
 
     private static Login loginScene = new Login();
     private static Stage loginStage;
@@ -48,7 +49,7 @@ public final class Login extends BasicScene {
             } else {
                 this.enter.setDisable(false);
             }
-            if (this.nameField.getText().contains(SPACE)) {
+            if (this.nameField.getText().contains(SPACE) || this.nameField.getText().length() > MAX_CHARS) {
                 this.enter.setDisable(true);
             }
         });
