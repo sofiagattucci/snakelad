@@ -2,16 +2,14 @@ package tests;
 
 import org.junit.Test;
 
-import tests.controller.ControllerTest;
+import tests.model.UserImplTest;
 import tests.model.ClassicDiceTest;
 import tests.model.Dice5To10Test;
 import tests.model.ModelImplTest;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
-
+import tests.controller.ControllerTest;
 import tests.view.DiceTypesTest;
-
-import tests.model.UserImplTest;
 import tests.view.LanguageMapTest;
 
 /**
