@@ -57,4 +57,11 @@ public interface View {
      *     The current value of the music volume
      */
     void setMusicVolume(float min, float max, float current);
+
+    /**
+     * It puts a new coin in the GUI.
+     * @param pos
+     *     The position of the coin represented as the box where the coin must be put.
+     */
+    void putCoin(int pos);
 }

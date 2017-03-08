@@ -73,4 +73,11 @@ public interface Game {
       * It resizes the pawns to fit the game board.
       */
      void resizePawns();
+
+     /**
+      * It puts a coin in the game scene.
+      * @param position
+      *     The position where the coin must be put
+      */
+     void putCoin(int position);
 }
