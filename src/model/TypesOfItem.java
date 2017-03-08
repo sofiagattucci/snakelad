@@ -13,6 +13,11 @@ public enum TypesOfItem {
     /**
      * Represent a diamond in the game.
      */
-    DIAMOND;
+    DIAMOND,
+
+    /**
+     * Represent a skull in the game.
+     */
+    SKULL;
 
 }
