@@ -1,4 +1,4 @@
-package utilities;
+package model;
 
 /**
  * Enumeration for various kind of dice.
