@@ -2,7 +2,7 @@ package controller;
 /**
  * Class to manage coin that appear during the game.
  */
-public class Coin implements Runnable {
+public class CoinsGenerator implements Runnable {
 
     private static final int WAIT = 20000;
     private final Thread t;
@@ -11,8 +11,9 @@ public class Coin implements Runnable {
     /**
      * Constructor.
      */
-    public Coin() {
+    public CoinsGenerator() {
         this.t = new Thread(this);
+        this.t.setDaemon(true);
     }
 
     @Override
