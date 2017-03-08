@@ -12,7 +12,7 @@ import view.scenes.Login;
 public class MainFrame extends Application {
 
     private static final String TITLE = "SnakeNLadder";
-    private static final String ICONE = "./res/Icons/logo.png";
+    private static final String ICONE = "./res/icons/logo.png";
 
     @Override
     public void start(final Stage defaultStage) {

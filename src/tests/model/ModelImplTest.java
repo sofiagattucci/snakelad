@@ -41,10 +41,10 @@ public class ModelImplTest {
     private static final int GAME_BOARD_2_SIDE_SIZE = 8;
     private static final int GAME_BOARD_3_SIDE_SIZE = 8;
     private static final int GAME_BOARD_4_SIDE_SIZE = 10;
-    private static final String GAME_BOARD_1 = "./res/GameBoards/GameBoard1/file.txt";
-    private static final String GAME_BOARD_2 = "./res/GameBoards/GameBoard2/file.txt";
-    private static final String GAME_BOARD_3 = "./res/GameBoards/GameBoard3/file.txt";
-    private static final String GAME_BOARD_4 = "./res/GameBoards/GameBoard4/file.txt";
+    private static final String GAME_BOARD_1 = "./res/gameBoards/gameBoard1/file.txt";
+    private static final String GAME_BOARD_2 = "./res/gameBoards/gameBoard2/file.txt";
+    private static final String GAME_BOARD_3 = "./res/gameBoards/gameBoard3/file.txt";
+    private static final String GAME_BOARD_4 = "./res/gameBoards/gameBoard4/file.txt";
 
     private final List<Integer> snakesListGameBoard1 = Arrays.asList(3, 4, 8, 24, 26);
     private final List<Integer> laddersListGameBoard1 = Arrays.asList(13, 28, 32, 33);

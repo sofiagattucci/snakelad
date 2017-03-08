@@ -17,8 +17,8 @@ import view.ViewImpl;
  */
 public class MusicManager {
 
-    private static final String SPEAKER_ON = "./res/Icons/volume_on.png";
-    private static final String SPEAKER_OFF = "./res/Icons/volume_off.png";
+    private static final String SPEAKER_ON = "./res/icons/volume_on.png";
+    private static final String SPEAKER_OFF = "./res/icons/volume_off.png";
     private static final String MUSIC_KEY = "settings.musicLabel";
     private static final int FONT_SIZE = 30;
     private static final double SPEAKER_SIZE = BasicButton.getButtonHeight() / 2;

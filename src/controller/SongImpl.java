@@ -12,7 +12,7 @@ import javax.sound.sampled.FloatControl;
  */
 public class SongImpl implements Song {
 
-    private static final String PATH = "./res/Music/Snakelad.wav";
+    private static final String PATH = "./res/music/Snakelad.wav";
     private static final float MAX = 0;
     private static final float MIN = -30;
     private static final float CURRENT = -8;

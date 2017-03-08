@@ -18,7 +18,7 @@ import model.UserImpl;
 public final class UserLogin {
 
     private static final UserLogin SINGLETON = new UserLogin();
-    private static final String USERS_DIRECTORY = "./res/Users/";
+    private static final String USERS_DIRECTORY = "./res/users/";
     private static final String USERS_SUFFIX = ".properties";
     private static final String USER_SCORES_KEY = "Scores";
 

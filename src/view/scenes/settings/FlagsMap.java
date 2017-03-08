@@ -11,11 +11,11 @@ import utilities.Language;
  */
 public final class FlagsMap {
 
-    private static final String EN = "./res/LanguagesFlags/united_kingdom.png";
-    private static final String IT = "./res/LanguagesFlags/italy.png";
-    private static final String FR = "./res/LanguagesFlags/france.png";
-    private static final String ES = "./res/LanguagesFlags/spain.png";
-    private static final String DE = "./res/LanguagesFlags/germany.png";
+    private static final String EN = "./res/languagesFlags/united_kingdom.png";
+    private static final String IT = "./res/languagesFlags/italy.png";
+    private static final String FR = "./res/languagesFlags/france.png";
+    private static final String ES = "./res/languagesFlags/spain.png";
+    private static final String DE = "./res/languagesFlags/germany.png";
 
     private static final FlagsMap INSTANCE = new FlagsMap();
     private final Map<Language, String> flagsPathMap = new HashMap<>();

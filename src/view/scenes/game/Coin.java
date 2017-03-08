@@ -10,7 +10,7 @@ import view.Dimension;
  */
 public class Coin {
 
-    private static final String COIN_PATH = "./res/Icons/coin.gif";
+    private static final String COIN_PATH = "./res/icons/coin.gif";
     private static final double COIN_HEIGHT_PARAM = 2;
 
     private final ImageView coinIV = ImageManager.get().getImageView(COIN_PATH);

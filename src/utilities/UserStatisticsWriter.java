@@ -12,7 +12,7 @@ import java.util.Properties;
 public final class UserStatisticsWriter {
 
     private static final UserStatisticsWriter SINGLETON = new UserStatisticsWriter();
-    private static final String USERS_DIRECTORY = "./res/Users/";
+    private static final String USERS_DIRECTORY = "./res/users/";
     private static final String USERS_SUFFIX = ".properties";
     private static final String USER_SCORES_KEY = "Scores";
 

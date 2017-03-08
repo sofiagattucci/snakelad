@@ -13,8 +13,8 @@ import view.gameboard.GameBoardTypes;
 public class GameBoardTypesTest {
 
     private static final int NUM_SCENERY = 4;
-    private static final String STANDARD_BOARD_PATH = "./res/GameBoards/";
-    private static final String GAME_BOARD = "GameBoard";
+    private static final String STANDARD_BOARD_PATH = "./res/gameBoards/";
+    private static final String GAME_BOARD = "gameBoard";
     private static final String ESCAPE = "/";
     private static final String MINI = "_mini";
     private static final String PNG = ".png";

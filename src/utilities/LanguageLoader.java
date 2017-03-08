@@ -33,7 +33,7 @@ public final class LanguageLoader {
         final Map<String, String> map = new HashMap<>();
 
         final Locale locale = new Locale(lang);
-        final ResourceBundle strings = ResourceBundle.getBundle("LanguagesFiles.StringsBundle", locale);
+        final ResourceBundle strings = ResourceBundle.getBundle("languagesFiles.StringsBundle", locale);
         final Enumeration<String> bundleKeys = strings.getKeys();
 
         while (bundleKeys.hasMoreElements()) {

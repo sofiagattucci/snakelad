@@ -21,10 +21,10 @@ import view.ViewImpl;
 public final class Controller implements ViewObserver {
 
     private static final Controller SINGLETON = new Controller();
-    private static final String DATA1 = "./res/GameBoards/GameBoard1/file.txt";
-    private static final String DATA2 = "./res/GameBoards/GameBoard2/file.txt";
-    private static final String DATA3 = "./res/GameBoards/GameBoard3/file.txt";
-    private static final String DATA4 = "./res/GameBoards/GameBoard4/file.txt";
+    private static final String DATA1 = "./res/gameBoards/gameBoard1/file.txt";
+    private static final String DATA2 = "./res/gameBoards/gameBoard2/file.txt";
+    private static final String DATA3 = "./res/gameBoards/gameBoard3/file.txt";
+    private static final String DATA4 = "./res/gameBoards/gameBoard4/file.txt";
     private final Model game;
     private final View view;
     private final Song playSong;
