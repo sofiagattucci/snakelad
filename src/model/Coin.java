@@ -4,14 +4,14 @@ import java.util.Random;
 
 /**
  * Represents a coin which can be collected by the player inside game's sceneries.
- * It has a specific value and randomly decides to appear or not on the scenery's 
- * grid (isVisible() method).
+ * It has a specific value and randomly decides to appear or not on the scenery's grid when 
+ * isVisible() method is called, in order to to implement apparition's rarity of the coin.
  */
-public final class Coin extends IncreaseScoresItems {
+public final class Coin extends IntegerValueItems {
 
     private static final int COIN_VALUE = 1;
     private static final int NUMBER_UPPER_BOUND_RANDOM = 3; //It means that the coin will appear with probability
-                                                            //of one third for each isVisible() method call.
+                                                            //of one third for each isVisible() method call. (Low rarity)
 
     private final Random rand = new Random();
 
