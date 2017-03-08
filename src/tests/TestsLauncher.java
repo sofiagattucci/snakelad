@@ -2,18 +2,22 @@ package tests;
 
 import org.junit.Test;
 
-import tests.controller.ControllerTest;
-import tests.controller.GameSettingsTest;
+import tests.model.UserImplTest;
 import tests.model.ClassicDiceTest;
 import tests.model.Dice5To10Test;
 import tests.model.ModelImplTest;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
 
+import tests.controller.ControllerTest;
+import tests.controller.GameSettingsTest;
+
 import tests.view.DiceTypesTest;
+import tests.view.FlagsMapTest;
 import tests.view.GameBoardTypesTest;
-import tests.model.UserImplTest;
 import tests.view.LanguageMapTest;
+import tests.view.PawnTypesTest;
+import tests.view.PawnsColorTest;
 
 /**
  * This class has the task of calling all Junit tests within the 
@@ -61,8 +65,12 @@ public final class TestsLauncher {
      */
     @Test
     public void testView() {
+
         new LanguageMapTest().test();
         new DiceTypesTest().test();
         new GameBoardTypesTest().test();
+        new PawnTypesTest().test();
+        new PawnsColorTest().test();
+        new FlagsMapTest().test();
     }
 }

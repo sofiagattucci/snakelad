@@ -176,6 +176,7 @@ public class ViewImpl implements View {
     @Override
     public void setBoardSize(final int n) {
         Dimension.setPawnHeight(n);
+        Dimension.setCoinHeight(n);
         playScene.getBoard().setSize(n);
         playScene.resizePawns();
     }
@@ -183,6 +184,11 @@ public class ViewImpl implements View {
     @Override
     public void setMusicVolume(final float min, final float max, final float current) {
         Settings.getScene(appStage).getMusicManger().setSliderValues(min, max, current);
+    }
+
+    @Override
+    public void putCoin(final int pos) {
+        playScene.putCoin(pos);
     }
 } 
 

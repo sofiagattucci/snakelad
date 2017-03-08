@@ -1,9 +1,11 @@
 package tests.view;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import utilities.ConsoleLog;
 import utilities.TypesOfDice;
 import view.dice.DiceTypes;
 
@@ -61,15 +63,13 @@ public class DiceTypesTest {
                         STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + i + POSITIVE + PNG);
             }
         }
-    }
-
-    /**
-     * JUnit test to verify that an exception is thrown.
-     */
-    @Test(expected = UnsupportedOperationException.class)
-    public void testException() {
         for (final TypesOfDice dice: TypesOfDice.values()) {
-            DiceTypes.get().getSpecificDiceMap(dice).put(0, "A");
+            try {
+                DiceTypes.get().getSpecificDiceMap(dice).put(0, "A");
+                fail("Failed test in DiceTypesTest line 68");
+            } catch (UnsupportedOperationException e) {
+                ConsoleLog.get().print("UnsupportedOperationException thrown witch success in DiceTypesTest line 68");
+            }
         }
     }
 }

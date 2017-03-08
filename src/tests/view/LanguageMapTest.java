@@ -3,9 +3,11 @@ package tests.view;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import utilities.ConsoleLog;
 import utilities.Language;
 import utilities.LanguageLoader;
 import view.LanguageStringMap;
@@ -16,7 +18,7 @@ import view.LanguageStringMap;
 public class LanguageMapTest {
 
     /**
-     * JUnit Tests.
+     * Starting JUnit Tests.
      */
     @Test
     public void test() {
@@ -30,13 +32,11 @@ public class LanguageMapTest {
                 assertEquals(LanguageStringMap.get().getMap().get(elem), LanguageLoader.get().getLanguage(lang).get(elem));
             }
         }
-    }
-
-    /**
-     * JUnit test to verify that an exception is thrown.
-     */
-    @Test (expected = UnsupportedOperationException.class)
-    public void testException() {
-        LanguageStringMap.get().getMap().put("A", "B");
+        try {
+            LanguageStringMap.get().getMap().put("A", "B");
+            fail("Failed test in LanguageMapTest line 36");
+        } catch (UnsupportedOperationException e) {
+            ConsoleLog.get().print("UnsupportedOperationsException thrown with success in LanguageMapTest line 37");
+        }
     }
 }

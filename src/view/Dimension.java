@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 public final class Dimension {
 
     private static final double PAWN_HEIGHT_CONST = 0.66;
+    private static final double COIN_HEIGHT_CONST = 0.50;
 
     /**
      * Width of the window in proportion to the screen. 
@@ -35,8 +36,10 @@ public final class Dimension {
 
     private static double pawnHeight = BOARD_H / 8 * PAWN_HEIGHT_CONST;
 
+    private static double coinHeight = BOARD_H / 8 * COIN_HEIGHT_CONST;
+
     /**
-     * Setter of the height of the pawns of the game.
+     * Setter of the height of a pawns of the game.
      * @param n
      *     The number of boxes per side of the selected gameBoard
      */
@@ -45,12 +48,30 @@ public final class Dimension {
     }
 
     /**
-     * Getter of the height of the pawn in the game.
+     * Getter of the height of a pawn in the game.
      * @return
      *     The height of a pawn of the game
      */
     public static double getPawnHeight() {
         return pawnHeight;
+    }
+
+    /**
+     * Setter of the height of a coin of the game.
+     * @param n
+     *     The number of boxes per side of the selected gameBoard
+     */
+    public static void setCoinHeight(final int n) {
+        coinHeight = BOARD_H / n * COIN_HEIGHT_CONST;
+    }
+
+    /**
+     * Getter of the height of a coin in the game.
+     * @return
+     *     The height of a coin of the game
+     */
+    public static double getCoinHeight() {
+        return coinHeight;
     }
 
     private Dimension() { }

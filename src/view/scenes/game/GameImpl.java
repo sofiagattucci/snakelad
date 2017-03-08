@@ -129,6 +129,11 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     }
 
     @Override
+    public void putCoin(final int pos) {
+        this.getDefaultLayout().getChildren().add(new Coin(this, pos).getCoinImageView());
+    }
+
+    @Override
     public abstract int getTag();
 
     @Override

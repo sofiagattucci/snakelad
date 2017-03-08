@@ -1,0 +1,39 @@
+package model;
+
+import java.util.Random;
+
+/**
+ * Represents a coin which can be collected by the player inside game's sceneries.
+ * It has a specific value and randomly decides to appear or not on the scenery's 
+ * grid (isVisible() method).
+ */
+public final class Coin extends IncreaseScoresItems {
+
+    private static final int COIN_VALUE = 1;
+    private static final int NUMBER_UPPER_BOUND_RANDOM = 3; //It means that the coin will appear with probability
+                                                            //of one third for each isVisible() method call.
+
+    private final Random rand = new Random();
+
+    /**
+     * Coin constructor. Initializes a superclass' field.
+     */
+    public Coin() {
+        super(COIN_VALUE);
+    }
+
+    /**
+     * Returns the coin's value.
+     * @return the coin's value.
+     */
+    public int getValue() {
+        return super.getItemValue();
+    }
+
+    @Override
+    public boolean isVisible() {
+        final int randResult = rand.nextInt(NUMBER_UPPER_BOUND_RANDOM);
+        return randResult == 0;
+    }
+
+}
