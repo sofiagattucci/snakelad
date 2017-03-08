@@ -1,6 +1,5 @@
 package view.pawn;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -38,10 +37,7 @@ public final class PawnTypes {
             FUCHSIA_PAWN_PATH, BLUE_PAWN_PATH, BROWN_PAWN_PATH, PINK_PAWN_PATH, VIOLET_PAWN_PATH, RAINBOW_PAWN_PATH,
             THERMO_PAWN_PATH, EGGS_PAWN_PATH, ANONYMOUS_PAWN_PATH, FANTASY_PAWN_PATH);
 
-        final List<AvailableColor> colors = new ArrayList<>();
-        for (final AvailableColor c: AvailableColor.values()) {
-            colors.add(c);
-        }
+        final List<AvailableColor> colors = Arrays.asList(AvailableColor.values());
 
         this.pawnColor = IntStream.range(0, N_PAWN)
                  .boxed()
