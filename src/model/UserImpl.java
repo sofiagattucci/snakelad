@@ -30,7 +30,7 @@ public final class UserImpl implements User {
     //private method called to avoid too much repetition of identical code.
     private void checkScoresValue(final int scoresValue) {
         if (scoresValue < 0) {
-            throw new IllegalArgumentException("Illegal score value (It's less than 0 or too big for the subtraction).");
+            throw new IllegalArgumentException("Illegal score value (It's less than 0).");
         }
     }
 
@@ -57,9 +57,10 @@ public final class UserImpl implements User {
     @Override
     public void subtractScores(final int scoresValue) throws IllegalArgumentException {
         this.checkScoresValue(scoresValue);
-        final int tmpScores = this.scores - scoresValue;
-        this.checkScoresValue(tmpScores);
-        this.scores = tmpScores;
+        this.scores -= scoresValue;
+        if (this.scores < 0) {
+            this.scores = 0;
+        }
     }
 
     @Override
