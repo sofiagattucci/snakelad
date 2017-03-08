@@ -2,6 +2,7 @@ package view.scenes.setup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -50,10 +51,10 @@ public final class SetUpGame extends BasicScene {
     private final Button single = new BasicButton(LanguageStringMap.get().getMap().get(SINGLE_KEY));
     private final Button multi = new BasicButton(LanguageStringMap.get().getMap().get(MULTI_KEY));
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
-    private final HBox modes = new HBox(single, multi, back);
+    private final HBox modes = new HBox(this.single, this.multi, this.back);
     private final List<Button> nPlayer = new ArrayList<>();
     private final Label howMany = new Label(LanguageStringMap.get().getMap().get(HOW_MANY_KEY));
-    private final HBox chooseNumber = new HBox(howMany);
+    private final HBox chooseNumber = new HBox(this.howMany);
     private final Button start = new BasicButton(LanguageStringMap.get().getMap().get(START_KEY));
     private final DiceCircularList dice = new DiceCircularList(this.start);
     private final HBox diceChoose = new HBox();
@@ -82,9 +83,8 @@ public final class SetUpGame extends BasicScene {
         this.title.setFont(new Font(TITLE_FONT));
         this.howMany.setFont(new Font(FONT));
 
-        for (int i = 2; i <= MAX_PLAYERS; i++) {
-            this.nPlayer.add(new Button(String.valueOf(i)));
-        }
+        IntStream.range(2, MAX_PLAYERS + 1)
+                 .forEach(i -> this.nPlayer.add(new Button(String.valueOf(i))));
 
         this.single.setOnAction(e -> {
             this.setMode(true);

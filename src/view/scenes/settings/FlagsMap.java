@@ -21,6 +21,7 @@ public final class FlagsMap {
     private final Map<Language, String> flagsPathMap = new HashMap<>();
 
     private FlagsMap() {
+
             this.flagsPathMap.put(Language.EN, EN);
             this.flagsPathMap.put(Language.IT, IT);
             this.flagsPathMap.put(Language.FR, FR);

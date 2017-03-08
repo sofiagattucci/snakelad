@@ -1,7 +1,9 @@
 package view.scenes.settings;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -32,10 +34,11 @@ public class SkinSwitcher {
     private static final String SILVER_SKIN_KEY = "settings.skin.silver";
     private static final int FONT_SIZE = 30;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
+    private static final int N_SKIN = 5;
 
     private final HBox box = new HBox();
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
-    private final List<Button> selectorList = Arrays.asList(new Button(), new Button(), new Button(), new Button(), new Button());
+    private final List<Button> selectorList = new ArrayList<>();
     private final List<Pair<Color, String>> colorList = Arrays.asList(new Pair<>(Color.LIGHTBLUE, BLUE_SKIN_KEY),
             new Pair<>(Color.ANTIQUEWHITE, LIGHT_SKIN_KEY), new Pair<>(Color.DARKMAGENTA, DARK_SKIN_KEY), 
             new Pair<>(Color.GOLD, GOLD_SKIN_KEY), new Pair<>(Color.SILVER, SILVER_SKIN_KEY));
@@ -49,6 +52,11 @@ public class SkinSwitcher {
         this.box.setSpacing(BOX_SPACING);
         this.box.getChildren().add(this.title);
         this.title.setFont(new Font(FONT_SIZE));
+
+        Stream.generate(() -> new Button())
+        .limit(N_SKIN)
+        .forEach(this.selectorList :: add);
+
         this.selectorList.get(0).setDisable(true);
 
         for (int i = 0; i < this.selectorList.size(); i++) {

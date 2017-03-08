@@ -2,6 +2,7 @@ package view.scenes.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javafx.geometry.Side;
 import javafx.scene.layout.Background;
@@ -41,12 +42,13 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
      */
     protected GameImpl() {
 
-        this.setBackground();
-        for (int i = 0; i < this.getTag(); i++) {
+        this.setBackground(); 
+        IntStream.range(0, this.getTag())
+        .forEach(i -> {
             final Pawn newPawn = new PawnImpl(this, PawnTypes.get().getPawn(this.getColor(i)));
             this.pawnList.add(newPawn);
             this.getDefaultLayout().getChildren().add(newPawn.getPawn());
-        }
+        });
     }
 
     private void setBackground() {
@@ -106,16 +108,16 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
         this.setBackground();
         this.getToolbar().updateLabelsColor();
         this.toolbar.updateDice(newDice);
-        for (int i = 0; i < this.pawnList.size(); i++) {
-            this.pawnList.get(i).updateColor(PawnTypes.get().getPawn(this.getColor(i)));
-        }
+        IntStream.iterate(0, i -> i + 1)
+                 .limit(this.pawnList.size())
+                 .forEach(i -> this.pawnList.get(i).updateColor(PawnTypes.get().getPawn(this.getColor(i))));
     }
 
     @Override
     public void resizePawns() {
-        for (int i = 0; i < this.pawnList.size(); i++) {
-            this.pawnList.get(i).resizePawn();
-        }
+        IntStream.iterate(0, i -> i + 1)
+        .limit(this.pawnList.size())
+        .forEach(i -> this.pawnList.get(i).resizePawn());
     }
 
     @Override
