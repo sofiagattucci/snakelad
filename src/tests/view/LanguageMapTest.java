@@ -11,7 +11,7 @@ import utilities.LanguageLoader;
 import view.LanguageStringMap;
 
 /**
- * Test for the class LanguageStringMap.
+ * JUnit test for the class LanguageStringMap.
  */
 public class LanguageMapTest {
 

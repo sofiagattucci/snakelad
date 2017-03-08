@@ -1,6 +1,5 @@
 package view.pawn;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,14 +51,5 @@ public final class PawnTypes {
      */
     public String getPawn(final AvailableColor color) {
         return this.pawnColor.get(color);
-    }
-
-    /**
-     * Getter of the map that holds the different types of colors possible for the pawns.
-     * @return
-     *     The (unmodifiable) map that holds the different types of colors possible for the pawns
-     */
-    public Map<AvailableColor, String> getMap() {
-        return Collections.unmodifiableMap(this.pawnColor);
     }
 }

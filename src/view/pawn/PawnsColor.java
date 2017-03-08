@@ -2,7 +2,6 @@ package view.pawn;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -49,24 +48,6 @@ public final class PawnsColor {
      */
     public AvailableColor getMultiColor(final int index) {
         return this.multiColorAssigned.get(index);
-    }
-
-    /**
-     * Getter of the (unmodifiable) list of the color used for each pawns (single player).
-     * @return
-     *     A list of the color used for each pawn
-     */
-    public List<AvailableColor> getSingleList() {
-        return Collections.unmodifiableList(this.singleColorAssigned);
-    }
-
-    /**
-     * Getter of the (unmodifiable) list of the color used for each pawns (player versus player).
-     * @return
-     *     A list of the color used for each pawn
-     */
-    public List<AvailableColor> getMultiList() {
-        return Collections.unmodifiableList(this.multiColorAssigned);
     }
 
     /**

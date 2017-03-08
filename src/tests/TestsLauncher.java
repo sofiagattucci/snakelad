@@ -1,6 +1,8 @@
 package tests;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import tests.model.UserImplTest;
 import tests.model.ClassicDiceTest;
@@ -8,9 +10,15 @@ import tests.model.Dice5To10Test;
 import tests.model.ModelImplTest;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
+
 import tests.controller.ControllerTest;
+import tests.controller.GameSettingsTest;
+
 import tests.view.DiceTypesTest;
+import tests.view.GameBoardTypesTest;
 import tests.view.LanguageMapTest;
+import tests.view.PawnTypesTest;
+import tests.view.PawnsColorTest;
 
 /**
  * This class has the task of calling all Junit tests within the 
@@ -18,6 +26,12 @@ import tests.view.LanguageMapTest;
  * This class has to achieve success in all its tests.
  */
 public final class TestsLauncher {
+
+    /**
+     * Rule to verify expected exceptions.
+     */
+    @Rule
+    public final ExpectedException thrown = ExpectedException.none();
 
     /**
      * Calls all Junit tests of Model.
@@ -50,6 +64,7 @@ public final class TestsLauncher {
     @Test
     public void testController() {
         new ControllerTest().controllerTest();
+        new GameSettingsTest().gameSettingsTest();
     }
 
     /**
@@ -57,7 +72,26 @@ public final class TestsLauncher {
      */
     @Test
     public void testView() {
-        new LanguageMapTest().test();
-        new DiceTypesTest().test();
+        //LanguageStringMap
+        final LanguageMapTest languageMapTest = new LanguageMapTest();
+        languageMapTest.test();
+        this.thrown.expect(UnsupportedOperationException.class);
+        languageMapTest.testException();
+        //DiceTypes
+        final DiceTypesTest diceTypesTest = new DiceTypesTest();
+        diceTypesTest.test();
+        this.thrown.expect(UnsupportedOperationException.class);
+        diceTypesTest.testException();
+        //GameBoardTypes
+        new GameBoardTypesTest().test();
+        //PawnsTypes
+        new PawnTypesTest().test();
+        //PawnsColor
+        final PawnsColorTest pawnsColorTest = new PawnsColorTest();
+        pawnsColorTest.test();
+        this.thrown.expect(IndexOutOfBoundsException.class);
+        pawnsColorTest.testSingleException();
+        this.thrown.expect(IndexOutOfBoundsException.class);
+        pawnsColorTest.testMultiException();
     }
 }
