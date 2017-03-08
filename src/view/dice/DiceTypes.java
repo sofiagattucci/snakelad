@@ -3,6 +3,8 @@ package view.dice;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import utilities.TypesOfDice;
 
@@ -28,33 +30,31 @@ public final class DiceTypes {
 
     private static final DiceTypes INSTANCE = new DiceTypes();
     private final Map<TypesOfDice, Map<Integer, String>> diceMap = new HashMap<>();
-    private final Map<Integer, String> classicDiceMap = new HashMap<>();
-    private final Map<Integer, String> the5to10DiceMap = new HashMap<>();
-    private final Map<Integer, String> negativeDiceMap = new HashMap<>();
 
     private DiceTypes() {
 
-        for (int i = MIN_CLASSIC; i <= MAX_CLASSIC; i++) {
-            this.classicDiceMap.put(i, STANDARD_DICE_PATH + CLASSIC_DICE + DICE_SIDE + i + PNG);
-        }
+        final Map<Integer, String> classicDiceMap = IntStream.range(MIN_CLASSIC, MAX_CLASSIC + 1)
+                                       .boxed()
+                                       .collect(Collectors.toMap(i -> i, i -> STANDARD_DICE_PATH + CLASSIC_DICE + DICE_SIDE + i + PNG));
 
-        for (int i = MIN_TO10; i <= MAX_TO10; i++) {
-            this.the5to10DiceMap.put(i, STANDARD_DICE_PATH + TO10_DICE + DICE_SIDE + i + PNG);
-        }
+        final Map<Integer, String> to10DiceMap = IntStream.range(MIN_TO10, MAX_TO10 + 1)
+                .boxed()
+                .collect(Collectors.toMap(i -> i, i -> STANDARD_DICE_PATH + TO10_DICE + DICE_SIDE + i + PNG));
 
+        final Map<Integer, String> negativeDiceMap = new HashMap<>();
         for (int i = MIN_NEG; i <= MAX_NEG; i++) {
             if (i < 0) {
-                this.negativeDiceMap.put(i, STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + (-i) + NEGATIVE + PNG);
+                negativeDiceMap.put(i, STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + (-i) + NEGATIVE + PNG);
             }
             if (i > 0) {
-                this.negativeDiceMap.put(i, STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + i + POSITIVE + PNG);
+                negativeDiceMap.put(i, STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + i + POSITIVE + PNG);
             }
 
         }
 
-        this.diceMap.put(TypesOfDice.CLASSIC_DICE, this.classicDiceMap);
-        this.diceMap.put(TypesOfDice._5_TO_10_DICE, this.the5to10DiceMap);
-        this.diceMap.put(TypesOfDice.NEGATIVE_DICE, this.negativeDiceMap);
+        this.diceMap.put(TypesOfDice.CLASSIC_DICE, classicDiceMap);
+        this.diceMap.put(TypesOfDice._5_TO_10_DICE, to10DiceMap);
+        this.diceMap.put(TypesOfDice.NEGATIVE_DICE, negativeDiceMap);
     }
 
     /**

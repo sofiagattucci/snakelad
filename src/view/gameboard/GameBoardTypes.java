@@ -1,7 +1,8 @@
 package view.gameboard;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import utilities.Difficulty;
 import utilities.Pair;
@@ -19,15 +20,15 @@ public final class GameBoardTypes {
     private static final int NUM_SCENERY = 4;
 
     private static final GameBoardTypes BOARD_TYPES = new GameBoardTypes();
-    private final Map<Difficulty, Pair<String, String>> boardMap = new HashMap<>();
+    private final Map<Difficulty, Pair<String, String>> boardMap;
 
     private GameBoardTypes() {
  
-        for (int i = 1; i <= NUM_SCENERY; i++) {
-        this.boardMap.put(this.calculateDifficulty(i), new Pair<>(
-                STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + PNG,
-                STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + MINI + PNG));
-        }
+        this.boardMap = IntStream.range(1, NUM_SCENERY + 1)
+                                 .boxed()
+                                 .collect(Collectors.toMap(i -> this.calculateDifficulty(i), i -> new Pair<String, String>(
+                                         STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + PNG,
+                                         STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + MINI + PNG)));
     }
 
     private Difficulty calculateDifficulty(final int n) {
