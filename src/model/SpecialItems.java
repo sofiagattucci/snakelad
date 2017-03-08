@@ -1,16 +1,17 @@
 package model;
 
 /**
- * An interface for special items inside the game. A 'special items' is an entity which can 
- * be collected in sceneries by the player and produces a kind of specified effect (improve
- * scores for instance, etc.). This special entity randomly decides to appear or not on the 
- * scenery's grid (isVisibleOnSceneryGrid() method).
+ * An interface for special items inside the game. A 'special items' is game's entity which can be collected in 
+ * sceneries' grid by the player and produces a kind of specified effect (returns an integer value, returns 
+ * a string, helps the player to win the game, changes the background music, etc.). This special items can 
+ * randomly decide to appear or not on the scenery's grid when the isVisibleOnSceneryGrid() method is called
+ * in order to implement apparition's rarity of the item.
  */
 public interface SpecialItems {
 
     /**
-     * Runs the entity's specified effect getting the result of it.
-     * @return the result of the effect.
+     * Runs the entity's specified effect getting a result of it.
+     * @return a result of the effect.
      */
     Object runEffectGettingResult();
 
