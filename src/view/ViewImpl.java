@@ -4,6 +4,7 @@ import java.util.Map;
 
 import controller.ViewObserver;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import utilities.Language;
 import view.scenes.Menu;
@@ -188,7 +189,7 @@ public class ViewImpl implements View {
 
     @Override
     public void putCoin(final int pos) {
-        playScene.putCoin(pos);
+        Platform.runLater(() -> playScene.putCoin(pos));
     }
 } 
 

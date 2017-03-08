@@ -3,6 +3,7 @@ package view.scenes.settings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -53,26 +54,24 @@ public abstract class PawnColorSwitcher {
         this.title.setFont(this.stdFont);
         this.nPlayers = nPlayers;
 
-        for (int i = 0; i < nPlayers; i++) {
-            this.pawnList.add(new Pair<>(new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY) + (i + 1)),
-                new ComboBox<String>()));
-            this.pawnList.get(i).getFirst().setFont(this.stdFont);
-            final int j = i;
-            this.pawnList.get(i).getSecond().setOnAction(e -> {
-               this.switchColor(j, this.findColor(this.pawnList.get(j).getSecond().getValue()));
-            });
-            this.pawnList.get(i).getSecond().setValue(
-                    LanguageStringMap.get().getMap().get(this.getColorKey(i).toString()));
-            this.prevColor.add(this.getColorKey(i));
-            for (final AvailableColor c: AvailableColor.values()) {
-                this.pawnList.get(i).getSecond().getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
-            }
-        }
-
-        for (int i = 0; i < nPlayers; i++) {
-            this.grid.add(this.pawnList.get(i).getFirst(), i, 0);
-            this.grid.add(this.pawnList.get(i).getSecond(), i, 1);
-        }
+        IntStream.range(0, nPlayers)
+                 .forEach(i -> {
+                     this.pawnList.add(new Pair<>(new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY) + (i + 1)),
+                             new ComboBox<String>()));
+                     this.pawnList.get(i).getFirst().setFont(this.stdFont);
+                     final int j = i;
+                     this.pawnList.get(i).getSecond().setOnAction(e -> {
+                        this.switchColor(j, this.findColor(this.pawnList.get(j).getSecond().getValue()));
+                     });
+                     this.pawnList.get(i).getSecond().setValue(
+                             LanguageStringMap.get().getMap().get(this.getColorKey(i).toString()));
+                     this.prevColor.add(this.getColorKey(i));
+                     for (final AvailableColor c: AvailableColor.values()) {
+                         this.pawnList.get(i).getSecond().getItems().add(LanguageStringMap.get().getMap().get(c.toString()));
+                     }
+                     this.grid.add(this.pawnList.get(i).getFirst(), i, 0);
+                     this.grid.add(this.pawnList.get(i).getSecond(), i, 1);
+                 });
     }
 
     /**

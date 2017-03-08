@@ -22,7 +22,7 @@ public final class GameBoardTypes {
     private final Map<Difficulty, Pair<String, String>> boardMap = new HashMap<>();
 
     private GameBoardTypes() {
-
+ 
         for (int i = 1; i <= NUM_SCENERY; i++) {
         this.boardMap.put(this.calculateDifficulty(i), new Pair<>(
                 STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + PNG,

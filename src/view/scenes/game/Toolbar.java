@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -101,23 +102,25 @@ public abstract class Toolbar {
      */
     public void putLabels(final Game scene, final int nPlayers) {
         this.numPlayers = nPlayers;
-        for (int i = 0; i < nPlayers; i++) {
-            final Pair<ImageView, Label> p = new Pair<>(new PawnImpl(scene,
-                    PawnTypes.get().getPawn(this.getColorFromMode(i))).getPawn(), new Label(playerLabel.getText() + (i + 1)));
-            this.pawnList.add(p);
-            this.pawnList.get(i).getSecond().setFont(smallFont);
-            this.gp.addRow(i, p.getFirst(), p.getSecond());
-        }
+        IntStream.iterate(0, i -> i + 1)
+                 .limit(nPlayers)
+                 .forEach(i -> {
+                     final Pair<ImageView, Label> p = new Pair<>(new PawnImpl(scene,
+                             PawnTypes.get().getPawn(this.getColorFromMode(i))).getPawn(), new Label(playerLabel.getText() + (i + 1)));
+                     this.pawnList.add(p);
+                     this.pawnList.get(i).getSecond().setFont(smallFont);
+                     this.gp.addRow(i, p.getFirst(), p.getSecond());
+                 });
     }
 
     /**
      * It updates the images (color) of the pawn shown in the tool bar.
      */
     public void updateLabelsColor() {
-        for (int i = 0; i < numPlayers; i++) {
-            this.pawnList.get(i).getFirst().setImage(
-                    ImageManager.get().readFromFile(PawnTypes.get().getPawn(this.getColorFromMode(i))));
-        }
+        IntStream.iterate(0, i -> i + 1)
+                 .limit(this.numPlayers)
+                 .forEach(i -> this.pawnList.get(i).getFirst().setImage(
+                         ImageManager.get().readFromFile(PawnTypes.get().getPawn(this.getColorFromMode(i)))));
     }
 
     /**
@@ -127,9 +130,9 @@ public abstract class Toolbar {
         this.roll.setText(LanguageStringMap.get().getMap().get(ROLL_KEY));
         this.pause.setText(LanguageStringMap.get().getMap().get(PAUSE_KEY));
         playerLabel.setText(LanguageStringMap.get().getMap().get(PLAYER_KEY));
-        for (int i = 0; i < numPlayers; i++) {
-            this.pawnList.get(i).getSecond().setText(playerLabel.getText() + (i + 1));
-        }
+        IntStream.iterate(0, i -> i + 1)
+                 .limit(this.numPlayers)
+                 .forEach(i -> this.pawnList.get(i).getSecond().setText(playerLabel.getText() + (i + 1)));
         this.pauseBox.updateLanguage();
     }
 
