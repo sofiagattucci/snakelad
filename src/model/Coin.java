@@ -17,9 +17,11 @@ public final class Coin extends IntegerValueItems {
 
     /**
      * Coin constructor. Initializes a superclass' field.
+     * @param position
+     *                 the coin's position on the scenery's grid.
      */
-    public Coin() {
-        super(COIN_VALUE);
+    public Coin(final int position) {
+        super(COIN_VALUE, position);
     }
 
     /**

@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import model.Model;
 import model.ModelImpl;
+import model.TypesOfDice;
 import utilities.SceneryDataManager;
-import utilities.TypesOfDice;
 import utilities.UserLogin;
 import utilities.LanguageLoader;
 import utilities.Difficulty;

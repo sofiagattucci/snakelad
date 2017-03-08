@@ -1,8 +1,8 @@
 package controller;
 
+import model.TypesOfDice;
 import utilities.Difficulty;
 import utilities.Language;
-import utilities.TypesOfDice;
 
 /**
  *Interface of Controller.
