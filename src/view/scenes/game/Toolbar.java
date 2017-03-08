@@ -36,9 +36,9 @@ public abstract class Toolbar {
     private static final String PAUSE_KEY = "game.pause";
     private static final String ROLL_KEY = "game.roll";
     private static final String PLAYER_KEY = "game.player";
-    private static final String BLACK_LABEL = "-fx-text-fill: black";
-    private static final String YELLOW_LABEL = "-fx-text-fill: yellow";
-    private static final String BOX_COLOR = "-fx-background-color: #336699;";
+    private static final String TOOLBAR_ID = "Toolbar";
+    private static final String BLACK_LABEL_ID = "Toolbar-black-label";
+    private static final String YELLOW_LABEL_ID = "Toolbar-yellow-label";
     private static final double BOX_WIDTH = Dimension.SCREEN_W * 0.22;
     private static final double BUTTON_WIDTH = BOX_WIDTH * 0.6;
     private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.07;
@@ -73,7 +73,7 @@ public abstract class Toolbar {
         this.box.setPrefWidth(BOX_WIDTH);
         this.box.setSpacing(BOX_SPACING);
         this.box.setPadding(new Insets(VERTICAL_INSETS, HORIZONTAL_INSETS, VERTICAL_INSETS, HORIZONTAL_INSETS));
-        this.box.setStyle(BOX_COLOR);
+        this.box.setId(TOOLBAR_ID);
 
         this.gp.setTranslateX(ALIGN_GRID);
         this.diceImView.setTranslateX(ALIGN_DICE);
@@ -145,10 +145,10 @@ public abstract class Toolbar {
 
         for (final Pair<ImageView, Label> l: this.pawnList) {
             l.getSecond().setFont(smallFont);
-            l.getSecond().setStyle(BLACK_LABEL);
+            l.getSecond().setId(BLACK_LABEL_ID);
         }
         this.pawnList.get(newTurn).getSecond().setFont(bigFont);
-        this.pawnList.get(newTurn).getSecond().setStyle(YELLOW_LABEL);
+        this.pawnList.get(newTurn).getSecond().setId(YELLOW_LABEL_ID);
     }
 
     /**
@@ -164,10 +164,10 @@ public abstract class Toolbar {
     private void resetTurn() {
         for (final Pair<ImageView, Label> l: this.pawnList) {
             l.getSecond().setFont(smallFont);
-            l.getSecond().setStyle(BLACK_LABEL);
+            l.getSecond().setId(BLACK_LABEL_ID);
         }
         this.pawnList.get(0).getSecond().setFont(bigFont);
-        this.pawnList.get(0).getSecond().setStyle(YELLOW_LABEL);
+        this.pawnList.get(0).getSecond().setId(YELLOW_LABEL_ID);
     }
 
     /**
