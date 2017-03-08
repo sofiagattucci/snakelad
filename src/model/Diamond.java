@@ -4,8 +4,8 @@ import java.util.Random;
 
 /**
  * Represents a diamond which can be collected by the player inside game's sceneries.
- * It has a specific value and randomly decides to appear or not on the scenery's grid when 
- * isVisible() method is called, in order to to implement apparition's rarity of the diamond.
+ * It has a specific value and randomly decides to appear or not on the scenery's grid 
+ * when isVisible() method is called, in order to implement apparition's rarity of itself.
  */
 public final class Diamond extends IntegerValueItems {
 
