@@ -44,10 +44,10 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
 
         this.setBackground(); 
         IntStream.range(0, this.getTag())
-        .forEach(i -> {
-            final Pawn newPawn = new PawnImpl(this, PawnTypes.get().getPawn(this.getColor(i)));
-            this.pawnList.add(newPawn);
-            this.getDefaultLayout().getChildren().add(newPawn.getPawn());
+                 .forEach(i -> {
+                      final Pawn newPawn = new PawnImpl(this, PawnTypes.get().getPawn(this.getColor(i)));
+                      this.pawnList.add(newPawn);
+                      this.getDefaultLayout().getChildren().add(newPawn.getPawn());
         });
     }
 
@@ -116,8 +116,8 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     @Override
     public void resizePawns() {
         IntStream.iterate(0, i -> i + 1)
-        .limit(this.pawnList.size())
-        .forEach(i -> this.pawnList.get(i).resizePawn());
+                 .limit(this.pawnList.size())
+                 .forEach(i -> this.pawnList.get(i).resizePawn());
     }
 
     @Override

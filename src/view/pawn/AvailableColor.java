@@ -48,7 +48,32 @@ public enum AvailableColor {
     /**
      * Violet color.
      */
-    VIOLET("color.violet");
+    VIOLET("color.violet"),
+
+    /**
+     * Rainbow color(skin).
+     */
+    RAINBOW("color.rainbow"),
+
+    /**
+     * Thermo color(skin).
+     */
+    THERMO("color.thermo"),
+
+    /**
+     * Eggs color(skin).
+     */
+    EGGS("color.eggs"),
+
+    /**
+     * Anonymous color(skin).
+     */
+    ANONYMOUS("color.anonymous"),
+
+    /**
+     * Fantasy color(skin).
+     */
+    FANTASY("color.fantasy");
 
     private final String name;
 

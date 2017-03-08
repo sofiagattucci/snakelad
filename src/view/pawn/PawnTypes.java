@@ -17,11 +17,17 @@ public final class PawnTypes {
     private static final String BROWN_PAWN_PATH = "./res/Pawns/BrownPawn.png";
     private static final String PINK_PAWN_PATH = "./res/Pawns/PinkPawn.png";
     private static final String VIOLET_PAWN_PATH = "./res/Pawns/VioletPawn.png";
+    private static final String RAINBOW_PAWN_PATH = "./res/Pawns/RainbowPawn.png";
+    private static final String THERMO_PAWN_PATH = "./res/Pawns/ThermoPawn.png";
+    private static final String EGGS_PAWN_PATH = "./res/Pawns/EggsPawn.png";
+    private static final String ANONYMOUS_PAWN_PATH = "./res/Pawns/AnonymousPawn.png";
+    private static final String FANTASY_PAWN_PATH = "./res/Pawns/FantasyPawn.png";
 
     private static final PawnTypes PAWN_TYPES = new PawnTypes();
     private final Map<AvailableColor, String> pawnColor = new HashMap<>();
 
     private PawnTypes() {
+
         this.pawnColor.put(AvailableColor.RED, RED_PAWN_PATH);
         this.pawnColor.put(AvailableColor.LIGHTBLUE, LIGHTBLUE_PAWN_PATH); 
         this.pawnColor.put(AvailableColor.YELLOW, YELLOW_PAWN_PATH);
@@ -31,6 +37,11 @@ public final class PawnTypes {
         this.pawnColor.put(AvailableColor.BROWN, BROWN_PAWN_PATH);
         this.pawnColor.put(AvailableColor.PINK, PINK_PAWN_PATH);
         this.pawnColor.put(AvailableColor.VIOLET, VIOLET_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.RAINBOW, RAINBOW_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.THERMO, THERMO_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.EGGS, EGGS_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.ANONYMOUS, ANONYMOUS_PAWN_PATH);
+        this.pawnColor.put(AvailableColor.FANTASY, FANTASY_PAWN_PATH);
     }
 
     /**
