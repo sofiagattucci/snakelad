@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import utilities.TypesOfDice;
 import java.util.LinkedList;
 
 /**
@@ -14,18 +13,22 @@ import java.util.LinkedList;
  */
 public final class ModelImpl implements Model {
 
-    private static final Supplier<RuntimeException> EXCEPTION_SUPPLIER = () -> new IllegalStateException("The method statGame() "
-                                                                                                       + "must be called before "
-                                                                                                       + "calling this method!");
-    private static final int PLAYER_INITIAL_POSITION = 0;
+    private static final Supplier<RuntimeException> ILLEGAL_STATE_EXCEPTION_SUPPLIER = () -> new IllegalStateException("The method statGame() "
+                                                                                                                     + "must be called before "
+                                                                                                                     + "calling this method!");
+    private static final int PLAYER_INITIAL_POSITION = 0; 
+    private static final int MAX_ITEMS_GENERATION = 15;
 
     private final User user = UserImpl.get();
     private Scenery scenery;
     private final List<Player> playersList = new LinkedList<>();
     private Dice dice;
+    private final List<SpecialItems> itemsList = new LinkedList<>();
     //'isReady' is false if the method called startGame() has never been called, otherwise 
     //true. In fact, the method statGame() must be called before any other method.
     private boolean isReady;
+    //contains the maximum number of permitted items generations.
+    private int maxItemsGeneration;
 
     /**
      * ModelImpl constructor.
@@ -33,6 +36,7 @@ public final class ModelImpl implements Model {
     public ModelImpl() {
         this.scenery = SceneryImpl.get();
         this.isReady = false;
+        this.maxItemsGeneration = MAX_ITEMS_GENERATION;
     }
 
     private void clearEntities() {
@@ -47,11 +51,38 @@ public final class ModelImpl implements Model {
         this.playersList.get(index).setNewPosition(position);
         return Optional.of(this.playersList.get(index).getPosition());
     }
+ 
+    //private method called to avoid too much repetition of identical code in tryGenerateCoin() and tryGenerateDiamond() methods.
+    private synchronized Optional<Integer> generateItemsUtils(final TypesOfItem typeOfItem) {
+        if (!this.isReady) {
+            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
+        }
+
+        final ItemsGenerator itemGenerator = ItemsGeneratorImpl.get();
+        final List<Integer> occupiedPositionsList = new LinkedList<>();
+        this.itemsList.stream()
+                      .forEach(item -> occupiedPositionsList.add(item.getPosition()));
+
+        final Optional<Integer> generationResult = itemGenerator.tryGenerateItem(this.scenery.getNumberOfBoxes(), 
+                                                                                 occupiedPositionsList, typeOfItem);
+        if (!generationResult.isPresent()) {
+            return generationResult;
+        }
+
+        this.maxItemsGeneration--;
+        if (maxItemsGeneration <= 0) {
+            maxItemsGeneration = 0;
+            return Optional.empty();
+        }
+
+        this.itemsList.add((typeOfItem == TypesOfItem.COIN) ? new Coin(generationResult.get()) : new Diamond(generationResult.get()));
+        return generationResult;
+    }
 
     @Override
     public Optional<Integer> getPlayerPosition(final int playerIndex) {
         if (!this.isReady) {
-            throw EXCEPTION_SUPPLIER.get();
+            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
 
         int partialPlayerPosition = this.playersList.get(playerIndex).getPosition() 
@@ -122,7 +153,7 @@ public final class ModelImpl implements Model {
     @Override
     public int getGameBoardSideSize() {
         if (!this.isReady) {
-            throw EXCEPTION_SUPPLIER.get();
+            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
 
         return this.scenery.getSideSize();
@@ -131,7 +162,7 @@ public final class ModelImpl implements Model {
     @Override
     public int getNumberFromDice() {
         if (!this.isReady) {
-            throw EXCEPTION_SUPPLIER.get();
+            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
 
         return this.dice.roll();
@@ -140,7 +171,7 @@ public final class ModelImpl implements Model {
     @Override
     public void restartGame() {
         if (!this.isReady) {
-            throw EXCEPTION_SUPPLIER.get();
+            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
 
         this.clearEntities();
@@ -149,12 +180,24 @@ public final class ModelImpl implements Model {
     @Override
     public void giveUpGame() {
         if (!this.isReady) {
-            throw EXCEPTION_SUPPLIER.get();
+            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
 
         this.clearEntities();
         this.scenery.clearMaps();
         this.isReady = false;
+    }
+
+    @Override
+    public Optional<Integer> tryGenerateCoin() {
+
+        return this.generateItemsUtils(TypesOfItem.COIN);
+    }
+
+    @Override
+    public Optional<Integer> tryGenerateDiamond() {
+
+        return this.generateItemsUtils(TypesOfItem.DIAMOND);
     }
 
 }

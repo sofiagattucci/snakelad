@@ -1,7 +1,7 @@
 package controller;
 
+import model.TypesOfDice;
 import utilities.Difficulty;
-import utilities.TypesOfDice;
 
 /**
  * Class for set the settings of game.

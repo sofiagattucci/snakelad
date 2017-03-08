@@ -17,9 +17,11 @@ public final class Diamond extends IntegerValueItems {
 
     /**
      * Coin constructor. Initializes a superclass' field.
+     * @param position
+     *                 the diamond's position on the scenery's grid.
      */
-    public Diamond() {
-        super(DIAMOND_VALUE);
+    public Diamond(final int position) {
+        super(DIAMOND_VALUE, position);
     }
 
     /**
