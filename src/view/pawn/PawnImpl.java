@@ -14,7 +14,7 @@ import view.scenes.game.Toolbar;
  */
 public class PawnImpl implements Pawn {
 
-    private static final double PAWN_HEIGHT_PARAM = 2;
+    private static final double PAWN_HEIGHT_PARAM = 3;
 
     private final ImageView pawnIm;
     private Pair<Double, Double> pawnStartingPos;
