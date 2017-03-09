@@ -1,0 +1,23 @@
+#number of cells on the game board n.1 (Difficulty: Beginner)
+35
+#snake positions
+31
+24
+29
+26
+20
+4
+12
+8
+6
+3
+#ladder positions
+11
+13
+14
+33
+16
+28
+30
+32
+#END
