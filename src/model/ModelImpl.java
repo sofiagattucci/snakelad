@@ -48,6 +48,8 @@ public final class ModelImpl implements Model {
                         .forEach(player -> player.setNewPosition(PLAYER_INITIAL_POSITION));
 
         this.dice.setLastNumberAppeared(Optional.empty());
+        this.itemsList.clear();
+        this.maxItemsGeneration = MAX_ITEMS_GENERATION;
     }
 
     //private method called to avoid too much repetition of identical code in getPlayerPosition() method.
@@ -74,12 +76,15 @@ public final class ModelImpl implements Model {
         }
 
         this.maxItemsGeneration--;
-        if (maxItemsGeneration <= 0) {
+        if (maxItemsGeneration < 0) {
             maxItemsGeneration = 0;
             return Optional.empty();
         }
 
-        this.itemsList.add((typeOfItem == TypesOfItem.COIN) ? new Coin(generationResult.get()) : new Diamond(generationResult.get()));
+        this.itemsList.add((typeOfItem == TypesOfItem.COIN) ? new Coin(generationResult.get()) 
+                           : (typeOfItem == TypesOfItem.DIAMOND) ? new Diamond(generationResult.get())
+                           : new Skull(generationResult.get()));
+
         return generationResult;
     }
 
@@ -202,6 +207,12 @@ public final class ModelImpl implements Model {
     public Optional<Integer> tryGenerateDiamond() {
 
         return this.generateItemsUtils(TypesOfItem.DIAMOND);
+    }
+
+    @Override
+    public Optional<Integer> tryGenerateSkull() {
+
+        return this.generateItemsUtils(TypesOfItem.SKULL);
     }
 
 }

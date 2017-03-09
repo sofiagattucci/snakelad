@@ -88,4 +88,12 @@ public interface Model {
      */
     Optional<Integer> tryGenerateDiamond();
 
+    /**
+     * Tries to generate a skull, returning the Optional which describes the skull's position 
+     * on the scenery's grid.
+     * @return an Optional<Integer> if the skull has decided to appear on the scenery's grid and the 
+     * Integer represents the skull's position, an Optional<Empty> if the skull has decided not to appear.
+     */
+    Optional<Integer> tryGenerateSkull();
+
 }
