@@ -9,7 +9,7 @@ import view.pawn.PawnsColor;
  */
 public class SinglePlayerToolbar  extends Toolbar {
 
-    private static final String CPU = "CPU";
+    private static final String CPU = " CPU";
 
     private void setCPU() {
         this.getPawnList().get(SinglePlayerGame.getCPUIndex()).getSecond().setText(CPU);

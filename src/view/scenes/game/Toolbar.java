@@ -48,7 +48,7 @@ public abstract class Toolbar {
     private static final double ALIGN_DICE = BUTTON_WIDTH / 11;
     private static final double ALIGN_GRID = -BUTTON_WIDTH * 0.1;
     private static final int SMALL_FONT_SIZE = 20;
-    private static final int BIG_FONT_SIZE = 40;
+    private static final int BIG_FONT_SIZE = 30;
 
     private static Stage toolStage;
 
