@@ -21,7 +21,7 @@ public final class ModelImpl implements Model {
                                                                                                                      + "must be called before "
                                                                                                                      + "calling this method!");
     private static final int PLAYER_INITIAL_POSITION = 0; 
-    private static final int MAX_ITEMS_GENERATION = 15;
+    private static final int MAX_ITEMS_GENERATION = 20;
 
     private final User user = UserImpl.get();
     private Scenery scenery;
@@ -43,6 +43,7 @@ public final class ModelImpl implements Model {
         this.maxItemsGeneration = MAX_ITEMS_GENERATION;
     }
 
+    //private method called to avoid too much repetition of identical code in restartGame() and giveUpGame() methods.
     private void clearEntities() {
         this.playersList.stream()
                         .forEach(player -> player.setNewPosition(PLAYER_INITIAL_POSITION));
@@ -182,7 +183,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void restartGame() {
+    public synchronized void restartGame() {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
@@ -191,7 +192,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void giveUpGame() {
+    public synchronized void giveUpGame() {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
