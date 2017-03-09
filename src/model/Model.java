@@ -96,4 +96,10 @@ public interface Model {
      */
     Optional<Integer> tryGenerateSkull();
 
+    /**
+     * Reports that the last player moved on the game grid has collected an item.
+     * Sets everything needed to update the player's score.
+     */
+    void itemCollected();
+
 }

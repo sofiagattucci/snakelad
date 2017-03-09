@@ -219,4 +219,9 @@ public final class ModelImpl implements Model {
         return this.generateItemsUtils(TypesOfItem.SKULL);
     }
 
+    @Override
+    public void itemCollected() {
+
+    }
+
 }
