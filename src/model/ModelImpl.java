@@ -5,6 +5,10 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import utilities.TypesOfDice;
+import utilities.TypesOfItem;
+
 import java.util.LinkedList;
 
 /**

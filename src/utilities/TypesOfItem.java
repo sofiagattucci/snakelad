@@ -1,4 +1,4 @@
-package model;
+package utilities;
 
 /**
  * Enumeration for various kind of game's special item.

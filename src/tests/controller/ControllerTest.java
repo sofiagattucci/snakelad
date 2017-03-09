@@ -3,10 +3,10 @@ package tests.controller;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 import controller.Controller;
-import model.TypesOfDice;
 import utilities.ConsoleLog;
 import utilities.Difficulty;
 import utilities.Language;
+import utilities.TypesOfDice;
 
 /**
  * JUnit test for class Controller and all of his method.

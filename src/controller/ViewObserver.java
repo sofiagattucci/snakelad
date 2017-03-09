@@ -1,9 +1,9 @@
 package controller;
 
 import model.Model;
-import model.TypesOfDice;
 import utilities.Difficulty;
 import utilities.Language;
+import utilities.TypesOfDice;
 import view.View;
 
 /**

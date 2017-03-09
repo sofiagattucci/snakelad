@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import controller.GameSettings;
 import controller.GameSettingsBuilder;
-import model.TypesOfDice;
 import utilities.Difficulty;
+import utilities.TypesOfDice;
 
 /**
  * JUnit test GameSettings class.

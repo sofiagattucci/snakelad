@@ -3,7 +3,7 @@ package view.dice;
 import java.util.Map;
 
 import javafx.scene.image.Image;
-import model.TypesOfDice;
+import utilities.TypesOfDice;
 
 /**
  * Interface for a generic type of dice.

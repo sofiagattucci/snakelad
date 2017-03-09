@@ -3,6 +3,8 @@ package model;
 import java.util.List;
 import java.util.Optional;
 
+import utilities.TypesOfItem;
+
 /**
  * Interface which represents an items generator. It encapsulates and decouples the 
  * algorithm to generate items from ModelImpl class.

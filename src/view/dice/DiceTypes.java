@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import model.TypesOfDice;
+import utilities.TypesOfDice;
 
 /**
  * This class manages the different types of dices (images) available in the game.

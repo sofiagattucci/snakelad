@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.Map;
 
 import javafx.scene.image.Image;
-import model.TypesOfDice;
 import utilities.ImageManager;
+import utilities.TypesOfDice;
 import view.scenes.setup.SetUpGame;
 
 /**

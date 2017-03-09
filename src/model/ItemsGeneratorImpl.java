@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import utilities.TypesOfItem;
+
 /**
  * Represents an items generator. 
  * It encapsulates and decouples the algorithm to generate items from ModelImpl class.

@@ -1,7 +1,7 @@
 package view.scenes.game;
 
-import model.TypesOfDice;
 import utilities.Difficulty;
+import utilities.TypesOfDice;
 import view.gameboard.GameBoard;
 
 /**
