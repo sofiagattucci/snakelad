@@ -5,6 +5,7 @@ import java.util.List;
 import utilities.Difficulty;
 import utilities.TypesOfDice;
 import view.gameboard.GameBoard;
+import view.item.Item;
 
 /**
  * Interface for a generic class Game.

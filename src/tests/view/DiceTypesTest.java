@@ -14,7 +14,6 @@ import view.dice.DiceTypes;
  */
 public class DiceTypesTest {
 
-    private static final int N_DICES = 3;
     private static final int N_SIDES_CLASSIC = 6;
     private static final int N_SIDES_TO10 = 6;
     private static final int N_SIDES_NEGATIVE = 7;
@@ -40,7 +39,6 @@ public class DiceTypesTest {
     public void test() {
 
         assertEquals(DiceTypes.get().getClass(), DiceTypes.class);
-        assertEquals(DiceTypes.get().getNumDices(), N_DICES);
         assertEquals(DiceTypes.get().getSpecificDiceMap(TypesOfDice.CLASSIC_DICE).size(), N_SIDES_CLASSIC);
         assertEquals(DiceTypes.get().getSpecificDiceMap(TypesOfDice._5_TO_10_DICE).size(), N_SIDES_TO10);
         assertEquals(DiceTypes.get().getSpecificDiceMap(TypesOfDice.NEGATIVE_DICE).size(), N_SIDES_NEGATIVE);

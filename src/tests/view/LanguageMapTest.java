@@ -34,9 +34,9 @@ public class LanguageMapTest {
         }
         try {
             LanguageStringMap.get().getMap().put("A", "B");
-            fail("Failed test in LanguageMapTest line 36");
+            fail("\nFailed test in LanguageMapTest line 36");
         } catch (UnsupportedOperationException e) {
-            ConsoleLog.get().print("UnsupportedOperationsException thrown with success in LanguageMapTest line 37");
+            ConsoleLog.get().print("\nUnsupportedOperationsException thrown with success in LanguageMapTest line 37");
         }
     }
 }

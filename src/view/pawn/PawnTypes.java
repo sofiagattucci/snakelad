@@ -26,7 +26,7 @@ public final class PawnTypes {
     private static final String EGGS_PAWN_PATH = BASIC_PATH + "EggsPawn.png";
     private static final String ANONYMOUS_PAWN_PATH = BASIC_PATH + "AnonymousPawn.png";
     private static final String FANTASY_PAWN_PATH = BASIC_PATH + "FantasyPawn.png";
-    private static final int N_PAWN = 14;
+    private static final int N_PAWN = AvailableColor.values().length;
 
     private static final PawnTypes PAWN_TYPES = new PawnTypes();
     private final Map<AvailableColor, String> pawnColor;

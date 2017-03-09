@@ -19,6 +19,8 @@ import view.Dimension;
 import view.gameboard.GameBoard;
 import view.gameboard.GameBoardImpl;
 import view.gameboard.GameBoardTypes;
+import view.item.Coin;
+import view.item.Item;
 import view.pawn.AvailableColor;
 import view.pawn.Pawn;
 import view.pawn.PawnImpl;

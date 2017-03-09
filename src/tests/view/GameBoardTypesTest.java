@@ -12,7 +12,6 @@ import view.gameboard.GameBoardTypes;
  */
 public class GameBoardTypesTest {
 
-    private static final int NUM_SCENERY = 4;
     private static final String STANDARD_BOARD_PATH = "./res/gameBoards/";
     private static final String GAME_BOARD = "gameBoard";
     private static final String ESCAPE = "/";
@@ -26,7 +25,6 @@ public class GameBoardTypesTest {
     public void test() {
 
         assertEquals(GameBoardTypes.get().getClass(), GameBoardTypes.class);
-        assertEquals(GameBoardTypes.getNumScenery(), NUM_SCENERY);
         //Checking sceneries
         assertEquals(GameBoardTypes.get().getBoard(Difficulty.BEGINNER),
                 STANDARD_BOARD_PATH + GAME_BOARD + 1 + ESCAPE + GAME_BOARD + 1 + PNG);

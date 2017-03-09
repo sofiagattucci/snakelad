@@ -27,7 +27,7 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
      *     The next node of the layout graph to show in the GUI
      */
     public BoardCircularList(final Node next) {
-        super(GameBoardTypes.getNumScenery(), SCENERY_LABEL_KEY, BOARD_SIZE, Difficulty.BEGINNER, next);
+        super(Difficulty.values().length, SCENERY_LABEL_KEY, BOARD_SIZE, Difficulty.BEGINNER, next);
     }
 
     private Difficulty calculateDifficulty(final int n) {

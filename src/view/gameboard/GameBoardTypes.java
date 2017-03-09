@@ -17,7 +17,7 @@ public final class GameBoardTypes {
     private static final String ESCAPE = "/";
     private static final String MINI = "_mini";
     private static final String PNG = ".png";
-    private static final int NUM_SCENERY = 4;
+    private static final int NUM_SCENERY = Difficulty.values().length;
 
     private static final GameBoardTypes BOARD_TYPES = new GameBoardTypes();
     private final Map<Difficulty, Pair<String, String>> boardMap;
@@ -70,14 +70,5 @@ public final class GameBoardTypes {
      */
     public String getBoardMini(final Difficulty diff) {
         return this.boardMap.get(diff).getSecond();
-    }
-
-    /**
-     * Getter of the number of sceneries available in the game.
-     * @return
-     *     The number of sceneries available in the game
-     */
-    public static int getNumScenery() {
-        return NUM_SCENERY;
     }
 }

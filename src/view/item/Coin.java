@@ -1,9 +1,11 @@
-package view.scenes.game;
+package view.item;
 
 import javafx.scene.image.ImageView;
 import utilities.ImageManager;
 import utilities.Pair;
 import view.Dimension;
+import view.scenes.game.Game;
+import view.scenes.game.Toolbar;
 
 /**
  * This class represents a coin in the GUI.

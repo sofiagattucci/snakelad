@@ -29,7 +29,7 @@ public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
      *     The next node of the layout graph to show in the GUI
      */
     public DiceCircularList(final Node next) {
-        super(DiceTypes.get().getNumDices(), DICE_LABEL_KEY, DICE_SIZE, TypesOfDice.CLASSIC_DICE, next);
+        super(TypesOfDice.values().length, DICE_LABEL_KEY, DICE_SIZE, TypesOfDice.CLASSIC_DICE, next);
     }
 
     @Override
