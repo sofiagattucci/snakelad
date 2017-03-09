@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public final class ModelImpl implements Model {
 
-    private static final Supplier<RuntimeException> ILLEGAL_STATE_EXCEPTION_SUPPLIER = () -> new IllegalStateException("The method statGame() "
+    private static final Supplier<RuntimeException> ILLEGAL_STATE_EXCEPTION_SUPPLIER = () -> new IllegalStateException("The method startGame() "
                                                                                                                      + "must be called before "
                                                                                                                      + "calling this method!");
     private static final int PLAYER_INITIAL_POSITION = 0; 

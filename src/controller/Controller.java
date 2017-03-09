@@ -32,6 +32,7 @@ public final class Controller implements ViewObserver {
     private int counter;
     private boolean control;
     private Optional<GameSettings> settings;
+    private CoinsGenerator coinsGenerator;
 
     /**
      * Constructor.
@@ -51,6 +52,16 @@ public final class Controller implements ViewObserver {
      */
     public static Controller getController() {
         return SINGLETON;
+    }
+
+    @Override
+    public Model getGame() {
+        return this.game;
+    }
+
+    @Override
+    public View getView() {
+        return this.view;
     }
 
     @Override
@@ -122,6 +133,8 @@ public final class Controller implements ViewObserver {
             this.counter = 0;
             this.view.firstTurn();
             this.view.setBoardSize(this.game.getGameBoardSideSize());
+            this.coinsGenerator = new CoinsGenerator(this);
+            this.coinsGenerator.start();
         } else {
             throw new IllegalStateException();
         }
@@ -131,6 +144,9 @@ public final class Controller implements ViewObserver {
     public void giveUp() {
         if (this.control) {
             this.view.firstTurn();
+            synchronized (coinsGenerator) {
+                this.coinsGenerator.setStop();
+            }
             this.game.giveUpGame();
         } else {
             throw new IllegalStateException();

@@ -1,26 +1,47 @@
 package controller;
+
+import java.util.Optional;
+
+import model.Model;
+import view.View;
+
 /**
  * Class to manage coin that appear during the game.
  */
 public class CoinsGenerator implements Runnable {
 
-    private static final int WAIT = 20000;
+    private static final int WAIT = 2000;
     private final Thread t;
-    private boolean stop;
+    private volatile boolean stop;
+    private final Model model;
+    private final View view;
+    private static Optional<Optional<Integer>> position;
 
     /**
      * Constructor.
+     * @param controller
+     *          the instance of controller passed by Controller class
      */
-    public CoinsGenerator() {
+    public CoinsGenerator(final ViewObserver controller) {
         this.t = new Thread(this);
-        this.t.setDaemon(true);
+//        this.t.setDaemon(true);
+        this.model = controller.getGame();
+        this.view = controller.getView();
     }
 
     @Override
     public void run() {
-        while (this.stop) {
+        while (!this.stop) {
             try {
                 Thread.sleep(WAIT);
+                synchronized (this) {
+                    if (!this.stop) {
+                        position = Optional.of(this.model.tryGenerateCoin());
+                        if (position.get().isPresent()) {
+                            this.view.putCoin(position.get().get());
+                        }
+                    }
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -31,14 +52,14 @@ public class CoinsGenerator implements Runnable {
     /**
      * Set the field stop.
      */
-    public void setStop() {
-        this.stop = false;
+    public synchronized void setStop() {
+        this.stop = true;
     }
 
     /**
      * Start the thread.
      */
-    public void start() {
+    public synchronized void start() {
         this.t.start();
     }
 

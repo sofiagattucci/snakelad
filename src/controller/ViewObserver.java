@@ -1,8 +1,10 @@
 package controller;
 
+import model.Model;
 import model.TypesOfDice;
 import utilities.Difficulty;
 import utilities.Language;
+import view.View;
 
 /**
  *Interface of Controller.
@@ -10,6 +12,18 @@ import utilities.Language;
  */
 
 public interface ViewObserver {
+
+    /**
+     * Getter for instance of Model.
+     * @return the instance of Model
+     */
+    Model getGame();
+
+    /**
+     * Getter for instance of View.
+     * @return the instance of View
+     */
+    View getView();
 
     /**
      * Set the value of dice.
