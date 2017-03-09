@@ -34,13 +34,13 @@ public final class ItemsGeneratorImpl implements ItemsGenerator {
     public Optional<Integer> tryGenerateItem(final int maxPosition, final List<Integer> occupiedPositionsList,
                                              final TypesOfItem typeOfItem) {
 
-        int itemPosition = rand.nextInt(maxPosition);
-
-        while (occupiedPositionsList.contains(itemPosition)) {
+        int itemPosition;
+        do {
             itemPosition = rand.nextInt(maxPosition);
-        }
+        } while (occupiedPositionsList.contains(itemPosition));
 
-        final SpecialItems item = (typeOfItem == TypesOfItem.COIN) ? new Coin(itemPosition) : new Diamond(itemPosition);
+        final SpecialItems item = (typeOfItem == TypesOfItem.COIN) ? new Coin(itemPosition) 
+                                  : (typeOfItem == TypesOfItem.DIAMOND) ? new Diamond(itemPosition) : new Skull(itemPosition);
 
         if (!item.isVisibleOnSceneryGrid()) {
             return Optional.empty();
