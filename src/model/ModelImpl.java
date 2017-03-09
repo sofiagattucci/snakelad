@@ -65,9 +65,13 @@ public final class ModelImpl implements Model {
         }
 
         final ItemsGenerator itemGenerator = ItemsGeneratorImpl.get();
+        //this list will contain all items and players' current positions on the game's grid
         final List<Integer> occupiedPositionsList = new LinkedList<>();
         this.itemsList.stream()
                       .forEach(item -> occupiedPositionsList.add(item.getPosition()));
+
+        this.playersList.stream()
+                        .forEach(player -> occupiedPositionsList.add(player.getPosition()));
 
         final Optional<Integer> generationResult = itemGenerator.tryGenerateItem(this.scenery.getNumberOfBoxes(), 
                                                                                  occupiedPositionsList, typeOfItem);
@@ -89,7 +93,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Optional<Integer> getPlayerPosition(final int playerIndex) {
+    public synchronized Optional<Integer> getPlayerPosition(final int playerIndex) {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
