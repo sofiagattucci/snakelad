@@ -118,11 +118,24 @@ public class PawnAnimation implements Runnable {
         this.pawnClass.setRow(nY);
     }
 
+    private void checkCollision() {
+        synchronized (ViewImpl.getPlayScene().getItemList()) {
+            for (int i = 0; i < ViewImpl.getPlayScene().getItemList().size(); i++) {
+                if (this.pawnClass.getPawn().intersects(
+                        ViewImpl.getPlayScene().getItemList().get(i).getItemImageView().getBoundsInLocal())) {
+                    final int j = i;
+                    Platform.runLater(() -> ViewImpl.getPlayScene().removeItem(ViewImpl.getPlayScene().getItemList().get(j)));
+                }
+            }
+        }
+    }
+
     private void moveUp() {
         final double startPos = this.pawnClass.getPawn().getY();
         final double finalPos = startPos - Dimension.BOARD_H / this.pawnClass.getParentScene().getBoard().getBoxesPerRow();
         while (this.pawnClass.getPawn().getY() > finalPos) {
             Platform.runLater(() -> this.pawnClass.getPawn().setY(this.pawnClass.getPawn().getY() - STEP));
+            this.checkCollision();
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -135,6 +148,7 @@ public class PawnAnimation implements Runnable {
         final double finalPos = startPos + Dimension.BOARD_H / this.pawnClass.getParentScene().getBoard().getBoxesPerRow();
         while (this.pawnClass.getPawn().getX() < finalPos) {
             Platform.runLater(() -> this.pawnClass.getPawn().setX(this.pawnClass.getPawn().getX() + STEP));
+            this.checkCollision();
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -147,6 +161,7 @@ public class PawnAnimation implements Runnable {
         final double finalPos = startPos - Dimension.BOARD_H / this.pawnClass.getParentScene().getBoard().getBoxesPerRow();
         while (this.pawnClass.getPawn().getX() > finalPos) {
             Platform.runLater(() -> this.pawnClass.getPawn().setX(this.pawnClass.getPawn().getX() - STEP));
+            this.checkCollision();
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -159,6 +174,7 @@ public class PawnAnimation implements Runnable {
         final double finalPos = startPos + Dimension.BOARD_H / this.pawnClass.getParentScene().getBoard().getBoxesPerRow();
         while (this.pawnClass.getPawn().getY() < finalPos) {
             Platform.runLater(() -> this.pawnClass.getPawn().setY(this.pawnClass.getPawn().getY() + STEP));
+            this.checkCollision();
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {

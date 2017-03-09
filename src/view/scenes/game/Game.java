@@ -1,5 +1,7 @@
 package view.scenes.game;
 
+import java.util.List;
+
 import utilities.Difficulty;
 import utilities.TypesOfDice;
 import view.gameboard.GameBoard;
@@ -80,4 +82,19 @@ public interface Game {
       *     The position where the coin must be put
       */
      void putCoin(int position);
+
+     /**
+      * Getter of the items (unmodifiable) list.
+      * @return
+      *     The (unmodifiable) list of the items shown in the scene
+      */
+     List<Item> getItemList();
+
+     /**
+      * It removes the selected Item from the GUI.
+      * @param item
+      *     The Item to remove
+      */
+     void removeItem(Item item);
+
 }

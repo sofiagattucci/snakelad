@@ -8,7 +8,7 @@ import view.Dimension;
 /**
  * This class represents a coin in the GUI.
  */
-public class Coin {
+public class Coin implements Item {
 
     private static final String COIN_PATH = "./res/icons/coin.gif";
     private static final double COIN_HEIGHT_PARAM = 2;
@@ -30,7 +30,7 @@ public class Coin {
         this.position = pos;
         this.parentScene = s;
         this.coinIV.setPreserveRatio(true);
-        this.resizeCoin();
+        this.resize();
     }
 
     private void setPosition() {
@@ -47,10 +47,8 @@ public class Coin {
     }
 
 
-    /**
-     * It resizes the coin and sets its position when necessary.
-     */
-    public final void resizeCoin() {
+    @Override
+    public final void resize() {
         this.coinIV.setFitHeight(Dimension.getPawnHeight());
         this.coinStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
                 + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) / 2 - Dimension.getPawnHeight() / COIN_HEIGHT_PARAM,
@@ -60,12 +58,8 @@ public class Coin {
         this.setPosition();
     }
 
-    /**
-     * Getter of the coin ImageView.
-     * @return
-     *     The coin ImageView
-     */
-    public ImageView getCoinImageView() {
+    @Override
+    public ImageView getItemImageView() {
         return this.coinIV;
     }
 }

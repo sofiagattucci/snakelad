@@ -2,6 +2,7 @@ package view.scenes.game;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -38,6 +39,7 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     private Toolbar toolbar;
     private final GameBoard board = new GameBoardImpl(boardPath);
     private final List<Pawn> pawnList = new ArrayList<>();
+    private final List<Item> itemList = new ArrayList<>();
     private int currentTurn;
 
     /**
@@ -87,6 +89,10 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     @Override
     public void firstTurn() {
         this.toolbar.reset();
+        for (final Item i: this.itemList) {
+            this.getDefaultLayout().getChildren().remove(i.getItemImageView());
+        }
+        this.itemList.clear();
         for (final Pawn elem: pawnList) {
             elem.reset();
         }
@@ -136,7 +142,9 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
 
     @Override
     public void putCoin(final int pos) {
-        this.getDefaultLayout().getChildren().add(new Coin(this, pos).getCoinImageView());
+        final Item newItem = new Coin(this, pos);
+        this.itemList.add(newItem);
+        this.getDefaultLayout().getChildren().add(newItem.getItemImageView());
     }
 
     @Override
@@ -186,4 +194,14 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
         this.getToolbar().putLabels(this, getTag());
     }
 
+    @Override
+    public List<Item> getItemList() {
+        return Collections.unmodifiableList(this.itemList);
+    }
+
+    @Override
+    public void removeItem(final Item item) {
+        this.getDefaultLayout().getChildren().remove(item.getItemImageView());
+        this.itemList.remove(item);
+    }
 }
