@@ -29,19 +29,20 @@ public final class NegativeDice implements Dice {
 
     //calculates a number distributed between -2 and 5 included (0 excluded)
     private int calculateFinalNumber(final int initialNumber) {
-    	if (initialNumber > DELTA && initialNumber <= MAX_NUMBER) {
-    		this.classicDice.setLastNumberAppeared(Optional.of(initialNumber));
-    		return initialNumber;
-    	}
-    	
-    	if (initialNumber > MAX_NUMBER) {
-    		int value;
-    		do {
-    			value = rand.nextInt(MAX_NUMBER) + MIN_NUMBER;
-    		} while (value == 0);
-    		this.classicDice.setLastNumberAppeared(Optional.of(value));
-    		return value;
-    	}
+        if (initialNumber > DELTA && initialNumber <= MAX_NUMBER) {
+            this.classicDice.setLastNumberAppeared(Optional.of(initialNumber));
+            return initialNumber;
+        }
+
+        if (initialNumber > MAX_NUMBER) {
+            int value;
+            do {
+                value = rand.nextInt(MAX_NUMBER) + MIN_NUMBER;
+            } while (value == 0);
+
+            this.classicDice.setLastNumberAppeared(Optional.of(value));
+            return value;
+        }
 
         final int bit = this.rand.nextInt(DELTA);
         if (bit == 0) {
