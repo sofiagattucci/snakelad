@@ -12,8 +12,7 @@ public final class NegativeDice implements Dice {
 
     private static final int MAX_NUMBER = 5;
     private static final int MIN_NUMBER = -2;
-    private static final int DELTA = 3;
-    private static final int RANDOM_BOUND = 2;
+    private static final int DELTA = 2;
 
     private final Dice classicDice;
     private final Random rand = new Random(); 
@@ -28,20 +27,23 @@ public final class NegativeDice implements Dice {
         this.classicDice = classicDice;
     }
 
-    //calculates a number distributed between -2 and 5 included
+    //calculates a number distributed between -2 and 5 included (0 excluded)
     private int calculateFinalNumber(final int initialNumber) {
-        if (initialNumber > MAX_NUMBER) {
-            final int finalNumber = rand.nextInt(MAX_NUMBER) + MIN_NUMBER;
-            this.classicDice.setLastNumberAppeared(Optional.of(finalNumber));
-            return finalNumber;
-        }
+    	if (initialNumber > DELTA && initialNumber <= MAX_NUMBER) {
+    		this.classicDice.setLastNumberAppeared(Optional.of(initialNumber));
+    		return initialNumber;
+    	}
+    	
+    	if (initialNumber > MAX_NUMBER) {
+    		int value;
+    		do {
+    			value = rand.nextInt(MAX_NUMBER) + MIN_NUMBER;
+    		} while (value == 0);
+    		this.classicDice.setLastNumberAppeared(Optional.of(value));
+    		return value;
+    	}
 
-        if (initialNumber >= DELTA) {
-            this.classicDice.setLastNumberAppeared(Optional.of(initialNumber));
-            return initialNumber;
-        }
-
-        final int bit = this.rand.nextInt(RANDOM_BOUND);
+        final int bit = this.rand.nextInt(DELTA);
         if (bit == 0) {
             final int finalNumber = -initialNumber;
             this.classicDice.setLastNumberAppeared(Optional.of(finalNumber));
