@@ -100,10 +100,28 @@ public final class Controller implements ViewObserver {
             this.game.restartGame();
             this.counter = 0;
             this.view.firstTurn();
+            synchronized (coinsGenerator) {
+                this.coinsGenerator.start();
+            }
         } else {
             throw new IllegalStateException();
         }
     }
+
+    @Override
+    public void pause() {
+        synchronized (coinsGenerator) {
+            this.coinsGenerator.setStop();
+        }
+    }
+
+    @Override
+    public void resume() {
+        synchronized (coinsGenerator) {
+            this.coinsGenerator.start();
+        }
+    }
+
 
     @Override
     public void play(final int numberOfPlayers, final Difficulty scenery, final TypesOfDice dice) {
@@ -194,4 +212,10 @@ public final class Controller implements ViewObserver {
     public void login(final String name) {
         this.userLogin.login(name);
     }
+
+    @Override
+    public void collisionHappened() {
+        this.game.itemCollected();
+    }
+
 }

@@ -21,7 +21,7 @@ public final class ModelImpl implements Model {
                                                                                                                      + "must be called before "
                                                                                                                      + "calling this method!");
     private static final int PLAYER_INITIAL_POSITION = 0; 
-    private static final int MAX_ITEMS_GENERATION = 15;
+    private static final int MAX_ITEMS_GENERATION = 20;
 
     private final User user = UserImpl.get();
     private Scenery scenery;
@@ -43,11 +43,14 @@ public final class ModelImpl implements Model {
         this.maxItemsGeneration = MAX_ITEMS_GENERATION;
     }
 
+    //private method called to avoid too much repetition of identical code in restartGame() and giveUpGame() methods.
     private void clearEntities() {
         this.playersList.stream()
                         .forEach(player -> player.setNewPosition(PLAYER_INITIAL_POSITION));
 
         this.dice.setLastNumberAppeared(Optional.empty());
+        this.itemsList.clear();
+        this.maxItemsGeneration = MAX_ITEMS_GENERATION;
     }
 
     //private method called to avoid too much repetition of identical code in getPlayerPosition() method.
@@ -63,9 +66,13 @@ public final class ModelImpl implements Model {
         }
 
         final ItemsGenerator itemGenerator = ItemsGeneratorImpl.get();
+        //this list will contain all items and players' current positions on the game's grid
         final List<Integer> occupiedPositionsList = new LinkedList<>();
         this.itemsList.stream()
                       .forEach(item -> occupiedPositionsList.add(item.getPosition()));
+
+        this.playersList.stream()
+                        .forEach(player -> occupiedPositionsList.add(player.getPosition()));
 
         final Optional<Integer> generationResult = itemGenerator.tryGenerateItem(this.scenery.getNumberOfBoxes(), 
                                                                                  occupiedPositionsList, typeOfItem);
@@ -74,17 +81,20 @@ public final class ModelImpl implements Model {
         }
 
         this.maxItemsGeneration--;
-        if (maxItemsGeneration <= 0) {
+        if (maxItemsGeneration < 0) {
             maxItemsGeneration = 0;
             return Optional.empty();
         }
 
-        this.itemsList.add((typeOfItem == TypesOfItem.COIN) ? new Coin(generationResult.get()) : new Diamond(generationResult.get()));
+        this.itemsList.add((typeOfItem == TypesOfItem.COIN) ? new Coin(generationResult.get()) 
+                           : (typeOfItem == TypesOfItem.DIAMOND) ? new Diamond(generationResult.get())
+                           : new Skull(generationResult.get()));
+
         return generationResult;
     }
 
     @Override
-    public Optional<Integer> getPlayerPosition(final int playerIndex) {
+    public synchronized Optional<Integer> getPlayerPosition(final int playerIndex) {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
@@ -173,7 +183,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void restartGame() {
+    public synchronized void restartGame() {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
@@ -182,7 +192,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void giveUpGame() {
+    public synchronized void giveUpGame() {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
@@ -202,6 +212,17 @@ public final class ModelImpl implements Model {
     public Optional<Integer> tryGenerateDiamond() {
 
         return this.generateItemsUtils(TypesOfItem.DIAMOND);
+    }
+
+    @Override
+    public Optional<Integer> tryGenerateSkull() {
+
+        return this.generateItemsUtils(TypesOfItem.SKULL);
+    }
+
+    @Override
+    public void itemCollected() {
+
     }
 
 }

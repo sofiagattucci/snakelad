@@ -41,6 +41,16 @@ public interface ViewObserver {
     void restart();
 
     /**
+     * Manage the game pause.
+     */
+    void pause();
+
+    /**
+     * Resume the game.
+     */
+    void resume();
+
+    /**
      * Start new game.
      * @param numberOfPlayers
      *          the number of player
@@ -86,5 +96,10 @@ public interface ViewObserver {
      *          the name of user.
      */
     void login(String name);
+
+    /**
+     * Notify if happen a collision between coin and pawn.
+     */
+    void collisionHappened();
 
 }
