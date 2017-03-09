@@ -28,10 +28,10 @@ public final class NegativeDice implements Dice {
         this.classicDice = classicDice;
     }
 
-    //calculates a number uniformly distributed between -2 and 5 included
+    //calculates a number distributed between -2 and 5 included
     private int calculateFinalNumber(final int initialNumber) {
         if (initialNumber > MAX_NUMBER) {
-            final int finalNumber = this.calculateFinalNumber(this.rand.nextInt(MAX_NUMBER) + 1);
+            final int finalNumber = rand.nextInt(MAX_NUMBER) + MIN_NUMBER;
             this.classicDice.setLastNumberAppeared(Optional.of(finalNumber));
             return finalNumber;
         }
