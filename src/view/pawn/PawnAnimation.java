@@ -116,18 +116,12 @@ public class PawnAnimation implements Runnable {
             this.pawnClass.getIniPos().getSecond() - (Dimension.BOARD_H
                     / this.pawnClass.getParentScene().getBoard().getBoxesPerRow()) * nY));
         this.pawnClass.setRow(nY);
+        this.checkCollision();
     }
 
     private void checkCollision() {
-        synchronized (ViewImpl.getPlayScene().getItemList()) {
-            for (int i = 0; i < ViewImpl.getPlayScene().getItemList().size(); i++) {
-                if (this.pawnClass.getPawn().intersects(
-                        ViewImpl.getPlayScene().getItemList().get(i).getItemImageView().getBoundsInLocal())) {
-                    final int j = i;
-                    Platform.runLater(() -> ViewImpl.getPlayScene().removeItem(ViewImpl.getPlayScene().getItemList().get(j)));
-                    //i--;
-                }
-            }
+        synchronized (ViewImpl.getPlayScene()) {
+            Platform.runLater(() -> ViewImpl.getPlayScene().removeItem());
         }
     }
 

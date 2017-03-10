@@ -3,7 +3,11 @@ package view.scenes.game;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import javafx.geometry.Side;
@@ -17,6 +21,7 @@ import utilities.ImageManager;
 import utilities.TypesOfDice;
 import utilities.TypesOfItem;
 import view.Dimension;
+import view.ViewImpl;
 import view.gameboard.GameBoard;
 import view.gameboard.GameBoardImpl;
 import view.gameboard.GameBoardTypes;
@@ -42,7 +47,7 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     private Toolbar toolbar;
     private final GameBoard board = new GameBoardImpl(boardPath);
     private final List<Pawn> pawnList = new ArrayList<>();
-    private final List<Item> itemList = new ArrayList<>();
+    private final Map<Integer, Item> itemMap = new HashMap<>();
     private int currentTurn;
 
     /**
@@ -92,10 +97,10 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     @Override
     public void firstTurn() {
         this.toolbar.reset();
-        for (final Item i: this.itemList) {
+        for (final Item i: this.itemMap.values()) {
             this.getDefaultLayout().getChildren().remove(i.getItemImageView());
         }
-        this.itemList.clear();
+        this.itemMap.clear();
         for (final Pawn elem: pawnList) {
             elem.reset();
         }
@@ -146,7 +151,7 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     @Override
     public void putItem(final int pos, final TypesOfItem type) {
         final Item newItem = new ItemImpl(this, pos, type);
-        this.itemList.add(newItem);
+        this.itemMap.put(pos, newItem);
         this.getDefaultLayout().getChildren().add(newItem.getItemImageView());
     }
 
@@ -198,13 +203,20 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     }
 
     @Override
-    public List<Item> getItemList() {
-        return Collections.unmodifiableList(this.itemList);
+    public Map<Integer, Item> getItemMap() {
+        return Collections.unmodifiableMap(this.itemMap);
     }
 
     @Override
-    public void removeItem(final Item item) {
-        this.getDefaultLayout().getChildren().remove(item.getItemImageView());
-        this.itemList.remove(item);
+    public void removeItem() {
+
+        final Set<Integer> keySet = new HashSet<>(ViewImpl.getPlayScene().getItemMap().keySet());
+        for (final int key: keySet) {
+            if (this.pawnList.get((this.currentTurn - 1) % this.getTag()).getPawn().intersects(
+                    ViewImpl.getPlayScene().getItemMap().get(key).getItemImageView().getBoundsInLocal())) {
+                this.getDefaultLayout().getChildren().remove(this.itemMap.get(key).getItemImageView());
+                this.itemMap.remove(key);
+            }
+        }
     }
 }
