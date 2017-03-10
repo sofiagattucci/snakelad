@@ -1,4 +1,4 @@
-package model;
+package model.items;
 
 /**
  * Abstract class which shapes a basic item which has a position on the scenery's grid and whose 

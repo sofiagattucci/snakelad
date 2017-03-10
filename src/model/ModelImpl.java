@@ -6,6 +6,12 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import model.items.Coin;
+import model.items.Diamond;
+import model.items.ItemsGenerator;
+import model.items.ItemsGeneratorImpl;
+import model.items.Skull;
+import model.items.SpecialItems;
 import utilities.TypesOfDice;
 import utilities.TypesOfItem;
 

@@ -1,4 +1,4 @@
-package model;
+package model.items;
 
 /**
  * An interface for special items inside the game. A 'special items' is game's entity which can be collected in 
