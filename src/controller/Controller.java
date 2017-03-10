@@ -164,9 +164,9 @@ public final class Controller implements ViewObserver {
     public void giveUp() {
         if (this.control) {
             this.view.firstTurn();
-//            synchronized (coinsGenerator) {
-//                this.coinsGenerator.setStop();
-//            }
+            synchronized (coinsGenerator) {
+                this.coinsGenerator.setStop();
+            }
             this.game.giveUpGame();
         } else {
             throw new IllegalStateException();
