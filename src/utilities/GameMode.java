@@ -1,16 +1,18 @@
 package utilities;
+
 /**
- * Enumeration for Single and Multiplayer.
- *
+ * Enumeration for Single and Multiplayer modes.
  */
 public enum GameMode {
-    /**
-     * Single Player.
-     */
-    SINGLE_PLAYRE,
 
     /**
-     * Multiplayer.
+     * Single Player mode.
+     */
+    SINGLE_PLAYER,
+
+    /**
+     * Multiplayer mode.
      */
     MULTIPLAYER;
+
 }
