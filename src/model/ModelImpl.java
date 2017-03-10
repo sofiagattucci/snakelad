@@ -231,7 +231,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void itemCollected() {
+    public void itemCollected(final int itemIndex) {
 
     }
 

@@ -99,7 +99,9 @@ public interface Model {
     /**
      * Reports that the last player moved on the game grid has collected an item.
      * Sets everything needed to update the player's score.
+     * @param itemIndex
+     *                  ...to do.....
      */
-    void itemCollected();
+    void itemCollected(int itemIndex);
 
 }
