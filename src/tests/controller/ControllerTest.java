@@ -5,6 +5,7 @@ import org.junit.Test;
 import controller.Controller;
 import utilities.ConsoleLog;
 import utilities.Difficulty;
+import utilities.GameMode;
 import utilities.Language;
 import utilities.TypesOfDice;
 
@@ -65,7 +66,7 @@ public class ControllerTest {
             this.printErrorMessage();
         }
         try {
-            controller.play(TWO_PLAYER, Difficulty.BEGINNER, TypesOfDice.CLASSIC_DICE);
+            controller.play(TWO_PLAYER, Difficulty.BEGINNER, TypesOfDice.CLASSIC_DICE, GameMode.SINGLE_PLAYRE);
             fail("Must invoke start method before calling play!");
         } catch (IllegalStateException s) {
             this.printErrorMessage();

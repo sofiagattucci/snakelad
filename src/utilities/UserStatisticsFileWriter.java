@@ -9,15 +9,15 @@ import java.util.Properties;
  * Allows to set statistics of user who's playing the game.
  * It's designed using Singleton Pattern.
  */
-public final class UserStatisticsWriter {
+public final class UserStatisticsFileWriter {
 
-    private static final UserStatisticsWriter SINGLETON = new UserStatisticsWriter();
+    private static final UserStatisticsFileWriter SINGLETON = new UserStatisticsFileWriter();
     private static final String USERS_DIRECTORY = "./res/users/";
     private static final String USERS_SUFFIX = ".properties";
     private static final String USER_SCORES_KEY = "Scores";
 
     //private constructor
-    private UserStatisticsWriter() { 
+    private UserStatisticsFileWriter() { 
 
     }
 
@@ -25,7 +25,7 @@ public final class UserStatisticsWriter {
      * Static method which returns the UserStatisticsWriter unique instance.
      * @return the UserStatisticsWriter unique instance.
      */
-    public static UserStatisticsWriter get() {
+    public static UserStatisticsFileWriter get() {
         return SINGLETON;
     }
 
