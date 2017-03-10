@@ -3,7 +3,7 @@ package model;
 import java.util.List;
 import java.util.Optional;
 
-import utilities.TypesOfDice;
+import utilities.enumeration.TypesOfDice;
 
 /**
  * It represents the interface for the model in MVC pattern.

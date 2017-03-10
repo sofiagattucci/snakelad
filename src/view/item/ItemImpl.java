@@ -3,7 +3,7 @@ package view.item;
 import javafx.scene.image.ImageView;
 import utilities.ImageManager;
 import utilities.Pair;
-import utilities.TypesOfItem;
+import utilities.enumeration.TypesOfItem;
 import view.Dimension;
 import view.scenes.game.Game;
 import view.scenes.game.Toolbar;

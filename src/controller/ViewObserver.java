@@ -1,10 +1,10 @@
 package controller;
 
 import model.Model;
-import utilities.Difficulty;
-import utilities.GameMode;
-import utilities.Language;
-import utilities.TypesOfDice;
+import utilities.enumeration.Difficulty;
+import utilities.enumeration.GameMode;
+import utilities.enumeration.Language;
+import utilities.enumeration.TypesOfDice;
 import view.View;
 
 /**

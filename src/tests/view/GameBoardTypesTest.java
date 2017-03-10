@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import utilities.Difficulty;
+import utilities.enumeration.Difficulty;
 import view.gameboard.GameBoardTypes;
 
 /**

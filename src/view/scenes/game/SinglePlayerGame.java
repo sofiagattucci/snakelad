@@ -1,7 +1,7 @@
 package view.scenes.game;
 
 import javafx.stage.Stage;
-import utilities.Turn;
+import utilities.enumeration.Turn;
 import view.ViewImpl;
 import view.dialogboxes.SinglePlayerGameOver;
 import view.pawn.AvailableColor;

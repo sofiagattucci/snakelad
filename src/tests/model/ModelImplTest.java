@@ -15,7 +15,7 @@ import model.Model;
 import model.ModelImpl;
 import utilities.ConsoleLog;
 import utilities.SceneryDataManager;
-import utilities.TypesOfDice;
+import utilities.enumeration.TypesOfDice;
 
 /**
  * Junit test used in order to test ModelImpl class.

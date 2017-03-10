@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javafx.scene.image.Image;
 import utilities.ImageManager;
-import utilities.TypesOfDice;
+import utilities.enumeration.TypesOfDice;
 import view.scenes.setup.SetUpGame;
 
 /**

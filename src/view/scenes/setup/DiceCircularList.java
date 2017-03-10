@@ -3,7 +3,7 @@ package view.scenes.setup;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import utilities.ImageManager;
-import utilities.TypesOfDice;
+import utilities.enumeration.TypesOfDice;
 import view.BasicButton;
 import view.LanguageStringMap;
 import view.dice.DiceTypes;

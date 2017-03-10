@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import utilities.ConsoleLog;
-import utilities.TypesOfDice;
+import utilities.enumeration.TypesOfDice;
 import view.dice.DiceTypes;
 
 /**

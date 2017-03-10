@@ -3,7 +3,7 @@ package model.items;
 import java.util.List;
 import java.util.Optional;
 
-import utilities.TypesOfItem;
+import utilities.enumeration.TypesOfItem;
 
 /**
  * Interface which represents an items generator. It encapsulates and decouples the 

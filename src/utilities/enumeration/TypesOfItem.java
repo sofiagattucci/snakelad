@@ -1,4 +1,4 @@
-package utilities;
+package utilities.enumeration;
 
 /**
  * Enumeration for various kind of game's special item.

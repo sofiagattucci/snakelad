@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import utilities.Difficulty;
 import utilities.Pair;
+import utilities.enumeration.Difficulty;
 
 /**
  * This class manages the different types of game boards (images) available in the game.

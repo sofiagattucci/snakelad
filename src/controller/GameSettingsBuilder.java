@@ -1,8 +1,8 @@
 package controller;
 
-import utilities.Difficulty;
-import utilities.GameMode;
-import utilities.TypesOfDice;
+import utilities.enumeration.Difficulty;
+import utilities.enumeration.GameMode;
+import utilities.enumeration.TypesOfDice;
 
 /**
  * Builder for GameSettings class.

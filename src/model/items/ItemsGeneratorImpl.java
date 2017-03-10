@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import utilities.TypesOfItem;
+import utilities.enumeration.TypesOfItem;
 
 /**
  * Represents an items generator. 

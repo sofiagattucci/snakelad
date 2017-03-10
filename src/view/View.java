@@ -2,7 +2,7 @@ package view;
 
 import java.util.Map;
 
-import utilities.TypesOfItem;
+import utilities.enumeration.TypesOfItem;
 
 /**
  * Interface for the View.

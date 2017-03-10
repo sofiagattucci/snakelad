@@ -5,12 +5,12 @@ import java.util.Optional;
 import model.Model;
 import model.ModelImpl;
 import utilities.SceneryDataManager;
-import utilities.TypesOfDice;
 import utilities.UserLogin;
+import utilities.enumeration.Difficulty;
+import utilities.enumeration.GameMode;
+import utilities.enumeration.Language;
+import utilities.enumeration.TypesOfDice;
 import utilities.LanguageLoader;
-import utilities.Difficulty;
-import utilities.GameMode;
-import utilities.Language;
 import view.View;
 import view.ViewImpl;
 

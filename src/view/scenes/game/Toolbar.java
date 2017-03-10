@@ -16,7 +16,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.ImageManager;
 import utilities.Pair;
-import utilities.TypesOfDice;
+import utilities.enumeration.TypesOfDice;
 import view.BasicButton;
 import view.Dimension;
 import view.LanguageStringMap;

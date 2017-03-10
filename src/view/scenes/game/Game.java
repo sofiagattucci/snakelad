@@ -2,9 +2,9 @@ package view.scenes.game;
 
 import java.util.List;
 
-import utilities.Difficulty;
-import utilities.TypesOfDice;
-import utilities.TypesOfItem;
+import utilities.enumeration.Difficulty;
+import utilities.enumeration.TypesOfDice;
+import utilities.enumeration.TypesOfItem;
 import view.gameboard.GameBoard;
 import view.item.Item;
 

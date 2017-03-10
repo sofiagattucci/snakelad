@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import utilities.ConsoleLog;
-import utilities.Language;
+import utilities.enumeration.Language;
 import view.scenes.settings.FlagsMap;
 
 /**

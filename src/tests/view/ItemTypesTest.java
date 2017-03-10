@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import utilities.TypesOfItem;
+import utilities.enumeration.TypesOfItem;
 import view.item.ItemTypes;
 
 /**

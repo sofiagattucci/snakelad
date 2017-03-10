@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import utilities.enumeration.Language;
+
 /**
  * This class load the language choose form user.
  * It's designed using Singleton pattern.

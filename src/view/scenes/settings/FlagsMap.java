@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import utilities.Language;
+import utilities.enumeration.Language;
 
 /**
  * This class hold a map with the different types of flags(Images) and their path.

@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import utilities.TypesOfItem;
+import utilities.enumeration.TypesOfItem;
 
 /**
  * It manages the different types of items available in the game.

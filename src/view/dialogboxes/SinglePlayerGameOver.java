@@ -1,7 +1,7 @@
 package view.dialogboxes;
 
 import javafx.stage.Stage;
-import utilities.Turn;
+import utilities.enumeration.Turn;
 import view.LanguageStringMap;
 
 /**

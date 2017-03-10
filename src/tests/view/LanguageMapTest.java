@@ -8,8 +8,8 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import utilities.ConsoleLog;
-import utilities.Language;
 import utilities.LanguageLoader;
+import utilities.enumeration.Language;
 import view.LanguageStringMap;
 
 /**

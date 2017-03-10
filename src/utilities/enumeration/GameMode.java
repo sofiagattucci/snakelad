@@ -1,4 +1,4 @@
-package utilities;
+package utilities.enumeration;
 
 /**
  * Enumeration for Single and Multiplayer modes.

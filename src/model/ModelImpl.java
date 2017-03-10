@@ -20,8 +20,9 @@ import model.scenery.Scenery;
 import model.scenery.SceneryFactoryImpl;
 import model.user.User;
 import model.user.UserImpl;
-import utilities.TypesOfDice;
-import utilities.TypesOfItem;
+import utilities.enumeration.TypesOfDice;
+import utilities.enumeration.TypesOfItem;
+
 import java.util.LinkedList;
 
 /**

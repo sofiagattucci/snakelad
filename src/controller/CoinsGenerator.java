@@ -3,7 +3,7 @@ package controller;
 import java.util.Optional;
 
 import model.Model;
-import utilities.TypesOfItem;
+import utilities.enumeration.TypesOfItem;
 import view.View;
 
 /**

@@ -2,8 +2,8 @@ package view.scenes.setup;
 
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import utilities.Difficulty;
 import utilities.ImageManager;
+import utilities.enumeration.Difficulty;
 import view.BasicButton;
 import view.LanguageStringMap;
 import view.gameboard.GameBoardTypes;
