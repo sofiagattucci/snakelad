@@ -8,8 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import model.User;
-import model.UserImpl;
+
+import model.user.User;
+import model.user.UserImpl;
 
 /**
  * It's used to read and write files which contains login informations.

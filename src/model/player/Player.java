@@ -1,4 +1,4 @@
-package model;
+package model.player;
 
 /**
  * The interface for a player.

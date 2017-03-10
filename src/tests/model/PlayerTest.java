@@ -7,8 +7,8 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import model.Player;
-import model.PlayerImpl;
+import model.player.Player;
+import model.player.PlayerImpl;
 import utilities.ConsoleLog;
 
 /**

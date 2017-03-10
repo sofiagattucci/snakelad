@@ -1,4 +1,4 @@
-package model;
+package model.player;
 
 /**
  * Implements methods for a player.

@@ -1,4 +1,4 @@
-package model;
+package model.user;
 
 /**
  * Represents the user who's playing the game, with his status and statistics.

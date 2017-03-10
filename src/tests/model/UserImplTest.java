@@ -5,8 +5,9 @@ import static org.junit.Assert.fail;
 
 import java.util.Random;
 import org.junit.Test;
-import model.User;
-import model.UserImpl;
+
+import model.user.User;
+import model.user.UserImpl;
 import utilities.ConsoleLog;
 
 /**
