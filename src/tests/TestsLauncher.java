@@ -9,6 +9,7 @@ import tests.model.Dice5To10Test;
 import tests.model.ModelImplTest;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
+import tests.model.SceneryImplTest;
 import tests.model.UserImplTest;
 import tests.view.DiceTypesTest;
 import tests.view.FlagsMapTest;
@@ -39,6 +40,9 @@ public final class TestsLauncher {
 
         //User test
         new UserImplTest().testUserImpl();
+
+        //Scenery test
+        new SceneryImplTest().testSceneryImpl();
 
         //ModelImpl tests
         final ModelImplTest modelImplTest = new ModelImplTest();

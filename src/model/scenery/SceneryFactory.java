@@ -9,12 +9,12 @@ import java.util.List;
 public interface SceneryFactory {
 
     /**
-     * Creates and returns a scenery.
+     * Sets up and returns the scenery.
      * @param data
      *          The list that contains the data (snakes and ladders positions, 
      *          number of cells on the game board) useful to start the game.
-     * @return a scenery created from the 'data' argument.
+     * @return the scenery set from the 'data' argument.
      */
-    Scenery createScenery(List<Integer> data);
+    Scenery setUpScenery(List<Integer> data);
 
 }
