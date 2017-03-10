@@ -101,7 +101,7 @@ public final class Controller implements ViewObserver {
             this.game.restartGame();
             this.counter = 0;
             this.view.firstTurn();
-            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYRE) {
+            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
                 this.coinsGenerator = new CoinsGenerator(this);
                 this.coinsGenerator.start();
             }
@@ -112,7 +112,7 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void pause() {
-        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYRE) {
+        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
             synchronized (coinsGenerator) {
                 this.coinsGenerator.setStop();
             }
@@ -121,7 +121,7 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void resume() {
-        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYRE) {
+        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
             this.coinsGenerator = new CoinsGenerator(this);
             this.coinsGenerator.start();
         }
@@ -157,7 +157,7 @@ public final class Controller implements ViewObserver {
             this.counter = 0;
             this.view.firstTurn();
             this.view.setBoardSize(this.game.getGameBoardSideSize());
-            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYRE) {
+            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
                 this.coinsGenerator = new CoinsGenerator(this);
                 this.coinsGenerator.start();
             }
@@ -170,7 +170,7 @@ public final class Controller implements ViewObserver {
     public void giveUp() {
         if (this.control) {
             this.view.firstTurn();
-                if (this.settings.get().getModality() == GameMode.SINGLE_PLAYRE) {
+                if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
                 synchronized (coinsGenerator) {
                     this.coinsGenerator.setStop();
                 }
@@ -224,7 +224,7 @@ public final class Controller implements ViewObserver {
     }
 
     @Override
-    public void collisionHappened() {
+    public void collisionHappened(final int position) {
         this.game.itemCollected();
     }
 

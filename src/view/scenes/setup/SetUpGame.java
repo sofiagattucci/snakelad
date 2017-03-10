@@ -3,7 +3,6 @@ package view.scenes.setup;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.TypesOfDice;
+import utilities.enumeration.GameMode;
 import view.BasicButton;
 import view.Dimension;
 import view.LanguageStringMap;
@@ -125,7 +125,7 @@ public final class SetUpGame extends BasicScene {
                 SinglePlayerGame.getScene(setUpStage).updateScene(this.board.getParameterValue(), this.dice.getParameterValue());
                 ViewImpl.setPlayScene(SinglePlayerGame.getScene(setUpStage));
                 ViewImpl.getPlayScene().updateLanguage();
-                ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType);
+                ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType, GameMode.SINGLE_PLAYER);
                 setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
             } else {
                 MultiPlayerGameScenes.get(setUpStage).insert(numPlayers);
@@ -133,7 +133,7 @@ public final class SetUpGame extends BasicScene {
                        this.board.getParameterValue(), this.dice.getParameterValue());
                 ViewImpl.setPlayScene(MultiPlayerGameScenes.get(setUpStage).getScene(numPlayers));
                 ViewImpl.getPlayScene().updateLanguage();
-                ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType);
+                ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType, GameMode.MULTIPLAYER);
                 setUpStage.setScene(MultiPlayerGameScenes.get(setUpStage).getScene(numPlayers));
             }
         });

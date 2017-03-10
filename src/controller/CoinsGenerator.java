@@ -67,6 +67,7 @@ public class CoinsGenerator implements Runnable {
                 Thread.sleep(WAIT);
                 synchronized (this) {
                     if (!this.stop) {
+                        System.out.println("Dentro if");
                         this.getItem(TypesOfItem.COIN);
                         this.getItem(TypesOfItem.DIAMOND);
                         this.getItem(TypesOfItem.SKULL);

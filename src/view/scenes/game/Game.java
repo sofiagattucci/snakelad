@@ -1,6 +1,6 @@
 package view.scenes.game;
 
-import java.util.List;
+import java.util.Map;
 
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.TypesOfDice;
@@ -92,13 +92,11 @@ public interface Game {
       * @return
       *     The (unmodifiable) list of the items shown in the scene
       */
-     List<Item> getItemList();
+     Map<Integer, Item> getItemMap();
 
      /**
       * It removes the selected Item from the GUI.
-      * @param item
-      *     The Item to remove
       */
-     void removeItem(Item item);
+     void removeItem();
 
 }
