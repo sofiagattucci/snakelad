@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import utilities.Language;
+import utilities.TypesOfItem;
 import view.scenes.Menu;
 import view.scenes.game.Game;
 import view.scenes.settings.Settings;
@@ -188,8 +189,8 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void putCoin(final int pos) {
-        Platform.runLater(() -> playScene.putCoin(pos));
+    public void putItem(final int pos, final TypesOfItem type) {
+        Platform.runLater(() -> playScene.putItem(pos, type));
     }
 } 
 

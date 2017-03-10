@@ -125,6 +125,7 @@ public class PawnAnimation implements Runnable {
                         ViewImpl.getPlayScene().getItemList().get(i).getItemImageView().getBoundsInLocal())) {
                     final int j = i;
                     Platform.runLater(() -> ViewImpl.getPlayScene().removeItem(ViewImpl.getPlayScene().getItemList().get(j)));
+                    //i--;
                 }
             }
         }

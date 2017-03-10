@@ -4,6 +4,7 @@ import java.util.List;
 
 import utilities.Difficulty;
 import utilities.TypesOfDice;
+import utilities.TypesOfItem;
 import view.gameboard.GameBoard;
 import view.item.Item;
 
@@ -81,8 +82,10 @@ public interface Game {
       * It puts a coin in the game scene.
       * @param position
       *     The position where the coin must be put
+      * @param type
+      *     The type of item  to put in the GUI
       */
-     void putCoin(int position);
+     void putItem(int position, TypesOfItem type);
 
      /**
       * Getter of the items (unmodifiable) list.

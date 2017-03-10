@@ -2,6 +2,8 @@ package view;
 
 import java.util.Map;
 
+import utilities.TypesOfItem;
+
 /**
  * Interface for the View.
  */
@@ -59,9 +61,11 @@ public interface View {
     void setMusicVolume(float min, float max, float current);
 
     /**
-     * It puts a new coin in the GUI.
+     * It puts a new item in the GUI.
      * @param pos
      *     The position of the coin represented as the box where the coin must be put.
+     * @param type
+     *     The type of item to put in GUI
      */
-    void putCoin(int pos);
+    void putItem(int pos, TypesOfItem type);
 }

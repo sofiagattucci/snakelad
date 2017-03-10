@@ -3,6 +3,7 @@ package controller;
 import java.util.Optional;
 
 import model.Model;
+import utilities.TypesOfItem;
 import view.View;
 
 /**
@@ -29,6 +30,35 @@ public class CoinsGenerator implements Runnable {
         this.model = controller.getGame();
         this.view = controller.getView();
     }
+    /**
+     * Getter for item.
+     * @param type the type of item
+     * @return the position of item
+     */
+    private void getItem(final TypesOfItem type) {
+        switch(type) {
+        case COIN:
+             position = Optional.of(this.model.tryGenerateCoin());
+             if (position.get().isPresent()) {
+                 this.view.putItem(position.get().get(), TypesOfItem.COIN);
+             }
+             break;
+        case DIAMOND:
+            position = Optional.of(this.model.tryGenerateDiamond());
+            if (position.get().isPresent()) {
+                this.view.putItem(position.get().get(), TypesOfItem.DIAMOND);
+            }
+            break;
+        case SKULL:
+            position = Optional.of(this.model.tryGenerateSkull());
+            if (position.get().isPresent()) {
+                this.view.putItem(position.get().get(), TypesOfItem.SKULL);
+            }
+            break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public void run() {
@@ -37,10 +67,9 @@ public class CoinsGenerator implements Runnable {
                 Thread.sleep(WAIT);
                 synchronized (this) {
                     if (!this.stop) {
-                        position = Optional.of(this.model.tryGenerateCoin());
-                        if (position.get().isPresent()) {
-                            this.view.putCoin(position.get().get());
-                        }
+                        this.getItem(TypesOfItem.COIN);
+                        this.getItem(TypesOfItem.DIAMOND);
+                        this.getItem(TypesOfItem.SKULL);
                     }
                 }
             } catch (InterruptedException e) {

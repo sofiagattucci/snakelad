@@ -12,10 +12,9 @@ import view.scenes.game.Toolbar;
  */
 public class Coin implements Item {
 
-    private static final String COIN_PATH = "./res/icons/coin.gif";
     private static final double COIN_HEIGHT_PARAM = 2;
 
-    private final ImageView coinIV = ImageManager.get().getImageView(COIN_PATH);
+    private final ImageView itemIV;
     private Pair<Double, Double> coinStartingPos;
     private final Game parentScene;
     private final int position;
@@ -27,11 +26,12 @@ public class Coin implements Item {
      * @param pos
      *     The number of the box where the coin must be put
      */
-    public Coin(final Game s, final int pos) {
+    public Coin(final Game s, final int pos, final String path) {
 
+        this.itemIV = ImageManager.get().getImageView(path);
         this.position = pos;
         this.parentScene = s;
-        this.coinIV.setPreserveRatio(true);
+        this.itemIV.setPreserveRatio(true);
         this.resize();
     }
 
@@ -44,14 +44,14 @@ public class Coin implements Item {
         } else {
             nX = parentScene.getBoard().getBoxesPerRow() - 1 - position % parentScene.getBoard().getBoxesPerRow();
         }
-        this.coinIV.setX(this.coinStartingPos.getFirst() + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) * nX);
-        this.coinIV.setY(this.coinStartingPos.getSecond()  - (Dimension.BOARD_H / parentScene.getBoard().getBoxesPerRow()) * nY);
+        this.itemIV.setX(this.coinStartingPos.getFirst() + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) * nX);
+        this.itemIV.setY(this.coinStartingPos.getSecond()  - (Dimension.BOARD_H / parentScene.getBoard().getBoxesPerRow()) * nY);
     }
 
 
     @Override
     public final void resize() {
-        this.coinIV.setFitHeight(Dimension.getPawnHeight());
+        this.itemIV.setFitHeight(Dimension.getPawnHeight());
         this.coinStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
                 + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) / 2 - Dimension.getPawnHeight() / COIN_HEIGHT_PARAM,
                 Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
@@ -62,6 +62,6 @@ public class Coin implements Item {
 
     @Override
     public ImageView getItemImageView() {
-        return this.coinIV;
+        return this.itemIV;
     }
 }

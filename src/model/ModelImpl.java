@@ -204,19 +204,19 @@ public final class ModelImpl implements Model {
 
     @Override
     public Optional<Integer> tryGenerateCoin() {
-
+System.out.println("COIN");
         return this.generateItemsUtils(TypesOfItem.COIN);
     }
 
     @Override
     public Optional<Integer> tryGenerateDiamond() {
-
+        System.out.println("DIAMOND");
         return this.generateItemsUtils(TypesOfItem.DIAMOND);
     }
 
     @Override
     public Optional<Integer> tryGenerateSkull() {
-
+        System.out.println("SKULL");
         return this.generateItemsUtils(TypesOfItem.SKULL);
     }
 

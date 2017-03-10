@@ -20,8 +20,8 @@ public class PauseBox extends BasicDialogBox {
 
     private final Label titleLabel = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
     private final Label msgLabel = new Label(LanguageStringMap.get().getMap().get(MSG_KEY));
-    private ButtonType giveUp  = new ButtonType(LanguageStringMap.get().getMap().get(GIVE_UP_KEY));
-    private ButtonType restart = new ButtonType(LanguageStringMap.get().getMap().get(RESTART_KEY));
+    private final ButtonType giveUp  = new ButtonType(LanguageStringMap.get().getMap().get(GIVE_UP_KEY));
+    private final ButtonType restart = new ButtonType(LanguageStringMap.get().getMap().get(RESTART_KEY));
     private final ButtonType resume = new ButtonType(LanguageStringMap.get().getMap().get(RESUME_KEY));
 
     /**

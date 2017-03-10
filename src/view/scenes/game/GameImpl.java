@@ -15,12 +15,14 @@ import javafx.scene.layout.BackgroundSize;
 import utilities.Difficulty;
 import utilities.ImageManager;
 import utilities.TypesOfDice;
+import utilities.TypesOfItem;
 import view.Dimension;
 import view.gameboard.GameBoard;
 import view.gameboard.GameBoardImpl;
 import view.gameboard.GameBoardTypes;
 import view.item.Coin;
 import view.item.Item;
+import view.item.ItemTypes;
 import view.pawn.AvailableColor;
 import view.pawn.Pawn;
 import view.pawn.PawnImpl;
@@ -143,8 +145,8 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     }
 
     @Override
-    public void putCoin(final int pos) {
-        final Item newItem = new Coin(this, pos);
+    public void putItem(final int pos, final TypesOfItem type) {
+        final Item newItem = new Coin(this, pos, ItemTypes.get().getItem(type));
         this.itemList.add(newItem);
         this.getDefaultLayout().getChildren().add(newItem.getItemImageView());
     }
