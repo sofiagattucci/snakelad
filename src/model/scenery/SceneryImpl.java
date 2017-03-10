@@ -1,4 +1,4 @@
-package model;
+package model.scenery;
 
 import java.util.Collections;
 import java.util.HashMap;

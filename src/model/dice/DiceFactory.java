@@ -1,4 +1,4 @@
-package model;
+package model.dice;
 
 /**
  * A factory for various kind of dice.
