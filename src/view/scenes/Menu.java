@@ -2,13 +2,12 @@ package view.scenes;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import utilities.ImageManager;
 import view.BasicButton;
-import view.Dimension;
 import view.LanguageStringMap;
 import view.ViewImpl;
 import view.dialogboxes.ClosureHandler;
@@ -24,10 +23,10 @@ public final class Menu extends BasicScene {
     private static final String INSTRUCTIONS_KEY = "menu.instructions";
     private static final String SETTINGS_KEY = "menu.settings";
     private static final String QUIT_KEY = "menu.quit";
-    private static final String TITLE = "SnakeNLadder";
-    private static final double TITLE_TOP_PADDING = Dimension.SCREEN_H / 6;
-    private static final int FONT_SIZE = 65;
+    private static final String LOGO_PATH = "./res/icons/mainMenuLogo.png";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
+    private static final double LOGO_Y_TRANSLATION = BasicButton.getButtonHeight() / 2;
+    private static final double LOGO_HEIGHT = view.Dimension.BOARD_H / 2.5;
 
     private static final Menu MENU_SCENE = new Menu();
     private static Stage menuStage;
@@ -35,7 +34,7 @@ public final class Menu extends BasicScene {
     private final Button instructions = new BasicButton(LanguageStringMap.get().getMap().get(INSTRUCTIONS_KEY));
     private final Button settings = new BasicButton(LanguageStringMap.get().getMap().get(SETTINGS_KEY));
     private final Button quit = new BasicButton(LanguageStringMap.get().getMap().get(QUIT_KEY));
-    private final Text title = new Text(TITLE);
+    private final ImageView logo = ImageManager.get().getImageView(LOGO_PATH);
     private final VBox box = new VBox(this.play, this.instructions, this.settings, this.quit);
     private final ClosureHandler closure = new ClosureHandler(menuStage);
 
@@ -65,10 +64,11 @@ public final class Menu extends BasicScene {
         this.box.setAlignment(Pos.CENTER);
         this.box.setSpacing(BOX_SPACING);
 
-        this.getDefaultLayout().setTop(this.title);
-        BorderPane.setAlignment(this.title, Pos.CENTER);
-        this.title.setFont(new Font(FONT_SIZE));
-        this.title.setTranslateY(TITLE_TOP_PADDING);
+        this.getDefaultLayout().setTop(this.logo);
+        BorderPane.setAlignment(this.logo, Pos.CENTER);
+        this.logo.setPreserveRatio(true);
+        this.logo.setFitHeight(LOGO_HEIGHT);
+        this.logo.setTranslateY(LOGO_Y_TRANSLATION);
     }
 
     /**
