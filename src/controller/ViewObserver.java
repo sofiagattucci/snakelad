@@ -2,6 +2,7 @@ package controller;
 
 import model.Model;
 import utilities.Difficulty;
+import utilities.GameMode;
 import utilities.Language;
 import utilities.TypesOfDice;
 import view.View;
@@ -58,8 +59,10 @@ public interface ViewObserver {
      *          the scenery choose
      * @param dice
      *          the type of dice choose
+     * @param modality
+     *          the mode of game choose
      */
-    void play(int numberOfPlayers, Difficulty scenery, TypesOfDice dice);
+    void play(int numberOfPlayers, Difficulty scenery, TypesOfDice dice, GameMode modality);
 
     /**
      * Give up the game.

@@ -9,6 +9,7 @@ import utilities.TypesOfDice;
 import utilities.UserLogin;
 import utilities.LanguageLoader;
 import utilities.Difficulty;
+import utilities.GameMode;
 import utilities.Language;
 import view.View;
 import view.ViewImpl;
@@ -100,10 +101,10 @@ public final class Controller implements ViewObserver {
             this.game.restartGame();
             this.counter = 0;
             this.view.firstTurn();
-            this.coinsGenerator = new CoinsGenerator(this);
-//            synchronized (coinsGenerator) {
+            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYRE) {
+                this.coinsGenerator = new CoinsGenerator(this);
                 this.coinsGenerator.start();
-//            }
+            }
         } else {
             throw new IllegalStateException();
         }
@@ -111,27 +112,30 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void pause() {
-        synchronized (coinsGenerator) {
-            this.coinsGenerator.setStop();
+        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYRE) {
+            synchronized (coinsGenerator) {
+                this.coinsGenerator.setStop();
+            }
         }
     }
 
     @Override
     public void resume() {
-        this.coinsGenerator = new CoinsGenerator(this);
-//        synchronized (coinsGenerator) {
+        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYRE) {
+            this.coinsGenerator = new CoinsGenerator(this);
             this.coinsGenerator.start();
-//        }
+        }
     }
 
 
     @Override
-    public void play(final int numberOfPlayers, final Difficulty scenery, final TypesOfDice dice) {
+    public void play(final int numberOfPlayers, final Difficulty scenery, final TypesOfDice dice, final GameMode modality) {
         if (this.control) {
             this.settings = Optional.of(new GameSettingsBuilder()
                     .numOfPlayers(numberOfPlayers)
                     .sceneryChoose(scenery)
                     .diceChoose(dice)
+                    .modalityChoose(modality)
                     .build());
             switch(scenery) {
                 case BEGINNER:
@@ -153,8 +157,10 @@ public final class Controller implements ViewObserver {
             this.counter = 0;
             this.view.firstTurn();
             this.view.setBoardSize(this.game.getGameBoardSideSize());
-            this.coinsGenerator = new CoinsGenerator(this);
-            this.coinsGenerator.start();
+            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYRE) {
+                this.coinsGenerator = new CoinsGenerator(this);
+                this.coinsGenerator.start();
+            }
         } else {
             throw new IllegalStateException();
         }
@@ -164,8 +170,10 @@ public final class Controller implements ViewObserver {
     public void giveUp() {
         if (this.control) {
             this.view.firstTurn();
-            synchronized (coinsGenerator) {
-                this.coinsGenerator.setStop();
+                if (this.settings.get().getModality() == GameMode.SINGLE_PLAYRE) {
+                synchronized (coinsGenerator) {
+                    this.coinsGenerator.setStop();
+                }
             }
             this.game.giveUpGame();
         } else {
