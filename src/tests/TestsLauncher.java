@@ -2,16 +2,14 @@ package tests;
 
 import org.junit.Test;
 
-import tests.model.UserImplTest;
+import tests.controller.ControllerTest;
+import tests.controller.GameSettingsTest;
 import tests.model.ClassicDiceTest;
 import tests.model.Dice5To10Test;
 import tests.model.ModelImplTest;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
-
-import tests.controller.ControllerTest;
-import tests.controller.GameSettingsTest;
-
+import tests.model.UserImplTest;
 import tests.view.DiceTypesTest;
 import tests.view.FlagsMapTest;
 import tests.view.GameBoardTypesTest;
