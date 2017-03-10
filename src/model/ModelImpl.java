@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import model.dice.Dice;
 import model.dice.DiceFactory;
 import model.dice.DiceFactoryImpl;
@@ -17,7 +16,6 @@ import model.items.Skull;
 import model.items.SpecialItems;
 import model.scenery.Scenery;
 import model.scenery.SceneryFactoryImpl;
-import model.scenery.SceneryImpl;
 import utilities.TypesOfDice;
 import utilities.TypesOfItem;
 import java.util.LinkedList;
@@ -49,7 +47,6 @@ public final class ModelImpl implements Model {
      * ModelImpl constructor.
      */
     public ModelImpl() {
-        this.scenery = SceneryImpl.get();
         this.isReady = false;
         this.maxItemsGeneration = MAX_ITEMS_GENERATION;
     }
@@ -135,13 +132,13 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void startGame(final List<Integer> data, final int numberOfPlayers, final TypesOfDice dice) throws IllegalArgumentException {
+    public synchronized void startGame(final List<Integer> data, final int numberOfPlayers, final TypesOfDice dice) throws IllegalArgumentException {
         if (numberOfPlayers <= 1) {
             throw new IllegalArgumentException("Number of players less or equal to 1!");
         }
 
         this.isReady = true;
-        this.scenery = new SceneryFactoryImpl().createScenery(data);
+        this.scenery = new SceneryFactoryImpl().setUpScenery(data);
 
         //fill playersList with the exact number of players playing the game and set their initial positions
         this.playersList.addAll(IntStream.range(0, numberOfPlayers)

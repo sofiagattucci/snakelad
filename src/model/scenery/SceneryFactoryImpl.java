@@ -3,6 +3,7 @@ package model.scenery;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -53,9 +54,9 @@ public class SceneryFactoryImpl implements SceneryFactory {
     }
 
     @Override
-    public Scenery createScenery(final List<Integer> data) {
+    public Scenery setUpScenery(final List<Integer> data) {
 
-        final List<Integer> dataList = data;
+        final List<Integer> dataList = new LinkedList<>(data);
 
         //get the first number from dataList. It represents the number of boxes in the scenery
         this.scenery.setNumberOfBoxes(dataList.get(0));
