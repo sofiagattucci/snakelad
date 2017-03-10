@@ -3,6 +3,7 @@ package view.item;
 import javafx.scene.image.ImageView;
 import utilities.ImageManager;
 import utilities.Pair;
+import utilities.TypesOfItem;
 import view.Dimension;
 import view.scenes.game.Game;
 import view.scenes.game.Toolbar;
@@ -10,9 +11,9 @@ import view.scenes.game.Toolbar;
 /**
  * This class represents a coin in the GUI.
  */
-public class Coin implements Item {
+public class ItemImpl implements Item {
 
-    private static final double COIN_HEIGHT_PARAM = 2;
+    private static final double COIN_HEIGHT_PARAM = 2.5;
 
     private final ImageView itemIV;
     private Pair<Double, Double> coinStartingPos;
@@ -25,10 +26,12 @@ public class Coin implements Item {
      *     The parent stage of the coin image view (The scene where the coin is located)
      * @param pos
      *     The number of the box where the coin must be put
+     * @param type
+     *     The type of item to create
      */
-    public Coin(final Game s, final int pos, final String path) {
+    public ItemImpl(final Game s, final int pos, final TypesOfItem type) {
 
-        this.itemIV = ImageManager.get().getImageView(path);
+        this.itemIV = ImageManager.get().getImageView(ItemTypes.get().getItem(type));
         this.position = pos;
         this.parentScene = s;
         this.itemIV.setPreserveRatio(true);
@@ -51,7 +54,7 @@ public class Coin implements Item {
 
     @Override
     public final void resize() {
-        this.itemIV.setFitHeight(Dimension.getPawnHeight());
+        this.itemIV.setFitHeight(Dimension.getItemHeight());
         this.coinStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
                 + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) / 2 - Dimension.getPawnHeight() / COIN_HEIGHT_PARAM,
                 Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
