@@ -72,6 +72,9 @@ public abstract class PawnColorSwitcher {
                      this.grid.add(this.pawnList.get(i).getFirst(), i, 0);
                      this.grid.add(this.pawnList.get(i).getSecond(), i, 1);
                  });
+        for (final Pair<Label, ComboBox<String>> elem : this.pawnList) {
+            elem.getSecond().setId("ComboBox");
+        }
     }
 
     /**

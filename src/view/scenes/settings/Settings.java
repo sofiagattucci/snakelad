@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import view.BasicButton;
 import view.Dimension;
 import view.LanguageStringMap;
+import view.ViewImpl;
 import view.scenes.BasicScene;
 import view.scenes.Menu;
 
@@ -46,6 +47,7 @@ public final class Settings extends BasicScene {
         this.back.setOnAction(e -> {
             settingStage.setScene(Menu.getScene(settingStage));
         });
+        this.getStylesheets().add(ViewImpl.getStylesheet());
     }
 
     /**

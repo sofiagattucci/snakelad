@@ -43,16 +43,16 @@ public final class DiceTypes {
                                                           .collect(Collectors.toMap(i -> i,
                                                                i -> STANDARD_DICE_PATH + TO10_DICE + DICE_SIDE + i + PNG));
 
-        final Map<Integer, String> negativeDiceMap = new HashMap<>();
-        for (int i = MIN_NEG; i <= MAX_NEG; i++) {
-            if (i < 0) {
-                negativeDiceMap.put(i, STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + (-i) + NEGATIVE + PNG);
-            }
-            if (i > 0) {
-                negativeDiceMap.put(i, STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + i + POSITIVE + PNG);
-            }
-
-        }
+        final Map<Integer, String> negativeDiceMap = IntStream.range(MIN_NEG, MAX_NEG + 1)
+                .boxed()
+                .collect(Collectors.toMap(i -> i, i -> {
+                    if (i < 0) {
+                        return STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + (-i) + NEGATIVE + PNG;
+                    } else {
+                        return STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + i + POSITIVE + PNG;
+                    }
+                }));
+        negativeDiceMap.remove(0); 
 
         this.diceMap.put(TypesOfDice.CLASSIC_DICE, classicDiceMap);
         this.diceMap.put(TypesOfDice._5_TO_10_DICE, to10DiceMap);

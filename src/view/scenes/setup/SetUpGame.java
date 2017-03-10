@@ -68,12 +68,15 @@ public final class SetUpGame extends BasicScene {
         this.getDefaultLayout().setCenter(this.box);
         this.box.setAlignment(Pos.CENTER);
         this.box.setSpacing(BOX_SPACING);
+        this.modes.setSpacing(BOX_SPACING);
         this.title.setAlignment(Pos.CENTER);
         this.title.setTranslateY(Y_TITLE_TRANSLATE);
         this.modes.setAlignment(Pos.CENTER);
         this.chooseNumber.setAlignment(Pos.CENTER);
+        this.chooseNumber.setSpacing(BOX_SPACING / 8);
         this.scenaryChoose.setAlignment(Pos.CENTER);
         this.diceChoose.setAlignment(Pos.CENTER);
+        this.getStylesheets().add(ViewImpl.getStylesheet());
 
         this.scenaryChoose.getChildren().addAll(this.board.getNodes());
         this.diceChoose.getChildren().addAll(this.dice.getNodes());

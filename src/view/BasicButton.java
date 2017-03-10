@@ -18,6 +18,8 @@ public class BasicButton extends Button {
     public BasicButton(final String s) {
         super(s);
         this.setDimension();
+        this.getStylesheets().add(ViewImpl.getStylesheet());
+        this.setId("Button");
     }
 
     private void setDimension() {

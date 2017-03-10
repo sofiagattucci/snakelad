@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import view.ViewImpl;
 
 /**
  * Basic implementation for a dialogue box.
@@ -24,6 +25,7 @@ public abstract class BasicDialogBox {
         this.box.initModality(Modality.APPLICATION_MODAL);
         this.box.getButtonTypes().clear();
         this.parentSt = parentStage;
+        this.box.getDialogPane().getStylesheets().add(ViewImpl.getStylesheet());
     }
 
     /**
