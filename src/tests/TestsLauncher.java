@@ -13,6 +13,7 @@ import tests.model.UserImplTest;
 import tests.view.DiceTypesTest;
 import tests.view.FlagsMapTest;
 import tests.view.GameBoardTypesTest;
+import tests.view.ItemTypesTest;
 import tests.view.LanguageMapTest;
 import tests.view.PawnTypesTest;
 import tests.view.PawnsColorTest;
@@ -70,5 +71,6 @@ public final class TestsLauncher {
         new PawnTypesTest().test();
         new PawnsColorTest().test();
         new FlagsMapTest().test();
+        new ItemTypesTest().test();
     }
 }

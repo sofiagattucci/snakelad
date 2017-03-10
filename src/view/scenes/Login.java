@@ -1,7 +1,5 @@
 package view.scenes;
 
-import java.nio.file.Paths;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +17,6 @@ import view.dialogboxes.ClosureHandler;
  */
 public final class Login extends BasicScene {
 
-    private static final String STYLESHEET_PATH = "./res/style.css";
     private static final String LABEL_KEY = "login.label";
     private static final String ENTER_KEY = "login.enter";
     private static final String QUIT_KEY = "menu.quit";
@@ -51,7 +48,7 @@ public final class Login extends BasicScene {
         this.box.setSpacing(BOX_SPACING);
         this.box.setMaxWidth(BasicButton.getButtonWidth());
         this.descLabel.setFont(new Font(FONT_SIZE));
-        this.getStylesheets().add(Paths.get(STYLESHEET_PATH).toUri().toString());
+        this.getStylesheets().add(ViewImpl.getStylesheet());
         this.errorLabel.setId(ERR_LABEL_ID);
 
         this.nameField.setOnKeyReleased(e -> {

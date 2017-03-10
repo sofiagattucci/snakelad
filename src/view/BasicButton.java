@@ -1,7 +1,5 @@
 package view;
 
-import java.nio.file.Paths;
-
 import javafx.scene.control.Button;
 
 /**
@@ -9,7 +7,6 @@ import javafx.scene.control.Button;
  */
 public class BasicButton extends Button {
 
-    private static final String STYLESHEET_PATH = "./res/style.css";
     private static final double BUTTON_WIDTH = Dimension.SCREEN_W * 0.28;
     private static final double BUTTON_HEIGHT = Dimension.SCREEN_H * 0.09;
 
@@ -21,7 +18,7 @@ public class BasicButton extends Button {
     public BasicButton(final String s) {
         super(s);
         this.setDimension();
-        this.getStylesheets().add(Paths.get(STYLESHEET_PATH).toUri().toString());
+        this.getStylesheets().add(ViewImpl.getStylesheet());
         this.setId("Button");
     }
 

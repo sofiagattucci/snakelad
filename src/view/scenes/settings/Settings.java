@@ -1,7 +1,5 @@
 package view.scenes.settings;
 
-import java.nio.file.Paths;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +9,7 @@ import javafx.stage.Stage;
 import view.BasicButton;
 import view.Dimension;
 import view.LanguageStringMap;
+import view.ViewImpl;
 import view.scenes.BasicScene;
 import view.scenes.Menu;
 
@@ -25,7 +24,6 @@ public final class Settings extends BasicScene {
     private static final int TITLE_FONT = 60;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final double Y_TITLE_TRANSLATE = -Dimension.SCREEN_H / 25;
-    private static final String STYLESHEET_PATH = "./res/style.css";
 
     private static Stage settingStage;
     private static Settings settingsScene = new Settings();
@@ -49,7 +47,7 @@ public final class Settings extends BasicScene {
         this.back.setOnAction(e -> {
             settingStage.setScene(Menu.getScene(settingStage));
         });
-        this.getStylesheets().add(Paths.get(STYLESHEET_PATH).toUri().toString());
+        this.getStylesheets().add(ViewImpl.getStylesheet());
     }
 
     /**

@@ -1,18 +1,15 @@
 package view.dialogboxes;
 
-import java.nio.file.Paths;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import view.ViewImpl;
 
 /**
  * Basic implementation for a dialogue box.
  */
 public abstract class BasicDialogBox {
-
-    private static final String STYLESHEET_PATH = "./res/style.css";
 
     private final Alert box = new Alert(AlertType.INFORMATION);
     private final Stage parentSt;
@@ -28,7 +25,7 @@ public abstract class BasicDialogBox {
         this.box.initModality(Modality.APPLICATION_MODAL);
         this.box.getButtonTypes().clear();
         this.parentSt = parentStage;
-        this.box.getDialogPane().getStylesheets().add(Paths.get(STYLESHEET_PATH).toUri().toString());
+        this.box.getDialogPane().getStylesheets().add(ViewImpl.getStylesheet());
     }
 
     /**
