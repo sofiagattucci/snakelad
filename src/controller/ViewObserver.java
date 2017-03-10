@@ -102,7 +102,9 @@ public interface ViewObserver {
 
     /**
      * Notify if happen a collision between coin and pawn.
+     * @param position
+     *          the position of collision
      */
-    void collisionHappened();
+    void collisionHappened(int position);
 
 }
