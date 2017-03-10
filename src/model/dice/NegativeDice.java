@@ -1,4 +1,4 @@
-package model;
+package model.dice;
 
 import java.util.Optional;
 import java.util.Random;

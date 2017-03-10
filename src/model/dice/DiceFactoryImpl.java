@@ -1,4 +1,4 @@
-package model;
+package model.dice;
 
 /**
  * Implements a factory for various kind of dice.

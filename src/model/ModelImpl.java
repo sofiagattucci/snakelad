@@ -6,6 +6,9 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import model.dice.Dice;
+import model.dice.DiceFactory;
+import model.dice.DiceFactoryImpl;
 import model.items.Coin;
 import model.items.Diamond;
 import model.items.ItemsGenerator;
@@ -14,7 +17,6 @@ import model.items.Skull;
 import model.items.SpecialItems;
 import utilities.TypesOfDice;
 import utilities.TypesOfItem;
-
 import java.util.LinkedList;
 
 /**
