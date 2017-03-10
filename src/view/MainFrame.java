@@ -17,7 +17,7 @@ public class MainFrame extends Application {
     @Override
     public void start(final Stage defaultStage) {
 
-        //defaultStage.initStyle(StageStyle.UNDECORATED);
+        defaultStage.initStyle(StageStyle.UNDECORATED);
         defaultStage.setTitle(TITLE);
         defaultStage.getIcons().add(ImageManager.get().readFromFile(ICONE));
 
