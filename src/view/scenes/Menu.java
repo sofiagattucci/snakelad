@@ -69,7 +69,6 @@ public final class Menu extends BasicScene {
         BorderPane.setAlignment(this.title, Pos.CENTER);
         this.title.setFont(new Font(FONT_SIZE));
         this.title.setTranslateY(TITLE_TOP_PADDING);
-
     }
 
     /**

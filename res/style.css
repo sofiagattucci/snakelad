@@ -10,3 +10,10 @@
 #Toolbar-yellow-label {
     -fx-text-fill: yellow;
 }
+.button {
+    -fx-background-color: DodgerBlue;
+    -fx-text-fill: white;
+}
+#ComboBox {
+    -fx-background-color: DodgerBlue;
+}
