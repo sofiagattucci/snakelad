@@ -1,6 +1,7 @@
 package view.dice;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import javafx.scene.image.Image;
@@ -16,7 +17,7 @@ public class DiceImpl implements Dice {
     private static final String DEFAULT_DICE = "./res/dices/classicDice/DiceSide1.png";
 
     private final Image diceImage = ImageManager.get().readFromFile(DEFAULT_DICE);
-    private Map<Integer, String> diceSides;
+    private Map<Integer, String> diceSides = new HashMap<>(DiceTypes.get().getSpecificDiceMap(TypesOfDice.CLASSIC_DICE));
 
     /**
      * Constructor of this class.

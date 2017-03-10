@@ -84,7 +84,10 @@ public abstract class Toolbar {
         this.pause.setPrefWidth(BUTTON_WIDTH);
         this.pause.setPrefHeight(BUTTON_HEIGHT);
 
-        this.pause.setOnAction(e ->  this.pauseBox.show());
+        this.pause.setOnAction(e ->  {
+            ViewImpl.getObserver().pause();
+            this.pauseBox.show();
+        });
 
         this.roll.setOnAction(e -> {
             this.roll.setVisible(false);

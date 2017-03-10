@@ -100,9 +100,10 @@ public final class Controller implements ViewObserver {
             this.game.restartGame();
             this.counter = 0;
             this.view.firstTurn();
-            synchronized (coinsGenerator) {
+            this.coinsGenerator = new CoinsGenerator(this);
+//            synchronized (coinsGenerator) {
                 this.coinsGenerator.start();
-            }
+//            }
         } else {
             throw new IllegalStateException();
         }
@@ -117,9 +118,10 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void resume() {
-        synchronized (coinsGenerator) {
+        this.coinsGenerator = new CoinsGenerator(this);
+//        synchronized (coinsGenerator) {
             this.coinsGenerator.start();
-        }
+//        }
     }
 
 
@@ -162,9 +164,9 @@ public final class Controller implements ViewObserver {
     public void giveUp() {
         if (this.control) {
             this.view.firstTurn();
-            synchronized (coinsGenerator) {
-                this.coinsGenerator.setStop();
-            }
+//            synchronized (coinsGenerator) {
+//                this.coinsGenerator.setStop();
+//            }
             this.game.giveUpGame();
         } else {
             throw new IllegalStateException();

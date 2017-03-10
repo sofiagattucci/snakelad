@@ -20,8 +20,9 @@ public class PauseBox extends BasicDialogBox {
 
     private final Label titleLabel = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
     private final Label msgLabel = new Label(LanguageStringMap.get().getMap().get(MSG_KEY));
-    private ButtonType giveUp;
-    private ButtonType restart;
+    private ButtonType giveUp  = new ButtonType(LanguageStringMap.get().getMap().get(GIVE_UP_KEY));
+    private ButtonType restart = new ButtonType(LanguageStringMap.get().getMap().get(RESTART_KEY));
+    private final ButtonType resume = new ButtonType(LanguageStringMap.get().getMap().get(RESUME_KEY));
 
     /**
      * Constructor of the class.
@@ -46,6 +47,9 @@ public class PauseBox extends BasicDialogBox {
         if (choose.equals(this.restart.getText())) {
             ViewImpl.getObserver().restart();
         }
+        if (choose.equals(this.resume.getText())) {
+            ViewImpl.getObserver().resume();
+        }
     }
 
     /**
@@ -59,11 +63,9 @@ public class PauseBox extends BasicDialogBox {
     }
 
     private void prepareBox() {
-        final ButtonType resume = new ButtonType(LanguageStringMap.get().getMap().get(RESUME_KEY));
-        this.giveUp = new ButtonType(LanguageStringMap.get().getMap().get(GIVE_UP_KEY));
-        this.restart = new ButtonType(LanguageStringMap.get().getMap().get(RESTART_KEY));
+
         this.getBox().setTitle(titleLabel.getText());
         this.getBox().setHeaderText(msgLabel.getText());
-        this.getBox().getButtonTypes().addAll(resume, this.restart, this.giveUp);
+        this.getBox().getButtonTypes().addAll(this.resume, this.restart, this.giveUp);
     }
 }
