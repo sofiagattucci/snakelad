@@ -7,9 +7,11 @@ import controller.ViewObserver;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import utilities.Statistic;
 import utilities.enumeration.Language;
 import utilities.enumeration.TypesOfItem;
 import view.scenes.Menu;
+import view.scenes.StatisticsScene;
 import view.scenes.game.Game;
 import view.scenes.settings.Settings;
 import view.scenes.setup.SetUpGame;
@@ -27,6 +29,7 @@ public class ViewImpl implements View {
     private static Game playScene;
     private static SetUpGame setUpScene;
     private static Settings settingsScene;
+    private static StatisticsScene statScene;
     private static ViewObserver observer;
 
     /**
@@ -69,6 +72,24 @@ public class ViewImpl implements View {
      */
     public static void setPlayScene(final Game scene) {
         playScene = scene;
+    }
+
+    /**
+     * Getter of the StatisticsScene scene used in the application.
+     * @return
+     *     The StatisticsScene used in the application
+     */
+    public static StatisticsScene getStatScene() {
+        return statScene;
+    }
+
+    /**
+     * Setter of the statistics scene.
+     * @param statistic
+     *     The scene to link.
+     */
+    public static void setStatScene(final StatisticsScene statistic) {
+        statScene = statistic;
     }
 
     /**
@@ -202,6 +223,11 @@ public class ViewImpl implements View {
     @Override
     public void putItem(final int pos, final TypesOfItem type) {
         Platform.runLater(() -> playScene.putItem(pos, type));
+    }
+
+    @Override
+    public void setStatistics(final Statistic statistics) {
+        statScene.setStatistics(statistics);
     }
 } 
 

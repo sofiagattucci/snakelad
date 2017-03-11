@@ -17,6 +17,7 @@ import view.BasicButton;
 import view.LanguageStringMap;
 import view.ViewImpl;
 import view.scenes.Instructions;
+import view.scenes.StatisticsScene;
 import view.scenes.game.MultiPlayerGameScenes;
 import view.scenes.game.SinglePlayerGame;
 import view.scenes.setup.SetUpGame;
@@ -72,6 +73,7 @@ public class SkinSwitcher {
                 ViewImpl.getMenuScene().setSkin(this.colorList.get(j).getFirst());
                 Instructions.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
                 SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
+                StatisticsScene.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
                 SinglePlayerGame.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
                 MultiPlayerGameScenes.get(ViewImpl.getAppStage()).setActiveSkin(this.colorList.get(j).getFirst());
             });

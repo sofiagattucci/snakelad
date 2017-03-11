@@ -2,6 +2,7 @@ package view;
 
 import java.util.Map;
 
+import utilities.Statistic;
 import utilities.enumeration.TypesOfItem;
 
 /**
@@ -68,4 +69,11 @@ public interface View {
      *     The type of item to put in GUI
      */
     void putItem(int pos, TypesOfItem type);
+
+    /**
+     * It sets the statistics in the GUI.
+     * @param statistics
+     *     An object Statistic containing the statistics.
+     */
+    void setStatistics(Statistic statistics);
 }
