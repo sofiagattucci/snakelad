@@ -50,7 +50,6 @@ public final class Login extends BasicScene {
         this.descLabel.setFont(new Font(FONT_SIZE));
         this.getStylesheets().add(ViewImpl.getStylesheet());
         this.errorLabel.setId(ERR_LABEL_ID);
-
         this.nameField.setOnKeyReleased(e -> {
             if (this.nameField.getText().isEmpty()) {
                 this.enter.setDisable(true);

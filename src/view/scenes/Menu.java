@@ -50,7 +50,10 @@ public final class Menu extends BasicScene {
             menuStage.setScene(SetUpGame.getScene(menuStage));
         });
 
-        this.statistics.setOnAction(e -> menuStage.setScene(Statistics.getScene(menuStage)));
+        this.statistics.setOnAction(e -> {
+            ViewImpl.getObserver().gameStatistics();
+            menuStage.setScene(Statistics.getScene(menuStage));
+        });
 
         this.instructions.setOnAction(e -> menuStage.setScene(Instructions.getScene(menuStage)));
 

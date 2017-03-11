@@ -16,4 +16,8 @@
 }
 #ComboBox {
     -fx-background-color: DodgerBlue;
+    -fx-text-fill: white;
+}
+span.crosshair {
+    -fx-cursor: crosshair;
 }
