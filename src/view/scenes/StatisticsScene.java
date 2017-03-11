@@ -14,7 +14,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.Pair;
 import utilities.Statistic;
-import utilities.StatisticImpl;
 import view.BasicButton;
 import view.LanguageStringMap;
 import view.ViewImpl;
@@ -25,11 +24,11 @@ import view.ViewImpl;
 public final class StatisticsScene extends BasicScene {
 
     private static final String BACK_KEY = "back";
-    private static final String SCORES_KEY = "Scores";
-    private static final String WIN_KEY = "Win";
-    private static final String LOSE_KEY = "Lose";
-    private static final String DICE_KEY = "Dice";
-    private static final String TITLE_KEY = "Statistics";
+    private static final String SCORES_KEY = "statistics.score";
+    private static final String WIN_KEY = "statistics.win";
+    private static final String LOSE_KEY = "statistics.lose";
+    private static final String DICE_KEY = "statistics.dice";
+    private static final String TITLE_KEY = "statistics.title";
     private static final int N_ELEM = 4;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int TITLE_FONT_SIZE = 60;
@@ -41,7 +40,7 @@ public final class StatisticsScene extends BasicScene {
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
     private final List<Pair<Label, Label>> statElem = new ArrayList<>();
     private final GridPane grid = new GridPane();
-    private final Label title = new Label(TITLE_KEY);
+    private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
     private final VBox box = new VBox(this.title, this.grid, this.back);
     private final Font f = new Font(SMALL_FONT_SIZE);
 
@@ -66,17 +65,26 @@ public final class StatisticsScene extends BasicScene {
                      this.grid.addRow(i, this.statElem.get(i).getFirst(), this.statElem.get(i).getSecond());
                  });
         //this.setStatistics(new StatisticImpl.Builder().scores(1).gameLost(2).gameWon(3).numberOfDiceRoll(4).build());
-        this.statElem.get(0).getFirst().setText(SCORES_KEY);
-        this.statElem.get(1).getFirst().setText(WIN_KEY);
-        this.statElem.get(2).getFirst().setText(LOSE_KEY);
-        this.statElem.get(3).getFirst().setText(DICE_KEY);
+        this.setLabelText(0, SCORES_KEY);
+        this.setLabelText(1, WIN_KEY);
+        this.setLabelText(2, LOSE_KEY);
+        this.setLabelText(3, DICE_KEY);
+    }
+
+    private void setLabelText(final int index, final String key) {
+        this.statElem.get(index).getFirst().setText(LanguageStringMap.get().getMap().get(key));
     }
 
     /**
-     * It updates the language of this scene.
+     * It updates the language of the elements of this scene.
      */
     public void updateLanguage() {
         this.back.setText(LanguageStringMap.get().getMap().get(BACK_KEY));
+        this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
+        this.setLabelText(0, SCORES_KEY);
+        this.setLabelText(1, WIN_KEY);
+        this.setLabelText(2, LOSE_KEY);
+        this.setLabelText(3, DICE_KEY);
     }
 
     /**
