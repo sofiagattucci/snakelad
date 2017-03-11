@@ -225,7 +225,11 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void collisionHappened(final int position) {
-        this.game.itemCollected();
+        this.game.itemCollected(position);
+    }
+
+    @Override
+    public void gameStatistics() {
     }
 
 }

@@ -107,4 +107,9 @@ public interface ViewObserver {
      */
     void collisionHappened(int position);
 
+    /**
+     * Set the statistic of game and return it.
+     */
+    void gameStatistics();
+
 }
