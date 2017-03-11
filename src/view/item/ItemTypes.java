@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import utilities.Pair;
 import utilities.enumeration.TypesOfItem;
 
 /**
@@ -24,24 +25,15 @@ public final class ItemTypes {
 
         this.itemsMap = IntStream.range(1, N_ITEMS + 1)
                 .boxed()
-                .collect(Collectors.toMap(i -> this.calculateItem(i), i -> this.calculatePath(i)));
+                .collect(Collectors.toMap(i -> this.calculateEntry(i).getFirst(), i -> this.calculateEntry(i).getSecond()));
     }
 
-    private TypesOfItem calculateItem(final int n) {
-        switch(n) {
-            case 1: return TypesOfItem.COIN;
-            case 2: return TypesOfItem.DIAMOND;
-            case 3: return TypesOfItem.SKULL;
-            default: return TypesOfItem.COIN;
-        }
-    }
-
-    private String calculatePath(final int n) {
-        switch(n) {
-            case 1: return COIN_PATH;
-            case 2: return DIAMOND_PATH;
-            case 3: return SKULL_PATH;
-            default: return COIN_PATH;
+    private Pair<TypesOfItem, String> calculateEntry(final int i) {
+        switch(i) {
+            case 1: return new Pair<>(TypesOfItem.COIN, COIN_PATH);
+            case 2: return new Pair<>(TypesOfItem.DIAMOND, DIAMOND_PATH);
+            case 3: return new Pair<>(TypesOfItem.SKULL, SKULL_PATH);
+            default: return new Pair<>(TypesOfItem.COIN, COIN_PATH);
         }
     }
 

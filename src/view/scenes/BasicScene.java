@@ -22,7 +22,11 @@ public class BasicScene extends Scene {
     protected BasicScene() {
         super(new BorderPane());
         this.setRoot(this.bp);
-        this.bp.setBackground(new Background(new BackgroundFill(this.backColor, CornerRadii.EMPTY, Insets.EMPTY))); 
+        this.setBackground(); 
+    }
+
+    private void setBackground() {
+        this.bp.setBackground(new Background(new BackgroundFill(this.backColor, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     /**
@@ -50,6 +54,6 @@ public class BasicScene extends Scene {
      */
     public void setSkin(final Color c) {
         this.backColor = c;
-        this.bp.setBackground(new Background(new BackgroundFill(this.backColor, CornerRadii.EMPTY, Insets.EMPTY))); 
+        this.setBackground(); 
     }
 }

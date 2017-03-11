@@ -57,7 +57,8 @@ public class PawnImpl implements Pawn {
     public final void resizePawn() {
         this.pawnIm.setFitHeight(Dimension.getPawnHeight());
         this.pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
-                + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) / 2 - Dimension.getPawnHeight() / PAWN_HEIGHT_PARAM,
+                + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) / 2 
+                - Dimension.getPawnHeight() / PAWN_HEIGHT_PARAM,
                 Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
                 - Dimension.getPawnHeight() - (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow() 
                         - Dimension.getPawnHeight()) / 2);

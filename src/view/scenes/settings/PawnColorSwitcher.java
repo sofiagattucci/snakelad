@@ -137,7 +137,8 @@ public abstract class PawnColorSwitcher {
 
         IntStream.range(0, this.nPlayers)
                  .forEach(i -> {
-                     this.pawnList.get(i).getSecond().setValue(LanguageStringMap.get().getMap().get(this.prevColor.get(i).toString()));
+                     this.pawnList.get(i).getSecond().setValue(
+                         LanguageStringMap.get().getMap().get(this.prevColor.get(i).toString()));
                  });
     }
 

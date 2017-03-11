@@ -35,17 +35,7 @@ public final class Dimension {
     public static final double BOARD_H = SCREEN_H * 0.9;
 
     private static double pawnHeight = BOARD_H / 8 * PAWN_HEIGHT_CONST;
-
     private static double coinHeight = BOARD_H / 8 * ITEM_HEIGHT_CONST;
-
-    /**
-     * Setter of the height of a pawns of the game.
-     * @param n
-     *     The number of boxes per side of the selected gameBoard
-     */
-    public static void setPawnHeight(final int n) {
-        pawnHeight = BOARD_H / n * PAWN_HEIGHT_CONST;
-    }
 
     /**
      * Getter of the height of a pawn in the game.
@@ -57,11 +47,12 @@ public final class Dimension {
     }
 
     /**
-     * Setter of the height of a coin of the game.
+     * Setter of the height of the elements of the game (pawns, items).
      * @param n
      *     The number of boxes per side of the selected gameBoard
      */
-    public static void setItemHeight(final int n) {
+    public static void setElemHeight(final int n) {
+        pawnHeight = BOARD_H / n * PAWN_HEIGHT_CONST;
         coinHeight = BOARD_H / n * ITEM_HEIGHT_CONST;
     }
 

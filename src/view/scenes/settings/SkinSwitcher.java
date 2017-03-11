@@ -3,6 +3,7 @@ package view.scenes.settings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import javafx.geometry.Pos;
@@ -60,25 +61,26 @@ public class SkinSwitcher {
 
         this.selectorList.get(0).setDisable(true);
 
-        for (int i = 0; i < this.selectorList.size(); i++) {
-            final int j = i;
+        IntStream.range(0, this.selectorList.size())
+        .forEach(i -> {
             this.box.getChildren().add(this.selectorList.get(i));
             this.setButtonText(i);
             this.selectorList.get(i).setOnAction(e -> {
                 for (final Button b: this.selectorList) {
                     b.setDisable(false);
                 }
-                this.selectorList.get(j).setDisable(true);
-                ViewImpl.getSettingsScene().setSkin(this.colorList.get(j).getFirst());
-                ViewImpl.getMenuScene().setSkin(this.colorList.get(j).getFirst());
-                Instructions.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
-                SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
-                StatisticsScene.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
-                SinglePlayerGame.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(j).getFirst());
-                MultiPlayerGameScenes.get(ViewImpl.getAppStage()).setActiveSkin(this.colorList.get(j).getFirst());
+                this.selectorList.get(i).setDisable(true);
+                ViewImpl.getSettingsScene().setSkin(this.colorList.get(i).getFirst());
+                ViewImpl.getMenuScene().setSkin(this.colorList.get(i).getFirst());
+                Instructions.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(i).getFirst());
+                SetUpGame.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(i).getFirst());
+                StatisticsScene.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(i).getFirst());
+                SinglePlayerGame.getScene(ViewImpl.getAppStage()).setSkin(this.colorList.get(i).getFirst());
+                MultiPlayerGameScenes.get(ViewImpl.getAppStage()).setActiveSkin(this.colorList.get(i).getFirst());
             });
+        });
     }
-}
+
     private void setButtonText(final int index) {
         this.selectorList.get(index).setText(LanguageStringMap.get().getMap().get(this.colorList.get(index).getSecond()));
     }
@@ -88,9 +90,8 @@ public class SkinSwitcher {
      */
     public void updateLanguage() {
         this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
-        for (int i = 0; i < this.selectorList.size(); i++) {
-            this.setButtonText(i);
-        }
+        IntStream.range(0, this.selectorList.size())
+                 .forEach(i -> this.setButtonText(i));
     }
 
     /**

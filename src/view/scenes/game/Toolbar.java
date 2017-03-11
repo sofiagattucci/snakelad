@@ -109,7 +109,8 @@ public abstract class Toolbar {
                  .limit(nPlayers)
                  .forEach(i -> {
                      final Pair<ImageView, Label> p = new Pair<>(new PawnImpl(scene,
-                             PawnTypes.get().getPawn(this.getColorFromMode(i))).getPawn(), new Label(playerLabel.getText() + (i + 1)));
+                             PawnTypes.get().getPawn(this.getColorFromMode(i))).getPawn(),
+                             new Label(playerLabel.getText() + (i + 1)));
                      this.pawnList.add(p);
                      this.pawnList.get(i).getSecond().setFont(smallFont);
                      this.gp.addRow(i, p.getFirst(), p.getSecond());

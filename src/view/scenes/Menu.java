@@ -65,7 +65,6 @@ public final class Menu extends BasicScene {
         this.quit.setOnAction(e -> this.closure.show());
 
         this.getDefaultLayout().setCenter(this.box);
-
         this.box.setAlignment(Pos.CENTER);
         this.box.setSpacing(BOX_SPACING);
 

@@ -22,11 +22,15 @@ public final class FlagsMap {
 
     private FlagsMap() {
 
-            this.flagsPathMap.put(Language.EN, EN);
-            this.flagsPathMap.put(Language.IT, IT);
-            this.flagsPathMap.put(Language.FR, FR);
-            this.flagsPathMap.put(Language.ES, ES);
-            this.flagsPathMap.put(Language.DE, DE);
+        this.putEntry(Language.EN, EN);
+        this.putEntry(Language.IT, IT);
+        this.putEntry(Language.FR, FR);
+        this.putEntry(Language.ES, ES);
+        this.putEntry(Language.DE, DE);
+    }
+
+    private void putEntry(final Language l, final String path) {
+        this.flagsPathMap.put(l, path);
     }
 
     /**
