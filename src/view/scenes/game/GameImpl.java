@@ -214,6 +214,7 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
         for (final int key: keySet) {
             if (this.pawnList.get((this.currentTurn - 1) % this.getTag()).getPawn().intersects(
                     ViewImpl.getPlayScene().getItemMap().get(key).getItemImageView().getBoundsInLocal())) {
+                ViewImpl.getObserver().collisionHappened(key);
                 this.getDefaultLayout().getChildren().remove(this.itemMap.get(key).getItemImageView());
                 this.itemMap.remove(key);
             }

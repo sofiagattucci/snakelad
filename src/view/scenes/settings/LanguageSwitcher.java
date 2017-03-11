@@ -19,6 +19,7 @@ import view.LanguageStringMap;
 import view.ViewImpl;
 import view.scenes.Instructions;
 import view.scenes.Menu;
+import view.scenes.Statistics;
 import view.scenes.setup.SetUpGame;
 
 /**
@@ -63,6 +64,7 @@ public class LanguageSwitcher {
                 ViewImpl.getObserver().setLanguage(elem.getFirst());
                 Menu.getScene(stage).updateLanguage();
                 Instructions.getScene(stage).updateLanguage();
+                Statistics.getScene(stage).updateLanguage();
                 SetUpGame.getScene(stage).updateLanguage();
                 ViewImpl.getSettingsScene().updateLanguage();
                 for (final Pair<Language, ImageView> image: this.flagList) {
