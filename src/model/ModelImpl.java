@@ -297,6 +297,18 @@ public final class ModelImpl implements Model {
     }
 
     @Override
+    public void clearStatistics() throws IOException {
+        this.user.setGamesLost(0);
+        this.user.setGamesWon(0);
+        this.user.setNumberOfDiceRoll(0);
+        this.user.setScores(0);
+
+        final UserStatisticsFileWriter statWriter = UserStatisticsFileWriter.get();
+        statWriter.writeUserStatistics(this.user.getScores(), this.user.getNumberOfDiceRoll(), 
+                                       this.user.getGamesWon(), this.user.getGamesLost());
+    }
+
+    @Override
     public void gameFinished(final Turn turn) throws IOException {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
@@ -310,6 +322,7 @@ public final class ModelImpl implements Model {
         } else {
             this.user.setGamesLost(this.user.getGamesLost() + 1);
         }
+
         statWriter.writeUserStatistics(this.user.getScores(), this.user.getNumberOfDiceRoll(), 
                                        this.user.getGamesWon(), this.user.getGamesLost());
     }
