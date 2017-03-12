@@ -24,6 +24,7 @@ import view.ViewImpl;
 public final class StatisticsScene extends BasicScene {
 
     private static final String BACK_KEY = "back";
+    private static final String CLEAR_KEY = "statistics.clear";
     private static final String SCORES_KEY = "statistics.score";
     private static final String WIN_KEY = "statistics.win";
     private static final String LOSE_KEY = "statistics.lose";
@@ -38,10 +39,11 @@ public final class StatisticsScene extends BasicScene {
     private static Stage statisticStage;
 
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
+    private final Button clear = new BasicButton(LanguageStringMap.get().getMap().get(CLEAR_KEY));
     private final List<Pair<Label, Label>> statElem = new ArrayList<>();
     private final GridPane grid = new GridPane();
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
-    private final VBox box = new VBox(this.title, this.grid, this.back);
+    private final VBox box = new VBox(this.title, this.grid);
     private final Font f = new Font(SMALL_FONT_SIZE);
 
     private StatisticsScene() {
@@ -55,6 +57,7 @@ public final class StatisticsScene extends BasicScene {
         this.grid.setHgap(BOX_SPACING);
         this.title.setFont(new Font(TITLE_FONT_SIZE));
         this.back.setOnAction(e -> statisticStage.setScene(Menu.getScene(statisticStage)));
+        this.clear.setOnAction(e -> ViewImpl.getObserver().clearStatistics());
         Stream.generate(() -> new Pair<Label, Label>(new Label(), new Label()))
               .limit(N_ELEM)
               .forEach(this.statElem :: add);
@@ -64,6 +67,7 @@ public final class StatisticsScene extends BasicScene {
                      this.statElem.get(i).getSecond().setFont(f);
                      this.grid.addRow(i, this.statElem.get(i).getFirst(), this.statElem.get(i).getSecond());
                  });
+        this.grid.addRow(this.statElem.size() + 1, this.clear, this.back);
         this.setLabelText(0, SCORES_KEY);
         this.setLabelText(1, WIN_KEY);
         this.setLabelText(2, LOSE_KEY);
@@ -83,6 +87,7 @@ public final class StatisticsScene extends BasicScene {
      */
     public void updateLanguage() {
         this.back.setText(LanguageStringMap.get().getMap().get(BACK_KEY));
+        this.clear.setText(LanguageStringMap.get().getMap().get(CLEAR_KEY));
         this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
         this.setLabelText(0, SCORES_KEY);
         this.setLabelText(1, WIN_KEY);
