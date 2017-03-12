@@ -15,6 +15,7 @@ public class CoinsGenerator implements Runnable {
 
     private final Thread t;
     private volatile boolean stop;
+    private volatile boolean suspended;
     private final Model model;
     private final View view;
     private static Optional<Optional<Integer>> position;
@@ -70,6 +71,9 @@ public class CoinsGenerator implements Runnable {
                         this.getItem(TypesOfItem.COIN);
                         this.getItem(TypesOfItem.DIAMOND);
                         this.getItem(TypesOfItem.SKULL);
+                        if (suspended) {
+                            wait();
+                        }
                     }
                 }
             } catch (InterruptedException e) {
@@ -82,7 +86,7 @@ public class CoinsGenerator implements Runnable {
     /**
      * Set the field stop.
      */
-    public synchronized void setStop() {
+    public synchronized void stopGenerate() {
         this.stop = true;
     }
 
@@ -92,6 +96,19 @@ public class CoinsGenerator implements Runnable {
     public synchronized void start() {
         this.t.start();
     }
+    /**
+     * Suspend the thread.
+     */
+    public synchronized void suspende() {
+        this.suspended = true;
+    }
+    /**
+     * Resume the thread.
+     */
+    public synchronized void resume() {
+        this.suspended = false;
+        notifyAll();
+    }
 
     /**
      * Tell if the thread is still alive.
@@ -99,6 +116,13 @@ public class CoinsGenerator implements Runnable {
      */
     public synchronized boolean isAlive() {
         return this.t.isAlive();
+    }
+    /**
+     * The thread name.
+     * @return the thread name
+     */
+    public synchronized String nameThread() {
+        return this.t.getName();
     }
 
 }

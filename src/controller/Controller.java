@@ -9,6 +9,7 @@ import utilities.UserLogin;
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.GameMode;
 import utilities.enumeration.Language;
+import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 import utilities.LanguageLoader;
 import view.View;
@@ -102,9 +103,11 @@ public final class Controller implements ViewObserver {
             this.counter = 0;
             this.view.firstTurn();
             if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
-//                System.out.println("Restart: is alive? " + this.coinsGenerator.isAlive());
-                this.coinsGenerator = new CoinsGenerator(this);
-                this.coinsGenerator.start();
+//                System.out.println("Restart before: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+//                this.coinsGenerator = new CoinsGenerator(this);
+//                this.coinsGenerator.start();
+                this.coinsGenerator.resume();
+//                System.out.println("Restart after: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
             }
         } else {
             throw new IllegalStateException();
@@ -115,8 +118,10 @@ public final class Controller implements ViewObserver {
     public void pause() {
         if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
             synchronized (coinsGenerator) {
-                this.coinsGenerator.setStop();
-//                System.out.println("Pause after call setStop: is alive? " + this.coinsGenerator.isAlive());
+//                System.out.println("Pause before call setStop: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+                this.coinsGenerator.suspende();
+//                System.out.println("Pause after call setStop: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+
             }
         }
     }
@@ -124,9 +129,11 @@ public final class Controller implements ViewObserver {
     @Override
     public void resume() {
         if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
-//            System.out.println("Resume: is alive? " + this.coinsGenerator.isAlive());
-            this.coinsGenerator = new CoinsGenerator(this);
-            this.coinsGenerator.start();
+//            System.out.println("Resume before: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+//            this.coinsGenerator = new CoinsGenerator(this);
+//            this.coinsGenerator.start();
+            this.coinsGenerator.resume();
+//            System.out.println("Resume after: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
         }
     }
 
@@ -160,11 +167,11 @@ public final class Controller implements ViewObserver {
             this.counter = 0;
             this.view.firstTurn();
             this.view.setBoardSize(this.game.getGameBoardSideSize());
-//            System.out.println("How many player? " + this.settings.get().getModality());
+            System.out.println("How many player? " + this.settings.get().getModality());
             if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
                 this.coinsGenerator = new CoinsGenerator(this);
                 this.coinsGenerator.start();
-//                System.out.println("Play: is alive? " + this.coinsGenerator.isAlive());
+                System.out.println("Play: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
             }
         } else {
             throw new IllegalStateException();
@@ -177,9 +184,10 @@ public final class Controller implements ViewObserver {
             this.view.firstTurn();
                 if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
                 synchronized (coinsGenerator) {
-//                    System.out.println("Give up after calling stop: is alive? " + this.coinsGenerator.isAlive());
-                    this.coinsGenerator.setStop();
-//                    System.out.println("Give up before calling stop: is alive? " + this.coinsGenerator.isAlive());
+                    System.out.println("Give up before calling stop: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+                    this.coinsGenerator.resume();
+                    this.coinsGenerator.stopGenerate();
+                    System.out.println("Give up after calling stop: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
                 }
             }
             this.game.giveUpGame();
@@ -228,11 +236,18 @@ public final class Controller implements ViewObserver {
     @Override
     public void login(final String name) {
         this.userLogin.login(name);
+        this.game.setUserName(name);
     }
 
     @Override
     public void collisionHappened(final int position) {
-        this.game.itemCollected(position);
+        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+            if (this.counter == 1) {
+                this.game.itemCollected(position, Turn.CPU);
+            } else {
+                this.game.itemCollected(position, Turn.PLAYER);
+            }
+        }
     }
 
     @Override
