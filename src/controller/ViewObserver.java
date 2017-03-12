@@ -6,6 +6,7 @@ import model.Model;
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.GameMode;
 import utilities.enumeration.Language;
+import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 import view.View;
 
@@ -112,8 +113,16 @@ public interface ViewObserver {
     void collisionHappened(int position);
 
     /**
-     * Set the statistic of game and return it.
+     * Finds user's statistics and returns it by means of a view's method.
      */
-    void gameStatistics();
+    void statistics();
+
+    /**
+     * ...TODO.
+     * @param turn
+     *          ...TODO.
+     * @throws IOException if an error during writing statistics by Model inside file happened.
+     */
+    void gameFinished(Turn turn) throws IOException;
 
 }

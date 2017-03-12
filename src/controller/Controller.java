@@ -251,7 +251,13 @@ public final class Controller implements ViewObserver {
     }
 
     @Override
-    public void gameStatistics() {
+    public void statistics() {
+        //TODO chiama un metodo della view passando come unico argomento: this.game.getStatistics()
+    }
+
+    @Override
+    public void gameFinished(final Turn turn) throws IOException {
+        this.game.gameFinished(turn);
     }
 
 }

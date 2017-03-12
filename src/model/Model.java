@@ -118,7 +118,7 @@ public interface Model {
      * Builds a Statistic object which contains all user's game statistics and returns it.
      * @return a Statistic object which contains all user's game statistics.
      */
-    Statistic getStatistic();
+    Statistic getStatistics();
 
     /**
      * Writes user's statistics inside his .properties file. 

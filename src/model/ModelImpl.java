@@ -285,7 +285,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Statistic getStatistic() {
+    public Statistic getStatistics() {
         //build Statistic object
         final Statistic userStatistics = new StatisticImpl.Builder()
                                                           .gameWon(this.user.getGamesWon())
