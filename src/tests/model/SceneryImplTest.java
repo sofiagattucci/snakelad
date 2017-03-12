@@ -58,6 +58,12 @@ public class SceneryImplTest {
         fail("should throw an IllegalStateException, not a " + e.getClass());
     }
 
+    //private method called to avoid too much repetition of identical code
+    private void clearMaps() {
+        this.snakesMap.clear();
+        this.laddersMap.clear();
+    }
+
     /**
      * Tests all methods inside SceneryImpl class, using game board n.1.
      */
@@ -133,6 +139,7 @@ public class SceneryImplTest {
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
+        this.clearMaps();
     }
 
     /**
@@ -210,6 +217,7 @@ public class SceneryImplTest {
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
+        this.clearMaps();
     }
 
     /**
@@ -287,6 +295,7 @@ public class SceneryImplTest {
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
+        this.clearMaps();
     }
 
     /**
@@ -364,6 +373,7 @@ public class SceneryImplTest {
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
+        this.clearMaps();
     }
 
 }

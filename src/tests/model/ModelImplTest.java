@@ -15,6 +15,7 @@ import model.Model;
 import model.ModelImpl;
 import utilities.ConsoleLog;
 import utilities.SceneryDataManager;
+import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 
 /**
@@ -41,6 +42,7 @@ public class ModelImplTest {
     private static final int GAME_BOARD_2_SIDE_SIZE = 8;
     private static final int GAME_BOARD_3_SIDE_SIZE = 8;
     private static final int GAME_BOARD_4_SIDE_SIZE = 10;
+    private static final int ITEMS_LIST_MAX_SIZE = 20;
     private static final String GAME_BOARD_1 = "./res/gameBoards/gameBoard1/file.txt";
     private static final String GAME_BOARD_2 = "./res/gameBoards/gameBoard2/file.txt";
     private static final String GAME_BOARD_3 = "./res/gameBoards/gameBoard3/file.txt";
@@ -67,18 +69,34 @@ public class ModelImplTest {
     }
 
     //private method called to avoid too much repetition of identical code.
+    private void printIllegalArgumentException() {
+        final ConsoleLog log = ConsoleLog.get();
+        log.print("IllegalArgumentException thrown with success inside ModelImplTest.");
+    }
+
+    //private method called to avoid too much repetition of identical code.
+    private void failIllegalArgumentExceptionThrowing(final Exception e) {
+        fail("should throw an IllegalArgumentException, not a " + e.getClass());
+    }
+
+    //private method called to avoid too much repetition of identical code.
     private void failExceptionThrowing(final Exception e) {
         fail("It mustn't throw any exception! " + e.getClass() + " was thrown!");
     }
 
     //private method called to avoid too much repetition of identical code.
-    private void failBoundsClassicDice() {
-        fail("diceValue out of bounds (Classic Dice)!");
+    private void failItemDoesntExist() {
+        fail("There is no item with the index passed.");
     }
 
     //private method called to avoid too much repetition of identical code.
     private void failCallMethodBeforeStartGame() {
         fail("cannot call the method because statGame() method must be called before any ModelImpl's other method.");
+    }
+
+    //private method called to avoid too much repetition of identical code.
+    private void failBoundsClassicDice() {
+        fail("diceValue out of bounds (Classic Dice)!");
     }
 
     //private method called to avoid too much repetition of identical code.
@@ -336,6 +354,41 @@ public class ModelImplTest {
         final int gameBoard1SideSize = model.getGameBoardSideSize();
         assertEquals(gameBoard1SideSize, GAME_BOARD_1_SIDE_SIZE);
 
+        final List<Integer> itemsList = new LinkedList<>();
+
+        for (int i = 0; i < NUMBER_SUB_ITERATION; i++) {
+            final Optional<Integer> coin = model.tryGenerateCoin();
+            if (coin.isPresent()) {
+                itemsList.add(coin.get());
+            }
+
+            final Optional<Integer> diamond = model.tryGenerateDiamond();
+            if (diamond.isPresent()) {
+                itemsList.add(diamond.get());
+            }
+
+            final Optional<Integer> skull = model.tryGenerateSkull();
+            if (skull.isPresent()) {
+                itemsList.add(skull.get());
+            }
+        }
+
+        assertTrue(itemsList.size() <= ITEMS_LIST_MAX_SIZE);
+
+        final int listLength = itemsList.size();
+        for (int i = 0; i < listLength; i++) {
+            model.itemCollected(itemsList.get(i), Turn.CPU);
+        }
+
+        try {
+            model.itemCollected(itemsList.get(0), Turn.CPU);
+            this.failItemDoesntExist();
+        } catch (final IllegalArgumentException e) {
+            this.printIllegalArgumentException();
+        } catch (final Exception e) {
+            this.failIllegalArgumentExceptionThrowing(e);
+        }
+
         model.giveUpGame(); //end the game
 
     }
@@ -425,6 +478,41 @@ public class ModelImplTest {
         //call getGameBoardSideSize() method inside ModelImpl, checking everything works correctly.
         final int gameBoard2SideSize = model.getGameBoardSideSize();
         assertEquals(gameBoard2SideSize, GAME_BOARD_2_SIDE_SIZE);
+
+        final List<Integer> itemsList = new LinkedList<>();
+
+        for (int i = 0; i < NUMBER_SUB_ITERATION; i++) {
+            final Optional<Integer> coin = model.tryGenerateCoin();
+            if (coin.isPresent()) {
+                itemsList.add(coin.get());
+            }
+
+            final Optional<Integer> diamond = model.tryGenerateDiamond();
+            if (diamond.isPresent()) {
+                itemsList.add(diamond.get());
+            }
+
+            final Optional<Integer> skull = model.tryGenerateSkull();
+            if (skull.isPresent()) {
+                itemsList.add(skull.get());
+            }
+        }
+
+        assertTrue(itemsList.size() <= ITEMS_LIST_MAX_SIZE);
+
+        final int listLength = itemsList.size();
+        for (int i = 0; i < listLength; i++) {
+            model.itemCollected(itemsList.get(i), Turn.CPU);
+        }
+
+        try {
+            model.itemCollected(itemsList.get(0), Turn.CPU);
+            this.failItemDoesntExist();
+        } catch (final IllegalArgumentException e) {
+            this.printIllegalArgumentException();
+        } catch (final Exception e) {
+            this.failIllegalArgumentExceptionThrowing(e);
+        }
 
         model.giveUpGame(); //end the game
 
@@ -516,6 +604,41 @@ public class ModelImplTest {
         final int gameBoard3SideSize = model.getGameBoardSideSize();
         assertEquals(gameBoard3SideSize, GAME_BOARD_3_SIDE_SIZE);
 
+        final List<Integer> itemsList = new LinkedList<>();
+
+        for (int i = 0; i < NUMBER_SUB_ITERATION; i++) {
+            final Optional<Integer> coin = model.tryGenerateCoin();
+            if (coin.isPresent()) {
+                itemsList.add(coin.get());
+            }
+
+            final Optional<Integer> diamond = model.tryGenerateDiamond();
+            if (diamond.isPresent()) {
+                itemsList.add(diamond.get());
+            }
+
+            final Optional<Integer> skull = model.tryGenerateSkull();
+            if (skull.isPresent()) {
+                itemsList.add(skull.get());
+            }
+        }
+
+        assertTrue(itemsList.size() <= ITEMS_LIST_MAX_SIZE);
+
+        final int listLength = itemsList.size();
+        for (int i = 0; i < listLength; i++) {
+            model.itemCollected(itemsList.get(i), Turn.CPU);
+        }
+
+        try {
+            model.itemCollected(itemsList.get(0), Turn.CPU);
+            this.failItemDoesntExist();
+        } catch (final IllegalArgumentException e) {
+            this.printIllegalArgumentException();
+        } catch (final Exception e) {
+            this.failIllegalArgumentExceptionThrowing(e);
+        }
+
         model.giveUpGame(); //end the game
 
     }
@@ -605,6 +728,41 @@ public class ModelImplTest {
         //call getGameBoardSideSize() method inside ModelImpl, checking everything works correctly.
         final int gameBoard4SideSize = model.getGameBoardSideSize();
         assertEquals(gameBoard4SideSize, GAME_BOARD_4_SIDE_SIZE);
+
+        final List<Integer> itemsList = new LinkedList<>();
+
+        for (int i = 0; i < NUMBER_SUB_ITERATION; i++) {
+            final Optional<Integer> coin = model.tryGenerateCoin();
+            if (coin.isPresent()) {
+                itemsList.add(coin.get());
+            }
+
+            final Optional<Integer> diamond = model.tryGenerateDiamond();
+            if (diamond.isPresent()) {
+                itemsList.add(diamond.get());
+            }
+
+            final Optional<Integer> skull = model.tryGenerateSkull();
+            if (skull.isPresent()) {
+                itemsList.add(skull.get());
+            }
+        }
+
+        assertTrue(itemsList.size() <= ITEMS_LIST_MAX_SIZE);
+
+        final int listLength = itemsList.size();
+        for (int i = 0; i < listLength; i++) {
+            model.itemCollected(itemsList.get(i), Turn.CPU);
+        }
+
+        try {
+            model.itemCollected(itemsList.get(0), Turn.CPU);
+            this.failItemDoesntExist();
+        } catch (final IllegalArgumentException e) {
+            this.printIllegalArgumentException();
+        } catch (final Exception e) {
+            this.failIllegalArgumentExceptionThrowing(e);
+        }
 
         model.giveUpGame(); //end the game
 

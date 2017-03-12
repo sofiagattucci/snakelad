@@ -264,7 +264,7 @@ public final class ModelImpl implements Model {
         }
 
         if (!this.itemsMap.containsKey(itemIndex)) {
-            throw new IllegalArgumentException("The user's index is not present in the Model!");
+            throw new IllegalArgumentException("The item's index is not present in the Model!");
         }
 
         //add scores to user only if it's player's turn
