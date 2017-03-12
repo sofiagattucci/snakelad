@@ -121,6 +121,12 @@ public interface Model {
     Statistic getStatistics();
 
     /**
+     * Clears the current user's statistics.
+     * @throws IOException if an error during clearing statistics inside file happened.
+     */
+    void clearStatistics() throws IOException;
+
+    /**
      * Writes user's statistics inside his .properties file. 
      * @param turn
      *          The turn that specifies who won the game.
