@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ import model.user.User;
 import model.user.UserImpl;
 import utilities.enumeration.TypesOfDice;
 import utilities.enumeration.TypesOfItem;
-
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -41,7 +42,8 @@ public final class ModelImpl implements Model {
     private Scenery scenery;
     private final List<Player> playersList = new LinkedList<>();
     private Dice dice;
-    private final List<SpecialItems> itemsList = new LinkedList<>();
+    private final Map<Integer, SpecialItems> itemsMap = new HashMap<>();
+    private int itemsIndex;
     //'isReady' is false if the method called startGame() has never been called, otherwise 
     //true. In fact, the method statGame() must be called before any other method.
     private boolean isReady;
@@ -52,27 +54,30 @@ public final class ModelImpl implements Model {
      * ModelImpl constructor.
      */
     public ModelImpl() {
+        this.itemsIndex = 0;
         this.isReady = false;
         this.maxItemsGeneration = MAX_ITEMS_GENERATION;
     }
 
     //private method called to avoid too much repetition of identical code in restartGame() and giveUpGame() methods.
-    private void clearEntities() {
+    private synchronized void clearEntities() {
         this.playersList.stream()
                         .forEach(player -> player.setNewPosition(PLAYER_INITIAL_POSITION));
 
         this.dice.setLastNumberAppeared(Optional.empty());
-        this.itemsList.clear();
+        this.itemsMap.clear();
+        this.itemsIndex = 0;
         this.maxItemsGeneration = MAX_ITEMS_GENERATION;
     }
 
     //private method called to avoid too much repetition of identical code in getPlayerPosition() method.
-    private Optional<Integer> playerPositionUtils(final int index, final int position) {
+    private synchronized Optional<Integer> playerPositionUtils(final int index, final int position) {
         this.playersList.get(index).setNewPosition(position);
         return Optional.of(this.playersList.get(index).getPosition());
     }
  
-    //private method called to avoid too much repetition of identical code in tryGenerateCoin() and tryGenerateDiamond() methods.
+    //private method called to avoid too much repetition of identical code in tryGenerateCoin(), 
+    //tryGenerateDiamond() and tryGenerateSkull() methods.
     private synchronized Optional<Integer> generateItemsUtils(final TypesOfItem typeOfItem) {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
@@ -81,8 +86,8 @@ public final class ModelImpl implements Model {
         final ItemsGenerator itemGenerator = ItemsGeneratorImpl.get();
         //this list will contain all items and players' current positions on the game's grid
         final List<Integer> occupiedPositionsList = new LinkedList<>();
-        this.itemsList.stream()
-                      .forEach(item -> occupiedPositionsList.add(item.getPosition()));
+        this.itemsMap.values().stream()
+                              .forEach(item -> occupiedPositionsList.add(item.getPosition()));
 
         this.playersList.stream()
                         .forEach(player -> occupiedPositionsList.add(player.getPosition()));
@@ -90,7 +95,7 @@ public final class ModelImpl implements Model {
         final Optional<Integer> generationResult = itemGenerator.tryGenerateItem(this.scenery.getNumberOfBoxes(), 
                                                                                  occupiedPositionsList, typeOfItem);
         if (!generationResult.isPresent()) {
-            return generationResult;
+            return Optional.empty();
         }
 
         this.maxItemsGeneration--;
@@ -99,10 +104,11 @@ public final class ModelImpl implements Model {
             return Optional.empty();
         }
 
-        this.itemsList.add((typeOfItem == TypesOfItem.COIN) ? new Coin(generationResult.get()) 
-                           : (typeOfItem == TypesOfItem.DIAMOND) ? new Diamond(generationResult.get())
-                           : new Skull(generationResult.get()));
-
+        this.itemsMap.put(this.itemsIndex, (typeOfItem == TypesOfItem.COIN) ? new Coin(generationResult.get())
+                                           : (typeOfItem == TypesOfItem.DIAMOND) ? new Diamond(generationResult.get())
+                                           : new Skull(generationResult.get()));
+System.out.println(this.itemsMap);
+        this.itemsIndex++;
         return generationResult;
     }
 
@@ -165,6 +171,11 @@ public final class ModelImpl implements Model {
         default:
             throw new IllegalArgumentException("The type of dice passed in argument is not supported!");
         }
+    }
+
+    @Override
+    public void setUserName(final String userName) {
+        this.user.setName(userName);
     }
 
     @Override
@@ -232,7 +243,9 @@ public final class ModelImpl implements Model {
 
     @Override
     public void itemCollected(final int itemIndex) {
-
+        if (!this.isReady) {
+            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
+        }
     }
 
 }

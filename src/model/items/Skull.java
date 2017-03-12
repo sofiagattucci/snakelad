@@ -10,8 +10,8 @@ import java.util.Random;
 public final class Skull extends IntegerValueItems {
 
     private static final int SKULL_VALUE = -2;
-    private static final int NUMBER_UPPER_BOUND_RANDOM = 6; //It means that the skull will appear with probability
-                                                            //of a sixth for each isVisible() method call. (Medium rarity)
+    private static final int NUMBER_UPPER_BOUND_RANDOM = 7; //It means that the skull will appear with probability
+                                                            //of a seventh for each isVisible() method call. (Medium rarity)
 
     private final Random rand = new Random();
 

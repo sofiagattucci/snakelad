@@ -46,7 +46,7 @@ public final class ItemsGeneratorImpl implements ItemsGenerator {
             return Optional.empty();
         }
 
-        return Optional.of(itemPosition);
+        return Optional.of(item.getPosition());
     }
 
 }
