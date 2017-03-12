@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.Optional;
-
 import model.Model;
 import model.ModelImpl;
 import utilities.SceneryDataManager;
@@ -252,7 +251,7 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void statistics() {
-        //TODO chiama un metodo della view passando come unico argomento: this.game.getStatistics()
+        this.view.setStatistics(this.game.getStatistics());
     }
 
     @Override

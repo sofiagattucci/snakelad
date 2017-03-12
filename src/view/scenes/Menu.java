@@ -51,7 +51,7 @@ public final class Menu extends BasicScene {
         });
 
         this.statistics.setOnAction(e -> {
-            ViewImpl.getObserver().gameStatistics();
+            ViewImpl.getObserver().statistics();
             menuStage.setScene(StatisticsScene.getScene(menuStage));
         });
 
