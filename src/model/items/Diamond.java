@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public final class Diamond extends IntegerValueItems {
 
-    private static final int DIAMOND_VALUE = 10;
+    private static final int DIAMOND_VALUE = 5;
     private static final int NUMBER_UPPER_BOUND_RANDOM = 12; //It means that the diamond will appear with probability of
                                                              //one twelfth for each isVisible() method call. (High rarity)
 

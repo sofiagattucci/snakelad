@@ -243,9 +243,9 @@ public final class Controller implements ViewObserver {
     public void collisionHappened(final int position) {
         if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
             if (this.counter == 1) {
-                this.game.itemCollected(position, Turn.CPU);
-            } else {
                 this.game.itemCollected(position, Turn.PLAYER);
+            } else {
+                this.game.itemCollected(position, Turn.CPU);
             }
         }
     }

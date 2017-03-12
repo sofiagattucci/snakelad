@@ -7,7 +7,7 @@ package model.items;
  * randomly decide to appear or not on the scenery's grid when the isVisibleOnSceneryGrid() method is called
  * in order to implement apparition's rarity of the item.
  */
-public interface SpecialItems {
+public interface SpecialItem {
 
     /**
      * Runs the entity's specified effect getting a result of it.

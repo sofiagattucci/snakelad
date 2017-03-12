@@ -71,7 +71,7 @@ public class UserImplTest {
 
         while (counter >= NUMBER_BOUND_FOR_RAND) {
             final int randValue = rand.nextInt(NUMBER_BOUND_FOR_RAND);
-            user.subtractScores(randValue);
+            user.addScores(-randValue);
             counter -= randValue;
             assertEquals(user.getScores(), counter);
         }
@@ -93,12 +93,12 @@ public class UserImplTest {
 
         user.setScores(1);
         assertEquals(user.getScores(), 1);
-        user.subtractScores(1);
+        user.addScores(-1);
         assertEquals(user.getScores(), 0);
 
         //subtract a too high scores value. It must throw an IllegalArgumentException
         try {
-            user.subtractScores(1);
+            user.addScores(-1);
         } catch (final IllegalArgumentException e) {
             this.printIllegalArgumentException();
         } catch (final Exception e) {

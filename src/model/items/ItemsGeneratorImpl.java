@@ -39,7 +39,7 @@ public final class ItemsGeneratorImpl implements ItemsGenerator {
             itemPosition = rand.nextInt(maxPosition);
         } while (occupiedPositionsList.contains(itemPosition));
 
-        final SpecialItems item = (typeOfItem == TypesOfItem.COIN) ? new Coin(itemPosition) 
+        final SpecialItem item = (typeOfItem == TypesOfItem.COIN) ? new Coin(itemPosition) 
                                   : (typeOfItem == TypesOfItem.DIAMOND) ? new Diamond(itemPosition) : new Skull(itemPosition);
 
         if (!item.isVisibleOnSceneryGrid()) {

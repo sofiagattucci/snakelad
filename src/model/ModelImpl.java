@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -14,13 +15,14 @@ import model.items.Diamond;
 import model.items.ItemsGenerator;
 import model.items.ItemsGeneratorImpl;
 import model.items.Skull;
-import model.items.SpecialItems;
+import model.items.SpecialItem;
 import model.player.Player;
 import model.player.PlayerImpl;
 import model.scenery.Scenery;
 import model.scenery.SceneryFactoryImpl;
 import model.user.User;
 import model.user.UserImpl;
+import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 import utilities.enumeration.TypesOfItem;
 import java.util.HashMap;
@@ -42,21 +44,22 @@ public final class ModelImpl implements Model {
     private Scenery scenery;
     private final List<Player> playersList = new LinkedList<>();
     private Dice dice;
-    private final Map<Integer, SpecialItems> itemsMap = new HashMap<>();
-    private int itemsIndex;
+    private final Map<Integer, SpecialItem> itemsMap = new HashMap<>();
     //'isReady' is false if the method called startGame() has never been called, otherwise 
     //true. In fact, the method statGame() must be called before any other method.
     private boolean isReady;
     //contains the maximum number of permitted items generations.
     private int maxItemsGeneration;
+    //contains the number of items collected by the player or CPU.
+    private int itemsCollected;
 
     /**
      * ModelImpl constructor.
      */
     public ModelImpl() {
-        this.itemsIndex = 0;
         this.isReady = false;
         this.maxItemsGeneration = MAX_ITEMS_GENERATION;
+        this.itemsCollected = 0;
     }
 
     //private method called to avoid too much repetition of identical code in restartGame() and giveUpGame() methods.
@@ -66,8 +69,8 @@ public final class ModelImpl implements Model {
 
         this.dice.setLastNumberAppeared(Optional.empty());
         this.itemsMap.clear();
-        this.itemsIndex = 0;
         this.maxItemsGeneration = MAX_ITEMS_GENERATION;
+        this.itemsCollected = 0;
     }
 
     //private method called to avoid too much repetition of identical code in getPlayerPosition() method.
@@ -104,16 +107,15 @@ public final class ModelImpl implements Model {
             return Optional.empty();
         }
 
-        this.itemsMap.put(this.itemsIndex, (typeOfItem == TypesOfItem.COIN) ? new Coin(generationResult.get())
-                                           : (typeOfItem == TypesOfItem.DIAMOND) ? new Diamond(generationResult.get())
-                                           : new Skull(generationResult.get()));
-System.out.println(this.itemsMap);
-        this.itemsIndex++;
+        this.itemsMap.put(generationResult.get(), (typeOfItem == TypesOfItem.COIN) ? new Coin(generationResult.get())
+                                                  : (typeOfItem == TypesOfItem.DIAMOND) ? new Diamond(generationResult.get())
+                                                  : new Skull(generationResult.get()));
+
         return generationResult;
     }
 
     @Override
-    public synchronized Optional<Integer> getPlayerPosition(final int playerIndex) {
+    public synchronized Optional<Integer> getPlayerPosition(final int playerIndex) throws IllegalStateException {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
@@ -189,7 +191,7 @@ System.out.println(this.itemsMap);
     }
 
     @Override
-    public int getGameBoardSideSize() {
+    public int getGameBoardSideSize() throws IllegalStateException {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
@@ -198,7 +200,7 @@ System.out.println(this.itemsMap);
     }
 
     @Override
-    public int getNumberFromDice() {
+    public int getNumberFromDice() throws IllegalStateException {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
@@ -207,7 +209,7 @@ System.out.println(this.itemsMap);
     }
 
     @Override
-    public synchronized void restartGame() {
+    public synchronized void restartGame() throws IllegalStateException {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
@@ -216,7 +218,7 @@ System.out.println(this.itemsMap);
     }
 
     @Override
-    public synchronized void giveUpGame() {
+    public synchronized void giveUpGame() throws IllegalStateException {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
@@ -227,24 +229,44 @@ System.out.println(this.itemsMap);
     }
 
     @Override
-    public Optional<Integer> tryGenerateCoin() {
+    public Optional<Integer> tryGenerateCoin() throws IllegalStateException {
         return this.generateItemsUtils(TypesOfItem.COIN);
     }
 
     @Override
-    public Optional<Integer> tryGenerateDiamond() {
+    public Optional<Integer> tryGenerateDiamond() throws IllegalStateException {
         return this.generateItemsUtils(TypesOfItem.DIAMOND);
     }
 
     @Override
-    public Optional<Integer> tryGenerateSkull() {
+    public Optional<Integer> tryGenerateSkull() throws IllegalStateException {
         return this.generateItemsUtils(TypesOfItem.SKULL);
     }
 
     @Override
-    public void itemCollected(final int itemIndex) {
+    public void itemCollected(final int itemIndex, final Turn turn) throws IllegalArgumentException, NoSuchElementException {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
+        }
+
+        if (!this.itemsMap.containsKey(itemIndex)) {
+            throw new IllegalArgumentException("The user's index is not present in the Model!");
+        }
+
+        //add scores to user only if it's player's turn
+        if (turn == Turn.PLAYER) {
+            this.user.addScores((int) this.itemsMap.get(itemIndex).runEffectGettingResult());
+        }
+
+        //delete item collected
+        if (!this.itemsMap.remove(itemIndex, this.itemsMap.get(itemIndex))) {
+            throw new NoSuchElementException("Cannot remove entry from itemsMap!");
+        }
+
+        this.itemsCollected++;
+        if (this.itemsCollected == MAX_ITEMS_GENERATION / 2) {
+            this.itemsCollected = 0;
+            this.maxItemsGeneration = MAX_ITEMS_GENERATION / 2;
         }
     }
 

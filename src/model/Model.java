@@ -1,8 +1,10 @@
 package model;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 
 /**
@@ -19,13 +21,13 @@ public interface Model {
     void setUserName(String userName);
 
     /**
-     * Gets the name of the user who's playing the game.
+     * Returns the name of the user who's playing the game.
      * @return the name of the user who's playing the game.
      */
     String getUserName();
 
     /**
-     * Gets the scores of the user who's playing the game.
+     * Returns the scores of the user who's playing the game.
      * @return the scores of the user who's playing the game.
      */
     int getUserScores();
@@ -33,8 +35,9 @@ public interface Model {
     /**
      * Return a random number rolling the dice.
      * @return the number released by the dice's roll.
+     * @throws IllegalStateException if this method is called before startGame() method.
      */
-    int getNumberFromDice();
+    int getNumberFromDice() throws IllegalStateException;
 
     /**
      * Sets everything needed in order to start the game.
@@ -59,56 +62,67 @@ public interface Model {
      * of either a snake or a ladder) and the Integer value represents the final player's position 
      * after the jump. Otherwise it's an Optional.empty, to indicate the specified player shouldn't
      * jump (in this case the View'll calculate the final player's position on the game board).
+     * @throws IllegalStateException if this method is called before startGame() method.
      */
-    Optional<Integer> getPlayerPosition(int playerIndex);
+    Optional<Integer> getPlayerPosition(int playerIndex) throws IllegalStateException;
 
     /**
      * Returns the side's size of the active game board.
      * @return the side's size of the active game board.
+     * @throws IllegalStateException if this method is called before startGame() method.
      */
-    int getGameBoardSideSize();
+    int getGameBoardSideSize() throws IllegalStateException;
 
     /**
      * Restarts the game, setting all needed in order to restart it.
+     * @throws IllegalStateException if this method is called before startGame() method.
      */
-    void restartGame();
+    void restartGame() throws IllegalStateException;
 
 
     /**
      * Quit the game, setting all needed in order to quit it.
+     * @throws IllegalStateException if this method is called before startGame() method.
      */
-    void giveUpGame();
+    void giveUpGame() throws IllegalStateException;
 
     /**
      * Tries to generate a coin, returning the Optional which describes the coin's position 
      * on the scenery's grid.
      * @return an Optional<Integer> if the coin has decided to appear on the scenery's grid and the 
      * Integer represents the coin's position, an Optional<Empty> if the coin has decided not to appear.
+     * @throws IllegalStateException if this method is called before startGame() method.
      */
-    Optional<Integer> tryGenerateCoin();
+    Optional<Integer> tryGenerateCoin() throws IllegalStateException;
 
     /**
      * Tries to generate a diamond, returning the Optional which describes the diamond's position 
      * on the scenery's grid.
      * @return an Optional<Integer> if the diamond has decided to appear on the scenery's grid and the 
      * Integer represents the diamond's position, an Optional<Empty> if the diamond has decided not to appear.
+     * @throws IllegalStateException if this method is called before startGame() method.
      */
-    Optional<Integer> tryGenerateDiamond();
+    Optional<Integer> tryGenerateDiamond() throws IllegalStateException;
 
     /**
      * Tries to generate a skull, returning the Optional which describes the skull's position 
      * on the scenery's grid.
      * @return an Optional<Integer> if the skull has decided to appear on the scenery's grid and the 
      * Integer represents the skull's position, an Optional<Empty> if the skull has decided not to appear.
+     * @throws IllegalStateException if this method is called before startGame() method.
      */
-    Optional<Integer> tryGenerateSkull();
+    Optional<Integer> tryGenerateSkull() throws IllegalStateException;
 
     /**
      * Reports that the user's pawn has collected an item on the game grid.
      * Sets everything needed to update the user's score.
      * @param itemIndex
      *                  The index which specifies the item.
+     * @param turn
+     *                  The turn which specify who has collected the item (Player of CPU).
+     * @throws IllegalArgumentException if the item's index passed is not present in the Model.
+     * @throws NoSuchElementException if there is a problem during deleting the item from Model's map of items.
      */
-    void itemCollected(int itemIndex);
+    void itemCollected(int itemIndex, Turn turn) throws IllegalArgumentException, NoSuchElementException;
 
 }

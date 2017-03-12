@@ -27,13 +27,6 @@ public final class UserImpl implements User {
         return UserImpl.SINGLETON;
     }
 
-    //private method called to avoid too much repetition of identical code.
-    private void checkScoresValue(final int scoresValue) {
-        if (scoresValue < 0) {
-            throw new IllegalArgumentException("Illegal score value (It's less than 0).");
-        }
-    }
-
     @Override
     public void setName(final String name) {
         this.name = Optional.of(name);
@@ -49,15 +42,8 @@ public final class UserImpl implements User {
     }
 
     @Override
-    public void addScores(final int scoresValue) throws IllegalArgumentException {
-        this.checkScoresValue(scoresValue);
+    public void addScores(final int scoresValue) {
         this.scores += scoresValue;
-    }
-
-    @Override
-    public void subtractScores(final int scoresValue) throws IllegalArgumentException {
-        this.checkScoresValue(scoresValue);
-        this.scores -= scoresValue;
         if (this.scores < 0) {
             this.scores = 0;
         }
@@ -65,7 +51,10 @@ public final class UserImpl implements User {
 
     @Override
     public void setScores(final int scoresValue) throws IllegalArgumentException {
-        this.checkScoresValue(scoresValue);
+        if (scoresValue < 0) {
+            throw new IllegalArgumentException("Illegal score value (It's less than 0).");
+        }
+
         this.scores = scoresValue;
     }
 

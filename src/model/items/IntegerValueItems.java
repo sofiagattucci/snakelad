@@ -6,7 +6,7 @@ package model.items;
  * decrease the player's scores for instance, etc.). 
  * It's designed using Template Method.
  */
-public abstract class IntegerValueItems implements SpecialItems {
+public abstract class IntegerValueItems implements SpecialItem {
 
     private final int value;
     private final int position;
