@@ -35,9 +35,51 @@ public interface User {
     void setScores(int scoresValue) throws IllegalArgumentException;
 
     /**
+     * Sets the number which represents the total number of times the user has rolled a dice.
+     * @param numberOfDiceRoll
+     *                          The total number of times the user has rolled a dice.
+     * @throws IllegalArgumentException if the number passed is less than 0.
+     */
+    void setNumberOfDiceRoll(int numberOfDiceRoll) throws IllegalArgumentException;
+
+    /**
+     * Sets the number of games won by the user.
+     * @param gamesWon
+     *                  The number of games won by the user.
+     * @throws IllegalArgumentException if the number passed is less than 0.
+     */
+    void setGamesWon(int gamesWon) throws IllegalArgumentException;
+
+    /**
+     * Sets the number of games lost by the user.
+     * @param gamesLost
+     *                  The number of games lost by the user.
+     * @throws IllegalArgumentException if the number passed is less than 0.
+     */
+    void setGamesLost(int gamesLost) throws IllegalArgumentException;
+
+    /**
      * Returns the scores of the current user.
      * @return the scores of the current user.
      */
     int getScores();
+
+    /**
+     * Returns the number which represents the total number of times the user has rolled a dice.
+     * @return the number which represents the total number of times the user has rolled a dice.
+     */
+    int getNumberOfDiceRoll();
+
+    /**
+     * Returns the number of games won by the user.
+     * @return the number of games won by the user.
+     */
+    int getGamesWon();
+
+    /**
+     * Returns the number of games lost by the user.
+     * @return the number of games lost by the user.
+     */
+    int getGamesLost();
 
 }

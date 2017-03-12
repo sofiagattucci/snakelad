@@ -1,9 +1,11 @@
 package model;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import utilities.Statistic;
 import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 
@@ -14,23 +16,10 @@ import utilities.enumeration.TypesOfDice;
 public interface Model {
 
     /**
-     * Sets the name of the user who's playing the game.
-     * @param userName
-     *                  The name of the user who's playing the game.
-     */
-    void setUserName(String userName);
-
-    /**
      * Returns the name of the user who's playing the game.
      * @return the name of the user who's playing the game.
      */
     String getUserName();
-
-    /**
-     * Returns the scores of the user who's playing the game.
-     * @return the scores of the user who's playing the game.
-     */
-    int getUserScores();
 
     /**
      * Return a random number rolling the dice.
@@ -124,5 +113,19 @@ public interface Model {
      * @throws NoSuchElementException if there is a problem during deleting the item from Model's map of items.
      */
     void itemCollected(int itemIndex, Turn turn) throws IllegalArgumentException, NoSuchElementException;
+
+    /**
+     * Builds a Statistic object which contains all user's game statistics and returns it.
+     * @return a Statistic object which contains all user's game statistics.
+     */
+    Statistic getStatistic();
+
+    /**
+     * Writes user's statistics inside his .properties file. 
+     * @param turn
+     *          The turn that specifies who won the game.
+     * @throws IOException if an error during writing statistics inside file happened.
+     */
+    void gameFinished(Turn turn) throws IOException;
 
 }

@@ -1,5 +1,7 @@
 package view.scenes;
 
+import java.io.IOException;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -74,7 +76,15 @@ public final class Login extends BasicScene {
         this.enter.setOnAction(e -> {
             if (!this.nameField.getText().isEmpty()) {
                 loginStage.setScene(Menu.getScene(loginStage));
-                ViewImpl.getObserver().login(this.nameField.getText());
+                try {
+                    ViewImpl.getObserver().login(this.nameField.getText());
+                } catch (IllegalArgumentException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
 
         });

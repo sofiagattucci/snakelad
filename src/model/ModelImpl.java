@@ -22,9 +22,14 @@ import model.scenery.Scenery;
 import model.scenery.SceneryFactoryImpl;
 import model.user.User;
 import model.user.UserImpl;
+import utilities.Statistic;
+import utilities.StatisticImpl;
+import utilities.UserStatisticsFileWriter;
 import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 import utilities.enumeration.TypesOfItem;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -40,7 +45,7 @@ public final class ModelImpl implements Model {
     private static final int PLAYER_INITIAL_POSITION = 0; 
     private static final int MAX_ITEMS_GENERATION = 20;
 
-    private final User user = UserImpl.get();
+    private final User user;
     private Scenery scenery;
     private final List<Player> playersList = new LinkedList<>();
     private Dice dice;
@@ -52,14 +57,23 @@ public final class ModelImpl implements Model {
     private int maxItemsGeneration;
     //contains the number of items collected by the player or CPU.
     private int itemsCollected;
+    //the number of times the user roll a dice
+    private int numberOfDiceRoll;
+    private boolean isPlayerTurn;
+    //the user's scores
+    private int userScores;
 
     /**
      * ModelImpl constructor.
      */
     public ModelImpl() {
+        this.user = UserImpl.get();
         this.isReady = false;
         this.maxItemsGeneration = MAX_ITEMS_GENERATION;
         this.itemsCollected = 0;
+        this.numberOfDiceRoll = 0;
+        this.isPlayerTurn = true;
+        this.userScores = 0;
     }
 
     //private method called to avoid too much repetition of identical code in restartGame() and giveUpGame() methods.
@@ -71,6 +85,9 @@ public final class ModelImpl implements Model {
         this.itemsMap.clear();
         this.maxItemsGeneration = MAX_ITEMS_GENERATION;
         this.itemsCollected = 0;
+        this.numberOfDiceRoll = 0;
+        this.isPlayerTurn = true;
+        this.userScores = 0;
     }
 
     //private method called to avoid too much repetition of identical code in getPlayerPosition() method.
@@ -176,18 +193,8 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void setUserName(final String userName) {
-        this.user.setName(userName);
-    }
-
-    @Override
     public String getUserName() {
         return this.user.getName();
-    }
-
-    @Override
-    public int getUserScores() {
-        return this.user.getScores();
     }
 
     @Override
@@ -203,6 +210,13 @@ public final class ModelImpl implements Model {
     public int getNumberFromDice() throws IllegalStateException {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
+        }
+
+        if (isPlayerTurn) {
+            this.numberOfDiceRoll++;
+            this.isPlayerTurn = false;
+        } else {
+            this.isPlayerTurn = true;
         }
 
         return this.dice.roll();
@@ -244,7 +258,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void itemCollected(final int itemIndex, final Turn turn) throws IllegalArgumentException, NoSuchElementException {
+    public synchronized void itemCollected(final int itemIndex, final Turn turn) throws IllegalArgumentException, NoSuchElementException {
         if (!this.isReady) {
             throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
         }
@@ -255,7 +269,7 @@ public final class ModelImpl implements Model {
 
         //add scores to user only if it's player's turn
         if (turn == Turn.PLAYER) {
-            this.user.addScores((int) this.itemsMap.get(itemIndex).runEffectGettingResult());
+            this.userScores += (int) this.itemsMap.get(itemIndex).runEffectGettingResult();
         }
 
         //delete item collected
@@ -268,6 +282,36 @@ public final class ModelImpl implements Model {
             this.itemsCollected = 0;
             this.maxItemsGeneration = MAX_ITEMS_GENERATION / 2;
         }
+    }
+
+    @Override
+    public Statistic getStatistic() {
+        //build Statistic object
+        final Statistic userStatistics = new StatisticImpl.Builder()
+                                                          .gameWon(this.user.getGamesWon())
+                                                          .gameLost(this.user.getGamesLost())
+                                                          .numberOfDiceRoll(this.user.getNumberOfDiceRoll())
+                                                          .scores(this.user.getScores())
+                                                          .build();
+        return userStatistics;
+    }
+
+    @Override
+    public void gameFinished(final Turn turn) throws IOException {
+        if (!this.isReady) {
+            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
+        }
+
+        final UserStatisticsFileWriter statWriter = UserStatisticsFileWriter.get();
+        this.user.addScores(this.userScores);
+        this.user.setNumberOfDiceRoll(this.user.getNumberOfDiceRoll() + this.numberOfDiceRoll);
+        if (turn == Turn.PLAYER) {
+            this.user.setGamesWon(this.user.getGamesWon() + 1);
+        } else {
+            this.user.setGamesLost(this.user.getGamesLost() + 1);
+        }
+        statWriter.writeUserStatistics(this.user.getScores(), this.user.getNumberOfDiceRoll(), 
+                                       this.user.getGamesWon(), this.user.getGamesLost());
     }
 
 }

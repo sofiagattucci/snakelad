@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+
 import model.Model;
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.GameMode;
@@ -97,8 +99,10 @@ public interface ViewObserver {
      * Manage the user's login.
      * @param name
      *          the name of user.
+     * @throws IllegalArgumentException if the argument 'name' is empty.
+     * @throws IOException if an error about input/output happened.
      */
-    void login(String name);
+    void login(String name) throws IllegalArgumentException, IOException;
 
     /**
      * Notify if happen a collision between coin and pawn.

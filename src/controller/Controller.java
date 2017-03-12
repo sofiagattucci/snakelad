@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import model.Model;
@@ -234,9 +235,8 @@ public final class Controller implements ViewObserver {
     }
 
     @Override
-    public void login(final String name) {
+    public void login(final String name) throws IllegalArgumentException, IOException {
         this.userLogin.login(name);
-        this.game.setUserName(name);
     }
 
     @Override

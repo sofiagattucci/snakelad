@@ -22,6 +22,9 @@ public final class UserLogin {
     private static final String USERS_DIRECTORY = "./res/users/";
     private static final String USERS_SUFFIX = ".properties";
     private static final String USER_SCORES_KEY = "Scores";
+    private static final String USER_NUMBER_OF_DICE_ROLL_KEY = "NumberOfDiceRoll";
+    private static final String USER_GAMES_WON_KEY = "GamesWon";
+    private static final String USER_GAMES_LOST_KEY = "GamesLost";
 
     private final User user = UserImpl.get();
 
@@ -39,11 +42,15 @@ public final class UserLogin {
     }
 
     private void fillUserWithInfo(final Map<String, String> map) {
-        if (!map.containsKey(USER_SCORES_KEY)) {
-            throw new IllegalStateException("The file hasn't 'Scores' key. It's damaged!");
+        if (!map.containsKey(USER_SCORES_KEY) || !map.containsKey(USER_NUMBER_OF_DICE_ROLL_KEY)
+            || !map.containsKey(USER_GAMES_WON_KEY) || !map.containsKey(USER_GAMES_LOST_KEY)) {
+            throw new IllegalStateException("The file hasn't all required keys. It's damaged! Please fix file and relaunch the game");
         }
 
-        user.setScores(Integer.parseInt(map.get(USER_SCORES_KEY)));
+        this.user.setScores(Integer.parseInt(map.get(USER_SCORES_KEY)));
+        this.user.setNumberOfDiceRoll(Integer.parseInt(map.get(USER_NUMBER_OF_DICE_ROLL_KEY)));
+        this.user.setGamesWon(Integer.parseInt(map.get(USER_GAMES_WON_KEY)));
+        this.user.setGamesLost(Integer.parseInt(map.get(USER_GAMES_LOST_KEY)));
     }
 
     private void extractUserInfoFromFile(final File userFile) {
@@ -67,25 +74,27 @@ public final class UserLogin {
         this.fillUserWithInfo(map);
     }
 
-    private void createNewUserDefaultFile(final File userFile) {
+    private void createNewUserDefaultFile(final File userFile) throws IOException {
         try {
             userFile.createNewFile();
         } catch (IOException e) {
-            ConsoleLog.get().print("ERROR occurred during creating new user file located at: " + userFile.getPath());
-            e.printStackTrace();
+            throw new IOException("Error during creation of user's default file");
         }
 
         final Properties properties = new Properties();
         properties.setProperty(USER_SCORES_KEY, String.valueOf(0));
+        properties.setProperty(USER_NUMBER_OF_DICE_ROLL_KEY, String.valueOf(0));
+        properties.setProperty(USER_GAMES_WON_KEY, String.valueOf(0));
+        properties.setProperty(USER_GAMES_LOST_KEY, String.valueOf(0));
 
         try {
             final FileOutputStream fos = new FileOutputStream(userFile);
-            properties.store(fos, "User's initial scores");
+            properties.store(fos, "Statistic of " + this.user.getName());
             fos.close();
         } catch (IOException e) {
-            ConsoleLog.get().print("ERROR occurred during storing user's scores into properties "
-                                 + "file located at: " + userFile.getPath());
             e.printStackTrace();
+            throw new IOException("ERROR occurred during storing user's statistics into properties "
+                                + "file located at: " + userFile.getPath());
         }
 
     }
@@ -95,8 +104,9 @@ public final class UserLogin {
      * @param userName
      *                  The name of the user who wants to login.
      * @throws IllegalArgumentException if the 'userName' is empty (absent).
+     * @throws IOException if an error about input/output happened.
      */
-    public void login(final String userName) throws IllegalArgumentException {
+    public void login(final String userName) throws IllegalArgumentException, IOException {
         if (userName.isEmpty()) {
             throw new IllegalArgumentException("The userName is absent!");
         }
@@ -106,14 +116,14 @@ public final class UserLogin {
         if (file.exists()) {
             this.user.setName(userName);
             this.extractUserInfoFromFile(file);
-        } else { //the file doesn't exist or the User directory doesn't exist
+        } else { //the file doesn't exist or 'users' directory doesn't exist
             final File dir = new File(USERS_DIRECTORY);
             if (dir.isDirectory()) {
                 this.user.setName(userName);
                 this.createNewUserDefaultFile(file);
             } else {
                 if (!dir.mkdir()) { //if the directory is not created (RuntimeException is thrown)
-                    throw new RuntimeException("Error during creating the empty directory 'User'.");
+                    throw new RuntimeException("Error during creating the empty directory 'users'.");
                 }
                 this.user.setName(userName);
                 this.createNewUserDefaultFile(file);
