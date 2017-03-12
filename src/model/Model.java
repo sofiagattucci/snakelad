@@ -12,7 +12,14 @@ import utilities.enumeration.TypesOfDice;
 public interface Model {
 
     /**
-     * Returns the name of the user who's playing the game.
+     * Sets the name of the user who's playing the game.
+     * @param userName
+     *                  The name of the user who's playing the game.
+     */
+    void setUserName(String userName);
+
+    /**
+     * Gets the name of the user who's playing the game.
      * @return the name of the user who's playing the game.
      */
     String getUserName();
@@ -97,10 +104,10 @@ public interface Model {
     Optional<Integer> tryGenerateSkull();
 
     /**
-     * Reports that the last player moved on the game grid has collected an item.
-     * Sets everything needed to update the player's score.
+     * Reports that the user's pawn has collected an item on the game grid.
+     * Sets everything needed to update the user's score.
      * @param itemIndex
-     *                  ...to do.....
+     *                  The index which specifies the item.
      */
     void itemCollected(int itemIndex);
 
