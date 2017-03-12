@@ -37,7 +37,7 @@ public final class Menu extends BasicScene {
     private final Button settings = new BasicButton(LanguageStringMap.get().getMap().get(SETTINGS_KEY));
     private final Button quit = new BasicButton(LanguageStringMap.get().getMap().get(QUIT_KEY));
     private final ImageView logo = ImageManager.get().getImageView(LOGO_PATH);
-    private final VBox box = new VBox(this.play, this.statistics, this.instructions, this.settings, this.quit);
+    private final VBox box = new VBox(this.play, this.instructions, this.statistics, this.settings, this.quit);
     private final ClosureHandler closure = new ClosureHandler(menuStage);
 
     private Menu() {

@@ -1,5 +1,7 @@
 package view.scenes.game;
 
+import java.io.IOException;
+
 import javafx.stage.Stage;
 import utilities.enumeration.Turn;
 import view.ViewImpl;
@@ -33,6 +35,11 @@ public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
             winner = Turn.PLAYER;
         } else {
             winner = Turn.CPU;
+        }
+        try {
+            ViewImpl.getObserver().gameFinished(winner);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         new SinglePlayerGameOver(playStage, winner).show();
     }

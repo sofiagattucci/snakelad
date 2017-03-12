@@ -64,7 +64,6 @@ public final class StatisticsScene extends BasicScene {
                      this.statElem.get(i).getSecond().setFont(f);
                      this.grid.addRow(i, this.statElem.get(i).getFirst(), this.statElem.get(i).getSecond());
                  });
-        //this.setStatistics(new StatisticImpl.Builder().scores(1).gameLost(2).gameWon(3).numberOfDiceRoll(4).build());
         this.setLabelText(0, SCORES_KEY);
         this.setLabelText(1, WIN_KEY);
         this.setLabelText(2, LOSE_KEY);
@@ -73,6 +72,10 @@ public final class StatisticsScene extends BasicScene {
 
     private void setLabelText(final int index, final String key) {
         this.statElem.get(index).getFirst().setText(LanguageStringMap.get().getMap().get(key));
+    }
+
+    private void setStatisticValue(final int index, final int value) {
+        this.statElem.get(index).getSecond().setText(String.valueOf(value));
     }
 
     /**
@@ -93,10 +96,10 @@ public final class StatisticsScene extends BasicScene {
      *     An object Statistic which contains the statistics to be used
      */
     public void setStatistics(final Statistic stat) {
-        this.statElem.get(0).getSecond().setText(String.valueOf(stat.getScores()));
-        this.statElem.get(1).getSecond().setText(String.valueOf(stat.getGamesWon()));
-        this.statElem.get(2).getSecond().setText(String.valueOf(stat.getGamesLost()));
-        this.statElem.get(3).getSecond().setText(String.valueOf(stat.getNumberOfDiceRoll()));
+        this.setStatisticValue(0, stat.getScores());
+        this.setStatisticValue(1, stat.getGamesWon());
+        this.setStatisticValue(2, stat.getGamesLost());
+        this.setStatisticValue(3, stat.getNumberOfDiceRoll());
     }
 
     /**
