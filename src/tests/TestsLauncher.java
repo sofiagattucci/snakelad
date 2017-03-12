@@ -6,11 +6,14 @@ import tests.controller.ControllerTest;
 import tests.controller.GameSettingsTest;
 import tests.controller.SongImplTest;
 import tests.model.ClassicDiceTest;
+import tests.model.CoinTest;
+import tests.model.DiamondTest;
 import tests.model.Dice5To10Test;
 import tests.model.ModelImplTest;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
 import tests.model.SceneryImplTest;
+import tests.model.SkullTest;
 import tests.model.UserImplTest;
 import tests.view.DiceTypesTest;
 import tests.view.FlagsMapTest;
@@ -46,6 +49,11 @@ public final class TestsLauncher {
         //Scenery test
         new SceneryImplTest().testSceneryImpl();
 
+        //Items test
+        new CoinTest().testCoin();
+        new DiamondTest().testDiamond();
+        new SkullTest().testSkull();
+
         //ModelImpl tests
         final ModelImplTest modelImplTest = new ModelImplTest();
         modelImplTest.testBasicModelImpl();
@@ -70,7 +78,6 @@ public final class TestsLauncher {
      */
     @Test
     public void testView() {
-
         new LanguageMapTest().test();
         new DiceTypesTest().test();
         new GameBoardTypesTest().test();

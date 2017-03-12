@@ -21,10 +21,14 @@ public class UserImplTest {
     private static final int BIG_NUMBER = 850000;
     private static final int NEGATIVE_VALUE = -350;
 
-    //private method called to avoid too much repetition of identical code.
+    //private method called to avoid too much repetition of identical code
     private void printIllegalArgumentException() {
         final ConsoleLog log = ConsoleLog.get();
         log.print("IllegalArgumentException thrown with success inside UserImplTest.");
+    }
+
+    private void failIllegalArgumentException(final Exception e) {
+        fail("should throw an IllegalArgumentException, not a " + e.getClass());
     }
 
     /**
@@ -37,7 +41,7 @@ public class UserImplTest {
         //check if the initial user's scores value is 0
         assertEquals(user.getScores(), 0);
 
-        //call getName() when the user's name field is empty. It must throw an IllegalStateException.
+        //call getName() when the user's name field is empty. It must throw an IllegalStateException
         try {
             user.getName();
         } catch (final IllegalStateException e) {
@@ -69,10 +73,13 @@ public class UserImplTest {
             assertEquals(user.getScores(), counter);
         }
 
-        while (counter >= NUMBER_BOUND_FOR_RAND) {
+        for (int i = 0; i < NUMBER_OF_ITERATIONS + NUMBER_OF_ITERATIONS; i++) {
             final int randValue = rand.nextInt(NUMBER_BOUND_FOR_RAND);
             user.addScores(-randValue);
             counter -= randValue;
+            if (counter < 0) {
+                counter = 0;
+            }
             assertEquals(user.getScores(), counter);
         }
 
@@ -88,22 +95,53 @@ public class UserImplTest {
         } catch (final IllegalArgumentException e) {
             this.printIllegalArgumentException();
         } catch (final Exception e) {
-            fail("should throw an IllegalArgumentException, not a " + e.getClass());
+            this.failIllegalArgumentException(e);
         }
 
         user.setScores(1);
         assertEquals(user.getScores(), 1);
         user.addScores(-1);
         assertEquals(user.getScores(), 0);
+        //it must NOT be less than 0
+        user.addScores(-1);
+        assertEquals(user.getScores(), 0);
 
-        //subtract a too high scores value. It must throw an IllegalArgumentException
+        //call setNumberOfDiceRoll() with a negative argument. It must throw an IllegalArgumentException
         try {
-            user.addScores(-1);
+            user.setNumberOfDiceRoll(-1);
         } catch (final IllegalArgumentException e) {
             this.printIllegalArgumentException();
         } catch (final Exception e) {
-            fail("should throw an IllegalArgumentException, not a " + e.getClass());
+            this.failIllegalArgumentException(e);
         }
+
+        //call setGamesLost() with a negative argument. It must throw an IllegalArgumentException
+        try {
+            user.setGamesLost(-1);
+        } catch (final IllegalArgumentException e) {
+            this.printIllegalArgumentException();
+        } catch (final Exception e) {
+            this.failIllegalArgumentException(e);
+        }
+
+        //call setGamesWon() with a negative argument. It must throw an IllegalArgumentException
+        try {
+            user.setGamesWon(-1);
+        } catch (final IllegalArgumentException e) {
+            this.printIllegalArgumentException();
+        } catch (final Exception e) {
+            this.failIllegalArgumentException(e);
+        }
+
+        user.setGamesLost(BIG_NUMBER);
+        assertEquals(user.getGamesLost(), BIG_NUMBER);
+
+        user.setGamesWon(BIG_NUMBER);
+        assertEquals(user.getGamesWon(), BIG_NUMBER);
+
+        user.setNumberOfDiceRoll(BIG_NUMBER);
+        assertEquals(user.getNumberOfDiceRoll(), BIG_NUMBER);
+
     }
 
 }
