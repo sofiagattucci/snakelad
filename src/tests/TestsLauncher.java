@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import tests.controller.ControllerTest;
 import tests.controller.GameSettingsTest;
+import tests.controller.SongImplTest;
 import tests.model.ClassicDiceTest;
 import tests.model.Dice5To10Test;
 import tests.model.ModelImplTest;
@@ -61,6 +62,7 @@ public final class TestsLauncher {
     public void testController() {
         new ControllerTest().controllerTest();
         new GameSettingsTest().gameSettingsTest();
+        new SongImplTest().musicTest();
     }
 
     /**

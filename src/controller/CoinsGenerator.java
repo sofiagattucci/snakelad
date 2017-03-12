@@ -93,4 +93,12 @@ public class CoinsGenerator implements Runnable {
         this.t.start();
     }
 
+    /**
+     * Tell if the thread is still alive.
+     * @return true if the thread is alive, false otherwise.
+     */
+    public synchronized boolean isAlive() {
+        return this.t.isAlive();
+    }
+
 }

@@ -18,6 +18,7 @@ public class SongImpl implements Song {
     private static final float CURRENT = -8;
     private Clip clip;
     private FloatControl volume;
+    private boolean control;
 
     /**
      * Constructor. 
@@ -33,9 +34,13 @@ public class SongImpl implements Song {
 
     @Override
     public void setStop() {
-        clip.stop();
-        clip.setFramePosition(0);
-        clip.close();
+        if (this.control) {
+            clip.stop();
+            clip.setFramePosition(0);
+            clip.close();
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
 
@@ -45,6 +50,7 @@ public class SongImpl implements Song {
             clip.open(AudioSystem.getAudioInputStream(new File(PATH).getAbsoluteFile()));
             this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             this.volume.setValue(CURRENT);
+            this.control = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,21 +59,37 @@ public class SongImpl implements Song {
 
     @Override
     public float getMinimum() {
-        return MIN;
+        if (this.control) {
+            return MIN;
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public float getMaximum() {
-        return MAX;
+        if (this.control) {
+            return MAX;
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public float getCurrent() {
-        return this.volume.getValue();
+        if (this.control) {
+            return this.volume.getValue();
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void setVolume(final float volume) {
-        this.volume.setValue(volume);
+        if (this.control) {
+            this.volume.setValue(volume);
+        } else {
+            throw new IllegalStateException();
+        }
     }
 }
