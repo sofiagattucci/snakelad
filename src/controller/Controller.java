@@ -249,6 +249,7 @@ public final class Controller implements ViewObserver {
     @Override
     public void clearStatistics() throws IOException {
         this.game.clearStatistics();
+        this.view.setStatistics(this.game.getStatistics());
     }
 
 }
