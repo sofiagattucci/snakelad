@@ -127,7 +127,8 @@ public interface ViewObserver {
 
     /**
      * Reset the statistic of game.
+     * @throws IOException 
      */
-    void clearStatistics();
+    void clearStatistics() throws IOException;
 
 }

@@ -72,9 +72,7 @@ public class CoinsGenerator implements Runnable {
                         this.getItem(TypesOfItem.DIAMOND);
                         this.getItem(TypesOfItem.SKULL);
                         while (suspended) {
-                            System.out.println("prima wait");
                             wait();
-                            System.out.println("dopo wait");
                         }
                     }
                 }
@@ -105,6 +103,7 @@ public class CoinsGenerator implements Runnable {
     public synchronized void suspende() {
         this.suspended = true;
     }
+
     /**
      * Resume the thread.
      */
