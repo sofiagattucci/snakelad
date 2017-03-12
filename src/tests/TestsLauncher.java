@@ -47,7 +47,10 @@ public final class TestsLauncher {
         new UserImplTest().testUserImpl();
 
         //Scenery test
-        new SceneryImplTest().testSceneryImpl();
+        new SceneryImplTest().testSceneryImplGameBoard1();
+        new SceneryImplTest().testSceneryImplGameBoard2();
+        new SceneryImplTest().testSceneryImplGameBoard3();
+        new SceneryImplTest().testSceneryImplGameBoard4();
 
         //Items test
         new CoinTest().testCoin();

@@ -27,6 +27,7 @@ public class UserImplTest {
         log.print("IllegalArgumentException thrown with success inside UserImplTest.");
     }
 
+    //private method called to avoid too much repetition of identical code
     private void failIllegalArgumentException(final Exception e) {
         fail("should throw an IllegalArgumentException, not a " + e.getClass());
     }
