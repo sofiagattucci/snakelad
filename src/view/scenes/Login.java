@@ -79,10 +79,8 @@ public final class Login extends BasicScene {
                 try {
                     ViewImpl.getObserver().login(this.nameField.getText());
                 } catch (IllegalArgumentException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 } catch (IOException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
             }
