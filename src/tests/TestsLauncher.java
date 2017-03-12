@@ -46,13 +46,14 @@ public final class TestsLauncher {
         //User test
         new UserImplTest().testUserImpl();
 
-        //Scenery test
-        new SceneryImplTest().testSceneryImplGameBoard1();
-        new SceneryImplTest().testSceneryImplGameBoard2();
-        new SceneryImplTest().testSceneryImplGameBoard3();
-        new SceneryImplTest().testSceneryImplGameBoard4();
+        //Sceneries tests
+        final SceneryImplTest sceneryImplTest = new SceneryImplTest();
+        sceneryImplTest.testSceneryImplGameBoard1();
+        sceneryImplTest.testSceneryImplGameBoard2();
+        sceneryImplTest.testSceneryImplGameBoard3();
+        sceneryImplTest.testSceneryImplGameBoard4();
 
-        //Items test
+        //Items tests
         new CoinTest().testCoin();
         new DiamondTest().testDiamond();
         new SkullTest().testSkull();
