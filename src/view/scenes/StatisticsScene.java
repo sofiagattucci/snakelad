@@ -1,5 +1,6 @@
 package view.scenes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -57,7 +58,13 @@ public final class StatisticsScene extends BasicScene {
         this.grid.setHgap(BOX_SPACING);
         this.title.setFont(new Font(TITLE_FONT_SIZE));
         this.back.setOnAction(e -> statisticStage.setScene(Menu.getScene(statisticStage)));
-        this.clear.setOnAction(e -> ViewImpl.getObserver().clearStatistics());
+        this.clear.setOnAction(e -> {
+            try {
+                ViewImpl.getObserver().clearStatistics();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         Stream.generate(() -> new Pair<Label, Label>(new Label(), new Label()))
               .limit(N_ELEM)
               .forEach(this.statElem :: add);
