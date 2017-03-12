@@ -118,11 +118,16 @@ public interface ViewObserver {
     void statistics();
 
     /**
-     * ...TODO.
+     * Notify if the game is finish.
      * @param turn
-     *          ...TODO.
+     *          the turn of player that won
      * @throws IOException if an error during writing statistics by Model inside file happened.
      */
     void gameFinished(Turn turn) throws IOException;
+
+    /**
+     * Reset the statistic of game.
+     */
+    void clearStatistics();
 
 }

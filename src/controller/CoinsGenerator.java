@@ -71,8 +71,10 @@ public class CoinsGenerator implements Runnable {
                         this.getItem(TypesOfItem.COIN);
                         this.getItem(TypesOfItem.DIAMOND);
                         this.getItem(TypesOfItem.SKULL);
-                        if (suspended) {
+                        while (suspended) {
+                            System.out.println("prima wait");
                             wait();
+                            System.out.println("dopo wait");
                         }
                     }
                 }
@@ -87,6 +89,7 @@ public class CoinsGenerator implements Runnable {
      * Set the field stop.
      */
     public synchronized void stopGenerate() {
+        this.resume();
         this.stop = true;
     }
 
@@ -117,6 +120,15 @@ public class CoinsGenerator implements Runnable {
     public synchronized boolean isAlive() {
         return this.t.isAlive();
     }
+
+    /**
+     * Tell if the thread is interrupt.
+     * @return true if the thread is interrupt, false otherwise.
+     */
+    public synchronized boolean isInterrupt() {
+        return this.t.isInterrupted();
+    }
+
     /**
      * The thread name.
      * @return the thread name

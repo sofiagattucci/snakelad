@@ -103,11 +103,11 @@ public final class Controller implements ViewObserver {
             this.counter = 0;
             this.view.firstTurn();
             if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
-//                System.out.println("Restart before: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+//                System.out.println("Restart before: " + this.coinsGenerator.nameThread() + " is interrupt? " + this.coinsGenerator.isInterrupt());
 //                this.coinsGenerator = new CoinsGenerator(this);
 //                this.coinsGenerator.start();
                 this.coinsGenerator.resume();
-//                System.out.println("Restart after: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+//                System.out.println("Restart after: " + this.coinsGenerator.nameThread() + " is interrupt? " + this.coinsGenerator.isInterrupt());
             }
         } else {
             throw new IllegalStateException();
@@ -118,9 +118,9 @@ public final class Controller implements ViewObserver {
     public void pause() {
         if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
             synchronized (coinsGenerator) {
-//                System.out.println("Pause before call setStop: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+//                System.out.println("Pause before call setStop: " + this.coinsGenerator.nameThread() + " is  interrupt? " + this.coinsGenerator.isInterrupt());
                 this.coinsGenerator.suspende();
-//                System.out.println("Pause after call setStop: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+//                System.out.println("Pause after call setStop: " + this.coinsGenerator.nameThread() + " is interrupt? " + this.coinsGenerator.isInterrupt());
 
             }
         }
@@ -129,11 +129,11 @@ public final class Controller implements ViewObserver {
     @Override
     public void resume() {
         if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
-//            System.out.println("Resume before: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+//            System.out.println("Resume before: " + this.coinsGenerator.nameThread() + " is interrupt? " + this.coinsGenerator.isInterrupt());
 //            this.coinsGenerator = new CoinsGenerator(this);
 //            this.coinsGenerator.start();
             this.coinsGenerator.resume();
-//            System.out.println("Resume after: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
+//            System.out.println("Resume after: " + this.coinsGenerator.nameThread() + " is interrupt? " + this.coinsGenerator.isInterrupt());
         }
     }
 
@@ -185,7 +185,7 @@ public final class Controller implements ViewObserver {
                 if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
                 synchronized (coinsGenerator) {
                     System.out.println("Give up before calling stop: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
-                    this.coinsGenerator.resume();
+//                    this.coinsGenerator.resume();
                     this.coinsGenerator.stopGenerate();
                     System.out.println("Give up after calling stop: " + this.coinsGenerator.nameThread() + " is alive? " + this.coinsGenerator.isAlive());
                 }
@@ -257,6 +257,11 @@ public final class Controller implements ViewObserver {
     @Override
     public void gameFinished(final Turn turn) throws IOException {
         this.game.gameFinished(turn);
+    }
+
+    @Override
+    public void clearStatistics() {
+        this.game.clearStatistics();
     }
 
 }
