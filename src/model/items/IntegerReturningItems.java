@@ -6,7 +6,7 @@ package model.items;
  * decrease the player's scores for instance, etc.). 
  * It's designed using Template Method.
  */
-public abstract class IntegerValueItems implements SpecialItem {
+public abstract class IntegerReturningItems implements SpecialItem {
 
     private final int value;
     private final int position;
@@ -18,7 +18,7 @@ public abstract class IntegerValueItems implements SpecialItem {
      * @param position
      *                  the item's position on the scenery's grid.
      */
-    public IntegerValueItems(final int itemValue, final int position) {
+    public IntegerReturningItems(final int itemValue, final int position) {
         this.value = itemValue;
         this.position = position;
     }

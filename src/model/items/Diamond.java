@@ -7,7 +7,7 @@ import java.util.Random;
  * It has a specific value and randomly decides to appear or not on the scenery's grid 
  * when isVisible() method is called, in order to implement apparition's rarity of itself.
  */
-public final class Diamond extends IntegerValueItems {
+public final class Diamond extends IntegerReturningItems {
 
     private static final int DIAMOND_VALUE = 5;
     private static final int NUMBER_UPPER_BOUND_RANDOM = 12; //It means that the diamond will appear with probability of

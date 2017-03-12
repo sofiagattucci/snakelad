@@ -7,7 +7,7 @@ import java.util.Random;
  * It has a specific value and randomly decides to appear or not on the scenery's grid 
  * when isVisible() method is called, in order to implement apparition's rarity of itself.
  */
-public final class Skull extends IntegerValueItems {
+public final class Skull extends IntegerReturningItems {
 
     private static final int SKULL_VALUE = -2;
     private static final int NUMBER_UPPER_BOUND_RANDOM = 7; //It means that the skull will appear with probability

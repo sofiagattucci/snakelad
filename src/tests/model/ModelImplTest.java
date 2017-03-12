@@ -77,6 +77,11 @@ public class ModelImplTest {
     }
 
     //private method called to avoid too much repetition of identical code.
+    private void failCallMethodBeforeStartGame() {
+        fail("cannot call the method because statGame() method must be called before any ModelImpl's other method.");
+    }
+
+    //private method called to avoid too much repetition of identical code.
     private void failBounds5To10Dice() {
         fail("diceValue out of bounds (5to10 Dice)!");
     }
@@ -96,7 +101,7 @@ public class ModelImplTest {
         //call methods without calling startGame() method. It must throw IllegalStateException.
         try {
             model.getPlayerPosition(0);
-            fail("cannot call getPlayerPositionAndJump() because the method statGame() must be called before any ModelImpl's other method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -105,7 +110,7 @@ public class ModelImplTest {
 
         try {
             model.getNumberFromDice();
-            fail("cannot call getNumberFromDice() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -114,7 +119,7 @@ public class ModelImplTest {
 
         try {
             model.restartGame();
-            fail("cannot call restartGame() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -123,7 +128,25 @@ public class ModelImplTest {
 
         try {
             model.giveUpGame();
-            fail("cannot call giveUpGame() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
+        } catch (final IllegalStateException e) {
+            this.printIllegalStateException();
+        } catch (final Exception e) {
+            this.failIllegalStateExceptionThrowing(e);
+        }
+
+        try {
+            model.getGameBoardSideSize();
+            this.failCallMethodBeforeStartGame();
+        } catch (final IllegalStateException e) {
+            this.printIllegalStateException();
+        } catch (final Exception e) {
+            this.failIllegalStateExceptionThrowing(e);
+        }
+
+        try {
+            model.tryGenerateCoin();
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -149,12 +172,17 @@ public class ModelImplTest {
             fail("It must NOT throw any exception!");
         }
 
-        //call resetGame(), getNumberFromDice(), getPlayerPositionAndJump() and giveUpGame() 
-        //methods after calling startGame() method. It must NOT throw any exception.
+        //call restartGame(), getNumberFromDice(), getPlayerPosition(), getGameBoardSideSize(), itemCollected(), giveUpGame(),
+        //tryGenerateCoin(), tryGenerateDiamond() and tryGenerateSkull() methods after calling startGame() method.
+        //It must NOT throw any exception.
         try {
             model.restartGame();
             model.getNumberFromDice();
             model.getPlayerPosition(0);
+            model.getGameBoardSideSize();
+            model.tryGenerateCoin();
+            model.tryGenerateDiamond();
+            model.tryGenerateSkull();
             model.giveUpGame();
         } catch (final Exception e) {
             this.failExceptionThrowing(e);
@@ -163,7 +191,7 @@ public class ModelImplTest {
         //call restartGame() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
             model.restartGame();
-            fail("cannot call restartGame() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -173,17 +201,17 @@ public class ModelImplTest {
         //call getNumberFromDice() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
             model.getNumberFromDice();
-            fail("cannot call getNumberFromDice() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
             this.failIllegalStateExceptionThrowing(e);
         }
 
-        //call getPlayerPositionAndJump() method after calling giveUpGame() method. It must throw an IllegalStateException.
+        //call getPlayerPosition() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
             model.getPlayerPosition(0);
-            fail("cannot call getPlayerPositionAndJump() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -193,7 +221,7 @@ public class ModelImplTest {
         //call getGameBoardSideSize() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
             model.getGameBoardSideSize();
-            fail("cannot call getGameBoardSideSize() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -203,7 +231,7 @@ public class ModelImplTest {
         //call giveUpGame() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
             model.giveUpGame();
-            fail("cannot call giveUpGame() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
