@@ -9,6 +9,7 @@ import tests.model.ClassicDiceTest;
 import tests.model.CoinTest;
 import tests.model.DiamondTest;
 import tests.model.Dice5To10Test;
+import tests.model.MementoTest;
 import tests.model.ModelImplTest;
 import tests.model.NegativeDiceTest;
 import tests.model.PlayerTest;
@@ -52,6 +53,9 @@ public final class TestsLauncher {
         sceneryImplTest.testSceneryImplGameBoard2();
         sceneryImplTest.testSceneryImplGameBoard3();
         sceneryImplTest.testSceneryImplGameBoard4();
+
+        //Memento test
+        new MementoTest().testMemento();
 
         //Items tests
         new CoinTest().testCoin();

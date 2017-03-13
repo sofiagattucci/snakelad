@@ -3,7 +3,8 @@ package model;
 import java.util.Optional;
 
 /**
- * Captures and externalises a partial snapshot of ModelImpl's internal state, so that ModelImpl can be restored to this state later.
+ * Captures and externalises a partial snapshot of a Model's subclass internal state, so that the subclass can be
+ * restored to this state later.
  * It's designed using Memento patterns.
  */
 public final class ModelMemento {
@@ -16,7 +17,7 @@ public final class ModelMemento {
     private final int userScores;
 
     /**
-     * ModelMemento constructor. Sets a partial snapshot of ModelImpl's internal state inside the memento.
+     * ModelMemento constructor. Sets a partial snapshot of Model's subclass internal state inside the memento.
      * @param lastNumberAppearedOnDice
      *                  The last number appear rolling the dice.
      * @param maxItemsGeneration
