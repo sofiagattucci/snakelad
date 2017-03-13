@@ -247,6 +247,7 @@ public final class Controller implements ViewObserver {
     @Override
     public void statistics() {
         this.view.setStatistics(this.game.getStatistics());
+        this.view.setUsername(this.game.getUserName());
     }
 
     @Override
