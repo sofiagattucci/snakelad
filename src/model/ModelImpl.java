@@ -28,7 +28,6 @@ import utilities.UserStatisticsFileWriter;
 import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 import utilities.enumeration.TypesOfItem;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -47,6 +46,7 @@ public final class ModelImpl implements Model {
 
     private final User user;
     private Scenery scenery;
+    private final CareMementoTaker mementoTaker;
     private final List<Player> playersList = new LinkedList<>();
     private Dice dice;
     private final Map<Integer, SpecialItem> itemsMap = new HashMap<>();
@@ -68,6 +68,7 @@ public final class ModelImpl implements Model {
      */
     public ModelImpl() {
         this.user = UserImpl.get();
+        this.mementoTaker = CareMementoTaker.get();
         this.isReady = false;
         this.maxItemsGeneration = MAX_ITEMS_GENERATION;
         this.itemsCollected = 0;
@@ -76,18 +77,19 @@ public final class ModelImpl implements Model {
         this.userScores = 0;
     }
 
-    //private method called to avoid too much repetition of identical code in restartGame() and giveUpGame() methods.
-    private synchronized void clearEntities() {
+    //private method called to avoid too much repetition of identical code
+    private void checkModelImplReady() {
+        if (!this.isReady) {
+            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
+        }
+    }
+
+    //private method called to avoid too much repetition of identical code in restartGame() and giveUpGame() methods
+    private void clearFieldsListAndMap() {
         this.playersList.stream()
                         .forEach(player -> player.setNewPosition(PLAYER_INITIAL_POSITION));
 
-        this.dice.setLastNumberAppeared(Optional.empty());
         this.itemsMap.clear();
-        this.maxItemsGeneration = MAX_ITEMS_GENERATION;
-        this.itemsCollected = 0;
-        this.numberOfDiceRoll = 0;
-        this.isPlayerTurn = true;
-        this.userScores = 0;
     }
 
     //private method called to avoid too much repetition of identical code in getPlayerPosition() method.
@@ -99,9 +101,7 @@ public final class ModelImpl implements Model {
     //private method called to avoid too much repetition of identical code in tryGenerateCoin(), 
     //tryGenerateDiamond() and tryGenerateSkull() methods.
     private synchronized Optional<Integer> generateItemsUtils(final TypesOfItem typeOfItem) {
-        if (!this.isReady) {
-            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
-        }
+        this.checkModelImplReady();
 
         final ItemsGenerator itemGenerator = ItemsGeneratorImpl.get();
         //this list will contain all items and players' current positions on the game's grid
@@ -133,9 +133,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public synchronized Optional<Integer> getPlayerPosition(final int playerIndex) throws IllegalStateException {
-        if (!this.isReady) {
-            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
-        }
+        this.checkModelImplReady();
 
         int partialPlayerPosition = this.playersList.get(playerIndex).getPosition() 
                                     + this.dice.getLastNumberAppeared();
@@ -190,6 +188,38 @@ public final class ModelImpl implements Model {
         default:
             throw new IllegalArgumentException("The type of dice passed in argument is not supported!");
         }
+
+        this.mementoTaker.addMemento(this.createMemento());
+    }
+
+    @Override
+    public ModelMemento createMemento() throws IllegalStateException {
+        this.checkModelImplReady();
+
+        final ModelMemento memento;
+        Optional<Integer> lastNumberFromDice;
+        try {
+            lastNumberFromDice = Optional.of(this.dice.getLastNumberAppeared());
+        } catch (final IllegalStateException exc) {
+            lastNumberFromDice = Optional.empty();
+        }
+
+        memento = new ModelMemento(lastNumberFromDice, this.maxItemsGeneration, this.itemsCollected,
+                                   this.numberOfDiceRoll, this.isPlayerTurn, this.userScores);
+
+        return memento;
+    }
+
+    @Override
+    public void setStateFromMemento(final ModelMemento memento) throws IllegalStateException {
+        this.checkModelImplReady();
+
+        this.dice.setLastNumberAppeared(memento.getLastNumberAppearedOnDice());
+        this.maxItemsGeneration = memento.getMaxItemsGeneration();
+        this.itemsCollected = memento.getItemsCollected();
+        this.numberOfDiceRoll = memento.getNumberOfDiceRoll();
+        this.isPlayerTurn = memento.isPlayerTurn();
+        this.userScores = memento.getUserScores();
     }
 
     @Override
@@ -199,18 +229,14 @@ public final class ModelImpl implements Model {
 
     @Override
     public int getGameBoardSideSize() throws IllegalStateException {
-        if (!this.isReady) {
-            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
-        }
+        this.checkModelImplReady();
 
         return this.scenery.getSideSize();
     }
 
     @Override
     public int getNumberFromDice() throws IllegalStateException {
-        if (!this.isReady) {
-            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
-        }
+        this.checkModelImplReady();
 
         if (isPlayerTurn) {
             this.numberOfDiceRoll++;
@@ -224,20 +250,19 @@ public final class ModelImpl implements Model {
 
     @Override
     public synchronized void restartGame() throws IllegalStateException {
-        if (!this.isReady) {
-            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
-        }
+        this.checkModelImplReady();
 
-        this.clearEntities();
+        this.clearFieldsListAndMap();
+        this.setStateFromMemento(this.mementoTaker.getMemento());
     }
 
     @Override
     public synchronized void giveUpGame() throws IllegalStateException {
-        if (!this.isReady) {
-            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
-        }
+        this.checkModelImplReady();
 
-        this.clearEntities();
+        this.clearFieldsListAndMap();
+        this.setStateFromMemento(this.mementoTaker.getMemento());
+        this.playersList.clear();
         this.scenery.clearMaps();
         this.isReady = false;
     }
@@ -259,9 +284,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public synchronized void itemCollected(final int itemIndex, final Turn turn) throws IllegalArgumentException, NoSuchElementException {
-        if (!this.isReady) {
-            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
-        }
+        this.checkModelImplReady();
 
         if (!this.itemsMap.containsKey(itemIndex)) {
             throw new IllegalArgumentException("The item's index is not present in the Model!");
@@ -278,8 +301,7 @@ public final class ModelImpl implements Model {
         }
 
         this.itemsCollected++;
-        if (this.itemsCollected == MAX_ITEMS_GENERATION / 2) {
-            this.itemsCollected = 0;
+        if (this.itemsCollected % (MAX_ITEMS_GENERATION / 2) == 0) {
             this.maxItemsGeneration = MAX_ITEMS_GENERATION / 2;
         }
     }
@@ -309,10 +331,8 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void gameFinished(final Turn turn) throws IOException {
-        if (!this.isReady) {
-            throw ILLEGAL_STATE_EXCEPTION_SUPPLIER.get();
-        }
+    public void gameFinished(final Turn turn) throws IllegalStateException, IOException {
+        this.checkModelImplReady();
 
         final UserStatisticsFileWriter statWriter = UserStatisticsFileWriter.get();
         this.user.addScores(this.userScores);
