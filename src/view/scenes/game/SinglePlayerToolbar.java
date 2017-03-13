@@ -1,6 +1,7 @@
 package view.scenes.game;
 
 import javafx.stage.Stage;
+import view.ViewImpl;
 import view.pawn.AvailableColor;
 import view.pawn.PawnsColor;
 
@@ -11,7 +12,8 @@ public class SinglePlayerToolbar  extends Toolbar {
 
     private static final String CPU = " CPU";
 
-    private void setCPU() {
+    private void setPlayers() {
+        this.getPawnList().get(SinglePlayerGame.getUserIndex()).getSecond().setText(ViewImpl.getuser());
         this.getPawnList().get(SinglePlayerGame.getCPUIndex()).getSecond().setText(CPU);
     }
 
@@ -20,7 +22,7 @@ public class SinglePlayerToolbar  extends Toolbar {
      */
     public void updateLanguage() {
         super.updateLanguage();
-        this.setCPU();
+        this.setPlayers();
     }
 
     /**

@@ -75,13 +75,23 @@ public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
     }
 
     /**
-     * Getter of the player index.
+     * Getter of the CPU index.
      * @return
-     *     The player index
+     *     The CPU index
      */
     public static int getCPUIndex() {
         return CPU_INDEX;
     }
+
+    /**
+     * Getter of the player index.
+     * @return
+     *     The player index
+     */
+    public static int getUserIndex() {
+        return PLAYER_INDEX;
+    }
+
 
     @Override
     protected AvailableColor getColor(final int n) {

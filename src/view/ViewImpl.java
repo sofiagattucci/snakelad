@@ -31,7 +31,7 @@ public class ViewImpl implements View {
     private static Settings settingsScene;
     private static StatisticsScene statScene;
     private static ViewObserver observer;
-    private String user;
+    private static String user;
 
     /**
      * Constructor of this class; It sets up the observer.
@@ -230,8 +230,22 @@ public class ViewImpl implements View {
         statScene.setStatistics(statistics);
     }
 
-    @Override
-    public void setUsername(final String name) {
-        this.user = name;
+    /**
+     * Setter of the user name of the user.
+     * @param name
+     *     The name used by the player
+     */
+    public static void setUsername(final String name) {
+        user = " " + name;
     }
+
+    /**
+     * Getter of the user name.
+     * @return
+     *     The name used by the player
+     */
+    public static String getuser() {
+        return user;
+    }
+
 } 

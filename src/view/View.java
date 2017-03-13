@@ -76,11 +76,4 @@ public interface View {
      *     An object Statistic containing the statistics.
      */
     void setStatistics(Statistic statistics);
-
-    /**
-     * It sets the user name shown in the GUI. 
-     * @param name
-     *     The name of the user
-     */
-    void setUsername(String name);
 }
