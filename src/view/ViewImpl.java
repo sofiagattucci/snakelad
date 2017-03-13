@@ -31,6 +31,7 @@ public class ViewImpl implements View {
     private static Settings settingsScene;
     private static StatisticsScene statScene;
     private static ViewObserver observer;
+    private String user;
 
     /**
      * Constructor of this class; It sets up the observer.
@@ -228,5 +229,9 @@ public class ViewImpl implements View {
     public void setStatistics(final Statistic statistics) {
         statScene.setStatistics(statistics);
     }
-} 
 
+    @Override
+    public void setUsername(final String name) {
+        this.user = name;
+    }
+} 

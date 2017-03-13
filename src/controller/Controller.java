@@ -91,6 +91,8 @@ public final class Controller implements ViewObserver {
     public void quit() {
         if (this.control) {
             this.stopMusic();
+            System.out.println(this.coinsGenerator.nameThread() + " Is alive? " + this.coinsGenerator.isAlive());
+            System.out.println(Thread.currentThread().getName());
         } else {
             throw new IllegalStateException();
         }
@@ -103,7 +105,9 @@ public final class Controller implements ViewObserver {
             this.counter = 0;
             this.view.firstTurn();
             if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
-                this.coinsGenerator.resume();
+                synchronized (coinsGenerator) {
+                    this.coinsGenerator.resume();
+                }
             }
         } else {
             throw new IllegalStateException();
@@ -123,7 +127,9 @@ public final class Controller implements ViewObserver {
     @Override
     public void resume() {
         if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
-            this.coinsGenerator.resume();
+            synchronized (coinsGenerator) {
+                this.coinsGenerator.resume();
+            }
         }
     }
 
@@ -157,7 +163,6 @@ public final class Controller implements ViewObserver {
             this.counter = 0;
             this.view.firstTurn();
             this.view.setBoardSize(this.game.getGameBoardSideSize());
-            System.out.println("How many player? " + this.settings.get().getModality());
             if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
                 this.coinsGenerator = new CoinsGenerator(this);
                 this.coinsGenerator.start();
@@ -173,8 +178,10 @@ public final class Controller implements ViewObserver {
             this.view.firstTurn();
                 if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
                 synchronized (coinsGenerator) {
-//                    this.coinsGenerator.resume();
+                    this.coinsGenerator.resume();
                     this.coinsGenerator.stopGenerate();
+                    System.out.println(this.coinsGenerator.nameThread());
+                    System.out.println("Is alive? " + this.coinsGenerator.isAlive());
                 }
             }
             this.game.giveUpGame();
@@ -223,6 +230,7 @@ public final class Controller implements ViewObserver {
     @Override
     public void login(final String name) throws IllegalArgumentException, IOException {
         this.userLogin.login(name);
+        this.view.setUsername(this.game.getUserName());
     }
 
     @Override

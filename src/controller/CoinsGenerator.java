@@ -36,7 +36,7 @@ public class CoinsGenerator implements Runnable {
      * @param type the type of item
      * @return the position of item
      */
-    private void getItem(final TypesOfItem type) {
+    private synchronized void getItem(final TypesOfItem type) {
         switch(type) {
         case COIN:
              position = Optional.of(this.model.tryGenerateCoin());
@@ -67,13 +67,13 @@ public class CoinsGenerator implements Runnable {
             try {
                 Thread.sleep(WAIT);
                 synchronized (this) {
+                    while (suspended) {
+                        wait();
+                    }
                     if (!this.stop) {
                         this.getItem(TypesOfItem.COIN);
                         this.getItem(TypesOfItem.DIAMOND);
                         this.getItem(TypesOfItem.SKULL);
-                        while (suspended) {
-                            wait();
-                        }
                     }
                 }
             } catch (InterruptedException e) {
@@ -87,8 +87,10 @@ public class CoinsGenerator implements Runnable {
      * Set the field stop.
      */
     public synchronized void stopGenerate() {
-        this.resume();
-        this.stop = true;
+//        this.resume();
+//        if (this.suspended) {
+            this.stop = true;
+//        }
     }
 
     /**
