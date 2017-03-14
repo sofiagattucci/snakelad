@@ -229,11 +229,6 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public String getUserName() {
-        return this.user.getName();
-    }
-
-    @Override
     public int getGameBoardSideSize() throws IllegalStateException {
         this.checkModelImplReady();
 

@@ -36,7 +36,7 @@ public class ModelImplTest {
     private static final int DICE_5_TO_10_MIN_VALUE = 5;
     private static final int NEGATIVE_DICE_MAX_VALUE = 5;
     private static final int NEGATIVE_DICE_MIN_VALUE = -2;
-    private static final int NUMBER_OF_ITERATIONS = 10000;
+    private static final int NUMBER_OF_ITERATIONS = 1000;
     private static final int NUMBER_SUB_ITERATION = 80;
     private static final int GAME_BOARD_1_SIDE_SIZE = 6;
     private static final int GAME_BOARD_2_SIDE_SIZE = 8;
@@ -194,13 +194,13 @@ public class ModelImplTest {
         //tryGenerateCoin(), tryGenerateDiamond() and tryGenerateSkull() methods after calling startGame() method.
         //It must NOT throw any exception.
         try {
-            model.restartGame();
             model.getNumberFromDice();
             model.getPlayerPosition(0);
             model.getGameBoardSideSize();
             model.tryGenerateCoin();
             model.tryGenerateDiamond();
             model.tryGenerateSkull();
+            model.restartGame();
             model.giveUpGame();
         } catch (final Exception e) {
             this.failExceptionThrowing(e);
