@@ -1,16 +1,20 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import model.Model;
 import model.ModelImpl;
 import utilities.SceneryDataManager;
 import utilities.UserLogin;
+import utilities.enumeration.AudioTrack;
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.GameMode;
 import utilities.enumeration.Language;
 import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
+import utilities.enumeration.TypesOfItem;
 import utilities.LanguageLoader;
 import view.View;
 import view.ViewImpl;
@@ -27,9 +31,11 @@ public final class Controller implements ViewObserver {
     private static final String DATA2 = "./res/gameBoards/gameBoard2/file.txt";
     private static final String DATA3 = "./res/gameBoards/gameBoard3/file.txt";
     private static final String DATA4 = "./res/gameBoards/gameBoard4/file.txt";
+    private final Map<TypesOfItem, String> clipPath;
     private final Model game;
     private final View view;
     private final Song playSong;
+    private final ItemsClip itemClip;
     private final UserLogin userLogin;
     private int counter;
     private boolean control;
@@ -41,8 +47,13 @@ public final class Controller implements ViewObserver {
      */
     private Controller() {
         this.playSong = new SongImpl();
+        this.itemClip = new ItemsClip();
         this.game = new ModelImpl();
         this.view = new ViewImpl(this);
+        this.clipPath = new HashMap<>();
+        this.clipPath.put(TypesOfItem.COIN, "./res/soundEffects/coin.wav");
+        this.clipPath.put(TypesOfItem.DIAMOND, "./res/soundEffects/diamond.wav");
+        this.clipPath.put(TypesOfItem.SKULL, "./res/soundEffects/skull.wav");
         this.counter = 0;
         this.settings = Optional.empty();
         this.userLogin = UserLogin.get();
@@ -208,9 +219,9 @@ public final class Controller implements ViewObserver {
     }
 
     @Override
-    public void startMusic() {
+    public void startMusic(final AudioTrack newSong) {
         if (this.control) {
-            this.playSong.start();
+            this.playSong.start(newSong);
             this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
         } else {
             throw new IllegalStateException();
@@ -219,45 +230,82 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void stopMusic() {
-        this.playSong.setStop();
+        if (this.control) {
+            this.playSong.stop();
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void setVolume(final float volume) {
-       this.playSong.setVolume(volume);
+        if (this.control) {
+            this.playSong.setVolume(volume);
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void login(final String name) throws IllegalArgumentException, IOException {
-        this.userLogin.login(name);
-        ViewImpl.setUsername(this.game.getUserName());
+        if (this.control) {
+            this.userLogin.login(name);
+            ViewImpl.setUsername(this.game.getUserName());
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void collisionHappened(final int position) {
-        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
-            if (this.counter == 1) {
-                this.game.itemCollected(position, Turn.PLAYER);
-            } else {
-                this.game.itemCollected(position, Turn.CPU);
+        TypesOfItem type;
+        if (this.control) {
+            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+                if (this.counter == 1) {
+                    type = this.game.itemCollected(position, Turn.PLAYER);
+                } else {
+                    type = this.game.itemCollected(position, Turn.CPU);
+                }
+                this.itemClip.start(this.clipPath.get(type));
+                this.itemClip.setVolume(this.playSong.getCurrent());
             }
+        } else {
+            throw new IllegalStateException();
         }
     }
 
     @Override
     public void statistics() {
-        this.view.setStatistics(this.game.getStatistics());
+        if (this.control) {
+            this.view.setStatistics(this.game.getStatistics());
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void gameFinished(final Turn turn) throws IOException {
-        this.game.gameFinished(turn);
+        if (this.control) {
+            this.game.gameFinished(turn);
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public void clearStatistics() throws IOException {
-        this.game.clearStatistics();
-        this.view.setStatistics(this.game.getStatistics());
+        if (this.control) {
+            this.game.clearStatistics();
+            this.view.setStatistics(this.game.getStatistics());
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
+    @Override
+    public void changeMusic(final AudioTrack newSong) {
+        this.playSong.stop();
+        this.playSong.start(newSong);
+        this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
+    }
 }

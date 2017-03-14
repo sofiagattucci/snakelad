@@ -1,5 +1,7 @@
 package model.items;
 
+import utilities.enumeration.TypesOfItem;
+
 /**
  * An interface for special items inside the game. A 'special items' is game's entity which can be collected in 
  * sceneries' grid by the player and produces a kind of specified effect (returns an integer value, returns 
@@ -27,5 +29,10 @@ public interface SpecialItem {
      * @return true if the special item "decides" to appear on the scenery's grid, false otherwise.
      */
     boolean isVisibleOnSceneryGrid();
+    
+    /**
+     * TODO
+     */
+    TypesOfItem getItemType();
 
 }

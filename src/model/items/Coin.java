@@ -2,6 +2,8 @@ package model.items;
 
 import java.util.Random;
 
+import utilities.enumeration.TypesOfItem;
+
 /**
  * Represents a coin which can be collected by the player inside game's sceneries.
  * It has a specific value and randomly decides to appear or not on the scenery's grid 
@@ -36,6 +38,11 @@ public final class Coin extends IntegerReturningItems {
     public boolean isVisible() {
         final int randResult = rand.nextInt(NUMBER_UPPER_BOUND_RANDOM);
         return randResult == 0;
+    }
+
+    @Override
+    public TypesOfItem getType() {
+        return TypesOfItem.COIN;
     }
 
 }

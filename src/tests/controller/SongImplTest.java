@@ -28,7 +28,7 @@ public class SongImplTest {
         final Song music = new SongImpl();
       //try to stop music before call start method.
         try {
-            music.setStop();
+            music.stop();
             fail("Must call start method before call stop!");
         } catch (IllegalStateException i) {
             printMessageError();

@@ -1,9 +1,13 @@
 package tests.controller;
 
 import static org.junit.Assert.fail;
+
+import java.io.IOException;
+
 import org.junit.Test;
 import controller.Controller;
 import utilities.ConsoleLog;
+import utilities.enumeration.AudioTrack;
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.GameMode;
 import utilities.enumeration.Language;
@@ -60,7 +64,7 @@ public class ControllerTest {
             this.printErrorMessage();
         }
         try {
-            controller.startMusic();
+            controller.startMusic(AudioTrack.SNAKELAD);
             fail("Must invoke start method before calling startMusic!");
         } catch (IllegalStateException s) {
             this.printErrorMessage();
@@ -70,7 +74,23 @@ public class ControllerTest {
             fail("Must invoke start method before calling play!");
         } catch (IllegalStateException s) {
             this.printErrorMessage();
-        } 
+        }
+        try {
+            try {
+                controller.clearStatistics();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            fail("Must invoke start method before calling clearStatistics!");
+        } catch (IllegalStateException s) {
+            this.printErrorMessage();
+        }
+        try {
+            controller.stopMusic();
+            fail("Must invoke start method before calling stopMusic!");
+        } catch (IllegalStateException s) {
+            this.printErrorMessage();
+        }
     }
 
 }

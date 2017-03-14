@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 
 import model.Model;
+import utilities.enumeration.AudioTrack;
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.GameMode;
 import utilities.enumeration.Language;
@@ -81,8 +82,17 @@ public interface ViewObserver {
 
     /**
      * Start the background music.
+     * @param newSong
+     *          the type of song to start.
      */
-    void startMusic();
+    void startMusic(AudioTrack newSong);
+
+    /**
+     * Change of the music.
+     * @param newSong
+     *          the music choose by user.
+     */
+    void changeMusic(AudioTrack newSong);
 
     /**
      * Stop the background music.
@@ -90,7 +100,7 @@ public interface ViewObserver {
     void stopMusic();
 
     /**
-     * Set the volume of music.
+     * Sets the volume of music.
      * @param volume
      *          the volume of music to set
      */

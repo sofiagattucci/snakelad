@@ -8,6 +8,7 @@ import java.util.Optional;
 import utilities.Statistic;
 import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
+import utilities.enumeration.TypesOfItem;
 
 /**
  * It represents the interface for the model in MVC pattern.
@@ -124,10 +125,11 @@ public interface Model {
      *                  The index which specifies the item.
      * @param turn
      *                  The turn which specify who has collected the item (Player of CPU).
+     * @return an item's type.
      * @throws IllegalArgumentException if the item's index passed is not present in the Model.
      * @throws NoSuchElementException if there is a problem during deleting the item from Model's map of items.
      */
-    void itemCollected(int itemIndex, Turn turn) throws IllegalArgumentException, NoSuchElementException;
+    TypesOfItem itemCollected(int itemIndex, Turn turn) throws IllegalArgumentException, NoSuchElementException;
 
     /**
      * Builds a Statistic object which contains all user's game statistics and returns it.

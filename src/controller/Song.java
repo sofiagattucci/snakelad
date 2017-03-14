@@ -1,4 +1,7 @@
 package controller;
+
+import utilities.enumeration.AudioTrack;
+
 /**
  * Interface of Song.
  *
@@ -6,15 +9,17 @@ package controller;
 public interface Song {
 
     /**
-     * Setter for stop field.
+     * Stop the music.
      */
-    void setStop();
+    void stop();
 
 
     /**
-     * Start the thread.
+     * Start the music.
+     * @param newSong
+     *          the type of song to play.
      */
-    void start();
+    void start(AudioTrack newSong);
 
     /**
      * Get minimum volume of music.

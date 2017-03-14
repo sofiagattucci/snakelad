@@ -283,7 +283,8 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public synchronized void itemCollected(final int itemIndex, final Turn turn) throws IllegalArgumentException, NoSuchElementException {
+    public synchronized TypesOfItem itemCollected(final int itemIndex, final Turn turn) throws IllegalArgumentException, NoSuchElementException {
+        final SpecialItem item = this.itemsMap.get(itemIndex);
         this.checkModelImplReady();
 
         if (!this.itemsMap.containsKey(itemIndex)) {
@@ -304,6 +305,8 @@ public final class ModelImpl implements Model {
         if (this.itemsCollected % (MAX_ITEMS_GENERATION / 2) == 0) {
             this.maxItemsGeneration = MAX_ITEMS_GENERATION / 2;
         }
+
+        return item.getItemType();
     }
 
     @Override

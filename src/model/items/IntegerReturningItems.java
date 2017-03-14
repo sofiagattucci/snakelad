@@ -1,5 +1,7 @@
 package model.items;
 
+import utilities.enumeration.TypesOfItem;
+
 /**
  * Abstract class which shapes a basic item which has a position on the scenery's grid and whose 
  * effect is to return an integer value. This value can be used in different ways (to increase or 
@@ -31,6 +33,12 @@ public abstract class IntegerReturningItems implements SpecialItem {
     public abstract boolean isVisible(); //template method
 
     /**
+     * TODO
+     * @return
+     */
+    public abstract TypesOfItem getType(); //tem method
+
+    /**
      * Returns the number which represents the item's value.
      * @return the number which represents the item's value.
      */
@@ -51,6 +59,11 @@ public abstract class IntegerReturningItems implements SpecialItem {
     @Override
     public boolean isVisibleOnSceneryGrid() {
         return this.isVisible();
+    }
+
+    @Override
+    public TypesOfItem getItemType() {
+        return this.getType();
     }
 
 }
