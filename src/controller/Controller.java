@@ -189,8 +189,6 @@ public final class Controller implements ViewObserver {
                 synchronized (coinsGenerator) {
                     this.coinsGenerator.resume();
                     this.coinsGenerator.stopGenerate();
-                    System.out.println(this.coinsGenerator.nameThread());
-                    System.out.println("Is alive? " + this.coinsGenerator.isAlive());
                 }
             }
             this.game.giveUpGame();
@@ -264,6 +262,7 @@ public final class Controller implements ViewObserver {
                     type = this.game.itemCollected(position, Turn.CPU);
                 }
                 this.itemClip.start(this.clipPath.get(type));
+                this.itemClip.stop();
                 this.itemClip.setVolume(this.playSong.getCurrent());
             }
         } else {
@@ -301,8 +300,9 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void changeMusic(final AudioTrack newSong) {
+        final float currentVolume = this.playSong.getCurrent();
         this.playSong.stop();
         this.playSong.start(newSong);
-        this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
+        this.playSong.setVolume(currentVolume);
     }
 }

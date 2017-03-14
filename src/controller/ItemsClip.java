@@ -6,6 +6,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
+
 /**
  * Start the clip for items collision.
  *
@@ -37,15 +38,23 @@ public class ItemsClip {
     public void start(final String path) {
         try {
             clip.open(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
-            clip.open();
             this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             this.volume.setValue(CURRENT);
+            clip.start();
             this.control = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Stop the clip.
+     */
+    public void stop() {
+        if (this.clip.getMicrosecondPosition() == this.clip.getMicrosecondLength()) {
+            this.clip.close();
+        }
+    }
     /**
      * Getter for minimum volume.
      * @return the minimum volume
