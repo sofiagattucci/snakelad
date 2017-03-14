@@ -5,11 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import view.BasicButton;
 import view.LanguageStringMap;
+import view.ViewImpl;
 
 /**
  * This class creates and initializes the instructions scene.
@@ -25,15 +25,15 @@ public final class Instructions extends BasicScene {
 
     private static Stage instrStage;
     private static Instructions instructionsScene = new Instructions();
-    private final Text instr = new Text(LanguageStringMap.get().getMap().get(INSTRUCTIONS_KEY));
+    private final Label instr = new Label(LanguageStringMap.get().getMap().get(INSTRUCTIONS_KEY));
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
-    private final VBox box = new VBox(title, instr, back);
+    private final VBox box = new VBox(this.title, this.instr, this.back);
 
     private Instructions() {
 
         this.getDefaultLayout().setCenter(box);
-
+        this.getStylesheets().add(ViewImpl.getStylesheet());
         this.box.setAlignment(Pos.CENTER);
         this.box.setSpacing(BOX_SPACING);
 

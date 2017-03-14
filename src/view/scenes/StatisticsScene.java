@@ -52,6 +52,7 @@ public final class StatisticsScene extends BasicScene {
     private StatisticsScene() {
 
         ViewImpl.setStatScene(this);
+        this.getStylesheets().add(ViewImpl.getStylesheet());
         this.getDefaultLayout().setCenter(this.box);
         this.box.setAlignment(Pos.CENTER);
         this.box.setSpacing(BOX_SPACING);

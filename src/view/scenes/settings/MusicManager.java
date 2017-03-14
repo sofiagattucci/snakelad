@@ -84,6 +84,7 @@ public class MusicManager {
         this.combo.setOnAction(e -> {
             ViewImpl.getObserver().changeMusic(this.combo.getValue());
         });
+        this.combo.setId("ComboBox");
     }
 
     /**
