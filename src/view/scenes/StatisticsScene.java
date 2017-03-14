@@ -31,6 +31,7 @@ public final class StatisticsScene extends BasicScene {
     private static final String LOSE_KEY = "statistics.lose";
     private static final String DICE_KEY = "statistics.dice";
     private static final String TITLE_KEY = "statistics.title";
+    private static final String INFO_KEY = "statistics.info";
     private static final int N_ELEM = 4;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int TITLE_FONT_SIZE = 60;
@@ -44,7 +45,8 @@ public final class StatisticsScene extends BasicScene {
     private final List<Pair<Label, Label>> statElem = new ArrayList<>();
     private final GridPane grid = new GridPane();
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
-    private final VBox box = new VBox(this.title, this.grid);
+    private final Label info = new Label(LanguageStringMap.get().getMap().get(INFO_KEY));
+    private final VBox box = new VBox(this.title, this.grid, this.info);
     private final Font f = new Font(SMALL_FONT_SIZE);
 
     private StatisticsScene() {
@@ -96,6 +98,7 @@ public final class StatisticsScene extends BasicScene {
         this.back.setText(LanguageStringMap.get().getMap().get(BACK_KEY));
         this.clear.setText(LanguageStringMap.get().getMap().get(CLEAR_KEY));
         this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
+        this.info.setText(LanguageStringMap.get().getMap().get(INFO_KEY));
         this.setLabelText(0, SCORES_KEY);
         this.setLabelText(1, WIN_KEY);
         this.setLabelText(2, LOSE_KEY);
