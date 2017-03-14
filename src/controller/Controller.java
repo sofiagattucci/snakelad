@@ -102,8 +102,6 @@ public final class Controller implements ViewObserver {
     public void quit() {
         if (this.control) {
             this.stopMusic();
-            System.out.println(this.coinsGenerator.nameThread() + " Is alive? " + this.coinsGenerator.isAlive());
-            System.out.println(Thread.currentThread().getName());
         } else {
             throw new IllegalStateException();
         }
