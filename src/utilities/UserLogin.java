@@ -44,7 +44,7 @@ public final class UserLogin {
         return SINGLETON;
     }
 
-    private void fillUserWithInfo(final Map<String, String> map, final File userFile) throws IOException {
+    private void tryFillUserWithInfo(final Map<String, String> map, final File userFile) throws IOException {
         //if the file hasn't all required keys or has too keys (if it's compromised), try to delete it in oder to successfully restore it
         if (!map.containsKey(USER_SCORES_KEY) || !map.containsKey(USER_NUMBER_OF_DICE_ROLL_KEY) || !map.containsKey(USER_GAMES_WON_KEY)
             || !map.containsKey(USER_GAMES_LOST_KEY) || map.values().contains("") || map.size() != USER_INFO_SIZE) {
@@ -77,7 +77,7 @@ public final class UserLogin {
             map.put(key, properties.getProperty(key));
         }
 
-        this.fillUserWithInfo(map, userFile);
+        this.tryFillUserWithInfo(map, userFile);
     }
 
     private void createNewUserDefaultFile(final File userFile) throws IOException {
