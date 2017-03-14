@@ -2,26 +2,38 @@
     -fx-text-fill: red;
     -fx-font-family: "Times New Roman";
 }
+
 #Toolbar {
     -fx-background-color: #336699;
 }
+
 #Toolbar-black-label {
     -fx-text-fill: black;
-    -fx-font-family: "Algerian";
+    -fx-font-family: "Times New Roman";
 }
+
 #Toolbar-yellow-label {
     -fx-text-fill: yellow;
-    -fx-font-family: "Algerian";
+    -fx-font-family: "Times New Roman";
 }
+
 .button {
-    -fx-font-family: "Algerian";
+    -fx-font-family: "Times New Roman";
     -fx-background-color: DodgerBlue;
     -fx-text-fill: white;
 }
+
 #ComboBox {
     -fx-background-color: DodgerBlue;
-    -fx-font-family: "Algerian";
+    -fx-font-family: "Times New Roman";
+    -fx-border-color: DodgerBlue;
+
 }
+
+.combo-box .cell:selected {
+    -fx-text-fill: white;
+}
+
 .label {
-    -fx-font-family: "Algerian";
+    -fx-font-family: "Times New Roman";
 }

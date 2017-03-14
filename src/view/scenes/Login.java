@@ -78,10 +78,8 @@ public final class Login extends BasicScene {
                 try {
                     ViewImpl.getObserver().login(this.nameField.getText());
                     ViewImpl.setUsername(this.nameField.getText());
-                } catch (IllegalArgumentException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+                } catch (IllegalArgumentException | IOException ex) {
+                    ex.printStackTrace();
                 }
         });
         this.quit.setOnAction(e -> this.closure.show());
