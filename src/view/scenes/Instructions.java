@@ -19,6 +19,7 @@ public final class Instructions extends BasicScene {
     private static final String BACK_KEY = "back";
     private static final String TITLE_KEY = "instructions.title";
     private static final String INSTRUCTIONS_KEY = "instructions";
+    private static final String TITLE_ID = "TitleLabel";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 2;
     private static final int FONT_SIZE = 20;
     private static final int TITLE_FONT_SIZE = 60;
@@ -32,7 +33,7 @@ public final class Instructions extends BasicScene {
 
     private Instructions() {
 
-        this.getDefaultLayout().setCenter(box);
+        this.getDefaultLayout().setCenter(this.box);
         this.getStylesheets().add(ViewImpl.getStylesheet());
         this.box.setAlignment(Pos.CENTER);
         this.box.setSpacing(BOX_SPACING);
@@ -42,6 +43,7 @@ public final class Instructions extends BasicScene {
         this.instr.setFont(new Font(FONT_SIZE));
         this.instr.setTextAlignment(TextAlignment.CENTER);
 
+        this.title.setId(TITLE_ID);
         this.title.setFont(new Font(TITLE_FONT_SIZE));
     }
 

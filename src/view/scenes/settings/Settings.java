@@ -20,6 +20,7 @@ import view.scenes.Menu;
 public final class Settings extends BasicScene {
 
     private static final String TITLE_KEY = "settings.title";
+    private static final String TITLE_ID = "TitleLabel";
     private static final String BACK_KEY = "back";
     private static final int TITLE_FONT = 60;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
@@ -44,6 +45,7 @@ public final class Settings extends BasicScene {
         this.box.setSpacing(BOX_SPACING);
         this.title.setFont(new Font(TITLE_FONT));
         this.title.setTranslateY(Y_TITLE_TRANSLATE);
+        this.title.setId(TITLE_ID);
         this.back.setOnAction(e -> {
             settingStage.setScene(Menu.getScene(settingStage));
         });

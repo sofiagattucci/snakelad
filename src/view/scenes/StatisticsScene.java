@@ -32,6 +32,7 @@ public final class StatisticsScene extends BasicScene {
     private static final String DICE_KEY = "statistics.dice";
     private static final String TITLE_KEY = "statistics.title";
     private static final String INFO_KEY = "statistics.info";
+    private static final String TITLE_ID = "TitleLabel";
     private static final int N_ELEM = 4;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int TITLE_FONT_SIZE = 60;
@@ -60,6 +61,7 @@ public final class StatisticsScene extends BasicScene {
         this.grid.setVgap(BOX_SPACING);
         this.grid.setHgap(BOX_SPACING);
         this.title.setFont(new Font(TITLE_FONT_SIZE));
+        this.title.setId(TITLE_ID);
         this.back.setOnAction(e -> statisticStage.setScene(Menu.getScene(statisticStage)));
         this.clear.setOnAction(e -> {
             try {

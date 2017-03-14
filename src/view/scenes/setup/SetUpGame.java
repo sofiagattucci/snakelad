@@ -34,6 +34,7 @@ public final class SetUpGame extends BasicScene {
     private static final String START_KEY = "setUp.start";
     private static final String HOW_MANY_KEY = "setUp.selectPlayers";
     private static final String TITLE_KEY = "setUp.title";
+    private static final String TITLE_ID = "TitleLabel";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 6;
     private static final int FONT = 20;
@@ -71,6 +72,7 @@ public final class SetUpGame extends BasicScene {
         this.modes.setSpacing(BOX_SPACING);
         this.title.setAlignment(Pos.CENTER);
         this.title.setTranslateY(Y_TITLE_TRANSLATE);
+        this.title.setId(TITLE_ID);
         this.modes.setAlignment(Pos.CENTER);
         this.chooseNumber.setAlignment(Pos.CENTER);
         this.chooseNumber.setSpacing(BOX_SPACING / 8);

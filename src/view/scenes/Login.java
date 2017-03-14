@@ -23,6 +23,7 @@ public final class Login extends BasicScene {
     private static final String ENTER_KEY = "login.enter";
     private static final String QUIT_KEY = "menu.quit";
     private static final String ERR_LABEL_ID = "ErrorMsg";
+    private static final String TITLE_ID = "TitleLabel";
     private static final int MAX_CHARS = 15;
     private static final String SPACING_ERR = "Username must not contain spacing.";
     private static final String LENGTH_ERR = "Username too long, max ammitted characters: " + MAX_CHARS;
@@ -50,6 +51,7 @@ public final class Login extends BasicScene {
         this.box.setSpacing(BOX_SPACING);
         this.box.setMaxWidth(BasicButton.getButtonWidth());
         this.descLabel.setFont(new Font(FONT_SIZE));
+        this.descLabel.setId(TITLE_ID);
         this.getStylesheets().add(ViewImpl.getStylesheet());
         this.errorLabel.setId(ERR_LABEL_ID);
         this.nameField.setOnKeyReleased(e -> {

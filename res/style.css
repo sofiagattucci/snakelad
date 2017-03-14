@@ -1,6 +1,6 @@
 #ErrorMsg {
     -fx-text-fill: red;
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Arial";
 }
 
 #Toolbar {
@@ -9,23 +9,23 @@
 
 #Toolbar-black-label {
     -fx-text-fill: black;
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Arial";
 }
 
 #Toolbar-yellow-label {
     -fx-text-fill: yellow;
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Arial";
 }
 
 .button {
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Arial";
     -fx-background-color: DodgerBlue;
     -fx-text-fill: white;
 }
 
 #ComboBox {
     -fx-background-color: DodgerBlue;
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Arial";
     -fx-border-color: DodgerBlue;
 
 }
@@ -35,5 +35,8 @@
 }
 
 .label {
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Arial";
+}
+#TitleLabel {
+    -fx-font-family: "Algerian";
 }
