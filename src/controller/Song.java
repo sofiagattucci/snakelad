@@ -40,6 +40,18 @@ public interface Song {
     float getCurrent();
 
     /**
+     * Get default volume of music.
+     * @return default volume
+     */
+    float getDefault();
+
+    /**
+     * Get mute volume.
+     * @return mute volume
+     */
+    float getMute();
+
+    /**
      * Set the volume of music.
      * @param volume
      *          the volume to set

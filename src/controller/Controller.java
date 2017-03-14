@@ -218,6 +218,7 @@ public final class Controller implements ViewObserver {
     public void startMusic(final AudioTrack newSong) {
         if (this.control) {
             this.playSong.start(newSong);
+            this.playSong.setVolume(this.playSong.getDefault());
             this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
         } else {
             throw new IllegalStateException();
@@ -227,7 +228,7 @@ public final class Controller implements ViewObserver {
     @Override
     public void stopMusic() {
         if (this.control) {
-            this.playSong.stop();
+            this.playSong.setVolume(this.playSong.getMute());
         } else {
             throw new IllegalStateException();
         }

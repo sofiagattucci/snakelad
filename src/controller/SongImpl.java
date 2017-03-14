@@ -21,7 +21,8 @@ public class SongImpl implements Song {
     private static final String SECOND = "./res/music/ID(unmixed).wav";
     private static final float MAX = 0;
     private static final float MIN = -30;
-    private static final float CURRENT = -8;
+    private static final float DEFAULT = -8;
+    private static final float MUTE = -80;
     private Clip clip;
     private FloatControl volume;
     private boolean control;
@@ -33,7 +34,7 @@ public class SongImpl implements Song {
             e.printStackTrace();
         }
         this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        this.volume.setValue(CURRENT);
+//        this.volume.setValue(CURRENT);
     }
 
     /**
@@ -50,9 +51,11 @@ public class SongImpl implements Song {
     @Override
     public void stop() {
         if (this.control) {
-            clip.stop();
-            clip.setFramePosition(0);
-            clip.close();
+            if (this.clip.isRunning()) {
+                clip.stop();
+                clip.setFramePosition(0);
+                clip.close();
+            }
         } else {
             throw new IllegalStateException();
         }
@@ -62,15 +65,21 @@ public class SongImpl implements Song {
     @Override
     public void start(final AudioTrack newSong) {
         try {
-            switch (newSong) {
-            case SNAKELAD:
-                this.chooseSong(DEFAULT_SONG);
-                break;
-            case ID:
-                this.chooseSong(SECOND);
-                break;
-                default:
+            if (!this.clip.isRunning()) {
+                switch (newSong) {
+                case SNAKELAD:
                     this.chooseSong(DEFAULT_SONG);
+                    break;
+                case ID:
+                    this.chooseSong(SECOND);
+                    break;
+                    default:
+                        this.chooseSong(DEFAULT_SONG);
+                }
+            } else {
+                if (this.getCurrent() != MUTE) {
+                    this.stop();
+                }
             }
             this.control = true;
         } catch (Exception e) {
@@ -107,8 +116,28 @@ public class SongImpl implements Song {
     }
 
     @Override
+    public float getDefault() {
+        if (this.control) {
+            return DEFAULT;
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+    @Override
+    public float getMute() {
+        if (this.control) {
+            return MUTE;
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    @Override
     public void setVolume(final float volume) {
         if (this.control) {
+            if (volume == this.getMute()) {
+                this.stop();
+            }
             this.volume.setValue(volume);
         } else {
             throw new IllegalStateException();
