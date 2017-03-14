@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import java.util.Random;
 import model.items.Coin;
-import model.items.IntegerReturningItems;
+import model.items.IntegerReturningItem;
 
 /**
  * Junit test used in order to test Coin class.
@@ -21,7 +21,7 @@ public class CoinTest {
      */
     @Test
     public void testCoin() {
-        IntegerReturningItems coin = new Coin(0);
+        IntegerReturningItem coin = new Coin(0);
         final Random rand = new Random();
 
         assertEquals(coin.runEffectGettingResult(), COIN_VALUE);

@@ -9,7 +9,7 @@ import utilities.enumeration.TypesOfItem;
  * It has a specific value and randomly decides to appear or not on the scenery's grid 
  * when isVisible() method is called, in order to implement apparition's rarity of itself.
  */
-public final class Coin extends IntegerReturningItems {
+public final class Coin extends IntegerReturningItem {
 
     private static final int COIN_VALUE = 1;
     private static final int NUMBER_UPPER_BOUND_RANDOM = 3; //It means that the coin will appear with probability

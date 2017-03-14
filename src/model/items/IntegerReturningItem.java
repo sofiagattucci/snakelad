@@ -6,9 +6,9 @@ import utilities.enumeration.TypesOfItem;
  * Abstract class which shapes a basic item which has a position on the scenery's grid and whose 
  * effect is to return an integer value. This value can be used in different ways (to increase or 
  * decrease the player's scores for instance, etc.). 
- * It's designed using Template Method.
+ * It's designed using Template Method pattern.
  */
-public abstract class IntegerReturningItems implements SpecialItem {
+public abstract class IntegerReturningItem implements SpecialItem {
 
     private final int value;
     private final int position;
@@ -20,7 +20,7 @@ public abstract class IntegerReturningItems implements SpecialItem {
      * @param position
      *                  the item's position on the scenery's grid.
      */
-    public IntegerReturningItems(final int itemValue, final int position) {
+    public IntegerReturningItem(final int itemValue, final int position) {
         this.value = itemValue;
         this.position = position;
     }
@@ -33,10 +33,10 @@ public abstract class IntegerReturningItems implements SpecialItem {
     public abstract boolean isVisible(); //template method
 
     /**
-     * TODO
-     * @return
+     * Returns the item's type.
+     * @return the item's type.
      */
-    public abstract TypesOfItem getType(); //tem method
+    public abstract TypesOfItem getType(); //template method
 
     /**
      * Returns the number which represents the item's value.
