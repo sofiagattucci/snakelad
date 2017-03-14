@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import java.util.Random;
 import model.items.Diamond;
-import model.items.IntegerReturningItems;
+import model.items.IntegerReturningItem;
 
 /**
  * Junit test used in order to test Diamond class.
@@ -21,7 +21,7 @@ public class DiamondTest {
      */
     @Test
     public void testDiamond() {
-        IntegerReturningItems diamond = new Diamond(0);
+        IntegerReturningItem diamond = new Diamond(0);
         final Random rand = new Random();
 
         assertEquals(diamond.runEffectGettingResult(), DIAMOND_VALUE);

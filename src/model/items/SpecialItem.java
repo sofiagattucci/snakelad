@@ -29,9 +29,10 @@ public interface SpecialItem {
      * @return true if the special item "decides" to appear on the scenery's grid, false otherwise.
      */
     boolean isVisibleOnSceneryGrid();
-    
+
     /**
-     * TODO
+     * Returns the item's type.
+     * @return the item's type.
      */
     TypesOfItem getItemType();
 

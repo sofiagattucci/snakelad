@@ -17,12 +17,6 @@ import utilities.enumeration.TypesOfItem;
 public interface Model {
 
     /**
-     * Returns the name of the user who's playing the game.
-     * @return the name of the user who's playing the game.
-     */
-    String getUserName();
-
-    /**
      * Return a random number rolling the dice.
      * @return the number released by the dice's roll.
      * @throws IllegalStateException if this method is called before startGame() method.

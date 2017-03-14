@@ -97,6 +97,12 @@ public final class ModelImpl implements Model {
         this.playersList.get(index).setNewPosition(position);
         return Optional.of(this.playersList.get(index).getPosition());
     }
+
+    private void deleteItemCollected(final int itemIndex) {
+        if (!this.itemsMap.remove(itemIndex, this.itemsMap.get(itemIndex))) {
+            throw new NoSuchElementException("Cannot remove item from itemsMap!");
+        }
+    }
  
     //private method called to avoid too much repetition of identical code in tryGenerateCoin(), 
     //tryGenerateDiamond() and tryGenerateSkull() methods.
@@ -223,11 +229,6 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public String getUserName() {
-        return this.user.getName();
-    }
-
-    @Override
     public int getGameBoardSideSize() throws IllegalStateException {
         this.checkModelImplReady();
 
@@ -284,7 +285,6 @@ public final class ModelImpl implements Model {
 
     @Override
     public synchronized TypesOfItem itemCollected(final int itemIndex, final Turn turn) throws IllegalArgumentException, NoSuchElementException {
-        final SpecialItem item = this.itemsMap.get(itemIndex);
         this.checkModelImplReady();
 
         if (!this.itemsMap.containsKey(itemIndex)) {
@@ -296,10 +296,8 @@ public final class ModelImpl implements Model {
             this.userScores += (int) this.itemsMap.get(itemIndex).runEffectGettingResult();
         }
 
-        //delete item collected
-        if (!this.itemsMap.remove(itemIndex, this.itemsMap.get(itemIndex))) {
-            throw new NoSuchElementException("Cannot remove entry from itemsMap!");
-        }
+        final SpecialItem item = this.itemsMap.get(itemIndex);
+        this.deleteItemCollected(itemIndex);
 
         this.itemsCollected++;
         if (this.itemsCollected % (MAX_ITEMS_GENERATION / 2) == 0) {

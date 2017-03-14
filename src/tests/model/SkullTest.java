@@ -3,7 +3,7 @@ package tests.model;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import java.util.Random;
-import model.items.IntegerReturningItems;
+import model.items.IntegerReturningItem;
 import model.items.Skull;
 
 /**
@@ -21,7 +21,7 @@ public class SkullTest {
      */
     @Test
     public void testSkull() {
-        IntegerReturningItems skull = new Skull(0);
+        IntegerReturningItem skull = new Skull(0);
         final Random rand = new Random();
 
         assertEquals(skull.runEffectGettingResult(), SKULL_VALUE);
