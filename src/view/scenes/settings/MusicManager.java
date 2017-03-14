@@ -25,6 +25,7 @@ public class MusicManager {
     private static final int FONT_SIZE = 30;
     private static final double SPEAKER_SIZE = BasicButton.getButtonHeight() / 2;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
+    private static final AudioTrack DEFAULT_TRACK = AudioTrack.SNAKELAD;
 
     private final Label title = new Label(LanguageStringMap.get().getMap().get(MUSIC_KEY));
     private final ImageView speaker = ImageManager.get().getImageView(SPEAKER_ON);
@@ -53,7 +54,7 @@ public class MusicManager {
             } else {
                 this.musicOn = true;
                 this.speaker.setImage(ImageManager.get().readFromFile(SPEAKER_ON));
-                ViewImpl.getObserver().startMusic();
+                ViewImpl.getObserver().startMusic(this.combo.getValue());
             }
         });
         this.slider.setOnMouseDragged(e -> {
@@ -61,7 +62,7 @@ public class MusicManager {
             if (!this.musicOn) {
                 this.musicOn = true;
                 this.speaker.setImage(ImageManager.get().readFromFile(SPEAKER_ON));
-                ViewImpl.getObserver().startMusic();
+                ViewImpl.getObserver().startMusic(this.combo.getValue());
                 this.slider.setValue(slValue);
             }
             ViewImpl.getObserver().setVolume((float) slValue); 
@@ -71,7 +72,7 @@ public class MusicManager {
             if (!this.musicOn) {
                 this.musicOn = true;
                 this.speaker.setImage(ImageManager.get().readFromFile(SPEAKER_ON));
-                ViewImpl.getObserver().startMusic();
+                ViewImpl.getObserver().startMusic(this.combo.getValue());
                 this.slider.setValue(slValue);
             }
             ViewImpl.getObserver().setVolume((float) slValue); 
@@ -115,5 +116,14 @@ public class MusicManager {
      */
     public Node getParentNode() {
         return this.box;
+    }
+
+    /**
+     * Getter of the default audio track.
+     * @return
+     *     The default AudioTrack used in the application
+     */
+    public static AudioTrack getDefaultTrack() {
+        return DEFAULT_TRACK;
     }
 }

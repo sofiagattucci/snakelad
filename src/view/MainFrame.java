@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import utilities.ImageManager;
 import view.scenes.Login;
+import view.scenes.settings.MusicManager;
 
 /**
  * This class creates and initializes the main frame of the application. 
@@ -30,6 +31,6 @@ public class MainFrame extends Application {
         defaultStage.setScene(Login.getScene(defaultStage));
         defaultStage.show();
         ViewImpl.setAppStage(defaultStage);
-        ViewImpl.getObserver().startMusic();
+        ViewImpl.getObserver().startMusic(MusicManager.getDefaultTrack());
     }
 }
