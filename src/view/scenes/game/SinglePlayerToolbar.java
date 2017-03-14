@@ -13,7 +13,7 @@ public class SinglePlayerToolbar  extends Toolbar {
     private static final String CPU = " CPU";
 
     private void setPlayers() {
-        this.getPawnList().get(SinglePlayerGame.getUserIndex()).getSecond().setText(ViewImpl.getuser());
+        this.getPawnList().get(SinglePlayerGame.getUserIndex()).getSecond().setText(ViewImpl.getUsername());
         this.getPawnList().get(SinglePlayerGame.getCPUIndex()).getSecond().setText(CPU);
     }
 

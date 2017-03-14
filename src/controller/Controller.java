@@ -248,7 +248,6 @@ public final class Controller implements ViewObserver {
     public void login(final String name) throws IllegalArgumentException, IOException {
         if (this.control) {
             this.userLogin.login(name);
-            ViewImpl.setUsername(this.game.getUserName());
         } else {
             throw new IllegalStateException();
         }

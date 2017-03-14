@@ -82,7 +82,7 @@ public class MusicManager {
         }
         this.combo.setValue(AudioTrack.SNAKELAD);
         this.combo.setOnAction(e -> {
-            this.combo.getValue();
+            ViewImpl.getObserver().changeMusic(this.combo.getValue());
         });
     }
 

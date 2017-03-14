@@ -74,17 +74,15 @@ public final class Login extends BasicScene {
         });
         this.enter.setDisable(true);
         this.enter.setOnAction(e -> {
-            if (!this.nameField.getText().isEmpty()) {
                 loginStage.setScene(Menu.getScene(loginStage));
                 try {
                     ViewImpl.getObserver().login(this.nameField.getText());
+                    ViewImpl.setUsername(this.nameField.getText());
                 } catch (IllegalArgumentException e1) {
                     e1.printStackTrace();
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-            }
-
         });
         this.quit.setOnAction(e -> this.closure.show());
     }

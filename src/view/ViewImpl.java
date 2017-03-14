@@ -244,7 +244,7 @@ public class ViewImpl implements View {
      * @return
      *     The name used by the player
      */
-    public static String getuser() {
+    public static String getUsername() {
         return user;
     }
 
