@@ -70,7 +70,7 @@ public class SongImpl implements Song {
                 case SNAKELAD:
                     this.chooseSong(DEFAULT_SONG);
                     break;
-                case ID:
+                case CAVE_OF_DRAGONS:
                     this.chooseSong(SECOND);
                     break;
                     default:

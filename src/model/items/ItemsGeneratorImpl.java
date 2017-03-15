@@ -42,7 +42,7 @@ public final class ItemsGeneratorImpl implements ItemsGenerator {
         final SpecialItem item = (typeOfItem == TypesOfItem.COIN) ? new Coin(itemPosition) 
                                   : (typeOfItem == TypesOfItem.DIAMOND) ? new Diamond(itemPosition) : new Skull(itemPosition);
 
-        if (!item.isVisibleOnSceneryGrid()) {
+        if (!item.isVisibleOnScenery()) {
             return Optional.empty();
         }
 

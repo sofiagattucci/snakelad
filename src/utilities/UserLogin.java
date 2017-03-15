@@ -52,7 +52,7 @@ public final class UserLogin {
             Files.delete(Paths.get(userFile.getPath()));
             this.createNewUserDefaultFile(userFile);
         } else {
-            this.user.setScores(Integer.parseInt(map.get(USER_SCORES_KEY)));
+            this.user.setScore(Integer.parseInt(map.get(USER_SCORES_KEY)));
             this.user.setNumberOfDiceRoll(Integer.parseInt(map.get(USER_NUMBER_OF_DICE_ROLL_KEY)));
             this.user.setGamesWon(Integer.parseInt(map.get(USER_GAMES_WON_KEY)));
             this.user.setGamesLost(Integer.parseInt(map.get(USER_GAMES_LOST_KEY)));

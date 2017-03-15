@@ -87,14 +87,14 @@ public final class ModelImpl implements Model {
     //private method called to avoid too much repetition of identical code in restartGame() and giveUpGame() methods
     private void clearFieldsListAndMap() {
         this.playersList.stream()
-                        .forEach(player -> player.setNewPosition(PLAYER_INITIAL_POSITION));
+                        .forEach(player -> player.setPosition(PLAYER_INITIAL_POSITION));
 
         this.itemsMap.clear();
     }
 
     //private method called to avoid too much repetition of identical code in getPlayerPosition() method.
     private synchronized Optional<Integer> playerPositionUtils(final int index, final int position) {
-        this.playersList.get(index).setNewPosition(position);
+        this.playersList.get(index).setPosition(position);
         return Optional.of(this.playersList.get(index).getPosition());
     }
 
@@ -177,7 +177,7 @@ public final class ModelImpl implements Model {
         //fill playersList with the exact number of players playing the game and set their initial positions
         this.playersList.addAll(IntStream.range(0, numberOfPlayers)
                         .mapToObj(value -> new PlayerImpl())
-                        .peek(player -> player.setNewPosition(PLAYER_INITIAL_POSITION))
+                        .peek(player -> player.setPosition(PLAYER_INITIAL_POSITION))
                         .collect(Collectors.toList()));
 
         final DiceFactory diceFactory = new DiceFactoryImpl();
@@ -314,7 +314,7 @@ public final class ModelImpl implements Model {
                                                           .gameWon(this.user.getGamesWon())
                                                           .gameLost(this.user.getGamesLost())
                                                           .numberOfDiceRoll(this.user.getNumberOfDiceRoll())
-                                                          .scores(this.user.getScores())
+                                                          .scores(this.user.getScore())
                                                           .build();
         return userStatistics;
     }
@@ -324,10 +324,10 @@ public final class ModelImpl implements Model {
         this.user.setGamesLost(0);
         this.user.setGamesWon(0);
         this.user.setNumberOfDiceRoll(0);
-        this.user.setScores(0);
+        this.user.setScore(0);
 
         final UserStatisticsFileWriter statWriter = UserStatisticsFileWriter.get();
-        statWriter.writeUserStatistics(this.user.getScores(), this.user.getNumberOfDiceRoll(), 
+        statWriter.writeUserStatistics(this.user.getScore(), this.user.getNumberOfDiceRoll(), 
                                        this.user.getGamesWon(), this.user.getGamesLost());
     }
 
@@ -336,7 +336,7 @@ public final class ModelImpl implements Model {
         this.checkModelImplReady();
 
         final UserStatisticsFileWriter statWriter = UserStatisticsFileWriter.get();
-        this.user.addScores(this.userScores);
+        this.user.addScore(this.userScores);
         this.user.setNumberOfDiceRoll(this.user.getNumberOfDiceRoll() + this.numberOfDiceRoll);
         if (turn == Turn.PLAYER) {
             this.user.setGamesWon(this.user.getGamesWon() + 1);
@@ -344,7 +344,7 @@ public final class ModelImpl implements Model {
             this.user.setGamesLost(this.user.getGamesLost() + 1);
         }
 
-        statWriter.writeUserStatistics(this.user.getScores(), this.user.getNumberOfDiceRoll(), 
+        statWriter.writeUserStatistics(this.user.getScore(), this.user.getNumberOfDiceRoll(), 
                                        this.user.getGamesWon(), this.user.getGamesLost());
     }
 

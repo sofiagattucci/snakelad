@@ -40,7 +40,7 @@ public class UserImplTest {
         final User user = UserImpl.get();
 
         //check if the initial user's scores value is 0
-        assertEquals(user.getScores(), 0);
+        assertEquals(user.getScore(), 0);
 
         //call getName() when the user's name field is empty. It must throw an IllegalStateException
         try {
@@ -63,49 +63,49 @@ public class UserImplTest {
         assertEquals(user.getName(), "Cecilia");
 
         //add, subtract and set scores checking everything works correctly
-        assertEquals(user.getScores(), 0);
+        assertEquals(user.getScore(), 0);
         final Random rand = new Random();
         int counter = 0;
 
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
             final int randValue = rand.nextInt(NUMBER_BOUND_FOR_RAND);
-            user.addScores(randValue);
+            user.addScore(randValue);
             counter += randValue;
-            assertEquals(user.getScores(), counter);
+            assertEquals(user.getScore(), counter);
         }
 
         for (int i = 0; i < NUMBER_OF_ITERATIONS + NUMBER_OF_ITERATIONS; i++) {
             final int randValue = rand.nextInt(NUMBER_BOUND_FOR_RAND);
-            user.addScores(-randValue);
+            user.addScore(-randValue);
             counter -= randValue;
             if (counter < 0) {
                 counter = 0;
             }
-            assertEquals(user.getScores(), counter);
+            assertEquals(user.getScore(), counter);
         }
 
-        user.setScores(BIG_NUMBER);
-        assertEquals(user.getScores(), BIG_NUMBER);
+        user.setScore(BIG_NUMBER);
+        assertEquals(user.getScore(), BIG_NUMBER);
 
-        user.setScores(0);
-        assertEquals(user.getScores(), 0);
+        user.setScore(0);
+        assertEquals(user.getScore(), 0);
 
         //set a negative scores value. It must throw an IllegalArgumentException
         try {
-            user.setScores(NEGATIVE_VALUE);
+            user.setScore(NEGATIVE_VALUE);
         } catch (final IllegalArgumentException e) {
             this.printIllegalArgumentException();
         } catch (final Exception e) {
             this.failIllegalArgumentException(e);
         }
 
-        user.setScores(1);
-        assertEquals(user.getScores(), 1);
-        user.addScores(-1);
-        assertEquals(user.getScores(), 0);
+        user.setScore(1);
+        assertEquals(user.getScore(), 1);
+        user.addScore(-1);
+        assertEquals(user.getScore(), 0);
         //it must NOT be less than 0
-        user.addScores(-1);
-        assertEquals(user.getScores(), 0);
+        user.addScore(-1);
+        assertEquals(user.getScore(), 0);
 
         //call setNumberOfDiceRoll() with a negative argument. It must throw an IllegalArgumentException
         try {

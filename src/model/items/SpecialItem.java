@@ -3,11 +3,11 @@ package model.items;
 import utilities.enumeration.TypesOfItem;
 
 /**
- * An interface for special items inside the game. A 'special items' is game's entity which can be collected in 
- * sceneries' grid by the player and produces a kind of specified effect (returns an integer value, returns 
- * a string, helps the player to win the game, changes the background music, etc.). This special items can 
- * randomly decide to appear or not on the scenery's grid when the isVisibleOnSceneryGrid() method is called
- * in order to implement apparition's rarity of the item.
+ * An interface for special items inside the game. A 'special items' is a game's entity which can be collected
+ * in sceneries' grids by the player and produces a kind of specified effect (returns an integer value, returns 
+ * a string, helps the player to win the game, changes the background music, etc.). A special item can 
+ * randomly decide to appear or not on the scenery's grid when its isVisibleOnScenery() method is called
+ * in order to implement apparition's rarity of the itself.
  */
 public interface SpecialItem {
 
@@ -28,7 +28,7 @@ public interface SpecialItem {
      * on the scenery's grid, false otherwise.
      * @return true if the special item "decides" to appear on the scenery's grid, false otherwise.
      */
-    boolean isVisibleOnSceneryGrid();
+    boolean isVisibleOnScenery();
 
     /**
      * Returns the item's type.
