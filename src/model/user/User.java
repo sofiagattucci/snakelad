@@ -20,19 +20,19 @@ public interface User {
     String getName() throws IllegalStateException;
 
     /**
-     * Adds a number which represents the scores earned by the user who's playing the game.
-     * @param scoresValue
-     *                  The number which represents the scores earned by the user who's playing the game.
+     * Adds a number which represents the score earned by the user who's playing the game.
+     * @param scoreValue
+     *                  The number which represents the score earned by the user who's playing the game.
      */
-    void addScores(int scoresValue);
+    void addScore(int scoreValue);
 
     /**
-     * Sets a number which represents the total scores of the user who's playing the game.
-     * @param scoresValue
-     *                  The number which represents the total scores of the user who's playing the game.
+     * Sets a number which represents the total score of the user who's playing the game.
+     * @param scoreValue
+     *                  The number which represents the total score of the user who's playing the game.
      * @throws IllegalArgumentException if scoresValue's value is not permitted (less than 0).
      */
-    void setScores(int scoresValue) throws IllegalArgumentException;
+    void setScore(int scoreValue) throws IllegalArgumentException;
 
     /**
      * Sets the number which represents the total number of times the user has rolled a dice.
@@ -59,10 +59,10 @@ public interface User {
     void setGamesLost(int gamesLost) throws IllegalArgumentException;
 
     /**
-     * Returns the scores of the current user.
-     * @return the scores of the current user.
+     * Returns the score of the current user.
+     * @return the score of the current user.
      */
-    int getScores();
+    int getScore();
 
     /**
      * Returns the number which represents the total number of times the user has rolled a dice.

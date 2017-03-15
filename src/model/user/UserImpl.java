@@ -58,7 +58,7 @@ public final class UserImpl implements User {
     }
 
     @Override
-    public void addScores(final int scoresValue) {
+    public void addScore(final int scoresValue) {
         this.scores += scoresValue;
         if (this.scores < 0) {
             this.scores = 0;
@@ -66,13 +66,13 @@ public final class UserImpl implements User {
     }
 
     @Override
-    public void setScores(final int scoresValue) throws IllegalArgumentException {
+    public void setScore(final int scoresValue) throws IllegalArgumentException {
         this.checkArgumentLessThanZero(scoresValue);
         this.scores = scoresValue;
     }
 
     @Override
-    public int getScores() {
+    public int getScore() {
         return this.scores;
     }
 
