@@ -83,6 +83,7 @@ public class PawnAnimation implements Runnable {
         if (!this.gameOver) {
             synchronized (this.pawnClass) {
                 if (this.jumpBool) {
+                    Platform.runLater(() -> ViewImpl.getObserver().startClipJump());
                     this.jump(finalPos);
                 }
             }
