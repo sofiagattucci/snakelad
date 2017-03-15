@@ -40,10 +40,12 @@ public class ItemsClip implements Runnable {
         while (this.clip.getFramePosition() == this.clip.getFrameLength()) {
             synchronized (clip) {
                 try {
-                    clip.open(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
-                    this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                    this.setVolume(this.currentVolume);
-                    clip.start();
+                    if (!this.clip.isOpen()) {
+                        clip.open(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
+                        this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                        this.setVolume(this.currentVolume);
+                        clip.start();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -54,7 +56,6 @@ public class ItemsClip implements Runnable {
                         e.printStackTrace();
                     }
         }
-        System.out.println("Finito while");
         this.clip.close();
     }
 

@@ -264,7 +264,6 @@ public final class Controller implements ViewObserver {
                 this.itemClip = new ItemsClip();
                 synchronized (this) {
                     this.itemClip.start(this.clipPath.get(type), this.playSong.getCurrent());
-//                    this.itemClip.setVolume(this.playSong.getCurrent());
                 }
             }
         } else {
