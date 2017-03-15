@@ -23,7 +23,8 @@ import view.pawn.AvailableColor;
 public abstract class PawnColorSwitcher {
 
     private static final String PLAYER_KEY = "game.player";
-    private static final int FONT_SIZE = 20;
+    private static final int SMALL_FONT_SIZE = 20;
+    private static final int BIG_FONT_SIZE = 25;
     private static final double COMBO_BOX_GAP = BasicButton.getButtonHeight() / 6;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final AvailableColor DEFAULT_COLOR = AvailableColor.RED;
@@ -32,10 +33,10 @@ public abstract class PawnColorSwitcher {
     private final List<Pair<Label, ComboBox<String>>> pawnList = new ArrayList<>();
     private final GridPane grid = new GridPane();
     private final VBox box = new VBox(this.title, this.grid);
-    private final Font stdFont = new Font(FONT_SIZE);
     private final List<AvailableColor> prevColor = new ArrayList<>();
     private final int nPlayers;
     private final String titleKey;
+    private final Font stdFont = new Font(SMALL_FONT_SIZE);
 
     /**
      * Constructor of this class.
@@ -51,7 +52,7 @@ public abstract class PawnColorSwitcher {
         this.box.setSpacing(BOX_SPACING);
         this.titleKey = title;
         this.title.setText(LanguageStringMap.get().getMap().get(title));
-        this.title.setFont(this.stdFont);
+        this.title.setFont(new Font(BIG_FONT_SIZE));
         this.nPlayers = nPlayers;
 
         IntStream.range(0, nPlayers)

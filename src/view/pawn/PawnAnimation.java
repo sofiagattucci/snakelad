@@ -9,7 +9,7 @@ import view.ViewImpl;
  */
 public class PawnAnimation implements Runnable {
 
-    private static final double STEP = 6;
+    private static final double STEP = 5;
 
     private final Pawn pawnClass;
     private final int nMoves;

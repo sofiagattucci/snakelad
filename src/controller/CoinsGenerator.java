@@ -27,7 +27,6 @@ public class CoinsGenerator implements Runnable {
      */
     public CoinsGenerator(final ViewObserver controller) {
         this.t = new Thread(this);
-//        this.t.setDaemon(true);
         this.model = controller.getGame();
         this.view = controller.getView();
     }
@@ -80,17 +79,13 @@ public class CoinsGenerator implements Runnable {
                 e.printStackTrace();
             }
         }
-
     }
 
     /**
      * Set the field stop.
      */
     public synchronized void stopGenerate() {
-//        this.resume();
-//        if (this.suspended) {
             this.stop = true;
-//        }
     }
 
     /**

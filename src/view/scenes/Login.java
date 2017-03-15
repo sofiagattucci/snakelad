@@ -76,10 +76,10 @@ public final class Login extends BasicScene {
         });
         this.enter.setDisable(true);
         this.enter.setOnAction(e -> {
+                ViewImpl.setUsername(this.nameField.getText());
                 loginStage.setScene(Menu.getScene(loginStage));
                 try {
                     ViewImpl.getObserver().login(this.nameField.getText());
-                    ViewImpl.setUsername(this.nameField.getText());
                 } catch (IllegalArgumentException | IOException ex) {
                     ex.printStackTrace();
                 }
