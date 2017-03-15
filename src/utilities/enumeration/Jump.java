@@ -13,6 +13,11 @@ public enum Jump {
     /**
      * The jump is caused by a ladder.
      */
-    LADDER;
+    LADDER,
+
+    /**
+     * If it doesn't need to jump.
+     */
+    NO_JUMP;
 
 }

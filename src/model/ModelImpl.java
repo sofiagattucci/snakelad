@@ -22,9 +22,11 @@ import model.scenery.Scenery;
 import model.scenery.SceneryFactoryImpl;
 import model.user.User;
 import model.user.UserImpl;
+import utilities.Pair;
 import utilities.Statistic;
 import utilities.StatisticImpl;
 import utilities.UserStatisticsFileWriter;
+import utilities.enumeration.Jump;
 import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 import utilities.enumeration.TypesOfItem;
@@ -138,7 +140,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public synchronized Optional<Integer> getPlayerPosition(final int playerIndex) throws IllegalStateException {
+    public synchronized Pair<Optional<Integer>, Jump> getPlayerPosition(final int playerIndex) throws IllegalStateException {
         this.checkModelImplReady();
 
         int partialPlayerPosition = this.playersList.get(playerIndex).getPosition() 
@@ -152,17 +154,17 @@ public final class ModelImpl implements Model {
 
         if (this.scenery.getSnakesMap().containsKey(partialPlayerPosition)) {
             final int finalPlayerPosition = this.scenery.getSnakesMap().get(partialPlayerPosition);
-            return this.playerPositionUtils(playerIndex, finalPlayerPosition);
+            return new Pair<>(this.playerPositionUtils(playerIndex, finalPlayerPosition), Jump.SNAKE);
         }
 
         if (this.scenery.getLaddersMap().containsKey(partialPlayerPosition)) {
             final int finalPlayerPosition = this.scenery.getLaddersMap().get(partialPlayerPosition);
-            return this.playerPositionUtils(playerIndex, finalPlayerPosition);
+            return new Pair<>(this.playerPositionUtils(playerIndex, finalPlayerPosition), Jump.LADDER);
         }
 
         //the specified player don't achieve neither a snake or a ladder
         this.playerPositionUtils(playerIndex, partialPlayerPosition);
-        return Optional.empty();
+        return new Pair<>(Optional.empty(), Jump.NO_JUMP);
     }
 
     @Override

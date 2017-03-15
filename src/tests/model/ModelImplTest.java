@@ -288,7 +288,7 @@ public class ModelImplTest {
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -313,7 +313,7 @@ public class ModelImplTest {
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -338,7 +338,7 @@ public class ModelImplTest {
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % FIVE_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % FIVE_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -413,7 +413,7 @@ public class ModelImplTest {
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % FOUR_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % FOUR_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -438,7 +438,7 @@ public class ModelImplTest {
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % THREE_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % THREE_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -463,7 +463,7 @@ public class ModelImplTest {
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -538,7 +538,7 @@ public class ModelImplTest {
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % FIVE_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % FIVE_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -563,7 +563,7 @@ public class ModelImplTest {
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -588,7 +588,7 @@ public class ModelImplTest {
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % FOUR_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % FOUR_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -663,7 +663,7 @@ public class ModelImplTest {
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % THREE_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % THREE_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -688,7 +688,7 @@ public class ModelImplTest {
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -713,7 +713,7 @@ public class ModelImplTest {
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);

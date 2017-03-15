@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import utilities.Pair;
 import utilities.Statistic;
+import utilities.enumeration.Jump;
 import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 import utilities.enumeration.TypesOfItem;
@@ -56,14 +58,15 @@ public interface Model {
      * Optional<Integer> which represents the movement of the required player.
      * @param playerIndex
      *          The index which identifies the player whose position is required.
-     * @return an Optional<Integer> which represents the movement of the required player. It's 
-     * an Optional.of(Integer) if the specified player has to jump (a "jump" means the achievement 
-     * of either a snake or a ladder) and the Integer value represents the final player's position 
-     * after the jump. Otherwise it's an Optional.empty, to indicate the specified player shouldn't
-     * jump (in this case the View'll calculate the final player's position on the game board).
+     * @return a pair composed of an Optional<Integer> which represents the movement of the required player
+     * and a type of jump. The Optional is an Optional.of(Integer) if the specified player has to jump (a 
+     * "jump" means the achievement of either a snake or a ladder) and the Integer value represents the 
+     * final player's position after the jump. Otherwise it's an Optional.empty, to indicate the specified
+     * player shouldn't jump. The cause of jumping (snake, ladder or nothing) is identified by the second 
+     * element of the pair.
      * @throws IllegalStateException if this method is called before startGame() method.
      */
-    Optional<Integer> getPlayerPosition(int playerIndex) throws IllegalStateException;
+    Pair<Optional<Integer>, Jump> getPlayerPosition(int playerIndex) throws IllegalStateException;
 
     /**
      * Returns the side's size of the active game board.
