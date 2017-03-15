@@ -60,6 +60,7 @@ public final class Controller implements ViewObserver {
         this.clipPath.put(TypesOfItem.COIN, "./res/soundEffects/coin.wav");
         this.clipPath.put(TypesOfItem.DIAMOND, "./res/soundEffects/diamond.wav");
         this.clipPath.put(TypesOfItem.SKULL, "./res/soundEffects/skull.wav");
+        this.clipJump = Jump.NO_JUMP;
         this.counter = 0;
         this.settings = Optional.empty();
         this.userLogin = UserLogin.get();
@@ -77,8 +78,7 @@ public final class Controller implements ViewObserver {
     public void rollDice() {
         if (this.control) {
             final int value = this.game.getNumberFromDice();
-            final Pair<Optional<Integer>, Jump> positionAndJump;
-            positionAndJump = this.game.getPlayerPosition(counter);
+            final Pair<Optional<Integer>, Jump> positionAndJump = this.game.getPlayerPosition(counter);
             this.clipJump = positionAndJump.getSecond();
             if (positionAndJump.getFirst().isPresent()) {
                 this.view.updateInfo(value, positionAndJump.getFirst().get());
@@ -318,17 +318,19 @@ public final class Controller implements ViewObserver {
 
     @Override
     public synchronized void startClipJump() {
-        switch (this.clipJump) {
-            case SNAKE:
-                this.itemClip = new ItemsClip();
-                this.itemClip.start(SNAKE, this.playSong.getCurrent());
-                break;
-            case LADDER:
-                this.itemClip = new ItemsClip();
-                this.itemClip.start(LADDER, this.playSong.getCurrent());
-                break;
-                default:
+        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+            switch (this.clipJump) {
+                case SNAKE:
+                    this.itemClip = new ItemsClip();
+                    this.itemClip.start(SNAKE, this.playSong.getCurrent());
                     break;
+                case LADDER:
+                    this.itemClip = new ItemsClip();
+                    this.itemClip.start(LADDER, this.playSong.getCurrent());
+                    break;
+                    default:
+                        break;
+            }
         }
     }
 }
