@@ -35,7 +35,7 @@ public final class Controller implements ViewObserver {
     private final Model game;
     private final View view;
     private final Song playSong;
-    private final ItemsClip itemClip;
+    private ItemsClip itemClip;
     private final UserLogin userLogin;
     private int counter;
     private boolean control;
@@ -47,7 +47,6 @@ public final class Controller implements ViewObserver {
      */
     private Controller() {
         this.playSong = new SongImpl();
-        this.itemClip = new ItemsClip();
         this.game = new ModelImpl();
         this.view = new ViewImpl(this);
         this.clipPath = new HashMap<>();
@@ -262,9 +261,11 @@ public final class Controller implements ViewObserver {
                 } else {
                     type = this.game.itemCollected(position, Turn.CPU);
                 }
-                this.itemClip.start(this.clipPath.get(type));
-                this.itemClip.stop();
-                this.itemClip.setVolume(this.playSong.getCurrent());
+                this.itemClip = new ItemsClip();
+                synchronized (this) {
+                    this.itemClip.start(this.clipPath.get(type), this.playSong.getCurrent());
+//                    this.itemClip.setVolume(this.playSong.getCurrent());
+                }
             }
         } else {
             throw new IllegalStateException();
