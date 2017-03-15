@@ -2,7 +2,7 @@ package view.dialogboxes;
 
 import javafx.stage.Stage;
 import utilities.enumeration.Turn;
-import view.LanguageStringMap;
+import view.ViewImpl;
 
 /**
  * It handles the end of the game.
@@ -22,7 +22,7 @@ public class SinglePlayerGameOver extends GameOver {
         super(parentStage);
         String win;
         if (winner == Turn.PLAYER) {
-            win = LanguageStringMap.get().getMap().get("game.player");
+            win = ViewImpl.getUsername();
         } else {
             win = winner.name();
         }
