@@ -138,7 +138,7 @@ public interface Model {
     void clearStatistics() throws IOException;
 
     /**
-     * Writes user's statistics inside his .properties file. 
+     * Retorts the game is finished, so the user's statistics must be written inside the correct .properties file. 
      * @param turn
      *          The turn that specifies who won the game.
      * @throws IllegalStateException if this method is called before startGame() method.

@@ -22,7 +22,7 @@ public final class PlayerImpl implements Player {
     }
 
     @Override
-    public void setNewPosition(final int newPosition) throws IllegalArgumentException {
+    public void setPosition(final int newPosition) throws IllegalArgumentException {
         if (newPosition < 0) {
             throw new IllegalArgumentException("Negative argument 'newPosition' is not allowed.");
         }

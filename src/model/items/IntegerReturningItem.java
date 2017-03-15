@@ -57,7 +57,7 @@ public abstract class IntegerReturningItem implements SpecialItem {
     }
 
     @Override
-    public boolean isVisibleOnSceneryGrid() {
+    public boolean isVisibleOnScenery() {
         return this.isVisible();
     }
 

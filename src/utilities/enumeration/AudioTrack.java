@@ -13,5 +13,5 @@ public enum AudioTrack {
     /**
      * Second audio track of the game.
      */
-    ID;
+    CAVE_OF_DRAGONS;
 }
