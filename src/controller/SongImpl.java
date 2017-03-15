@@ -18,7 +18,7 @@ import utilities.enumeration.AudioTrack;
 public class SongImpl implements Song {
 
     private static final String DEFAULT_SONG = "./res/music/Snakelad.wav";
-    private static final String SECOND = "./res/music/ID(unmixed).wav";
+    private static final String SECOND = "./res/music/ID.wav";
     private static final float MAX = 0;
     private static final float MIN = -30;
     private static final float DEFAULT = -8;
@@ -81,10 +81,10 @@ public class SongImpl implements Song {
                     this.stop();
                 }
             }
-            this.control = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        this.control = true;
         clip.loop(1000);
     }
 
