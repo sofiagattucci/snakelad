@@ -14,7 +14,6 @@ import javax.sound.sampled.FloatControl;
 public class ItemsClip implements Runnable {
     private static final float MAX = 0;
     private static final float MIN = -30;
-//    private static final float CURRENT = -8;
     private Clip clip;
     private String path;
     private final Thread t;
@@ -79,7 +78,6 @@ public class ItemsClip implements Runnable {
      */
     public void stop() {
         this.clip.close();
-//        this.stop = true;
     }
     /**
      * Getter for minimum volume.

@@ -22,13 +22,15 @@ public class CoinsGenerator implements Runnable {
 
     /**
      * Constructor.
-     * @param controller
-     *          the instance of controller passed by Controller class
+     * @param view
+     *          the instance of view passed by Controller class
+     * @param model
+     *          the instance of model passed by Controller class
      */
-    public CoinsGenerator(final ViewObserver controller) {
+    public CoinsGenerator(final View view, final Model model) {
         this.t = new Thread(this);
-        this.model = controller.getGame();
-        this.view = controller.getView();
+        this.model = model;
+        this.view = view;
     }
     /**
      * Getter for item.

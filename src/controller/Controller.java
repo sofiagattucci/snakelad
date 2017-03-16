@@ -11,11 +11,13 @@ import utilities.UserLogin;
 import utilities.enumeration.AudioTrack;
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.GameMode;
+import utilities.enumeration.Jump;
 import utilities.enumeration.Language;
 import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 import utilities.enumeration.TypesOfItem;
 import utilities.LanguageLoader;
+import utilities.Pair;
 import view.View;
 import view.ViewImpl;
 
@@ -31,12 +33,17 @@ public final class Controller implements ViewObserver {
     private static final String DATA2 = "./res/gameBoards/gameBoard2/file.txt";
     private static final String DATA3 = "./res/gameBoards/gameBoard3/file.txt";
     private static final String DATA4 = "./res/gameBoards/gameBoard4/file.txt";
+    private static final String SNAKE = "./res/soundEffects/snake.wav";
+    private static final String LADDER = "./res/soundEffects/ladder.wav";
+    private static final String WIN = "./res/soundEffects/win.wav";
+    private static final String LOSE = "./res/soundEffects/lose.wav";
     private final Map<TypesOfItem, String> clipPath;
     private final Model game;
     private final View view;
     private final Song playSong;
-    private ItemsClip itemClip;
     private final UserLogin userLogin;
+    private Jump clipJump;
+    private ItemsClip itemClip;
     private int counter;
     private boolean control;
     private Optional<GameSettings> settings;
@@ -53,6 +60,7 @@ public final class Controller implements ViewObserver {
         this.clipPath.put(TypesOfItem.COIN, "./res/soundEffects/coin.wav");
         this.clipPath.put(TypesOfItem.DIAMOND, "./res/soundEffects/diamond.wav");
         this.clipPath.put(TypesOfItem.SKULL, "./res/soundEffects/skull.wav");
+        this.clipJump = Jump.NO_JUMP;
         this.counter = 0;
         this.settings = Optional.empty();
         this.userLogin = UserLogin.get();
@@ -67,23 +75,21 @@ public final class Controller implements ViewObserver {
     }
 
     @Override
-    public Model getGame() {
-        return this.game;
-    }
-
-    @Override
-    public View getView() {
-        return this.view;
-    }
-
-    @Override
     public void rollDice() {
         if (this.control) {
+<<<<<<< HEAD
             final int value = this.game.rollDice();
             final Optional<Integer> positionAndJump;
             positionAndJump = this.game.getPlayerPosition(counter);
             if (positionAndJump.isPresent()) {
                 this.view.updateInfo(value, positionAndJump.get());
+=======
+            final int value = this.game.getNumberFromDice();
+            final Pair<Optional<Integer>, Jump> positionAndJump = this.game.getPlayerPosition(counter);
+            this.clipJump = positionAndJump.getSecond();
+            if (positionAndJump.getFirst().isPresent()) {
+                this.view.updateInfo(value, positionAndJump.getFirst().get());
+>>>>>>> b644499802ec068fbd9dd5f52bbf7ccbbbb66ca8
             } else {
                 this.view.updateInfo(value);
             }
@@ -172,7 +178,7 @@ public final class Controller implements ViewObserver {
             this.view.firstTurn();
             this.view.setBoardSize(this.game.getGameBoardSideSize());
             if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
-                this.coinsGenerator = new CoinsGenerator(this);
+                this.coinsGenerator = new CoinsGenerator(this.view, this.game);
                 this.coinsGenerator.start();
             }
         } else {
@@ -283,7 +289,22 @@ public final class Controller implements ViewObserver {
     @Override
     public void gameFinished(final Turn turn) throws IOException {
         if (this.control) {
+<<<<<<< HEAD
             this.game.matchFinished(turn);
+=======
+            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+                synchronized (this) {
+                    if (this.counter == 1) {
+                        this.itemClip = new ItemsClip();
+                        this.itemClip.start(WIN, this.playSong.getCurrent());
+                    } else {
+                        this.itemClip = new ItemsClip();
+                        this.itemClip.start(LOSE, this.playSong.getCurrent());
+                    }
+                }
+                this.game.gameFinished(turn);
+            }
+>>>>>>> b644499802ec068fbd9dd5f52bbf7ccbbbb66ca8
         } else {
             throw new IllegalStateException();
         }
@@ -305,5 +326,23 @@ public final class Controller implements ViewObserver {
         this.playSong.stop();
         this.playSong.start(newSong);
         this.playSong.setVolume(currentVolume);
+    }
+
+    @Override
+    public synchronized void startClipJump() {
+        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+            switch (this.clipJump) {
+                case SNAKE:
+                    this.itemClip = new ItemsClip();
+                    this.itemClip.start(SNAKE, this.playSong.getCurrent());
+                    break;
+                case LADDER:
+                    this.itemClip = new ItemsClip();
+                    this.itemClip.start(LADDER, this.playSong.getCurrent());
+                    break;
+                    default:
+                        break;
+            }
+        }
     }
 }

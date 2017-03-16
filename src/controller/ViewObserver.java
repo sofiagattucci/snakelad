@@ -2,14 +2,12 @@ package controller;
 
 import java.io.IOException;
 
-import model.Model;
 import utilities.enumeration.AudioTrack;
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.GameMode;
 import utilities.enumeration.Language;
 import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
-import view.View;
 
 /**
  *Interface of Controller.
@@ -17,18 +15,6 @@ import view.View;
  */
 
 public interface ViewObserver {
-
-    /**
-     * Getter for instance of Model.
-     * @return the instance of Model
-     */
-    Model getGame();
-
-    /**
-     * Getter for instance of View.
-     * @return the instance of View
-     */
-    View getView();
 
     /**
      * Set the value of dice.
@@ -140,5 +126,10 @@ public interface ViewObserver {
      * @throws IOException 
      */
     void clearStatistics() throws IOException;
+
+    /**
+     * Start the clip of snakes or ladders.
+     */
+    void startClipJump();
 
 }
