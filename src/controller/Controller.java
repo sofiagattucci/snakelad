@@ -77,19 +77,11 @@ public final class Controller implements ViewObserver {
     @Override
     public void rollDice() {
         if (this.control) {
-<<<<<<< HEAD
             final int value = this.game.rollDice();
-            final Optional<Integer> positionAndJump;
-            positionAndJump = this.game.getPlayerPosition(counter);
-            if (positionAndJump.isPresent()) {
-                this.view.updateInfo(value, positionAndJump.get());
-=======
-            final int value = this.game.getNumberFromDice();
             final Pair<Optional<Integer>, Jump> positionAndJump = this.game.getPlayerPosition(counter);
             this.clipJump = positionAndJump.getSecond();
             if (positionAndJump.getFirst().isPresent()) {
                 this.view.updateInfo(value, positionAndJump.getFirst().get());
->>>>>>> b644499802ec068fbd9dd5f52bbf7ccbbbb66ca8
             } else {
                 this.view.updateInfo(value);
             }
@@ -289,9 +281,6 @@ public final class Controller implements ViewObserver {
     @Override
     public void gameFinished(final Turn turn) throws IOException {
         if (this.control) {
-<<<<<<< HEAD
-            this.game.matchFinished(turn);
-=======
             if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
                 synchronized (this) {
                     if (this.counter == 1) {
@@ -302,9 +291,8 @@ public final class Controller implements ViewObserver {
                         this.itemClip.start(LOSE, this.playSong.getCurrent());
                     }
                 }
-                this.game.gameFinished(turn);
+                this.game.matchFinished(turn);
             }
->>>>>>> b644499802ec068fbd9dd5f52bbf7ccbbbb66ca8
         } else {
             throw new IllegalStateException();
         }
