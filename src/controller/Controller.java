@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import model.Model;
 import model.ModelImpl;
@@ -29,19 +27,15 @@ import view.ViewImpl;
 public final class Controller implements ViewObserver {
 
     private static final Controller SINGLETON = new Controller();
-    private static final String DATA1 = "./res/gameBoards/gameBoard1/file.txt";
-    private static final String DATA2 = "./res/gameBoards/gameBoard2/file.txt";
-    private static final String DATA3 = "./res/gameBoards/gameBoard3/file.txt";
-    private static final String DATA4 = "./res/gameBoards/gameBoard4/file.txt";
     private static final String SNAKE = "./res/soundEffects/snake.wav";
     private static final String LADDER = "./res/soundEffects/ladder.wav";
     private static final String WIN = "./res/soundEffects/win.wav";
     private static final String LOSE = "./res/soundEffects/lose.wav";
-    private final Map<TypesOfItem, String> clipPath;
     private final Model game;
     private final View view;
-    private final Song playSong;
+    private final SongImpl playSong;
     private final UserLogin userLogin;
+    private final PathMap path;
     private Jump clipJump;
     private ItemsClip itemClip;
     private int counter;
@@ -56,13 +50,18 @@ public final class Controller implements ViewObserver {
         this.playSong = new SongImpl();
         this.game = new ModelImpl();
         this.view = new ViewImpl(this);
-        this.clipPath = new HashMap<>();
-        this.clipPath.put(TypesOfItem.COIN, "./res/soundEffects/coin.wav");
-        this.clipPath.put(TypesOfItem.DIAMOND, "./res/soundEffects/diamond.wav");
-        this.clipPath.put(TypesOfItem.SKULL, "./res/soundEffects/skull.wav");
-        this.clipJump = Jump.NO_JUMP;
         this.counter = 0;
         this.settings = Optional.empty();
+        this.path = new PathMapBuilder().itemClipMap(TypesOfItem.COIN, "./res/soundEffects/coin.wav")
+                .itemClipMap(TypesOfItem.DIAMOND, "./res/soundEffects/diamond.wav")
+                .itemClipMap(TypesOfItem.SKULL, "./res/soundEffects/skull.wav")
+                .sceneryMap(Difficulty.BEGINNER, "./res/gameBoards/gameBoard1/file.txt")
+                .sceneryMap(Difficulty.EASY, "./res/gameBoards/gameBoard2/file.txt")
+                .sceneryMap(Difficulty.MEDIUM, "./res/gameBoards/gameBoard3/file.txt")
+                .sceneryMap(Difficulty.HIGH, "./res/gameBoards/gameBoard4/file.txt")
+                .songMap(AudioTrack.SNAKELAD, "./res/music/Snakelad.wav")
+                .songMap(AudioTrack.CAVE_OF_DRAGONS, "./res/music/ID.wav")
+                .build();
         this.userLogin = UserLogin.get();
     }
 
@@ -78,7 +77,8 @@ public final class Controller implements ViewObserver {
     public void rollDice() {
         if (this.control) {
             final int value = this.game.getNumberFromDice();
-            final Pair<Optional<Integer>, Jump> positionAndJump = this.game.getPlayerPosition(counter);
+            final Pair<Optional<Integer>, Jump> positionAndJump;
+            positionAndJump = this.game.getPlayerPosition(counter);
             this.clipJump = positionAndJump.getSecond();
             if (positionAndJump.getFirst().isPresent()) {
                 this.view.updateInfo(value, positionAndJump.getFirst().get());
@@ -139,7 +139,6 @@ public final class Controller implements ViewObserver {
         }
     }
 
-
     @Override
     public void play(final int numberOfPlayers, final Difficulty scenery, final TypesOfDice dice, final GameMode modality) {
         if (this.control) {
@@ -151,19 +150,19 @@ public final class Controller implements ViewObserver {
                     .build());
             switch(scenery) {
                 case BEGINNER:
-                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
+                    this.game.startGame(SceneryDataManager.get().readFromFile(this.path.getSceneryMap().get(Difficulty.BEGINNER)), this.settings.get().getNumberOfPlayer(), dice);
                     break;
                 case EASY:
-                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA2), this.settings.get().getNumberOfPlayer(), dice);
+                    this.game.startGame(SceneryDataManager.get().readFromFile(this.path.getSceneryMap().get(Difficulty.EASY)), this.settings.get().getNumberOfPlayer(), dice);
                     break;
                 case MEDIUM:
-                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA3), this.settings.get().getNumberOfPlayer(), dice);
+                    this.game.startGame(SceneryDataManager.get().readFromFile(this.path.getSceneryMap().get(Difficulty.MEDIUM)), this.settings.get().getNumberOfPlayer(), dice);
                     break;
                 case HIGH:
-                    this.game.startGame(SceneryDataManager.get().readFromFile(DATA4), this.settings.get().getNumberOfPlayer(), dice);
+                    this.game.startGame(SceneryDataManager.get().readFromFile(this.path.getSceneryMap().get(Difficulty.HIGH)), this.settings.get().getNumberOfPlayer(), dice);
                     break;
                 default:
-                        this.game.startGame(SceneryDataManager.get().readFromFile(DATA1), this.settings.get().getNumberOfPlayer(), dice);
+                        this.game.startGame(SceneryDataManager.get().readFromFile(this.path.getSceneryMap().get(Difficulty.BEGINNER)), this.settings.get().getNumberOfPlayer(), dice);
                         break;
                 }
             this.counter = 0;
@@ -194,13 +193,6 @@ public final class Controller implements ViewObserver {
         }
         this.counter = 0;
     }
-    /**
-     * Start the view.
-     */
-    public void start() {
-        this.control = true;
-        this.view.start();
-    }
 
     @Override
     public void setLanguage(final Language language) {
@@ -214,7 +206,7 @@ public final class Controller implements ViewObserver {
     @Override
     public void startMusic(final AudioTrack newSong) {
         if (this.control) {
-            this.playSong.start(newSong);
+            this.playSong.start(this.path.getSongMap().get(newSong));
             this.playSong.setVolume(this.playSong.getDefault());
             this.view.setMusicVolume(this.playSong.getMinimum(), this.playSong.getMaximum(), this.playSong.getCurrent());
         } else {
@@ -261,7 +253,7 @@ public final class Controller implements ViewObserver {
                 }
                 this.itemClip = new ItemsClip();
                 synchronized (this) {
-                    this.itemClip.start(this.clipPath.get(type), this.playSong.getCurrent());
+                    this.itemClip.start(this.path.getClipMap().get(type), this.playSong.getCurrent());
                 }
             }
         } else {
@@ -310,27 +302,43 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void changeMusic(final AudioTrack newSong) {
-        final float currentVolume = this.playSong.getCurrent();
-        this.playSong.stop();
-        this.playSong.start(newSong);
-        this.playSong.setVolume(currentVolume);
+        if (this.control) {
+            final float currentVolume = this.playSong.getCurrent();
+            this.playSong.stop();
+            this.playSong.start(this.path.getSongMap().get(newSong));
+            this.playSong.setVolume(currentVolume);
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
     public synchronized void startClipJump() {
-        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
-            switch (this.clipJump) {
-                case SNAKE:
-                    this.itemClip = new ItemsClip();
-                    this.itemClip.start(SNAKE, this.playSong.getCurrent());
-                    break;
-                case LADDER:
-                    this.itemClip = new ItemsClip();
-                    this.itemClip.start(LADDER, this.playSong.getCurrent());
-                    break;
-                    default:
+        if (this.control) {
+            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+                switch (this.clipJump) {
+                    case SNAKE:
+                        this.itemClip = new ItemsClip();
+                        this.itemClip.start(SNAKE, this.playSong.getCurrent());
                         break;
+                    case LADDER:
+                        this.itemClip = new ItemsClip();
+                        this.itemClip.start(LADDER, this.playSong.getCurrent());
+                        break;
+                        default:
+                            break;
+                }
             }
+        } else {
+            throw new IllegalStateException();
         }
+    }
+
+    /**
+     * Start the view.
+     */
+    public void start() {
+        this.control = true;
+        this.view.start();
     }
 }

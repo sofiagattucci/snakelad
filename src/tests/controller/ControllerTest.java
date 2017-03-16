@@ -11,6 +11,7 @@ import utilities.enumeration.AudioTrack;
 import utilities.enumeration.Difficulty;
 import utilities.enumeration.GameMode;
 import utilities.enumeration.Language;
+import utilities.enumeration.Turn;
 import utilities.enumeration.TypesOfDice;
 
 /**
@@ -88,6 +89,64 @@ public class ControllerTest {
         try {
             controller.stopMusic();
             fail("Must invoke start method before calling stopMusic!");
+        } catch (IllegalStateException s) {
+            this.printErrorMessage();
+        }
+
+        try {
+            controller.setVolume(0);
+            fail("Must invoke start method before calling setVolume!");
+        } catch (IllegalStateException s) {
+            this.printErrorMessage();
+        }
+
+        try {
+            try {
+                controller.login("Test");
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            fail("Must invoke start method before calling login!");
+        } catch (IllegalStateException s) {
+            this.printErrorMessage();
+        }
+        try {
+            controller.collisionHappened(0);
+            fail("Must invoke start method before calling collisionHappened!");
+        } catch (IllegalStateException s) {
+            this.printErrorMessage();
+        }
+
+        try {
+            controller.statistics();
+            fail("Must invoke start method before calling statistics!");
+        } catch (IllegalStateException s) {
+            this.printErrorMessage();
+        }
+
+        try {
+            try {
+                controller.gameFinished(Turn.CPU);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            fail("Must invoke start method before calling gameFinished!");
+        } catch (IllegalStateException s) {
+            this.printErrorMessage();
+        }
+
+        try {
+            controller.changeMusic(AudioTrack.SNAKELAD);
+            fail("Must invoke start method before calling changeMusic!");
+        } catch (IllegalStateException s) {
+            this.printErrorMessage();
+        }
+
+        try {
+            controller.startClipJump();
+            fail("Must invoke start method before calling startClipJump!");
         } catch (IllegalStateException s) {
             this.printErrorMessage();
         }
