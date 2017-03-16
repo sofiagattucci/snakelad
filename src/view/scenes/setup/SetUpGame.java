@@ -21,7 +21,7 @@ import view.scenes.BasicScene;
 import view.scenes.Menu;
 import view.scenes.game.MultiPlayerGameScenes;
 import view.scenes.game.SinglePlayerGame;
-import view.scenes.game.Toolbar;
+import view.scenes.game.ToolbarImpl;
 
 /**
  * It's the scene shown when the user pushes the play button. It manages the settings to use for this game. 
@@ -190,7 +190,7 @@ public final class SetUpGame extends BasicScene {
      */
     public static SetUpGame getScene(final Stage stage) {
         setUpStage = stage;
-        Toolbar.setStage(stage);
+        ToolbarImpl.setStage(stage);
         return setUpScene;
     }
 

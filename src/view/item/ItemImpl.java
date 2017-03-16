@@ -6,7 +6,7 @@ import utilities.Pair;
 import utilities.enumeration.TypesOfItem;
 import view.Dimension;
 import view.scenes.game.Game;
-import view.scenes.game.Toolbar;
+import view.scenes.game.ToolbarImpl;
 
 /**
  * This class represents a coin in the GUI.
@@ -55,7 +55,7 @@ public class ItemImpl implements Item {
     @Override
     public final void resize() {
         this.itemIV.setFitHeight(Dimension.getItemHeight());
-        this.coinStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
+        this.coinStartingPos = new Pair<>((Dimension.SCREEN_W - ToolbarImpl.getBoxWidth() - Dimension.BOARD_H) / 2 
                 + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) / 2 
                 - Dimension.getItemHeight() / ITEM_HEIGHT_PARAM,
                 Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 

@@ -9,11 +9,11 @@ import view.scenes.setup.SetUpGame;
 /**
  * This class creates and initializes the game scene for a player versus player game.
  */
-public final class MultiPlayerGame extends GameImpl<MultiPlayerToolbar> {
+public final class MultiPlayerGame extends GameImpl {
 
     private final int numPlayers;
     private Stage playStage;
-    private final MultiPlayerToolbar multiTool = new MultiPlayerToolbar();
+    private final Toolbar multiTool = new MultiPlayerToolbar();
 
     /**
      * Constructor of this class.
@@ -44,7 +44,7 @@ public final class MultiPlayerGame extends GameImpl<MultiPlayerToolbar> {
      */
     public void setStage(final Stage stage) {
         this.playStage = stage;
-        Toolbar.setStage(stage);
+        ToolbarImpl.setStage(stage);
     }
 
     @Override
@@ -54,7 +54,7 @@ public final class MultiPlayerGame extends GameImpl<MultiPlayerToolbar> {
     }
 
     @Override
-    public int getTag() {
+    public int getNumPlayers() {
         return SetUpGame.getPlayers();
     }
 

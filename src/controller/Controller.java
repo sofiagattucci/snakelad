@@ -38,7 +38,7 @@ public final class Controller implements ViewObserver {
     private final PathMap path;
     private Jump clipJump;
     private ItemsClip itemClip;
-    private int counter;
+    private int turn;
     private boolean control;
     private Optional<GameSettings> settings;
     private CoinsGenerator coinsGenerator;
@@ -50,7 +50,7 @@ public final class Controller implements ViewObserver {
         this.playSong = new SongImpl();
         this.game = new ModelImpl();
         this.view = new ViewImpl(this);
-        this.counter = 0;
+        this.turn = 0;
         this.clipJump = Jump.NO_JUMP;
         this.settings = Optional.empty();
         this.path = new PathMapBuilder().itemClipMap(TypesOfItem.COIN, "./res/soundEffects/coin.wav")
@@ -66,6 +66,11 @@ public final class Controller implements ViewObserver {
         this.userLogin = UserLogin.get();
     }
 
+    //If the modality of game is Single player return true, otherwise return false
+    private boolean checkModality() {
+        return (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) ? true : false;
+    }
+
     /**
      * Method that return an instance of Controller.
      * @return instance of Controller.
@@ -78,17 +83,17 @@ public final class Controller implements ViewObserver {
     public void rollDice() {
         if (this.control) {
             final int value = this.game.rollDice();
-            final Pair<Optional<Integer>, Jump> positionAndJump = this.game.getPlayerPosition(counter);
+            final Pair<Optional<Integer>, Jump> positionAndJump = this.game.getPlayerPosition(turn);
             this.clipJump = positionAndJump.getSecond();
             if (positionAndJump.getFirst().isPresent()) {
                 this.view.updateInfo(value, positionAndJump.getFirst().get());
             } else {
                 this.view.updateInfo(value);
             }
-            if (this.counter < this.settings.get().getNumberOfPlayer() - 1) {
-                this.counter++;
+            if (this.turn < this.settings.get().getNumberOfPlayer() - 1) {
+                this.turn++;
             }  else {
-                this.counter = 0;
+                this.turn = 0;
             }
         } else {
             throw new IllegalStateException();
@@ -108,9 +113,9 @@ public final class Controller implements ViewObserver {
     public void restart() {
         if (this.control) {
             this.game.restartGame();
-            this.counter = 0;
+            this.turn = 0;
             this.view.firstTurn();
-            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+            if (this.checkModality()) {
                 synchronized (coinsGenerator) {
                     this.coinsGenerator.resume();
                 }
@@ -122,7 +127,7 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void pause() {
-        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+        if (this.checkModality()) {
             synchronized (coinsGenerator) {
                 this.coinsGenerator.suspende();
 
@@ -132,7 +137,7 @@ public final class Controller implements ViewObserver {
 
     @Override
     public void resume() {
-        if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+        if (this.checkModality()) {
             synchronized (coinsGenerator) {
                 this.coinsGenerator.resume();
             }
@@ -165,10 +170,10 @@ public final class Controller implements ViewObserver {
                         this.game.startGame(SceneryDataManager.get().readFromFile(this.path.getSceneryMap().get(Difficulty.BEGINNER)), this.settings.get().getNumberOfPlayer(), dice);
                         break;
                 }
-            this.counter = 0;
+            this.turn = 0;
             this.view.firstTurn();
             this.view.setBoardSize(this.game.getGameBoardSideSize());
-            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+            if (this.checkModality()) {
                 this.coinsGenerator = new CoinsGenerator(this.view, this.game);
                 this.coinsGenerator.start();
             }
@@ -191,7 +196,7 @@ public final class Controller implements ViewObserver {
         } else {
             throw new IllegalStateException();
         }
-        this.counter = 0;
+        this.turn = 0;
     }
 
     @Override
@@ -245,8 +250,8 @@ public final class Controller implements ViewObserver {
     public void collisionHappened(final int position) {
         TypesOfItem type;
         if (this.control) {
-            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
-                if (this.counter == 1) {
+            if (this.checkModality()) {
+                if (this.turn == 1) {
                     type = this.game.itemCollected(position, Turn.PLAYER);
                 } else {
                     type = this.game.itemCollected(position, Turn.CPU);
@@ -273,9 +278,9 @@ public final class Controller implements ViewObserver {
     @Override
     public void gameFinished(final Turn turn) throws IOException {
         if (this.control) {
-            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+            if (this.checkModality()) {
                 synchronized (this) {
-                    if (this.counter == 1) {
+                    if (this.turn == 1) {
                         this.itemClip = new ItemsClip();
                         this.itemClip.start(WIN, this.playSong.getCurrent());
                     } else {
@@ -315,7 +320,7 @@ public final class Controller implements ViewObserver {
     @Override
     public synchronized void startClipJump() {
         if (this.control) {
-            if (this.settings.get().getModality() == GameMode.SINGLE_PLAYER) {
+            if (this.checkModality()) {
                 switch (this.clipJump) {
                     case SNAKE:
                         this.itemClip = new ItemsClip();
