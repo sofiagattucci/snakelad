@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import view.BasicButton;
 import view.LanguageStringMap;
 import view.ViewImpl;
-import view.dialogboxes.ClosureHandler;
+import view.dialogboxes.LoginClosureHandler;
 
 /**
  * This class creates and initializes the login scene.
@@ -22,11 +22,11 @@ public final class Login extends BasicScene {
     private static final String LABEL_KEY = "login.label";
     private static final String ENTER_KEY = "login.enter";
     private static final String QUIT_KEY = "menu.quit";
+    private static final String SPACE_ERR_KEY = "login.error.space";
+    private static final String MAX_ERR_KEY = "login.error.max";
     private static final String ERR_LABEL_ID = "ErrorMsg";
     private static final String TITLE_ID = "TitleLabel";
     private static final int MAX_CHARS = 15;
-    private static final String SPACING_ERR = "Username must not contain spacing.";
-    private static final String LENGTH_ERR = "Username too long, max ammitted characters: " + MAX_CHARS;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int FONT_SIZE = 30;
     private static final String SPACE = " ";
@@ -41,7 +41,7 @@ public final class Login extends BasicScene {
     private final Label errorLabel = new Label();
     private final Button enter = new BasicButton(LanguageStringMap.get().getMap().get(ENTER_KEY));
     private final Button quit = new BasicButton(LanguageStringMap.get().getMap().get(QUIT_KEY));
-    private final ClosureHandler closure = new ClosureHandler(loginStage);
+    private final LoginClosureHandler closure = new LoginClosureHandler(loginStage);
  
     private Login() {
 
@@ -63,12 +63,12 @@ public final class Login extends BasicScene {
             if (this.nameField.getText().contains(SPACE)) {
                 this.enter.setDisable(true);
                 this.errorLabel.setVisible(true);
-                this.errorLabel.setText(SPACING_ERR);
+                this.errorLabel.setText(LanguageStringMap.get().getMap().get(SPACE_ERR_KEY));
             } else { 
                 if (this.nameField.getText().length() > MAX_CHARS) {
                     this.enter.setDisable(true);
                     this.errorLabel.setVisible(true);
-                    this.errorLabel.setText(LENGTH_ERR);
+                    this.errorLabel.setText(LanguageStringMap.get().getMap().get(MAX_ERR_KEY) + MAX_CHARS);
                 } else {
                     this.errorLabel.setVisible(false);
                 }
@@ -85,6 +85,16 @@ public final class Login extends BasicScene {
                 }
         });
         this.quit.setOnAction(e -> this.closure.show());
+    }
+
+    /**
+     * It updates the language of the elements of this class.
+     */
+    public void updateLanguage() {
+        this.enter.setText((LanguageStringMap.get().getMap().get(ENTER_KEY)));
+        this.quit.setText((LanguageStringMap.get().getMap().get(QUIT_KEY)));
+        this.descLabel.setText(LanguageStringMap.get().getMap().get(LABEL_KEY));
+        this.closure.updateLanguage();
     }
 
     /**
