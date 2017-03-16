@@ -11,7 +11,7 @@ import view.View;
  */
 public class CoinsGenerator implements Runnable {
 
-    private static final int WAIT = 1000;
+    private static final int WAIT = 750;
 
     private final Thread t;
     private volatile boolean stop;

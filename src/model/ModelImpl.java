@@ -139,6 +139,34 @@ public final class ModelImpl implements Model {
         return generationResult;
     }
 
+    private ModelMemento createMemento() throws IllegalStateException {
+        this.checkModelImplReady();
+
+        final ModelMemento memento;
+        Optional<Integer> lastNumberFromDice;
+        try {
+            lastNumberFromDice = Optional.of(this.dice.getLastNumberAppeared());
+        } catch (final IllegalStateException exc) {
+            lastNumberFromDice = Optional.empty();
+        }
+
+        memento = new ModelMemento(lastNumberFromDice, this.maxItemsGeneration, this.itemsCollected,
+                                   this.numberOfDiceRoll, this.isPlayerTurn, this.userScores);
+
+        return memento;
+    }
+
+    private void setStateFromMemento(final ModelMemento memento) throws IllegalStateException {
+        this.checkModelImplReady();
+
+        this.dice.setLastNumberAppeared(memento.getLastNumberAppearedOnDice());
+        this.maxItemsGeneration = memento.getMaxItemsGeneration();
+        this.itemsCollected = memento.getItemsCollected();
+        this.numberOfDiceRoll = memento.getNumberOfDiceRoll();
+        this.isPlayerTurn = memento.isPlayerTurn();
+        this.userScores = memento.getUserScores();
+    }
+
     @Override
     public synchronized Pair<Optional<Integer>, Jump> getPlayerPosition(final int playerIndex) throws IllegalStateException {
         this.checkModelImplReady();
@@ -198,36 +226,6 @@ public final class ModelImpl implements Model {
         }
 
         this.mementoTaker.addMemento(this.createMemento());
-    }
-
-    @Override
-    public ModelMemento createMemento() throws IllegalStateException {
-        this.checkModelImplReady();
-
-        final ModelMemento memento;
-        Optional<Integer> lastNumberFromDice;
-        try {
-            lastNumberFromDice = Optional.of(this.dice.getLastNumberAppeared());
-        } catch (final IllegalStateException exc) {
-            lastNumberFromDice = Optional.empty();
-        }
-
-        memento = new ModelMemento(lastNumberFromDice, this.maxItemsGeneration, this.itemsCollected,
-                                   this.numberOfDiceRoll, this.isPlayerTurn, this.userScores);
-
-        return memento;
-    }
-
-    @Override
-    public void setStateFromMemento(final ModelMemento memento) throws IllegalStateException {
-        this.checkModelImplReady();
-
-        this.dice.setLastNumberAppeared(memento.getLastNumberAppearedOnDice());
-        this.maxItemsGeneration = memento.getMaxItemsGeneration();
-        this.itemsCollected = memento.getItemsCollected();
-        this.numberOfDiceRoll = memento.getNumberOfDiceRoll();
-        this.isPlayerTurn = memento.isPlayerTurn();
-        this.userScores = memento.getUserScores();
     }
 
     @Override
