@@ -127,7 +127,7 @@ public class ModelImplTest {
         }
 
         try {
-            model.getNumberFromDice();
+            model.rollDice();
             this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
@@ -194,7 +194,7 @@ public class ModelImplTest {
         //tryGenerateCoin(), tryGenerateDiamond() and tryGenerateSkull() methods after calling startGame() method.
         //It must NOT throw any exception.
         try {
-            model.getNumberFromDice();
+            model.rollDice();
             model.getPlayerPosition(0);
             model.getGameBoardSideSize();
             model.tryGenerateCoin();
@@ -218,7 +218,7 @@ public class ModelImplTest {
 
         //call getNumberFromDice() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
-            model.getNumberFromDice();
+            model.rollDice();
             this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
@@ -283,7 +283,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard1);
         int counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
@@ -308,7 +308,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard1);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
@@ -333,7 +333,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard1);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
@@ -408,7 +408,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard2);
         int counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
@@ -433,7 +433,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard2);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
@@ -458,7 +458,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard2);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
@@ -533,7 +533,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard3);
         int counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
@@ -558,7 +558,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard3);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
@@ -583,7 +583,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard3);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
@@ -658,7 +658,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard4);
         int counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
@@ -683,7 +683,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard4);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
@@ -708,7 +708,7 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard4);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();

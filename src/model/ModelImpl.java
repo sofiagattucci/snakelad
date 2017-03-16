@@ -238,7 +238,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public int getNumberFromDice() throws IllegalStateException {
+    public int rollDice() throws IllegalStateException {
         this.checkModelImplReady();
 
         if (isPlayerTurn) {
@@ -334,7 +334,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void gameFinished(final Turn turn) throws IllegalStateException, IOException {
+    public void matchFinished(final Turn turn) throws IllegalStateException, IOException {
         this.checkModelImplReady();
 
         final UserStatisticsFileWriter statWriter = UserStatisticsFileWriter.get();

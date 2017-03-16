@@ -79,7 +79,7 @@ public final class Controller implements ViewObserver {
     @Override
     public void rollDice() {
         if (this.control) {
-            final int value = this.game.getNumberFromDice();
+            final int value = this.game.rollDice();
             final Optional<Integer> positionAndJump;
             positionAndJump = this.game.getPlayerPosition(counter);
             if (positionAndJump.isPresent()) {
@@ -283,7 +283,7 @@ public final class Controller implements ViewObserver {
     @Override
     public void gameFinished(final Turn turn) throws IOException {
         if (this.control) {
-            this.game.gameFinished(turn);
+            this.game.matchFinished(turn);
         } else {
             throw new IllegalStateException();
         }
