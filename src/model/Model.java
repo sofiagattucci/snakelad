@@ -39,21 +39,6 @@ public interface Model {
     void startGame(List<Integer> sceneryData, int numberOfPlayers, TypesOfDice dice) throws IllegalArgumentException;
 
     /**
-     * Creates and returns a partial snapshot of a Model's subclass internal state.
-     * @return a partial snapshot of a Model's subclass internal state.
-     * @throws IllegalStateException if this method is called before startGame() method.
-     */
-    ModelMemento createMemento() throws IllegalStateException;
-
-    /**
-     * Sets the memento's state inside a Model's subclass so that the subclass can restore its internal state.
-     * @param memento
-     *                  The memento which contains the Model's subclass internal state to set.
-     * @throws IllegalStateException if this method is called before startGame() method.
-     */
-    void setStateFromMemento(ModelMemento memento) throws IllegalStateException;
-
-    /**
      * Calculate the position of the player whose index is specified, returning an 
      * Optional<Integer> which represents the movement of the required player.
      * @param playerIndex
