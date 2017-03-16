@@ -9,33 +9,16 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import utilities.enumeration.AudioTrack;
 
 /**
  * Implementation of Song interface.
  *
  */
-public class SongImpl implements Song {
+public class SongImpl extends Song {
 
-    private static final String DEFAULT_SONG = "./res/music/Snakelad.wav";
-    private static final String SECOND = "./res/music/ID.wav";
-    private static final float MAX = 0;
-    private static final float MIN = -30;
-    private static final float DEFAULT = -8;
-    private static final float MUTE = -80;
     private Clip clip;
     private FloatControl volume;
     private boolean control;
-
-    private void chooseSong(final String path) {
-        try {
-            clip.open(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
-        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        }
-        this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-//        this.volume.setValue(CURRENT);
-    }
 
     /**
      * Constructor. 
@@ -52,8 +35,6 @@ public class SongImpl implements Song {
     public void stop() {
         if (this.control) {
             if (this.clip.isRunning()) {
-                clip.stop();
-                clip.setFramePosition(0);
                 clip.close();
             }
         } else {
@@ -62,22 +43,22 @@ public class SongImpl implements Song {
     }
 
 
-    @Override
-    public void start(final AudioTrack newSong) {
+    /**
+     * Start the music.
+     * @param path
+     *          the path of song to play.
+     */
+    public void start(final String path) {
         try {
             if (!this.clip.isRunning()) {
-                switch (newSong) {
-                case SNAKELAD:
-                    this.chooseSong(DEFAULT_SONG);
-                    break;
-                case CAVE_OF_DRAGONS:
-                    this.chooseSong(SECOND);
-                    break;
-                    default:
-                        this.chooseSong(DEFAULT_SONG);
+                try {
+                    clip.open(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
+                } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                    e.printStackTrace();
                 }
+                this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             } else {
-                if (this.getCurrent() != MUTE) {
+                if (this.getCurrent() != this.getMute()) {
                     this.stop();
                 }
             }
@@ -88,23 +69,6 @@ public class SongImpl implements Song {
         clip.loop(1000);
     }
 
-    @Override
-    public float getMinimum() {
-        if (this.control) {
-            return MIN;
-        } else {
-            throw new IllegalStateException();
-        }
-    }
-
-    @Override
-    public float getMaximum() {
-        if (this.control) {
-            return MAX;
-        } else {
-            throw new IllegalStateException();
-        }
-    }
 
     @Override
     public float getCurrent() {
@@ -115,22 +79,6 @@ public class SongImpl implements Song {
         }
     }
 
-    @Override
-    public float getDefault() {
-        if (this.control) {
-            return DEFAULT;
-        } else {
-            throw new IllegalStateException();
-        }
-    }
-    @Override
-    public float getMute() {
-        if (this.control) {
-            return MUTE;
-        } else {
-            throw new IllegalStateException();
-        }
-    }
 
     @Override
     public void setVolume(final float volume) {

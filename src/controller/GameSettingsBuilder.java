@@ -60,8 +60,8 @@ public class GameSettingsBuilder {
     }
 
     /**
-     * Build the Controller.
-     * @return an instance of Controller
+     * Build the GameSettings.
+     * @return an instance of GameSettings
      */
     public GameSettings build() {
         return new GameSettings(numberOfPlayers, scenery, dice, modality);

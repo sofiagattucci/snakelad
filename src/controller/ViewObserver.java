@@ -17,7 +17,7 @@ import utilities.enumeration.TypesOfDice;
 public interface ViewObserver {
 
     /**
-     * Set the value of dice.
+     * Sets the value of dice.
      */
     void rollDice();
 
@@ -42,7 +42,7 @@ public interface ViewObserver {
     void resume();
 
     /**
-     * Start new game.
+     * Starts new game.
      * @param numberOfPlayers
      *          the number of player
      * @param scenery
@@ -60,28 +60,28 @@ public interface ViewObserver {
     void giveUp();
 
     /**
-     * Set the language of game.
+     * Sets the language of game.
      * @param language
      *          the language setting
      */
     void setLanguage(Language language);
 
     /**
-     * Start the background music.
+     * Starts the background music.
      * @param newSong
      *          the type of song to start.
      */
     void startMusic(AudioTrack newSong);
 
     /**
-     * Change of the music.
+     * Changes of the music.
      * @param newSong
      *          the music choose by user.
      */
     void changeMusic(AudioTrack newSong);
 
     /**
-     * Stop the background music.
+     * Stops the background music.
      */
     void stopMusic();
 
@@ -94,12 +94,12 @@ public interface ViewObserver {
 
     /**
      * Manage the user's login.
-     * @param name
+     * @param userName
      *          the name of user.
      * @throws IllegalArgumentException if the argument 'name' is empty.
      * @throws IOException if an error about input/output happened.
      */
-    void login(String name) throws IllegalArgumentException, IOException;
+    void login(String userName) throws IllegalArgumentException, IOException;
 
     /**
      * Notify if happen a collision between coin and pawn.
@@ -128,7 +128,7 @@ public interface ViewObserver {
     void clearStatistics() throws IOException;
 
     /**
-     * Start the clip of snakes or ladders.
+     * Starts the clip of snakes or ladders.
      */
     void startClipJump();
 

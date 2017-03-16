@@ -40,20 +40,6 @@ public class SongImplTest {
         } catch (IllegalStateException i) {
             printMessageError();
         }
-      //try to get maximum volume before initialize object,
-        try {
-            music.getMaximum();
-            fail(MESSAGE);
-        } catch (IllegalStateException i) {
-            printMessageError();
-        }
-      //try to get minimum volume before initialize object,
-        try {
-            music.getMinimum();
-            fail(MESSAGE);
-        } catch (IllegalStateException i) {
-            printMessageError();
-        }
       //try to set current volume before initialize object,
         try {
             music.getCurrent();

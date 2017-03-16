@@ -1,60 +1,63 @@
 package controller;
 
-import utilities.enumeration.AudioTrack;
-
 /**
- * Interface of Song.
+ * Abstract class for Song.
  *
  */
-public interface Song {
+public abstract class Song {
+
+    private static final float MAX = 0;
+    private static final float MIN = -30;
+    private static final float DEFAULT = -8;
+    private static final float MUTE = -80;
 
     /**
-     * Stop the music.
+     * Stops the music.
      */
-    void stop();
-
-
-    /**
-     * Start the music.
-     * @param newSong
-     *          the type of song to play.
-     */
-    void start(AudioTrack newSong);
+    public abstract void stop();
 
     /**
-     * Get minimum volume of music.
+     * Gets minimum volume of music.
      * @return minimum volume
      */
-    float getMinimum();
+    public float getMinimum() {
+        return MIN;
+    }
 
     /**
-     * Get maximum volume of music.
+     * Gets maximum volume of music.
      * @return maximum volume
      */
-    float getMaximum();
+    public float getMaximum() {
+        return MAX;
+    }
 
     /**
-     * Get current volume of music.
+     * Gets current volume of music.
      * @return current volume
      */
-    float getCurrent();
+    public abstract float getCurrent();
 
     /**
-     * Get default volume of music.
+     * Gets default volume of music.
      * @return default volume
      */
-    float getDefault();
+    public float getDefault() {
+        return DEFAULT;
+    }
 
     /**
-     * Get mute volume.
+     * Gets mute volume.
      * @return mute volume
      */
-    float getMute();
+    public float getMute() {
+        return MUTE;
+    }
 
     /**
-     * Set the volume of music.
+     * Sets the volume of music.
      * @param volume
      *          the volume to set
      */
-    void setVolume(float volume);
+    public abstract void setVolume(float volume);
 }
