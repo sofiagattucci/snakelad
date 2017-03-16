@@ -23,11 +23,11 @@ public interface Model {
      * @return the number released by the dice's roll.
      * @throws IllegalStateException if this method is called before startGame() method.
      */
-    int getNumberFromDice() throws IllegalStateException;
+    int rollDice() throws IllegalStateException;
 
     /**
      * Sets everything needed in order to start the game.
-     * @param data
+     * @param sceneryData
      *          The list that contains the data (snakes and ladders positions, 
      *          number of cells on the game board) useful to start the game.
      * @param numberOfPlayers
@@ -36,7 +36,7 @@ public interface Model {
      *          The dice which players want to play with.
      * @throws IllegalArgumentException if argument 'numberOfPlayers' or 'dice' is not permitted.
      */
-    void startGame(List<Integer> data, int numberOfPlayers, TypesOfDice dice) throws IllegalArgumentException;
+    void startGame(List<Integer> sceneryData, int numberOfPlayers, TypesOfDice dice) throws IllegalArgumentException;
 
     /**
      * Creates and returns a partial snapshot of a Model's subclass internal state.
@@ -141,12 +141,12 @@ public interface Model {
     void clearStatistics() throws IOException;
 
     /**
-     * Retorts the game is finished, so the user's statistics must be written inside the correct .properties file. 
+     * Retorts the match is finished, so the user's statistics must be written inside the correct .properties file. 
      * @param turn
      *          The turn that specifies who won the game.
      * @throws IllegalStateException if this method is called before startGame() method.
      * @throws IOException if an error during writing statistics inside file happened.
      */
-    void gameFinished(Turn turn) throws IllegalStateException, IOException;
+    void matchFinished(Turn turn) throws IllegalStateException, IOException;
 
 }

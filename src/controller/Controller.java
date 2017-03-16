@@ -51,6 +51,7 @@ public final class Controller implements ViewObserver {
         this.game = new ModelImpl();
         this.view = new ViewImpl(this);
         this.counter = 0;
+        this.clipJump = Jump.NO_JUMP;
         this.settings = Optional.empty();
         this.path = new PathMapBuilder().itemClipMap(TypesOfItem.COIN, "./res/soundEffects/coin.wav")
                 .itemClipMap(TypesOfItem.DIAMOND, "./res/soundEffects/diamond.wav")
@@ -76,9 +77,8 @@ public final class Controller implements ViewObserver {
     @Override
     public void rollDice() {
         if (this.control) {
-            final int value = this.game.getNumberFromDice();
-            final Pair<Optional<Integer>, Jump> positionAndJump;
-            positionAndJump = this.game.getPlayerPosition(counter);
+            final int value = this.game.rollDice();
+            final Pair<Optional<Integer>, Jump> positionAndJump = this.game.getPlayerPosition(counter);
             this.clipJump = positionAndJump.getSecond();
             if (positionAndJump.getFirst().isPresent()) {
                 this.view.updateInfo(value, positionAndJump.getFirst().get());
@@ -283,7 +283,7 @@ public final class Controller implements ViewObserver {
                         this.itemClip.start(LOSE, this.playSong.getCurrent());
                     }
                 }
-                this.game.gameFinished(turn);
+                this.game.matchFinished(turn);
             }
         } else {
             throw new IllegalStateException();

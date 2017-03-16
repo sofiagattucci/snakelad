@@ -93,13 +93,13 @@ public interface ViewObserver {
     void setVolume(float volume);
 
     /**
-     * Manages the user's login.
-     * @param name
+     * Manage the user's login.
+     * @param userName
      *          the name of user.
      * @throws IllegalArgumentException if the argument 'name' is empty.
      * @throws IOException if an error about input/output happened.
      */
-    void login(String name) throws IllegalArgumentException, IOException;
+    void login(String userName) throws IllegalArgumentException, IOException;
 
     /**
      * Notify if happen a collision between coin and pawn.
