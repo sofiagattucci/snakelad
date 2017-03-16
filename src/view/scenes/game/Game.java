@@ -50,13 +50,6 @@ public interface Game {
     void updateLanguage();
 
     /**
-     * It holds the number of players in the game. At this time we don' t know the number so an abstract method is needed.
-     * @return
-     *     The number of players in the game
-     */
-    int getTag();
-
-    /**
      * It handles the end of the game.
      */
     void gameOver();

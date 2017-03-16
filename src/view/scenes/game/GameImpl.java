@@ -35,10 +35,8 @@ import view.scenes.setup.SetUpGame;
 
 /**
  * This class creates and initializes a generic game scene.
- * @param <X>
- *     The type of tool bar to use for the game. It depends on the game mode selected
  */
-public abstract class GameImpl<X extends Toolbar> extends BasicScene implements Game { 
+public abstract class GameImpl extends BasicScene implements Game { 
 
     private static String boardPath = GameBoardTypes.get().getBoard(SetUpGame.getBoardType());
     private Toolbar toolbar;
@@ -53,7 +51,7 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     protected GameImpl() {
 
         this.setBackground(); 
-        IntStream.range(0, this.getTag())
+        IntStream.range(0, this.getNumPlayers())
                  .forEach(i -> {
                       final Pawn newPawn = new PawnImpl(this, PawnTypes.get().getPawn(this.getColor(i)));
                       this.pawnList.add(newPawn);
@@ -82,12 +80,12 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     }
 
     private void movePawn(final int nBoxes) {
-        this.pawnList.get(this.currentTurn % this.getTag()).movePawn(nBoxes);
+        this.pawnList.get(this.currentTurn % this.getNumPlayers()).movePawn(nBoxes);
         this.currentTurn++;
     }
 
     private void movePawn(final int nBoxes, final int finalPos) {
-        this.pawnList.get(this.currentTurn % this.getTag()).movePawnAndJump(nBoxes, finalPos);
+        this.pawnList.get(this.currentTurn % this.getNumPlayers()).movePawnAndJump(nBoxes, finalPos);
         this.currentTurn++;
     }
 
@@ -152,8 +150,12 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
         this.getDefaultLayout().getChildren().add(newItem.getItemImageView());
     }
 
-    @Override
-    public abstract int getTag();
+    /**
+     * It holds the number of players in the game. At this time we don' t know the number so an abstract method is needed.
+     * @return
+     *     The number of players in the game
+     */
+    protected abstract int getNumPlayers();
 
     @Override
     public abstract void gameOver();
@@ -193,10 +195,10 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
      * @param t
      *     The tool bar to use in the scene
      */
-    protected void putToolbar(final X t) {
+    protected void putToolbar(final Toolbar t) {
         this.toolbar = t;
         this.getDefaultLayout().setRight(this.toolbar.getBox());
-        this.getToolbar().putLabels(this, getTag());
+        this.getToolbar().putLabels(this, getNumPlayers());
     }
 
     @Override
@@ -209,7 +211,7 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
 
         final Set<Integer> keySet = new HashSet<>(ViewImpl.getPlayScene().getItemMap().keySet());
         for (final int key: keySet) {
-            if (this.pawnList.get((this.currentTurn - 1) % this.getTag()).getPawn().intersects(
+            if (this.pawnList.get((this.currentTurn - 1) % this.getNumPlayers()).getPawn().intersects(
                     ViewImpl.getPlayScene().getItemMap().get(key).getItemImageView().getBoundsInLocal())) {
                 ViewImpl.getObserver().collisionHappened(key);
                 this.getDefaultLayout().getChildren().remove(this.itemMap.get(key).getItemImageView());

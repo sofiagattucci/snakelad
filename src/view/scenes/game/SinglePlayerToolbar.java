@@ -8,7 +8,7 @@ import view.pawn.PawnsColor;
 /**
  * It manages the tool bar shown in the screen in a single player game.
  */
-public class SinglePlayerToolbar  extends Toolbar {
+public class SinglePlayerToolbar  extends ToolbarImpl {
 
     private static final String CPU = " CPU";
 
@@ -31,7 +31,7 @@ public class SinglePlayerToolbar  extends Toolbar {
      *     The width of the box
      */
     public static double getBoxWidth() {
-        return Toolbar.getBoxWidth();
+        return ToolbarImpl.getBoxWidth();
     }
 
     /**
@@ -40,7 +40,7 @@ public class SinglePlayerToolbar  extends Toolbar {
      *     The stage to link
      */
     public static void setStage(final Stage stage) {
-        Toolbar.setStage(stage);
+        ToolbarImpl.setStage(stage);
     }
 
     @Override
