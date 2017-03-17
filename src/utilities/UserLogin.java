@@ -93,6 +93,11 @@ public final class UserLogin {
         properties.setProperty(USER_GAMES_WON_KEY, String.valueOf(0));
         properties.setProperty(USER_GAMES_LOST_KEY, String.valueOf(0));
 
+        this.user.setScore(0);
+        this.user.setNumberOfDiceRoll(0);
+        this.user.setGamesWon(0);
+        this.user.setGamesLost(0);
+
         try {
             final FileOutputStream fos = new FileOutputStream(userFile);
             properties.store(fos, "Statistics of " + this.user.getName());
@@ -124,12 +129,14 @@ public final class UserLogin {
             this.extractUserInfoFromFile(userFile);
         } else { //the file doesn't exist or 'users' directory doesn't exist
             final File dir = new File(USERS_DIRECTORY);
+
             if (dir.isDirectory()) {
                 this.createNewUserDefaultFile(userFile);
             } else {
                 if (!dir.mkdir()) { //if the directory is not created (RuntimeException is thrown)
                     throw new RuntimeException("Error during creating the empty directory 'users'.");
                 }
+
                 this.createNewUserDefaultFile(userFile);
             }
         }

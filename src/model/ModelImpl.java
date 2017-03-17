@@ -316,6 +316,7 @@ public final class ModelImpl implements Model {
                                                           .numberOfDiceRoll(this.user.getNumberOfDiceRoll())
                                                           .scores(this.user.getScore())
                                                           .build();
+
         return userStatistics;
     }
 
