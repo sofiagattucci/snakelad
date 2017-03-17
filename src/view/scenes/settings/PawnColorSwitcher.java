@@ -45,7 +45,7 @@ public abstract class PawnColorSwitcher {
      * @param nPlayers
      *     The number of players to manage
      */
-    public PawnColorSwitcher(final String title, final int nPlayers) {
+    protected PawnColorSwitcher(final String title, final int nPlayers) {
 
         this.grid.setHgap(COMBO_BOX_GAP);
         this.grid.setVgap(COMBO_BOX_GAP);
