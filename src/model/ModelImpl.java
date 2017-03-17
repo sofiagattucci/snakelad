@@ -308,7 +308,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Statistic getStatistics() {
+    public synchronized Statistic getStatistics() {
         //build Statistic object
         final Statistic userStatistics = new StatisticImpl.Builder()
                                                           .gameWon(this.user.getGamesWon())
@@ -316,6 +316,7 @@ public final class ModelImpl implements Model {
                                                           .numberOfDiceRoll(this.user.getNumberOfDiceRoll())
                                                           .scores(this.user.getScore())
                                                           .build();
+
         return userStatistics;
     }
 
