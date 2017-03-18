@@ -13,14 +13,14 @@ import view.scenes.settings.MusicManager;
 public class MainFrame extends Application {
 
     private static final String TITLE = "SnakeNLadder";
-    private static final String ICONE = "./res/icons/logo.png";
+    private static final String ICON = "icons/logo.png";
 
     @Override
     public void start(final Stage defaultStage) {
 
         defaultStage.initStyle(StageStyle.UNDECORATED);
         defaultStage.setTitle(TITLE);
-        defaultStage.getIcons().add(ImageManager.get().readFromFile(ICONE));
+        defaultStage.getIcons().add(ImageManager.get().readFromFile(ICON));
 
         defaultStage.setHeight(Dimension.SCREEN_H * Dimension.SCREEN_H_PERC);
         defaultStage.setWidth(Dimension.SCREEN_W * Dimension.SCREEN_W_PERC);

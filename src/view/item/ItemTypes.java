@@ -13,7 +13,7 @@ import utilities.enumeration.TypesOfItem;
 public final class ItemTypes {
 
     private static final int N_ITEMS = TypesOfItem.values().length;
-    private static final String STD_PATH = "./res/icons/";
+    private static final String STD_PATH = "icons/";
     private static final String COIN_PATH = STD_PATH + "coin.gif";
     private static final String DIAMOND_PATH = STD_PATH + "diamond.gif";
     private static final String SKULL_PATH = STD_PATH + "skull.png";

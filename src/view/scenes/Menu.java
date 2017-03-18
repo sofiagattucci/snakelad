@@ -24,7 +24,7 @@ public final class Menu extends BasicScene {
     private static final String INSTRUCTIONS_KEY = "menu.instructions";
     private static final String SETTINGS_KEY = "menu.settings";
     private static final String QUIT_KEY = "menu.quit";
-    private static final String LOGO_PATH = "./res/icons/mainMenuLogo.png";
+    private static final String LOGO_PATH = "icons/mainMenuLogo.png";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final double LOGO_Y_TRANSLATION = BasicButton.getButtonHeight() / 2;
     private static final double LOGO_HEIGHT = view.Dimension.BOARD_H / 3;

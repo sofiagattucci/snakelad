@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
  */
 public final class PawnTypes {
 
-    private static final String BASIC_PATH = "./res/pawns/";
+    private static final String BASIC_PATH = "pawns/";
     private static final String RED_PAWN_PATH = BASIC_PATH + "RedPawn.png";
     private static final String LIGHTBLUE_PAWN_PATH = BASIC_PATH + "LightBluePawn.png";
     private static final String YELLOW_PAWN_PATH = BASIC_PATH + "YellowPawn.png";

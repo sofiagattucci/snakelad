@@ -19,7 +19,7 @@ public final class DiceTypes {
     private static final int MAX_TO10 = 10;
     private static final int MIN_NEG = -2;
     private static final int MAX_NEG = 5;
-    private static final String STANDARD_DICE_PATH = "./res/dices/";
+    private static final String STANDARD_DICE_PATH = "dices/";
     private static final String DICE_SIDE = "DiceSide";
     private static final String PNG = ".png";
     private static final String CLASSIC_DICE = "classicDice/";

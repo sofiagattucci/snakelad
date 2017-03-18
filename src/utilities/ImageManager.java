@@ -1,8 +1,5 @@
 package utilities;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -39,7 +36,9 @@ public final class ImageManager implements FileManager {
 
     @Override
     public Image readFromFile(final String path) {
-
+        return new Image(ImageManager.class.getResourceAsStream("/" + path));
+    }
+/*
         try (FileInputStream in = new FileInputStream(path)) {
             return new Image(in);
         } catch (IOException exception) {
@@ -48,7 +47,7 @@ public final class ImageManager implements FileManager {
         }
         return null;
     }
-
+*/
     @Override
     public void writeToFile(final String path) {
 

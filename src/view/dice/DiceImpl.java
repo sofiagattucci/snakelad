@@ -14,7 +14,7 @@ import view.scenes.setup.SetUpGame;
  */
 public class DiceImpl implements Dice {
 
-    private static final String DEFAULT_DICE = "./res/dices/classicDice/DiceSide1.png";
+    private static final String DEFAULT_DICE = DiceTypes.get().getSpecificDiceMap(TypesOfDice.CLASSIC_DICE).get(1);
 
     private final Image diceImage = ImageManager.get().readFromFile(DEFAULT_DICE);
     private Map<Integer, String> diceSides = new HashMap<>(DiceTypes.get().getSpecificDiceMap(TypesOfDice.CLASSIC_DICE));
