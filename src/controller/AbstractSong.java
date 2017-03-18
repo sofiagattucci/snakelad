@@ -4,7 +4,7 @@ package controller;
  * Abstract class for Song.
  *
  */
-public abstract class Song {
+public abstract class AbstractSong {
 
     private static final float MAX = 0;
     private static final float MIN = -30;

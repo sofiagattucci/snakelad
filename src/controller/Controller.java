@@ -33,7 +33,7 @@ public final class Controller implements ViewObserver {
     private static final String LOSE = "./res/soundEffects/lose.wav";
     private final Model game;
     private final View view;
-    private final SongImpl playSong;
+    private final BackgroundMusic playSong;
     private final UserLogin userLogin;
     private final PathMap path;
     private Jump clipJump;
@@ -47,7 +47,7 @@ public final class Controller implements ViewObserver {
      * Constructor.
      */
     private Controller() {
-        this.playSong = new SongImpl();
+        this.playSong = new BackgroundMusic();
         this.game = new ModelImpl();
         this.view = new ViewImpl(this);
         this.turn = 0;

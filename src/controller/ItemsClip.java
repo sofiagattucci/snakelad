@@ -11,7 +11,7 @@ import javax.sound.sampled.FloatControl;
  * Start the clip for items collision.
  *
  */
-public class ItemsClip extends Song implements Runnable {
+public class ItemsClip extends AbstractSong implements Runnable {
     private Clip clip;
     private String path;
     private final Thread t;

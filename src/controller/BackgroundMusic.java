@@ -11,10 +11,10 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 /**
- * Implementation of Song interface.
+ * Class to manage the background music.
  *
  */
-public class SongImpl extends Song {
+public class BackgroundMusic extends AbstractSong {
 
     private Clip clip;
     private FloatControl volume;
@@ -23,7 +23,7 @@ public class SongImpl extends Song {
     /**
      * Constructor. 
      */
-    public SongImpl() {
+    public BackgroundMusic() {
         try {
             clip = AudioSystem.getClip();
         } catch (Exception e) {
