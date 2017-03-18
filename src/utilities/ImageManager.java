@@ -36,18 +36,15 @@ public final class ImageManager implements FileManager {
 
     @Override
     public Image readFromFile(final String path) {
+        try {
         return new Image(ImageManager.class.getResourceAsStream("/" + path));
-    }
-/*
-        try (FileInputStream in = new FileInputStream(path)) {
-            return new Image(in);
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             ConsoleLog.get().print("ERROR occurred during loading image located at: " + path);
             exception.printStackTrace();
         }
         return null;
     }
-*/
+
     @Override
     public void writeToFile(final String path) {
 
