@@ -1,6 +1,5 @@
 package view;
 
-import java.nio.file.Paths;
 import java.util.Map;
 
 import controller.ViewObserver;
@@ -22,7 +21,7 @@ import view.scenes.setup.SetUpGame;
 public class ViewImpl implements View {
 
     private static final Language DEFAULT_LANGUAGE = Language.EN;
-    private static final String STYLESHEET_PATH = "./res/style.css";
+    private static final String STYLESHEET_PATH = "style.css";
 
     private static Menu menuScene;
     private static Stage appStage;
@@ -185,7 +184,7 @@ public class ViewImpl implements View {
      *     The css style sheet
      */
     public static String getStylesheet() {
-        return Paths.get(STYLESHEET_PATH).toUri().toString();
+        return STYLESHEET_PATH;
     }
 
     @Override
