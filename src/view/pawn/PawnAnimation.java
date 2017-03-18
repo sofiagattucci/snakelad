@@ -9,7 +9,7 @@ import view.ViewImpl;
  */
 public class PawnAnimation implements Runnable {
 
-    private static final double STEP = 5;
+    private static final double STEP = 1;
 
     private final Pawn pawnClass;
     private final int nMoves;
@@ -130,7 +130,7 @@ public class PawnAnimation implements Runnable {
         Platform.runLater(r);
         this.checkCollision();
         try {
-            Thread.sleep(10);
+            Thread.sleep(4);
         } catch (InterruptedException e) {
         }
     }
