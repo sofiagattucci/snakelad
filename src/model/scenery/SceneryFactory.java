@@ -15,6 +15,6 @@ public interface SceneryFactory {
      *          number of cells on the game board) useful to start the game.
      * @return the scenery set from the 'data' argument.
      */
-    Scenery setUpScenery(List<Integer> data);
+    Scenery createScenery(List<Integer> data);
 
 }

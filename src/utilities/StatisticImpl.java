@@ -28,14 +28,12 @@ public final class StatisticImpl implements Statistic {
      * An inner builder for StatisticImpl objects.
      * It's designed using Builder pattern in a 'fluent' way.
      */
-    public static class Builder {
+    public static class StatisticBuilder {
 
-        private static final int NOT_ALREADY_INITIALIZED = -1;
-
-        private int gamesWonValue = NOT_ALREADY_INITIALIZED;
-        private int gameLostValue = NOT_ALREADY_INITIALIZED;
-        private int numberOfDiceRollValue = NOT_ALREADY_INITIALIZED;
-        private int scoresValue = NOT_ALREADY_INITIALIZED;
+        private int gamesWonValue;
+        private int gameLostValue;
+        private int numberOfDiceRollValue;
+        private int scoresValue;
 
         /**
          * Sets the number of games won by the user and returns the builder in order to get a fluent interface.
@@ -44,7 +42,7 @@ public final class StatisticImpl implements Statistic {
          * @return the builder in order to get a fluent interface.
          * @throws IllegalArgumentException if the unique argument passed is less than 0.
          */
-        public Builder gameWon(final int gamesWon) {
+        public StatisticBuilder gamesWon(final int gamesWon) {
             if (gamesWon < 0) {
                 throw ILLEGAL_ARG_EXC_SUPPLIER.get();
             }
@@ -60,7 +58,7 @@ public final class StatisticImpl implements Statistic {
          * @return the builder in order to get a fluent interface.
          * @throws IllegalArgumentException if the unique argument passed is less than 0.
          */
-        public Builder gameLost(final int gamesLost) {
+        public StatisticBuilder gamesLost(final int gamesLost) {
             if (gamesLost < 0) {
                 throw ILLEGAL_ARG_EXC_SUPPLIER.get();
             }
@@ -76,7 +74,7 @@ public final class StatisticImpl implements Statistic {
          * @return the builder in order to get a fluent interface.
          * @throws IllegalArgumentException if the unique argument passed is less than 0.
          */
-        public Builder numberOfDiceRoll(final int numberOfDiceRoll) {
+        public StatisticBuilder numberOfDiceRoll(final int numberOfDiceRoll) {
             if (numberOfDiceRoll < 0) {
                 throw ILLEGAL_ARG_EXC_SUPPLIER.get();
             }
@@ -87,31 +85,25 @@ public final class StatisticImpl implements Statistic {
 
         /**
          * Sets the current user's scores and returns the builder in order to get a fluent interface.
-         * @param scores
+         * @param score
          *                  The current user's scores.
          * @return the builder in order to get a fluent interface.
          * @throws IllegalArgumentException if the unique argument passed is less than 0.
          */
-        public Builder scores(final int scores) {
-            if (scores < 0) {
+        public StatisticBuilder score(final int score) {
+            if (score < 0) {
                 throw ILLEGAL_ARG_EXC_SUPPLIER.get();
             }
 
-            this.scoresValue = scores;
+            this.scoresValue = score;
             return this;
         }
 
         /**
          * Builds and returns a StatisticImpl object.
          * @return a StatisticImpl object.
-         * @throws IllegalStateException if some fields are not initialized.
          */
-        public Statistic build() throws IllegalStateException {
-            if (this.gamesWonValue == NOT_ALREADY_INITIALIZED || this.gameLostValue == NOT_ALREADY_INITIALIZED
-                || this.numberOfDiceRollValue == NOT_ALREADY_INITIALIZED || this.scoresValue == NOT_ALREADY_INITIALIZED) {
-                throw new IllegalStateException("Some fields aren't initialized!");
-            }
-
+        public Statistic build() {
             return new StatisticImpl(this.gamesWonValue, this.gameLostValue, this.numberOfDiceRollValue, this.scoresValue);
         }
 
