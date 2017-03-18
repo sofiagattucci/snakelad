@@ -202,7 +202,7 @@ public final class ModelImpl implements Model {
         }
 
         this.isReady = true;
-        this.scenery = new SceneryFactoryImpl().setUpScenery(data);
+        this.scenery = new SceneryFactoryImpl().createScenery(data);
 
         //fill playersList with the exact number of players playing the game and set their initial positions
         this.playersList.addAll(IntStream.range(0, numberOfPlayers)
@@ -310,11 +310,11 @@ public final class ModelImpl implements Model {
     @Override
     public Statistic getStatistics() {
         //build Statistic object
-        final Statistic userStatistics = new StatisticImpl.Builder()
-                                                          .gameWon(this.user.getGamesWon())
-                                                          .gameLost(this.user.getGamesLost())
+        final Statistic userStatistics = new StatisticImpl.StatisticBuilder()
+                                                          .gamesWon(this.user.getGamesWon())
+                                                          .gamesLost(this.user.getGamesLost())
                                                           .numberOfDiceRoll(this.user.getNumberOfDiceRoll())
-                                                          .scores(this.user.getScore())
+                                                          .score(this.user.getScore())
                                                           .build();
 
         return userStatistics;

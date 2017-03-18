@@ -70,7 +70,7 @@ public class SceneryImplTest {
     @Test
     public void testSceneryImplGameBoard1() {
         final List<Integer> dataList = new LinkedList<>(SceneryDataManager.get().readFromFile(GAME_BOARD_1));
-        Scenery scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        Scenery scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         //call setNumberOfBoxes() with argument's value 0. It must throw an IllegalArgumentException
         try {
@@ -127,7 +127,7 @@ public class SceneryImplTest {
         }
 
         //Set up again the scenery, filling its maps
-        scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
@@ -135,7 +135,7 @@ public class SceneryImplTest {
         scenery.clearMaps();
 
         //Set up again the scenery, filling its maps
-        scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
@@ -148,7 +148,7 @@ public class SceneryImplTest {
     @Test
     public void testSceneryImplGameBoard2() {
         final List<Integer> dataList = new LinkedList<>(SceneryDataManager.get().readFromFile(GAME_BOARD_2));
-        Scenery scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        Scenery scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         //call setNumberOfBoxes() with argument's value 0. It must throw an IllegalArgumentException
         try {
@@ -205,7 +205,7 @@ public class SceneryImplTest {
         }
 
         //Set up again the scenery, filling its maps
-        scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
@@ -213,7 +213,7 @@ public class SceneryImplTest {
         scenery.clearMaps();
 
         //Set up again the scenery, filling its maps
-        scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
@@ -226,7 +226,7 @@ public class SceneryImplTest {
     @Test
     public void testSceneryImplGameBoard3() {
         final List<Integer> dataList = new LinkedList<>(SceneryDataManager.get().readFromFile(GAME_BOARD_3));
-        Scenery scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        Scenery scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         //call setNumberOfBoxes() with argument's value 0. It must throw an IllegalArgumentException
         try {
@@ -283,7 +283,7 @@ public class SceneryImplTest {
         }
 
         //Set up again the scenery, filling its maps
-        scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
@@ -291,7 +291,7 @@ public class SceneryImplTest {
         scenery.clearMaps();
 
         //Set up again the scenery, filling its maps
-        scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
@@ -304,7 +304,7 @@ public class SceneryImplTest {
     @Test
     public void testSceneryImplGameBoard4() {
         final List<Integer> dataList = new LinkedList<>(SceneryDataManager.get().readFromFile(GAME_BOARD_4));
-        Scenery scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        Scenery scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         //call setNumberOfBoxes() with argument's value 0. It must throw an IllegalArgumentException
         try {
@@ -361,7 +361,7 @@ public class SceneryImplTest {
         }
 
         //Set up again the scenery, filling its maps
-        scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);
@@ -369,7 +369,7 @@ public class SceneryImplTest {
         scenery.clearMaps();
 
         //Set up again the scenery, filling its maps
-        scenery = new SceneryFactoryImpl().setUpScenery(dataList);
+        scenery = new SceneryFactoryImpl().createScenery(dataList);
 
         assertEquals(scenery.getSnakesMap(), this.snakesMap);
         assertEquals(scenery.getLaddersMap(), this.laddersMap);

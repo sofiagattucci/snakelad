@@ -56,7 +56,7 @@ public final class SceneryDataManager implements FileManager {
 
     @Override
     public void writeToFile(final String path) {
-        //do nothing
+
     }
 
 }

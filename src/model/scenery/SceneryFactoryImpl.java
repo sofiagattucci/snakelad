@@ -54,7 +54,7 @@ public class SceneryFactoryImpl implements SceneryFactory {
     }
 
     @Override
-    public Scenery setUpScenery(final List<Integer> data) {
+    public Scenery createScenery(final List<Integer> data) {
 
         final List<Integer> dataList = new LinkedList<>(data);
 
