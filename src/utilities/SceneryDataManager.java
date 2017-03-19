@@ -35,7 +35,7 @@ public final class SceneryDataManager implements FileManager {
 
         final List<Integer> dataList = new LinkedList<>();
 
-        try (BufferedReader bf = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader bf = new BufferedReader(new FileReader(System.class.getResource(path).getPath()))) {
             Optional<String> line;
             line = Optional.ofNullable(bf.readLine());
             while (line.isPresent()) {
