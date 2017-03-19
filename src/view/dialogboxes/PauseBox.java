@@ -20,9 +20,9 @@ public class PauseBox extends BasicDialogBox {
 
     private final Label titleLabel = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
     private final Label msgLabel = new Label(LanguageStringMap.get().getMap().get(MSG_KEY));
-    private final ButtonType giveUp  = new ButtonType(LanguageStringMap.get().getMap().get(GIVE_UP_KEY));
-    private final ButtonType restart = new ButtonType(LanguageStringMap.get().getMap().get(RESTART_KEY));
-    private final ButtonType resume = new ButtonType(LanguageStringMap.get().getMap().get(RESUME_KEY));
+    private ButtonType giveUp;
+    private ButtonType restart; 
+    private ButtonType resume;
 
     /**
      * Constructor of the class.
@@ -66,6 +66,9 @@ public class PauseBox extends BasicDialogBox {
 
         this.getBox().setTitle(titleLabel.getText());
         this.getBox().setHeaderText(msgLabel.getText());
+        this.giveUp = new ButtonType(LanguageStringMap.get().getMap().get(GIVE_UP_KEY));
+        this.resume = new ButtonType(LanguageStringMap.get().getMap().get(RESUME_KEY));
+        this.restart = new ButtonType(LanguageStringMap.get().getMap().get(RESTART_KEY));
         this.getBox().getButtonTypes().addAll(this.resume, this.restart, this.giveUp);
     }
 }
