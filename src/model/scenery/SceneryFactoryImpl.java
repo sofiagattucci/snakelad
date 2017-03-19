@@ -55,7 +55,6 @@ public class SceneryFactoryImpl implements SceneryFactory {
 
     @Override
     public Scenery createScenery(final List<Integer> data) {
-
         final List<Integer> dataList = new LinkedList<>(data);
 
         //get the first number from dataList. It represents the number of boxes in the scenery

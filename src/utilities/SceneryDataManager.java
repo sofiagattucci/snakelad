@@ -50,6 +50,8 @@ public final class SceneryDataManager implements FileManager {
         } catch (IOException exception) {
             ConsoleLog.get().print("Error...Failed to read scenery from data file located at: " + path);
             exception.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("ciao");
         }
         return dataList;
     }
