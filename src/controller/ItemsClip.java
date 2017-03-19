@@ -38,7 +38,7 @@ public class ItemsClip extends AbstractSong implements Runnable {
             synchronized (clip) {
                 try {
                     if (!this.clip.isOpen()) {
-                        clip.open(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
+                        clip.open(AudioSystem.getAudioInputStream(new File(path)));
                         this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                         this.setVolume(this.currentVolume);
                         clip.start();

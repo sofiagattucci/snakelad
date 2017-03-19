@@ -52,7 +52,7 @@ public class BackgroundMusic extends AbstractSong {
         try {
             if (!this.clip.isRunning()) {
                 try {
-                    clip.open(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
+                    clip.open(AudioSystem.getAudioInputStream(new File(path)));
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
                     e.printStackTrace();
                 }
