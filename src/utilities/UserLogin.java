@@ -25,7 +25,7 @@ public final class UserLogin {
     private static final String OS_SEPARATOR = System.getProperty("file.separator");
     private static final String SNAKELAD_DIR = ".snakelad";
     private static final String USERS_SUFFIX = ".properties";
-    private static final String USER_SCORES_KEY = "Scores";
+    private static final String USER_SCORES_KEY = "Score";
     private static final String USER_NUMBER_OF_DICE_ROLL_KEY = "NumberOfDiceRoll";
     private static final String USER_GAMES_WON_KEY = "GamesWon";
     private static final String USER_GAMES_LOST_KEY = "GamesLost";
