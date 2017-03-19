@@ -1,8 +1,8 @@
 package utilities;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -32,10 +32,9 @@ public final class SceneryDataManager implements FileManager {
 
     @Override
     public List<Integer> readFromFile(final String path) {
-
         final List<Integer> dataList = new LinkedList<>();
 
-        try (BufferedReader bf = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader bf = new BufferedReader(new InputStreamReader(System.class.getResourceAsStream(path)))) {
             Optional<String> line;
             line = Optional.ofNullable(bf.readLine());
             while (line.isPresent()) {
@@ -51,6 +50,7 @@ public final class SceneryDataManager implements FileManager {
             ConsoleLog.get().print("Error...Failed to read scenery from data file located at: " + path);
             exception.printStackTrace();
         }
+
         return dataList;
     }
 

@@ -1,6 +1,6 @@
 package controller;
 
-import java.io.File;
+import java.io.BufferedInputStream;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -11,7 +11,7 @@ import javax.sound.sampled.FloatControl;
  * Start the clip for items collision.
  *
  */
-public class ItemsClip extends Song implements Runnable {
+public class ItemsClip extends AbstractSong implements Runnable {
     private Clip clip;
     private String path;
     private final Thread t;
@@ -38,7 +38,7 @@ public class ItemsClip extends Song implements Runnable {
             synchronized (clip) {
                 try {
                     if (!this.clip.isOpen()) {
-                        clip.open(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
+                        clip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(System.class.getResourceAsStream(path))));
                         this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                         this.setVolume(this.currentVolume);
                         clip.start();

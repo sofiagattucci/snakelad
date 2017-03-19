@@ -4,8 +4,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import controller.Song;
-import controller.SongImpl;
+import controller.AbstractSong;
+import controller.BackgroundMusic;
 import utilities.ConsoleLog;
 
 /**
@@ -25,7 +25,7 @@ public class SongImplTest {
      */
     @Test
     public void musicTest() {
-        final Song music = new SongImpl();
+        final AbstractSong music = new BackgroundMusic();
       //try to stop music before call start method.
         try {
             music.stop();

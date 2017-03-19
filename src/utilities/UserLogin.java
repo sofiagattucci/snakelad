@@ -21,9 +21,11 @@ import model.user.UserImpl;
 public final class UserLogin {
 
     private static final UserLogin SINGLETON = new UserLogin();
-    private static final String USERS_DIRECTORY = "./res/users/";
+    private static final String USER_HOME = System.getProperty("user.home");
+    private static final String OS_SEPARATOR = System.getProperty("file.separator");
+    private static final String SNAKELAD_DIR = ".snakelad";
     private static final String USERS_SUFFIX = ".properties";
-    private static final String USER_SCORES_KEY = "Scores";
+    private static final String USER_SCORES_KEY = "Score";
     private static final String USER_NUMBER_OF_DICE_ROLL_KEY = "NumberOfDiceRoll";
     private static final String USER_GAMES_WON_KEY = "GamesWon";
     private static final String USER_GAMES_LOST_KEY = "GamesLost";
@@ -123,22 +125,21 @@ public final class UserLogin {
         }
 
         this.user.setName(userName);
-        final File userFile = new File(USERS_DIRECTORY + userName + USERS_SUFFIX);
+        final File homeDir = new File(USER_HOME + OS_SEPARATOR + SNAKELAD_DIR);
+
+        if (!homeDir.exists()) {
+            final boolean check = homeDir.mkdir();
+            if (!check) { //if the directory is not created (RuntimeException is thrown)
+                throw new RuntimeException("Error during creating the empty directory at path " + USER_HOME + OS_SEPARATOR + SNAKELAD_DIR);
+            }
+        }
+
+        final File userFile = new File(USER_HOME + OS_SEPARATOR + SNAKELAD_DIR + OS_SEPARATOR + userName + USERS_SUFFIX);
 
         if (userFile.exists()) {
             this.extractUserInfoFromFile(userFile);
         } else { //the file doesn't exist or 'users' directory doesn't exist
-            final File dir = new File(USERS_DIRECTORY);
-
-            if (dir.isDirectory()) {
-                this.createNewUserDefaultFile(userFile);
-            } else {
-                if (!dir.mkdir()) { //if the directory is not created (RuntimeException is thrown)
-                    throw new RuntimeException("Error during creating the empty directory 'users'.");
-                }
-
-                this.createNewUserDefaultFile(userFile);
-            }
+            this.createNewUserDefaultFile(userFile);
         }
 
     }

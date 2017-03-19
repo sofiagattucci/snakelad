@@ -20,10 +20,10 @@ import utilities.SceneryDataManager;
  */
 public class SceneryImplTest {
 
-    private static final String GAME_BOARD_1 = "./res/gameBoards/gameBoard1/file.txt";
-    private static final String GAME_BOARD_2 = "./res/gameBoards/gameBoard2/file.txt";
-    private static final String GAME_BOARD_3 = "./res/gameBoards/gameBoard3/file.txt";
-    private static final String GAME_BOARD_4 = "./res/gameBoards/gameBoard4/file.txt";
+    private static final String GAME_BOARD_1 = "/gameBoards/gameBoard1/file.txt";
+    private static final String GAME_BOARD_2 = "/gameBoards/gameBoard2/file.txt";
+    private static final String GAME_BOARD_3 = "/gameBoards/gameBoard3/file.txt";
+    private static final String GAME_BOARD_4 = "/gameBoards/gameBoard4/file.txt";
     private static final int NUMBER_OF_BOXES_GAME_BOARD_1 = 35;
     private static final int NUMBER_OF_BOXES_GAME_BOARD_2 = 63;
     private static final int NUMBER_OF_BOXES_GAME_BOARD_3 = 63;

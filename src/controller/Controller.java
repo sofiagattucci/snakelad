@@ -27,13 +27,13 @@ import view.ViewImpl;
 public final class Controller implements ViewObserver {
 
     private static final Controller SINGLETON = new Controller();
-    private static final String SNAKE = "./res/soundEffects/snake.wav";
-    private static final String LADDER = "./res/soundEffects/ladder.wav";
-    private static final String WIN = "./res/soundEffects/win.wav";
-    private static final String LOSE = "./res/soundEffects/lose.wav";
+    private static final String SNAKE = "/soundEffects/snake.wav";
+    private static final String LADDER = "/soundEffects/ladder.wav";
+    private static final String WIN = "/soundEffects/win.wav";
+    private static final String LOSE = "/soundEffects/lose.wav";
     private final Model game;
     private final View view;
-    private final SongImpl playSong;
+    private final BackgroundMusic playSong;
     private final UserLogin userLogin;
     private final PathMap path;
     private Jump clipJump;
@@ -47,21 +47,21 @@ public final class Controller implements ViewObserver {
      * Constructor.
      */
     private Controller() {
-        this.playSong = new SongImpl();
+        this.playSong = new BackgroundMusic();
         this.game = new ModelImpl();
         this.view = new ViewImpl(this);
         this.turn = 0;
         this.clipJump = Jump.NO_JUMP;
         this.settings = Optional.empty();
-        this.path = new PathMapBuilder().itemClipMap(TypesOfItem.COIN, "./res/soundEffects/coin.wav")
-                .itemClipMap(TypesOfItem.DIAMOND, "./res/soundEffects/diamond.wav")
-                .itemClipMap(TypesOfItem.SKULL, "./res/soundEffects/skull.wav")
-                .sceneryMap(Difficulty.BEGINNER, "./res/gameBoards/gameBoard1/file.txt")
-                .sceneryMap(Difficulty.EASY, "./res/gameBoards/gameBoard2/file.txt")
-                .sceneryMap(Difficulty.MEDIUM, "./res/gameBoards/gameBoard3/file.txt")
-                .sceneryMap(Difficulty.HIGH, "./res/gameBoards/gameBoard4/file.txt")
-                .songMap(AudioTrack.SNAKELAD, "./res/music/Snakelad.wav")
-                .songMap(AudioTrack.CAVE_OF_DRAGONS, "./res/music/ID.wav")
+        this.path = new PathMapBuilder().itemClipMap(TypesOfItem.COIN, "/soundEffects/coin.wav")
+                .itemClipMap(TypesOfItem.DIAMOND, "/soundEffects/diamond.wav")
+                .itemClipMap(TypesOfItem.SKULL, "/soundEffects/skull.wav")
+                .sceneryMap(Difficulty.BEGINNER, "/gameBoards/gameBoard1/file.txt")
+                .sceneryMap(Difficulty.EASY, "/gameBoards/gameBoard2/file.txt")
+                .sceneryMap(Difficulty.MEDIUM, "/gameBoards/gameBoard3/file.txt")
+                .sceneryMap(Difficulty.HIGH, "/gameBoards/gameBoard4/file.txt")
+                .songMap(AudioTrack.SNAKELAD, "/music/Snakelad.wav")
+                .songMap(AudioTrack.CAVE_OF_DRAGONS, "/music/ID.wav")
                 .build();
         this.userLogin = UserLogin.get();
     }

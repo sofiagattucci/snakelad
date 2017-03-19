@@ -1,6 +1,6 @@
 package controller;
 
-import java.io.File;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioSystem;
@@ -11,10 +11,10 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 /**
- * Implementation of Song interface.
+ * Class to manage the background music.
  *
  */
-public class SongImpl extends Song {
+public class BackgroundMusic extends AbstractSong {
 
     private Clip clip;
     private FloatControl volume;
@@ -23,7 +23,7 @@ public class SongImpl extends Song {
     /**
      * Constructor. 
      */
-    public SongImpl() {
+    public BackgroundMusic() {
         try {
             clip = AudioSystem.getClip();
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class SongImpl extends Song {
         try {
             if (!this.clip.isRunning()) {
                 try {
-                    clip.open(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
+                    clip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(System.class.getResourceAsStream(path))));
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
                     e.printStackTrace();
                 }

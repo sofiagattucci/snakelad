@@ -18,9 +18,11 @@ public final class UserStatisticsFileWriter {
     private static final Supplier<RuntimeException> ILLEGAL_ARG_EXC_SUPPLIER = () -> new IllegalArgumentException("The argument passed "
                                                                                                                 + "is less than 0!");
     private static final UserStatisticsFileWriter SINGLETON = new UserStatisticsFileWriter();
-    private static final String USERS_DIRECTORY = "./res/users/";
+    private static final String USER_HOME = System.getProperty("user.home");
+    private static final String OS_SEPARATOR = System.getProperty("file.separator");
+    private static final String SNAKELAD_DIR = ".snakelad";
     private static final String USERS_SUFFIX = ".properties";
-    private static final String USER_SCORES_KEY = "Scores";
+    private static final String USER_SCORES_KEY = "Score";
     private static final String USER_NUMBER_OF_DICE_ROLL_KEY = "NumberOfDiceRoll";
     private static final String USER_GAMES_WON_KEY = "GamesWon";
     private static final String USER_GAMES_LOST_KEY = "GamesLost";
@@ -54,14 +56,13 @@ public final class UserStatisticsFileWriter {
      * @throws IOException if an error about input/output happened.
      */
     public void writeUserStatistics(final int userScores, final int numberOfDiceRoll, 
-                                  final int gamesWon, final int gamesLost) throws IllegalArgumentException, IOException {
+                                    final int gamesWon, final int gamesLost) throws IllegalArgumentException, IOException {
 
         if (userScores < 0 || numberOfDiceRoll < 0 || gamesWon < 0 || gamesLost < 0) {
             throw ILLEGAL_ARG_EXC_SUPPLIER.get();
         }
 
-        final File file = new File(USERS_DIRECTORY + this.user.getName() + USERS_SUFFIX);
-
+        final File file = new File(USER_HOME + OS_SEPARATOR + SNAKELAD_DIR + OS_SEPARATOR + this.user.getName() + USERS_SUFFIX);
         if (!file.exists()) {
             throw new IllegalArgumentException("The user properties file is absent!");
         }

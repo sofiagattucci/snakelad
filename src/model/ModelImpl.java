@@ -206,9 +206,9 @@ public final class ModelImpl implements Model {
 
         //fill playersList with the exact number of players playing the game and set their initial positions
         this.playersList.addAll(IntStream.range(0, numberOfPlayers)
-                        .mapToObj(value -> new PlayerImpl())
-                        .peek(player -> player.setPosition(PLAYER_INITIAL_POSITION))
-                        .collect(Collectors.toList()));
+                                         .mapToObj(value -> new PlayerImpl())
+                                         .peek(player -> player.setPosition(PLAYER_INITIAL_POSITION))
+                                         .collect(Collectors.toList()));
 
         final DiceFactory diceFactory = new DiceFactoryImpl();
         switch (dice) {
