@@ -1,6 +1,6 @@
 package controller;
 
-import java.io.File;
+import java.io.BufferedInputStream;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -38,7 +38,7 @@ public class ItemsClip extends AbstractSong implements Runnable {
             synchronized (clip) {
                 try {
                     if (!this.clip.isOpen()) {
-                        clip.open(AudioSystem.getAudioInputStream(new File(path)));
+                        clip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(System.class.getResourceAsStream(path))));
                         this.volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                         this.setVolume(this.currentVolume);
                         clip.start();
