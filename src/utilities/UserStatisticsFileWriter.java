@@ -54,7 +54,7 @@ public final class UserStatisticsFileWriter {
      * @throws IOException if an error about input/output happened.
      */
     public void writeUserStatistics(final int userScores, final int numberOfDiceRoll, 
-                                  final int gamesWon, final int gamesLost) throws IllegalArgumentException, IOException {
+                                    final int gamesWon, final int gamesLost) throws IllegalArgumentException, IOException {
 
         if (userScores < 0 || numberOfDiceRoll < 0 || gamesWon < 0 || gamesLost < 0) {
             throw ILLEGAL_ARG_EXC_SUPPLIER.get();
