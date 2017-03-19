@@ -1,6 +1,6 @@
 package controller;
 
-import java.io.File;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioSystem;
@@ -52,7 +52,7 @@ public class BackgroundMusic extends AbstractSong {
         try {
             if (!this.clip.isRunning()) {
                 try {
-                    clip.open(AudioSystem.getAudioInputStream(new File(path)));
+                    clip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(System.class.getResourceAsStream(path))));
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
                     e.printStackTrace();
                 }
