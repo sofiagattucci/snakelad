@@ -12,7 +12,7 @@ import view.item.ItemTypes;
  */
 public class ItemTypesTest {
 
-    private static final String STD_PATH = "./res/icons/";
+    private static final String STD_PATH = "icons/";
     private static final String COIN_PATH = STD_PATH + "coin.gif";
     private static final String DIAMOND_PATH = STD_PATH + "diamond.gif";
     private static final String SKULL_PATH = STD_PATH + "skull.png";

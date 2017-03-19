@@ -12,7 +12,7 @@ import view.gameboard.GameBoardTypes;
  */
 public class GameBoardTypesTest {
 
-    private static final String STANDARD_BOARD_PATH = "./res/gameBoards/";
+    private static final String STANDARD_BOARD_PATH = "gameBoards/";
     private static final String GAME_BOARD = "gameBoard";
     private static final String ESCAPE = "/";
     private static final String MINI = "_mini";

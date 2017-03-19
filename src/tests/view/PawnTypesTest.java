@@ -12,15 +12,15 @@ import view.pawn.PawnTypes;
  */
 public class PawnTypesTest {
 
-    private static final String RED_PAWN_PATH = "./res/pawns/RedPawn.png";
-    private static final String LIGHTBLUE_PAWN_PATH = "./res/pawns/LightBluePawn.png";
-    private static final String YELLOW_PAWN_PATH = "./res/pawns/YellowPawn.png";
-    private static final String GREEN_PAWN_PATH = "./res/pawns/GreenPawn.png";
-    private static final String FUCHSIA_PAWN_PATH = "./res/pawns/FuchsiaPawn.png";
-    private static final String BLUE_PAWN_PATH = "./res/pawns/BluePawn.png";
-    private static final String BROWN_PAWN_PATH = "./res/pawns/BrownPawn.png";
-    private static final String PINK_PAWN_PATH = "./res/pawns/PinkPawn.png";
-    private static final String VIOLET_PAWN_PATH = "./res/pawns/VioletPawn.png";
+    private static final String RED_PAWN_PATH = "pawns/RedPawn.png";
+    private static final String LIGHTBLUE_PAWN_PATH = "pawns/LightBluePawn.png";
+    private static final String YELLOW_PAWN_PATH = "pawns/YellowPawn.png";
+    private static final String GREEN_PAWN_PATH = "pawns/GreenPawn.png";
+    private static final String FUCHSIA_PAWN_PATH = "pawns/FuchsiaPawn.png";
+    private static final String BLUE_PAWN_PATH = "pawns/BluePawn.png";
+    private static final String BROWN_PAWN_PATH = "pawns/BrownPawn.png";
+    private static final String PINK_PAWN_PATH = "pawns/PinkPawn.png";
+    private static final String VIOLET_PAWN_PATH = "pawns/VioletPawn.png";
 
     /**
      * Starting JUnit Tests.

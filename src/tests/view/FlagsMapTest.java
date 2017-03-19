@@ -14,11 +14,11 @@ import view.scenes.settings.FlagsMap;
  */
 public class FlagsMapTest {
 
-    private static final String EN = "./res/languagesFlags/united_kingdom.png";
-    private static final String IT = "./res/languagesFlags/italy.png";
-    private static final String FR = "./res/languagesFlags/france.png";
-    private static final String ES = "./res/languagesFlags/spain.png";
-    private static final String DE = "./res/languagesFlags/germany.png";
+    private static final String EN = "languagesFlags/united_kingdom.png";
+    private static final String IT = "languagesFlags/italy.png";
+    private static final String FR = "languagesFlags/france.png";
+    private static final String ES = "languagesFlags/spain.png";
+    private static final String DE = "languagesFlags/germany.png";
 
     /**
      * Starting JUnit tests.
