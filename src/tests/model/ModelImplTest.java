@@ -15,7 +15,8 @@ import model.Model;
 import model.ModelImpl;
 import utilities.ConsoleLog;
 import utilities.SceneryDataManager;
-import utilities.TypesOfDice;
+import utilities.enumeration.Turn;
+import utilities.enumeration.TypesOfDice;
 
 /**
  * Junit test used in order to test ModelImpl class.
@@ -35,16 +36,17 @@ public class ModelImplTest {
     private static final int DICE_5_TO_10_MIN_VALUE = 5;
     private static final int NEGATIVE_DICE_MAX_VALUE = 5;
     private static final int NEGATIVE_DICE_MIN_VALUE = -2;
-    private static final int NUMBER_OF_ITERATIONS = 10000;
+    private static final int NUMBER_OF_ITERATIONS = 1000;
     private static final int NUMBER_SUB_ITERATION = 80;
     private static final int GAME_BOARD_1_SIDE_SIZE = 6;
     private static final int GAME_BOARD_2_SIDE_SIZE = 8;
     private static final int GAME_BOARD_3_SIDE_SIZE = 8;
     private static final int GAME_BOARD_4_SIDE_SIZE = 10;
-    private static final String GAME_BOARD_1 = "./res/GameBoards/GameBoard1/file.txt";
-    private static final String GAME_BOARD_2 = "./res/GameBoards/GameBoard2/file.txt";
-    private static final String GAME_BOARD_3 = "./res/GameBoards/GameBoard3/file.txt";
-    private static final String GAME_BOARD_4 = "./res/GameBoards/GameBoard4/file.txt";
+    private static final int ITEMS_LIST_MAX_SIZE = 20;
+    private static final String GAME_BOARD_1 = "/gameBoards/gameBoard1/file.txt";
+    private static final String GAME_BOARD_2 = "/gameBoards/gameBoard2/file.txt";
+    private static final String GAME_BOARD_3 = "/gameBoards/gameBoard3/file.txt";
+    private static final String GAME_BOARD_4 = "/gameBoards/gameBoard4/file.txt";
 
     private final List<Integer> snakesListGameBoard1 = Arrays.asList(3, 4, 8, 24, 26);
     private final List<Integer> laddersListGameBoard1 = Arrays.asList(13, 28, 32, 33);
@@ -67,8 +69,29 @@ public class ModelImplTest {
     }
 
     //private method called to avoid too much repetition of identical code.
+    private void printIllegalArgumentException() {
+        final ConsoleLog log = ConsoleLog.get();
+        log.print("IllegalArgumentException thrown with success inside ModelImplTest.");
+    }
+
+    //private method called to avoid too much repetition of identical code.
+    private void failIllegalArgumentExceptionThrowing(final Exception e) {
+        fail("should throw an IllegalArgumentException, not a " + e.getClass());
+    }
+
+    //private method called to avoid too much repetition of identical code.
     private void failExceptionThrowing(final Exception e) {
         fail("It mustn't throw any exception! " + e.getClass() + " was thrown!");
+    }
+
+    //private method called to avoid too much repetition of identical code.
+    private void failItemDoesntExist() {
+        fail("There is no item with the index passed.");
+    }
+
+    //private method called to avoid too much repetition of identical code.
+    private void failCallMethodBeforeStartGame() {
+        fail("cannot call the method because statGame() method must be called before any ModelImpl's other method.");
     }
 
     //private method called to avoid too much repetition of identical code.
@@ -96,7 +119,7 @@ public class ModelImplTest {
         //call methods without calling startGame() method. It must throw IllegalStateException.
         try {
             model.getPlayerPosition(0);
-            fail("cannot call getPlayerPositionAndJump() because the method statGame() must be called before any ModelImpl's other method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -104,8 +127,8 @@ public class ModelImplTest {
         }
 
         try {
-            model.getNumberFromDice();
-            fail("cannot call getNumberFromDice() because the method statGame() must be called before any other ModelImpl's method.");
+            model.rollDice();
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -114,7 +137,7 @@ public class ModelImplTest {
 
         try {
             model.restartGame();
-            fail("cannot call restartGame() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -123,7 +146,25 @@ public class ModelImplTest {
 
         try {
             model.giveUpGame();
-            fail("cannot call giveUpGame() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
+        } catch (final IllegalStateException e) {
+            this.printIllegalStateException();
+        } catch (final Exception e) {
+            this.failIllegalStateExceptionThrowing(e);
+        }
+
+        try {
+            model.getGameBoardSideSize();
+            this.failCallMethodBeforeStartGame();
+        } catch (final IllegalStateException e) {
+            this.printIllegalStateException();
+        } catch (final Exception e) {
+            this.failIllegalStateExceptionThrowing(e);
+        }
+
+        try {
+            model.tryGenerateCoin();
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -149,12 +190,17 @@ public class ModelImplTest {
             fail("It must NOT throw any exception!");
         }
 
-        //call resetGame(), getNumberFromDice(), getPlayerPositionAndJump() and giveUpGame() 
-        //methods after calling startGame() method. It must NOT throw any exception.
+        //call restartGame(), getNumberFromDice(), getPlayerPosition(), getGameBoardSideSize(), itemCollected(), giveUpGame(),
+        //tryGenerateCoin(), tryGenerateDiamond() and tryGenerateSkull() methods after calling startGame() method.
+        //It must NOT throw any exception.
         try {
-            model.restartGame();
-            model.getNumberFromDice();
+            model.rollDice();
             model.getPlayerPosition(0);
+            model.getGameBoardSideSize();
+            model.tryGenerateCoin();
+            model.tryGenerateDiamond();
+            model.tryGenerateSkull();
+            model.restartGame();
             model.giveUpGame();
         } catch (final Exception e) {
             this.failExceptionThrowing(e);
@@ -163,7 +209,7 @@ public class ModelImplTest {
         //call restartGame() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
             model.restartGame();
-            fail("cannot call restartGame() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -172,18 +218,18 @@ public class ModelImplTest {
 
         //call getNumberFromDice() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
-            model.getNumberFromDice();
-            fail("cannot call getNumberFromDice() because the method statGame() must be called before any other ModelImpl's method.");
+            model.rollDice();
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
             this.failIllegalStateExceptionThrowing(e);
         }
 
-        //call getPlayerPositionAndJump() method after calling giveUpGame() method. It must throw an IllegalStateException.
+        //call getPlayerPosition() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
             model.getPlayerPosition(0);
-            fail("cannot call getPlayerPositionAndJump() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -193,7 +239,7 @@ public class ModelImplTest {
         //call getGameBoardSideSize() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
             model.getGameBoardSideSize();
-            fail("cannot call getGameBoardSideSize() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -203,7 +249,7 @@ public class ModelImplTest {
         //call giveUpGame() method after calling giveUpGame() method. It must throw an IllegalStateException.
         try {
             model.giveUpGame();
-            fail("cannot call giveUpGame() because the method statGame() must be called before any other ModelImpl's method.");
+            this.failCallMethodBeforeStartGame();
         } catch (final IllegalStateException e) {
             this.printIllegalStateException();
         } catch (final Exception e) {
@@ -224,7 +270,7 @@ public class ModelImplTest {
 
     /**
      * Tests a minimal simulation game.
-     * This test is applied only on gameboard number 1.
+     * This test is applied only on game board number 1.
      */
     @Test
     public void testGameBoard1() {
@@ -237,12 +283,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard1);
         int counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -262,12 +308,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard1);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -287,12 +333,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard1);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % FIVE_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % FIVE_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -308,13 +354,48 @@ public class ModelImplTest {
         final int gameBoard1SideSize = model.getGameBoardSideSize();
         assertEquals(gameBoard1SideSize, GAME_BOARD_1_SIDE_SIZE);
 
+        final List<Integer> itemsList = new LinkedList<>();
+
+        for (int i = 0; i < NUMBER_SUB_ITERATION; i++) {
+            final Optional<Integer> coin = model.tryGenerateCoin();
+            if (coin.isPresent()) {
+                itemsList.add(coin.get());
+            }
+
+            final Optional<Integer> diamond = model.tryGenerateDiamond();
+            if (diamond.isPresent()) {
+                itemsList.add(diamond.get());
+            }
+
+            final Optional<Integer> skull = model.tryGenerateSkull();
+            if (skull.isPresent()) {
+                itemsList.add(skull.get());
+            }
+        }
+
+        assertTrue(itemsList.size() <= ITEMS_LIST_MAX_SIZE);
+
+        final int listLength = itemsList.size();
+        for (int i = 0; i < listLength; i++) {
+            model.itemCollected(itemsList.get(i), Turn.CPU);
+        }
+
+        try {
+            model.itemCollected(itemsList.get(0), Turn.CPU);
+            this.failItemDoesntExist();
+        } catch (final IllegalArgumentException e) {
+            this.printIllegalArgumentException();
+        } catch (final Exception e) {
+            this.failIllegalArgumentExceptionThrowing(e);
+        }
+
         model.giveUpGame(); //end the game
 
     }
 
     /**
      * Tests a minimal simulation game.
-     * This test is applied only on gameboard number 2.
+     * This test is applied only on game board number 2.
      */
     @Test
     public void testGameBoard2() {
@@ -327,12 +408,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard2);
         int counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % FOUR_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % FOUR_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -352,12 +433,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard2);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % THREE_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % THREE_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -377,12 +458,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard2);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -398,13 +479,48 @@ public class ModelImplTest {
         final int gameBoard2SideSize = model.getGameBoardSideSize();
         assertEquals(gameBoard2SideSize, GAME_BOARD_2_SIDE_SIZE);
 
+        final List<Integer> itemsList = new LinkedList<>();
+
+        for (int i = 0; i < NUMBER_SUB_ITERATION; i++) {
+            final Optional<Integer> coin = model.tryGenerateCoin();
+            if (coin.isPresent()) {
+                itemsList.add(coin.get());
+            }
+
+            final Optional<Integer> diamond = model.tryGenerateDiamond();
+            if (diamond.isPresent()) {
+                itemsList.add(diamond.get());
+            }
+
+            final Optional<Integer> skull = model.tryGenerateSkull();
+            if (skull.isPresent()) {
+                itemsList.add(skull.get());
+            }
+        }
+
+        assertTrue(itemsList.size() <= ITEMS_LIST_MAX_SIZE);
+
+        final int listLength = itemsList.size();
+        for (int i = 0; i < listLength; i++) {
+            model.itemCollected(itemsList.get(i), Turn.CPU);
+        }
+
+        try {
+            model.itemCollected(itemsList.get(0), Turn.CPU);
+            this.failItemDoesntExist();
+        } catch (final IllegalArgumentException e) {
+            this.printIllegalArgumentException();
+        } catch (final Exception e) {
+            this.failIllegalArgumentExceptionThrowing(e);
+        }
+
         model.giveUpGame(); //end the game
 
     }
 
     /**
      * Tests a minimal simulation game.
-     * This test is applied only on gameboard number 3.
+     * This test is applied only on game board number 3.
      */
     @Test
     public void testGameBoard3() {
@@ -417,12 +533,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard3);
         int counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % FIVE_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % FIVE_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -442,12 +558,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard3);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -467,12 +583,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard3);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % FOUR_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % FOUR_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -488,13 +604,48 @@ public class ModelImplTest {
         final int gameBoard3SideSize = model.getGameBoardSideSize();
         assertEquals(gameBoard3SideSize, GAME_BOARD_3_SIDE_SIZE);
 
+        final List<Integer> itemsList = new LinkedList<>();
+
+        for (int i = 0; i < NUMBER_SUB_ITERATION; i++) {
+            final Optional<Integer> coin = model.tryGenerateCoin();
+            if (coin.isPresent()) {
+                itemsList.add(coin.get());
+            }
+
+            final Optional<Integer> diamond = model.tryGenerateDiamond();
+            if (diamond.isPresent()) {
+                itemsList.add(diamond.get());
+            }
+
+            final Optional<Integer> skull = model.tryGenerateSkull();
+            if (skull.isPresent()) {
+                itemsList.add(skull.get());
+            }
+        }
+
+        assertTrue(itemsList.size() <= ITEMS_LIST_MAX_SIZE);
+
+        final int listLength = itemsList.size();
+        for (int i = 0; i < listLength; i++) {
+            model.itemCollected(itemsList.get(i), Turn.CPU);
+        }
+
+        try {
+            model.itemCollected(itemsList.get(0), Turn.CPU);
+            this.failItemDoesntExist();
+        } catch (final IllegalArgumentException e) {
+            this.printIllegalArgumentException();
+        } catch (final Exception e) {
+            this.failIllegalArgumentExceptionThrowing(e);
+        }
+
         model.giveUpGame(); //end the game
 
     }
 
     /**
      * Tests a minimal simulation game.
-     * This test is applied only on gameboard number 4.
+     * This test is applied only on game board number 4.
      */
     @Test
     public void testGameBoard4() {
@@ -507,12 +658,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard4);
         int counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < CLASSIC_DICE_MIN_VALUE || diceValue > CLASSIC_DICE_MAX_VALUE) {
                 this.failBoundsClassicDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % THREE_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % THREE_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -532,12 +683,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard4);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < DICE_5_TO_10_MIN_VALUE || diceValue > DICE_5_TO_10_MAX_VALUE) {
                 this.failBounds5To10Dice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % SIX_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -557,12 +708,12 @@ public class ModelImplTest {
         list.addAll(laddersListGameBoard4);
         counter = NUMBER_SUB_ITERATION;
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-            final int diceValue = model.getNumberFromDice();
+            final int diceValue = model.rollDice();
             //check if dice value is between the bounds
             if (diceValue < NEGATIVE_DICE_MIN_VALUE || diceValue > NEGATIVE_DICE_MAX_VALUE || diceValue == 0) {
                 this.failBoundsNegativeDice();
             }
-            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS);
+            final Optional<Integer> position = model.getPlayerPosition(i % TWO_PLAYERS).getFirst();
             if (position.isPresent()) { //the player jumps
                 final boolean isOk = list.contains(position.get());
                 assertTrue(isOk);
@@ -577,6 +728,41 @@ public class ModelImplTest {
         //call getGameBoardSideSize() method inside ModelImpl, checking everything works correctly.
         final int gameBoard4SideSize = model.getGameBoardSideSize();
         assertEquals(gameBoard4SideSize, GAME_BOARD_4_SIDE_SIZE);
+
+        final List<Integer> itemsList = new LinkedList<>();
+
+        for (int i = 0; i < NUMBER_SUB_ITERATION; i++) {
+            final Optional<Integer> coin = model.tryGenerateCoin();
+            if (coin.isPresent()) {
+                itemsList.add(coin.get());
+            }
+
+            final Optional<Integer> diamond = model.tryGenerateDiamond();
+            if (diamond.isPresent()) {
+                itemsList.add(diamond.get());
+            }
+
+            final Optional<Integer> skull = model.tryGenerateSkull();
+            if (skull.isPresent()) {
+                itemsList.add(skull.get());
+            }
+        }
+
+        assertTrue(itemsList.size() <= ITEMS_LIST_MAX_SIZE);
+
+        final int listLength = itemsList.size();
+        for (int i = 0; i < listLength; i++) {
+            model.itemCollected(itemsList.get(i), Turn.CPU);
+        }
+
+        try {
+            model.itemCollected(itemsList.get(0), Turn.CPU);
+            this.failItemDoesntExist();
+        } catch (final IllegalArgumentException e) {
+            this.printIllegalArgumentException();
+        } catch (final Exception e) {
+            this.failIllegalArgumentExceptionThrowing(e);
+        }
 
         model.giveUpGame(); //end the game
 

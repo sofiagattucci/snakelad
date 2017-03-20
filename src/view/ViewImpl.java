@@ -4,8 +4,13 @@ import java.util.Map;
 
 import controller.ViewObserver;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
-import utilities.Language;
+import utilities.Statistic;
+import utilities.enumeration.Language;
+import utilities.enumeration.TypesOfItem;
+import view.scenes.Menu;
+import view.scenes.StatisticsScene;
 import view.scenes.game.Game;
 import view.scenes.settings.Settings;
 import view.scenes.setup.SetUpGame;
@@ -16,12 +21,16 @@ import view.scenes.setup.SetUpGame;
 public class ViewImpl implements View {
 
     private static final Language DEFAULT_LANGUAGE = Language.EN;
+    private static final String STYLESHEET_PATH = "style.css";
 
+    private static Menu menuScene;
     private static Stage appStage;
     private static Game playScene;
     private static SetUpGame setUpScene;
     private static Settings settingsScene;
+    private static StatisticsScene statScene;
     private static ViewObserver observer;
+    private static String user;
 
     /**
      * Constructor of this class; It sets up the observer.
@@ -48,12 +57,39 @@ public class ViewImpl implements View {
     }
 
     /**
+     * Getter of the application main stage.
+     * @return
+     *     The main stage of used in the application.
+     */
+    public static Stage getAppStage() {
+        return appStage;
+    }
+
+    /**
      * It links a Play scene to this class.
      * @param scene
      *     The scene to link.
      */
     public static void setPlayScene(final Game scene) {
         playScene = scene;
+    }
+
+    /**
+     * Getter of the StatisticsScene scene used in the application.
+     * @return
+     *     The StatisticsScene used in the application
+     */
+    public static StatisticsScene getStatScene() {
+        return statScene;
+    }
+
+    /**
+     * Setter of the statistics scene.
+     * @param statistic
+     *     The scene to link.
+     */
+    public static void setStatScene(final StatisticsScene statistic) {
+        statScene = statistic;
     }
 
     /**
@@ -72,6 +108,15 @@ public class ViewImpl implements View {
      */
     public static void setSettingsScene(final Settings scene) {
         settingsScene = scene;
+    }
+
+    /**
+     * Setter of the menu scene. It links a menu scene to this class.
+     * @param scene
+     *    The menu scene used in the application
+     */
+    public static void setMenuScene(final Menu scene) {
+        menuScene = scene;
     }
 
     /**
@@ -101,6 +146,15 @@ public class ViewImpl implements View {
         return settingsScene;
     }
 
+    /**
+     * Getter of the menu scene.
+     * @return
+     *     The menu scene used in the game
+     */
+    public static Menu getMenuScene() {
+        return menuScene;
+    }
+
 
     /**
      * Getter of the set up scene.
@@ -122,6 +176,15 @@ public class ViewImpl implements View {
 
     private void setObserver(final ViewObserver obs) {
         observer = obs;
+    }
+
+    /**
+     * Getter of the the css style sheet used in the application.
+     * @return
+     *     The css style sheet
+     */
+    public static String getStylesheet() {
+        return STYLESHEET_PATH;
     }
 
     @Override
@@ -146,7 +209,7 @@ public class ViewImpl implements View {
 
     @Override
     public void setBoardSize(final int n) {
-        Dimension.setPawnHeight(n);
+        Dimension.setElemHeight(n);
         playScene.getBoard().setSize(n);
         playScene.resizePawns();
     }
@@ -155,5 +218,33 @@ public class ViewImpl implements View {
     public void setMusicVolume(final float min, final float max, final float current) {
         Settings.getScene(appStage).getMusicManger().setSliderValues(min, max, current);
     }
-} 
 
+    @Override
+    public void putItem(final int pos, final TypesOfItem type) {
+        Platform.runLater(() -> playScene.putItem(pos, type));
+    }
+
+    @Override
+    public void setStatistics(final Statistic statistics) {
+        statScene.setStatistics(statistics);
+    }
+
+    /**
+     * Setter of the user name of the user.
+     * @param name
+     *     The name used by the player
+     */
+    public static void setUsername(final String name) {
+        user = " " + name;
+    }
+
+    /**
+     * Getter of the user name.
+     * @return
+     *     The name used by the player
+     */
+    public static String getUsername() {
+        return user;
+    }
+
+} 

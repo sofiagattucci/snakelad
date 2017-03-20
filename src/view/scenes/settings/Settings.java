@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import view.BasicButton;
 import view.Dimension;
 import view.LanguageStringMap;
+import view.ViewImpl;
 import view.scenes.BasicScene;
 import view.scenes.Menu;
 
@@ -19,6 +20,7 @@ import view.scenes.Menu;
 public final class Settings extends BasicScene {
 
     private static final String TITLE_KEY = "settings.title";
+    private static final String TITLE_ID = "TitleLabel";
     private static final String BACK_KEY = "back";
     private static final int TITLE_FONT = 60;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
@@ -28,12 +30,13 @@ public final class Settings extends BasicScene {
     private static Settings settingsScene = new Settings();
 
     private final Label title = new Label(LanguageStringMap.get().getMap().get(TITLE_KEY));
+    private final SkinSwitcher skinSwitcher = new SkinSwitcher();
     private final PawnColorSwitcherManager pawnSwitcher = new PawnColorSwitcherManager();
     private final LanguageSwitcher langSwitcher = new LanguageSwitcher(settingStage);
     private final MusicManager musicManager = new MusicManager();
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
     private final VBox box = new VBox(this.title, this.pawnSwitcher.getParentNode(), this.langSwitcher.getParentNode(),
-            this.musicManager.getParentNode(), this.back);
+            this.skinSwitcher.getParentNode(), this.musicManager.getParentNode(), this.back);
 
     private Settings() {
 
@@ -42,9 +45,11 @@ public final class Settings extends BasicScene {
         this.box.setSpacing(BOX_SPACING);
         this.title.setFont(new Font(TITLE_FONT));
         this.title.setTranslateY(Y_TITLE_TRANSLATE);
+        this.title.setId(TITLE_ID);
         this.back.setOnAction(e -> {
             settingStage.setScene(Menu.getScene(settingStage));
         });
+        this.getStylesheets().add(ViewImpl.getStylesheet());
     }
 
     /**
@@ -52,6 +57,7 @@ public final class Settings extends BasicScene {
      */
     public void updateLanguage() {
         this.title.setText(LanguageStringMap.get().getMap().get(TITLE_KEY));
+        this.skinSwitcher.updateLanguage();
         this.langSwitcher.updateLanguage();
         this.pawnSwitcher.updateLanguage();
         this.musicManager.updateLanguage();

@@ -3,8 +3,10 @@ package view.dice;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-import utilities.TypesOfDice;
+import utilities.enumeration.TypesOfDice;
 
 /**
  * This class manages the different types of dices (images) available in the game.
@@ -17,36 +19,44 @@ public final class DiceTypes {
     private static final int MAX_TO10 = 10;
     private static final int MIN_NEG = -2;
     private static final int MAX_NEG = 5;
+    private static final String STANDARD_DICE_PATH = "dices/";
+    private static final String DICE_SIDE = "DiceSide";
+    private static final String PNG = ".png";
+    private static final String CLASSIC_DICE = "classicDice/";
+    private static final String TO10_DICE = "_5to10Dice/";
+    private static final String NEGATIVE_DICE = "negativeDice/";
+    private static final String NEGATIVE = "Negative";
+    private static final String POSITIVE = "Positive";
 
     private static final DiceTypes INSTANCE = new DiceTypes();
     private final Map<TypesOfDice, Map<Integer, String>> diceMap = new HashMap<>();
-    private final Map<Integer, String> classicDiceMap = new HashMap<>();
-    private final Map<Integer, String> the5to10DiceMap = new HashMap<>();
-    private final Map<Integer, String> negativeDiceMap = new HashMap<>();
 
     private DiceTypes() {
 
-        for (int i = MIN_CLASSIC; i <= MAX_CLASSIC; i++) {
-            this.classicDiceMap.put(i, "./res/Dice/ClassicDice/DiceSide" + i + ".png");
-        }
+        final Map<Integer, String> classicDiceMap = IntStream.range(MIN_CLASSIC, MAX_CLASSIC + 1)
+                                                             .boxed()
+                                                             .collect(Collectors.toMap(i -> i,
+                                                                  i -> STANDARD_DICE_PATH + CLASSIC_DICE + DICE_SIDE + i + PNG));
 
-        for (int i = MIN_TO10; i <= MAX_TO10; i++) {
-            this.the5to10DiceMap.put(i, "./res/Dice/5to10Dice/DiceSide" + i + ".png");
-        }
+        final Map<Integer, String> to10DiceMap = IntStream.range(MIN_TO10, MAX_TO10 + 1)
+                                                          .boxed()
+                                                          .collect(Collectors.toMap(i -> i,
+                                                               i -> STANDARD_DICE_PATH + TO10_DICE + DICE_SIDE + i + PNG));
 
-        for (int i = MIN_NEG; i <= MAX_NEG; i++) {
-            if (i < 0) {
-                this.negativeDiceMap.put(i, "./res/Dice/NegativeDice/DiceSide" + (-i) + "Negative.png");
-            }
-            if (i > 0) {
-                this.negativeDiceMap.put(i, "./res/Dice/NegativeDice/DiceSide" + i + "Positive.png");
-            }
+        final Map<Integer, String> negativeDiceMap = IntStream.range(MIN_NEG, MAX_NEG + 1)
+                .boxed()
+                .collect(Collectors.toMap(i -> i, i -> {
+                    if (i < 0) {
+                        return STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + (-i) + NEGATIVE + PNG;
+                    } else {
+                        return STANDARD_DICE_PATH + NEGATIVE_DICE + DICE_SIDE + i + POSITIVE + PNG;
+                    }
+                }));
+        negativeDiceMap.remove(0); 
 
-        }
-
-        this.diceMap.put(TypesOfDice.CLASSIC_DICE, this.classicDiceMap);
-        this.diceMap.put(TypesOfDice._5_TO_10_DICE, this.the5to10DiceMap);
-        this.diceMap.put(TypesOfDice.NEGATIVE_DICE, this.negativeDiceMap);
+        this.diceMap.put(TypesOfDice.CLASSIC_DICE, classicDiceMap);
+        this.diceMap.put(TypesOfDice._5_TO_10_DICE, to10DiceMap);
+        this.diceMap.put(TypesOfDice.NEGATIVE_DICE, negativeDiceMap);
     }
 
     /**
@@ -67,14 +77,5 @@ public final class DiceTypes {
      */
     public Map<Integer, String> getSpecificDiceMap(final TypesOfDice t) {
         return Collections.unmodifiableMap(this.diceMap.get(t));
-    }
-
-    /**
-     * Getter of the number of dices available in the game.
-     * @return
-     *     The number of dices available in the game
-     */
-    public int getNumDices() {
-        return this.diceMap.size();
     }
 }

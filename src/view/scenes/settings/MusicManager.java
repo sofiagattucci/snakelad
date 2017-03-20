@@ -2,12 +2,14 @@ package view.scenes.settings;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import utilities.ImageManager;
+import utilities.enumeration.AudioTrack;
 import view.BasicButton;
 import view.LanguageStringMap;
 import view.ViewImpl;
@@ -17,17 +19,19 @@ import view.ViewImpl;
  */
 public class MusicManager {
 
-    private static final String SPEAKER_ON = "./res/Icons/volume_on.png";
-    private static final String SPEAKER_OFF = "./res/Icons/volume_off.png";
+    private static final String SPEAKER_ON = "icons/volume_on.png";
+    private static final String SPEAKER_OFF = "icons/volume_off.png";
     private static final String MUSIC_KEY = "settings.musicLabel";
-    private static final int FONT_SIZE = 20;
+    private static final int FONT_SIZE = 30;
     private static final double SPEAKER_SIZE = BasicButton.getButtonHeight() / 2;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
+    private static final AudioTrack DEFAULT_TRACK = AudioTrack.SNAKELAD;
 
     private final Label title = new Label(LanguageStringMap.get().getMap().get(MUSIC_KEY));
     private final ImageView speaker = ImageManager.get().getImageView(SPEAKER_ON);
     private final Slider slider = new Slider();
-    private final HBox box = new HBox(this.title, this.speaker, this.slider);
+    private final ComboBox<AudioTrack> combo = new ComboBox<>();
+    private final HBox box = new HBox(this.title, this.speaker, this.slider, this.combo);
     private boolean musicOn = true;
     private float sliderMin;
 
@@ -50,7 +54,7 @@ public class MusicManager {
             } else {
                 this.musicOn = true;
                 this.speaker.setImage(ImageManager.get().readFromFile(SPEAKER_ON));
-                ViewImpl.getObserver().startMusic();
+                ViewImpl.getObserver().startMusic(this.combo.getValue());
             }
         });
         this.slider.setOnMouseDragged(e -> {
@@ -58,7 +62,7 @@ public class MusicManager {
             if (!this.musicOn) {
                 this.musicOn = true;
                 this.speaker.setImage(ImageManager.get().readFromFile(SPEAKER_ON));
-                ViewImpl.getObserver().startMusic();
+                ViewImpl.getObserver().startMusic(this.combo.getValue());
                 this.slider.setValue(slValue);
             }
             ViewImpl.getObserver().setVolume((float) slValue); 
@@ -68,11 +72,19 @@ public class MusicManager {
             if (!this.musicOn) {
                 this.musicOn = true;
                 this.speaker.setImage(ImageManager.get().readFromFile(SPEAKER_ON));
-                ViewImpl.getObserver().startMusic();
+                ViewImpl.getObserver().startMusic(this.combo.getValue());
                 this.slider.setValue(slValue);
             }
             ViewImpl.getObserver().setVolume((float) slValue); 
         });
+        for (final AudioTrack a: AudioTrack.values()) {
+            this.combo.getItems().add(a);
+        }
+        this.combo.setValue(AudioTrack.SNAKELAD);
+        this.combo.setOnAction(e -> {
+            ViewImpl.getObserver().changeMusic(this.combo.getValue());
+        });
+        this.combo.setId("ComboBox");
     }
 
     /**
@@ -105,5 +117,14 @@ public class MusicManager {
      */
     public Node getParentNode() {
         return this.box;
+    }
+
+    /**
+     * Getter of the default audio track.
+     * @return
+     *     The default AudioTrack used in the application
+     */
+    public static AudioTrack getDefaultTrack() {
+        return DEFAULT_TRACK;
     }
 }

@@ -7,7 +7,7 @@ import view.pawn.PawnsColor;
 /**
  * It manages the tool bar shown in the screen in a player versus player game.
  */
-public class MultiPlayerToolbar extends Toolbar {
+public class MultiPlayerToolbar extends ToolbarImpl {
 
     /**
      * Getter of the box' s width.
@@ -15,7 +15,7 @@ public class MultiPlayerToolbar extends Toolbar {
      *     The width of the box
      */
     public static double getBoxWidth() {
-        return Toolbar.getBoxWidth();
+        return ToolbarImpl.getBoxWidth();
     }
 
     /**
@@ -24,7 +24,7 @@ public class MultiPlayerToolbar extends Toolbar {
      *     The stage to link
      */
     public static void setStage(final Stage stage) {
-        Toolbar.setStage(stage);
+        ToolbarImpl.setStage(stage);
     }
 
     @Override

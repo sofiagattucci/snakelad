@@ -2,15 +2,15 @@ package view.scenes.setup;
 
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import utilities.Difficulty;
 import utilities.ImageManager;
+import utilities.enumeration.Difficulty;
 import view.BasicButton;
 import view.LanguageStringMap;
 import view.gameboard.GameBoardTypes;
 
 /**
  * This class manages the choice of the scenery and its elements in the GUI.
- * It implemented by using a circular list defined in the extended class CircularList.
+ * It implemented by using a circular list defined in the extended class ImagesCircularList.
  */
 public class BoardCircularList extends ImagesCircularList<Difficulty> {
 
@@ -27,7 +27,7 @@ public class BoardCircularList extends ImagesCircularList<Difficulty> {
      *     The next node of the layout graph to show in the GUI
      */
     public BoardCircularList(final Node next) {
-        super(GameBoardTypes.getNumScenery(), SCENERY_LABEL_KEY, BOARD_SIZE, Difficulty.BEGINNER, next);
+        super(Difficulty.values().length, SCENERY_LABEL_KEY, BOARD_SIZE, Difficulty.BEGINNER, next);
     }
 
     private Difficulty calculateDifficulty(final int n) {

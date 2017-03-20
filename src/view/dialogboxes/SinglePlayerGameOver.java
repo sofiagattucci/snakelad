@@ -1,13 +1,15 @@
 package view.dialogboxes;
 
 import javafx.stage.Stage;
-import utilities.Turn;
-import view.LanguageStringMap;
+import utilities.enumeration.Turn;
+import view.ViewImpl;
 
 /**
- * It handles the end of the game.
+ * It handles the end of a single player game.
  */
 public class SinglePlayerGameOver extends GameOver {
+
+    private static final String NEWLINE = "\n";
 
     /**
      * Constructor of this class.
@@ -20,10 +22,10 @@ public class SinglePlayerGameOver extends GameOver {
         super(parentStage);
         String win;
         if (winner == Turn.PLAYER) {
-            win = LanguageStringMap.get().getMap().get("game.player");
+            win = ViewImpl.getUsername();
         } else {
             win = winner.name();
         }
-        this.getBox().setHeaderText(this.getMsg().getText() + win + "\n" + this.getMsg2().getText());
+        this.getBox().setHeaderText(this.getMsg().getText() + win + NEWLINE + this.getMsg2().getText());
     }
 }

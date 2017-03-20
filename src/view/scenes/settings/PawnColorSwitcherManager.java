@@ -15,7 +15,7 @@ import view.LanguageStringMap;
 public class PawnColorSwitcherManager {
 
     private static final String PAWN_LABEL_KEY = "settings.pawnLabel";
-    private static final int FONT_SIZE = 20;
+    private static final int FONT_SIZE = 30;
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 6;
 

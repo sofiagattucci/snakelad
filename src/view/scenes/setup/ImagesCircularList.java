@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -55,11 +56,12 @@ public abstract class ImagesCircularList<X> {
         this.titleLabel.setFont(new Font(FONT_SIZE));
         this.descLabel.setFont(new Font(FONT_SIZE));
 
-        for (this.counter = 0; this.counter < n; this.counter++) {
-            this.setParameter(this.counter);
-            this.list.add(this.getImage());
-        }
-
+        IntStream.range(0, n)
+                 .forEach(i -> {
+                     this.setParameter(i);
+                     this.list.add(this.getImage());
+                     this.counter++;
+                 });
         this.prev.setOnAction(e -> {
             this.counter--;
             if (this.counter < 0) {

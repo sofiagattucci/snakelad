@@ -1,0 +1,42 @@
+#ErrorMsg {
+    -fx-text-fill: red;
+    -fx-font-family: "Arial";
+}
+
+#Toolbar {
+    -fx-background-color: #336699;
+}
+
+#Toolbar-black-label {
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+}
+
+#Toolbar-yellow-label {
+    -fx-text-fill: yellow;
+    -fx-font-family: "Arial";
+}
+
+.button {
+    -fx-font-family: "Arial";
+    -fx-background-color: DodgerBlue;
+    -fx-text-fill: white;
+}
+
+#ComboBox {
+    -fx-background-color: DodgerBlue;
+    -fx-font-family: "Arial";
+    -fx-border-color: DodgerBlue;
+
+}
+
+.combo-box .cell:selected {
+    -fx-text-fill: white;
+}
+
+.label {
+    -fx-font-family: "Arial";
+}
+#TitleLabel {
+    -fx-font-family: "Algerian";
+}

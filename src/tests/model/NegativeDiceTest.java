@@ -5,12 +5,13 @@ import static org.junit.Assert.fail;
 import java.util.Optional;
 import java.util.Random;
 import org.junit.Test;
-import model.Dice;
-import model.DiceFactoryImpl;
+
+import model.dice.Dice;
+import model.dice.DiceFactoryImpl;
 import utilities.ConsoleLog;
 
 /**
- * Junit test used in order to test NegativeDice class inside Model.
+ * Junit test used in order to test NegativeDice class.
  * This class has to achieve success in all its tests.
  */
 public final class NegativeDiceTest {
@@ -58,7 +59,7 @@ public final class NegativeDiceTest {
             assertEquals(number, dice.getLastNumberAppeared());
         }
 
-        //set random numbers as last number appreared on dice and check if everything works correctly
+        //set random numbers as last number appeared on dice and check if everything works correctly
         final Random rand = new Random();
         for (int i = 0; i < NUMBER_OF_ROLLS; i++) {
             int value = rand.nextInt(NUMBER_OF_SIDES + 1) + MIN_NUMBER;

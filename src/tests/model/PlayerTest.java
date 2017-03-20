@@ -7,12 +7,12 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import model.Player;
-import model.PlayerImpl;
+import model.player.Player;
+import model.player.PlayerImpl;
 import utilities.ConsoleLog;
 
 /**
- * Junit test used in order to test Player class inside Model.
+ * Junit test used in order to test Player class.
  * This class has to achieve success in all its tests.
  */
 public final class PlayerTest {
@@ -32,17 +32,17 @@ public final class PlayerTest {
         for (int i = 1; i <= NUMBER_OF_ITERATIONS; i++) {
             final Random rand = new Random();
             final int value = rand.nextInt(i);
-            player.setNewPosition(value);
+            player.setPosition(value);
             assertEquals(player.getPosition(), value);
         }
-        player.setNewPosition(0);
+        player.setPosition(0);
         assertEquals(player.getPosition(), 0);
 
         //call setNewPosition() with negatives arguments. It must throw an IllegalArgumentException.
         try {
             final Random rand = new Random();
             final int negativeValue = rand.nextInt(BIG_NUMBER) - BIG_NUMBER;
-            player.setNewPosition(negativeValue);
+            player.setPosition(negativeValue);
             fail("cannot call setNewPosition() with a negative argument!");
         } catch (final IllegalArgumentException e) {
             final ConsoleLog log = ConsoleLog.get();

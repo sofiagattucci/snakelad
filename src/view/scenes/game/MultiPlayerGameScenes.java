@@ -3,6 +3,7 @@ package view.scenes.game;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -14,6 +15,7 @@ public final class MultiPlayerGameScenes {
 
     private static final MultiPlayerGameScenes INSTANCE = new MultiPlayerGameScenes();
     private final Map<Integer, MultiPlayerGame> scenesMap = new HashMap<>();
+    private Color skin = Color.LIGHTBLUE;
 
     private MultiPlayerGameScenes() {
 
@@ -38,6 +40,7 @@ public final class MultiPlayerGameScenes {
      */
     public void insert(final int n) {
         this.scenesMap.put(n, new MultiPlayerGame(n));
+        this.scenesMap.get(n).setSkin(this.skin);
         this.scenesMap.get(n).setStage(stage);
     }
 
@@ -48,7 +51,16 @@ public final class MultiPlayerGameScenes {
      * @return
      *     The scene selected
      */
-    public GameImpl<MultiPlayerToolbar> getScene(final int n) {
+    public GameImpl getScene(final int n) {
         return this.scenesMap.get(n);
+    }
+
+    /**
+     * It sets the active skin for the classes managed by this class.
+     * @param c
+     *     The new color of the skin
+     */
+    public void setActiveSkin(final Color c) {
+        this.skin = c;
     }
 }

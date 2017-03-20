@@ -2,7 +2,7 @@ package view.scenes.setup;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.IntStream;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,8 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import utilities.Difficulty;
-import utilities.TypesOfDice;
+import utilities.enumeration.Difficulty;
+import utilities.enumeration.TypesOfDice;
+import utilities.enumeration.GameMode;
 import view.BasicButton;
 import view.Dimension;
 import view.LanguageStringMap;
@@ -20,7 +21,7 @@ import view.scenes.BasicScene;
 import view.scenes.Menu;
 import view.scenes.game.MultiPlayerGameScenes;
 import view.scenes.game.SinglePlayerGame;
-import view.scenes.game.Toolbar;
+import view.scenes.game.ToolbarImpl;
 
 /**
  * It's the scene shown when the user pushes the play button. It manages the settings to use for this game. 
@@ -33,6 +34,7 @@ public final class SetUpGame extends BasicScene {
     private static final String START_KEY = "setUp.start";
     private static final String HOW_MANY_KEY = "setUp.selectPlayers";
     private static final String TITLE_KEY = "setUp.title";
+    private static final String TITLE_ID = "TitleLabel";
     private static final double BOX_SPACING = BasicButton.getButtonHeight() / 3;
     private static final int MAX_PLAYERS = 6;
     private static final int FONT = 20;
@@ -50,10 +52,10 @@ public final class SetUpGame extends BasicScene {
     private final Button single = new BasicButton(LanguageStringMap.get().getMap().get(SINGLE_KEY));
     private final Button multi = new BasicButton(LanguageStringMap.get().getMap().get(MULTI_KEY));
     private final Button back = new BasicButton(LanguageStringMap.get().getMap().get(BACK_KEY));
-    private final HBox modes = new HBox(single, multi, back);
+    private final HBox modes = new HBox(this.single, this.multi, this.back);
     private final List<Button> nPlayer = new ArrayList<>();
     private final Label howMany = new Label(LanguageStringMap.get().getMap().get(HOW_MANY_KEY));
-    private final HBox chooseNumber = new HBox(howMany);
+    private final HBox chooseNumber = new HBox(this.howMany);
     private final Button start = new BasicButton(LanguageStringMap.get().getMap().get(START_KEY));
     private final DiceCircularList dice = new DiceCircularList(this.start);
     private final HBox diceChoose = new HBox();
@@ -67,12 +69,16 @@ public final class SetUpGame extends BasicScene {
         this.getDefaultLayout().setCenter(this.box);
         this.box.setAlignment(Pos.CENTER);
         this.box.setSpacing(BOX_SPACING);
+        this.modes.setSpacing(BOX_SPACING);
         this.title.setAlignment(Pos.CENTER);
         this.title.setTranslateY(Y_TITLE_TRANSLATE);
+        this.title.setId(TITLE_ID);
         this.modes.setAlignment(Pos.CENTER);
         this.chooseNumber.setAlignment(Pos.CENTER);
+        this.chooseNumber.setSpacing(BOX_SPACING / 8);
         this.scenaryChoose.setAlignment(Pos.CENTER);
         this.diceChoose.setAlignment(Pos.CENTER);
+        this.getStylesheets().add(ViewImpl.getStylesheet());
 
         this.scenaryChoose.getChildren().addAll(this.board.getNodes());
         this.diceChoose.getChildren().addAll(this.dice.getNodes());
@@ -82,9 +88,8 @@ public final class SetUpGame extends BasicScene {
         this.title.setFont(new Font(TITLE_FONT));
         this.howMany.setFont(new Font(FONT));
 
-        for (int i = 2; i <= MAX_PLAYERS; i++) {
-            this.nPlayer.add(new Button(String.valueOf(i)));
-        }
+        IntStream.range(2, MAX_PLAYERS + 1)
+                 .forEach(i -> this.nPlayer.add(new Button(String.valueOf(i))));
 
         this.single.setOnAction(e -> {
             this.setMode(true);
@@ -122,7 +127,7 @@ public final class SetUpGame extends BasicScene {
                 SinglePlayerGame.getScene(setUpStage).updateScene(this.board.getParameterValue(), this.dice.getParameterValue());
                 ViewImpl.setPlayScene(SinglePlayerGame.getScene(setUpStage));
                 ViewImpl.getPlayScene().updateLanguage();
-                ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType);
+                ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType, GameMode.SINGLE_PLAYER);
                 setUpStage.setScene(SinglePlayerGame.getScene(setUpStage));
             } else {
                 MultiPlayerGameScenes.get(setUpStage).insert(numPlayers);
@@ -130,7 +135,7 @@ public final class SetUpGame extends BasicScene {
                        this.board.getParameterValue(), this.dice.getParameterValue());
                 ViewImpl.setPlayScene(MultiPlayerGameScenes.get(setUpStage).getScene(numPlayers));
                 ViewImpl.getPlayScene().updateLanguage();
-                ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType);
+                ViewImpl.getObserver().play(numPlayers, this.board.getParameterValue(), diceType, GameMode.MULTIPLAYER);
                 setUpStage.setScene(MultiPlayerGameScenes.get(setUpStage).getScene(numPlayers));
             }
         });
@@ -185,7 +190,7 @@ public final class SetUpGame extends BasicScene {
      */
     public static SetUpGame getScene(final Stage stage) {
         setUpStage = stage;
-        Toolbar.setStage(stage);
+        ToolbarImpl.setStage(stage);
         return setUpScene;
     }
 

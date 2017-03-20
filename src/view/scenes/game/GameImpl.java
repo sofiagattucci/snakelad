@@ -1,7 +1,13 @@
 package view.scenes.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.IntStream;
 
 import javafx.geometry.Side;
 import javafx.scene.layout.Background;
@@ -9,13 +15,17 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import utilities.Difficulty;
 import utilities.ImageManager;
-import utilities.TypesOfDice;
+import utilities.enumeration.Difficulty;
+import utilities.enumeration.TypesOfDice;
+import utilities.enumeration.TypesOfItem;
 import view.Dimension;
+import view.ViewImpl;
 import view.gameboard.GameBoard;
 import view.gameboard.GameBoardImpl;
 import view.gameboard.GameBoardTypes;
+import view.item.ItemImpl;
+import view.item.Item;
 import view.pawn.AvailableColor;
 import view.pawn.Pawn;
 import view.pawn.PawnImpl;
@@ -25,15 +35,14 @@ import view.scenes.setup.SetUpGame;
 
 /**
  * This class creates and initializes a generic game scene.
- * @param <X>
- *     The type of tool bar to use for the game. It depends on the game mode selected
  */
-public abstract class GameImpl<X extends Toolbar> extends BasicScene implements Game { 
+public abstract class GameImpl extends BasicScene implements Game { 
 
     private static String boardPath = GameBoardTypes.get().getBoard(SetUpGame.getBoardType());
     private Toolbar toolbar;
     private final GameBoard board = new GameBoardImpl(boardPath);
     private final List<Pawn> pawnList = new ArrayList<>();
+    private final Map<Integer, Item> itemMap = new HashMap<>();
     private int currentTurn;
 
     /**
@@ -41,12 +50,14 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
      */
     protected GameImpl() {
 
-        this.setBackground();
-        for (int i = 0; i < this.getTag(); i++) {
-            final Pawn newPawn = new PawnImpl(this, PawnTypes.get().getPawn(this.getColor(i)));
-            this.pawnList.add(newPawn);
-            this.getDefaultLayout().getChildren().add(newPawn.getPawn());
-        }
+        this.setBackground(); 
+        IntStream.range(0, this.getNumPlayers())
+                 .forEach(i -> {
+                      final Pawn newPawn = new PawnImpl(this, PawnTypes.get().getPawn(this.getColor(i)));
+                      this.pawnList.add(newPawn);
+                      this.getDefaultLayout().getChildren().add(newPawn.getPawn());
+        });
+        this.getStylesheets().add(ViewImpl.getStylesheet());
     }
 
     private void setBackground() {
@@ -69,18 +80,22 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     }
 
     private void movePawn(final int nBoxes) {
-        this.pawnList.get(this.currentTurn % this.getTag()).movePawn(nBoxes);
+        this.pawnList.get(this.currentTurn % this.getNumPlayers()).movePawn(nBoxes);
         this.currentTurn++;
     }
 
     private void movePawn(final int nBoxes, final int finalPos) {
-        this.pawnList.get(this.currentTurn % this.getTag()).movePawnAndJump(nBoxes, finalPos);
+        this.pawnList.get(this.currentTurn % this.getNumPlayers()).movePawnAndJump(nBoxes, finalPos);
         this.currentTurn++;
     }
 
     @Override
     public void firstTurn() {
         this.toolbar.reset();
+        for (final Item i: this.itemMap.values()) {
+            this.getDefaultLayout().getChildren().remove(i.getItemImageView());
+        }
+        this.itemMap.clear();
         for (final Pawn elem: pawnList) {
             elem.reset();
         }
@@ -106,16 +121,16 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
         this.setBackground();
         this.getToolbar().updateLabelsColor();
         this.toolbar.updateDice(newDice);
-        for (int i = 0; i < this.pawnList.size(); i++) {
-            this.pawnList.get(i).updateColor(PawnTypes.get().getPawn(this.getColor(i)));
-        }
+        IntStream.iterate(0, i -> i + 1)
+                 .limit(this.pawnList.size())
+                 .forEach(i -> this.pawnList.get(i).updateColor(PawnTypes.get().getPawn(this.getColor(i))));
     }
 
     @Override
     public void resizePawns() {
-        for (int i = 0; i < this.pawnList.size(); i++) {
-            this.pawnList.get(i).resizePawn();
-        }
+        IntStream.iterate(0, i -> i + 1)
+                 .limit(this.pawnList.size())
+                 .forEach(i -> this.pawnList.get(i).resizePawn());
     }
 
     @Override
@@ -129,7 +144,18 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
     }
 
     @Override
-    public abstract int getTag();
+    public void putItem(final int pos, final TypesOfItem type) {
+        final Item newItem = new ItemImpl(this, pos, type);
+        this.itemMap.put(pos, newItem);
+        this.getDefaultLayout().getChildren().add(newItem.getItemImageView());
+    }
+
+    /**
+     * It holds the number of players in the game. At this time we don' t know the number so an abstract method is needed.
+     * @return
+     *     The number of players in the game
+     */
+    protected abstract int getNumPlayers();
 
     @Override
     public abstract void gameOver();
@@ -169,10 +195,28 @@ public abstract class GameImpl<X extends Toolbar> extends BasicScene implements 
      * @param t
      *     The tool bar to use in the scene
      */
-    protected void putToolbar(final X t) {
+    protected void putToolbar(final Toolbar t) {
         this.toolbar = t;
         this.getDefaultLayout().setRight(this.toolbar.getBox());
-        this.getToolbar().putLabels(this, getTag());
+        this.getToolbar().putLabels(this, getNumPlayers());
     }
 
+    @Override
+    public Map<Integer, Item> getItemMap() {
+        return Collections.unmodifiableMap(this.itemMap);
+    }
+
+    @Override
+    public void removeItem() {
+
+        final Set<Integer> keySet = new HashSet<>(ViewImpl.getPlayScene().getItemMap().keySet());
+        for (final int key: keySet) {
+            if (this.pawnList.get((this.currentTurn - 1) % this.getNumPlayers()).getPawn().intersects(
+                    ViewImpl.getPlayScene().getItemMap().get(key).getItemImageView().getBoundsInLocal())) {
+                ViewImpl.getObserver().collisionHappened(key);
+                this.getDefaultLayout().getChildren().remove(this.itemMap.get(key).getItemImageView());
+                this.itemMap.remove(key);
+            }
+        }
+    }
 }

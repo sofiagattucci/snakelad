@@ -1,8 +1,12 @@
 package view.scenes.game;
 
-import utilities.Difficulty;
-import utilities.TypesOfDice;
+import java.util.Map;
+
+import utilities.enumeration.Difficulty;
+import utilities.enumeration.TypesOfDice;
+import utilities.enumeration.TypesOfItem;
 import view.gameboard.GameBoard;
+import view.item.Item;
 
 /**
  * Interface for a generic class Game.
@@ -10,20 +14,19 @@ import view.gameboard.GameBoard;
 public interface Game {
 
     /**
-     * It resets the displayed values at the beginning of each game. Indeed at the beginning 
-     * there is no value shown in the GUI for the dice value. 
+     * It resets the elements of the game scene to their default value at the beginning of each game.
      */
     void firstTurn(); 
 
     /**
-     * It updates the game screen each turn.
+     * It updates the game screen each turn. No jump required.
      * @param newDiceValue
      *     The new value of the dice
      */
     void updateInfo(int newDiceValue);
 
     /**
-     * It updates the game screen each turn.
+     * It updates the game screen each turn. Required jump.
      * @param newDiceValue
      *     The new value of the dice
      * @param finalPosition
@@ -32,7 +35,7 @@ public interface Game {
     void updateInfo(int newDiceValue, int finalPosition);
 
     /**
-     * Updates the scenery and the dice used for the game.
+     * Updates the elements of the game scene used for the game.
      * @param newDiff
      *     The new difficulty
      * @param newDice
@@ -46,19 +49,12 @@ public interface Game {
     void updateLanguage();
 
     /**
-     * It holds the number of players in the game. At this time we don' t know the number so an abstract method is needed.
-     * @return
-     *     The number of players in the game
-     */
-    int getTag();
-
-    /**
      * It handles the end of the game.
      */
     void gameOver();
 
     /**
-     * It manages the end of the turn, so it updates some informations.
+     * It manages the end of the current turn.
      */
     void endTurn();
 
@@ -73,4 +69,26 @@ public interface Game {
       * It resizes the pawns to fit the game board.
       */
      void resizePawns();
+
+     /**
+      * It puts an item in the game scene.
+      * @param position
+      *     The position where the item must be put
+      * @param type
+      *     The type of item to put in the GUI
+      */
+     void putItem(int position, TypesOfItem type);
+
+     /**
+      * Getter of the items (unmodifiable) list.
+      * @return
+      *     The (unmodifiable) list of the items shown in the scene
+      */
+     Map<Integer, Item> getItemMap();
+
+     /**
+      * It removes the selected Item from the GUI.
+      */
+     void removeItem();
+
 }

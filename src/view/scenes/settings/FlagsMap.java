@@ -4,28 +4,33 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import utilities.Language;
+import utilities.enumeration.Language;
 
 /**
- * This class hold a map with the different types of flags(Images) and their path.
+ * This class holds a map with the different types of flags (images) and their path.
  */
 public final class FlagsMap {
 
-    private static final String EN = "./res/LanguagesFlags/united_kingdom.png";
-    private static final String IT = "./res/LanguagesFlags/italy.png";
-    private static final String FR = "./res/LanguagesFlags/france.png";
-    private static final String ES = "./res/LanguagesFlags/spain.png";
-    private static final String DE = "./res/LanguagesFlags/germany.png";
+    private static final String EN = "languagesFlags/united_kingdom.png";
+    private static final String IT = "languagesFlags/italy.png";
+    private static final String FR = "languagesFlags/france.png";
+    private static final String ES = "languagesFlags/spain.png";
+    private static final String DE = "languagesFlags/germany.png";
 
     private static final FlagsMap INSTANCE = new FlagsMap();
     private final Map<Language, String> flagsPathMap = new HashMap<>();
 
     private FlagsMap() {
-            this.flagsPathMap.put(Language.EN, EN);
-            this.flagsPathMap.put(Language.IT, IT);
-            this.flagsPathMap.put(Language.FR, FR);
-            this.flagsPathMap.put(Language.ES, ES);
-            this.flagsPathMap.put(Language.DE, DE);
+
+        this.putEntry(Language.EN, EN);
+        this.putEntry(Language.IT, IT);
+        this.putEntry(Language.FR, FR);
+        this.putEntry(Language.ES, ES);
+        this.putEntry(Language.DE, DE);
+    }
+
+    private void putEntry(final Language l, final String path) {
+        this.flagsPathMap.put(l, path);
     }
 
     /**

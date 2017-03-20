@@ -12,13 +12,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utilities.ImageManager;
-import utilities.Language;
 import utilities.Pair;
+import utilities.enumeration.Language;
 import view.BasicButton;
 import view.LanguageStringMap;
 import view.ViewImpl;
 import view.scenes.Instructions;
+import view.scenes.Login;
 import view.scenes.Menu;
+import view.scenes.StatisticsScene;
 import view.scenes.setup.SetUpGame;
 
 /**
@@ -32,7 +34,7 @@ public class LanguageSwitcher {
     private static final double BIG_FLAG_H = BasicButton.getButtonHeight() * 1.5; 
     private static final double BIG_FLAG_W = BIG_FLAG_H * 1.8;
     private static final int DEFAULT_LANG_INDEX = 0;
-    private static final int FONT_SIZE = 20;
+    private static final int FONT_SIZE = 30;
 
     private final Label langLabel = new Label(LanguageStringMap.get().getMap().get(LANGUAGE_MSG_KEY));
     private final List<Pair<Language, ImageView>> flagList = new ArrayList<>();
@@ -61,8 +63,10 @@ public class LanguageSwitcher {
             elem.getSecond().setOnMouseClicked(e -> {
                 ViewImpl.getSettingsScene().updateComboLang();
                 ViewImpl.getObserver().setLanguage(elem.getFirst());
+                Login.getScene(stage).updateLanguage();
                 Menu.getScene(stage).updateLanguage();
                 Instructions.getScene(stage).updateLanguage();
+                StatisticsScene.getScene(stage).updateLanguage();
                 SetUpGame.getScene(stage).updateLanguage();
                 ViewImpl.getSettingsScene().updateLanguage();
                 for (final Pair<Language, ImageView> image: this.flagList) {

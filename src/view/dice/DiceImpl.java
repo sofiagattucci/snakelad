@@ -1,11 +1,12 @@
 package view.dice;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import javafx.scene.image.Image;
 import utilities.ImageManager;
-import utilities.TypesOfDice;
+import utilities.enumeration.TypesOfDice;
 import view.scenes.setup.SetUpGame;
 
 /**
@@ -13,10 +14,10 @@ import view.scenes.setup.SetUpGame;
  */
 public class DiceImpl implements Dice {
 
-    private static final String DEFAULT_DICE = "./res/Dice/ClassicDice/DiceSide1.png";
+    private static final String DEFAULT_DICE = DiceTypes.get().getSpecificDiceMap(TypesOfDice.CLASSIC_DICE).get(1);
 
     private final Image diceImage = ImageManager.get().readFromFile(DEFAULT_DICE);
-    private Map<Integer, String> diceSides;
+    private Map<Integer, String> diceSides = new HashMap<>(DiceTypes.get().getSpecificDiceMap(TypesOfDice.CLASSIC_DICE));
 
     /**
      * Constructor of this class.

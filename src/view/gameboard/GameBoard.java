@@ -3,7 +3,7 @@ package view.gameboard;
 import javafx.scene.image.Image;
 import utilities.Pair;
 /**
- * Interface for every type of game board in the game.
+ * Interface for a generic type of game board in the game.
  */
 public interface GameBoard {
 

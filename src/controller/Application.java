@@ -1,7 +1,7 @@
 package controller;
 
 /**
- *Class that contain main method.
+ *Class which contains the main method.
  *
  */
 public final class Application {

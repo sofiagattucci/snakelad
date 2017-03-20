@@ -1,8 +1,5 @@
 package utilities;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -15,11 +12,13 @@ public final class ImageManager implements FileManager {
     private static final ImageManager SINGLETON = new ImageManager();
 
     // private constructor
-    private ImageManager() { }
+    private ImageManager() {
+
+    }
 
     /**
-     * Static method which returns an ImageLoader unique instance.
-     * @return an ImageLoader unique instance.
+     * Static method which returns the ImageManager unique instance.
+     * @return the ImageManager unique instance.
      */
     public static ImageManager get() {
         return SINGLETON;
@@ -37,10 +36,9 @@ public final class ImageManager implements FileManager {
 
     @Override
     public Image readFromFile(final String path) {
-
-        try (FileInputStream in = new FileInputStream(path)) {
-            return new Image(in);
-        } catch (IOException exception) {
+        try {
+        return new Image(ImageManager.class.getResourceAsStream("/" + path));
+        } catch (Exception exception) {
             ConsoleLog.get().print("ERROR occurred during loading image located at: " + path);
             exception.printStackTrace();
         }

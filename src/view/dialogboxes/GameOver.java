@@ -8,7 +8,7 @@ import view.ViewImpl;
 import view.scenes.Menu;
 
 /**
- * It handles the end of a player versus player game.
+ * It handles the end of a generic game.
  */
 public class GameOver extends BasicDialogBox {
 

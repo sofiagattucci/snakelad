@@ -3,14 +3,14 @@ package view.scenes.setup;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import utilities.ImageManager;
-import utilities.TypesOfDice;
+import utilities.enumeration.TypesOfDice;
 import view.BasicButton;
 import view.LanguageStringMap;
 import view.dice.DiceTypes;
 
 /**
  * This class manages the choice of the dice and its elements in the GUI.
- * It implemented by using a circular list defined in the extended class CircularList.
+ * It implemented by using a circular list defined in the extended class ImagesCircularList.
  */
 public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
 
@@ -29,7 +29,7 @@ public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
      *     The next node of the layout graph to show in the GUI
      */
     public DiceCircularList(final Node next) {
-        super(DiceTypes.get().getNumDices(), DICE_LABEL_KEY, DICE_SIZE, TypesOfDice.CLASSIC_DICE, next);
+        super(TypesOfDice.values().length, DICE_LABEL_KEY, DICE_SIZE, TypesOfDice.CLASSIC_DICE, next);
     }
 
     @Override

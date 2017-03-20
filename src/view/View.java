@@ -2,6 +2,9 @@ package view;
 
 import java.util.Map;
 
+import utilities.Statistic;
+import utilities.enumeration.TypesOfItem;
+
 /**
  * Interface for the View.
  */
@@ -18,18 +21,18 @@ public interface View {
     void firstTurn();
 
     /**
-     * It updates the game screen each turn. No jump to be done in this turn
+     * It updates the game scene each turn. No jump to be done in this turn
      * @param newDiceValue
-     *     The new new dice value.
+     *     The new dice value.
      */
     void updateInfo(int newDiceValue);
 
     /**
-     * It updates the game screen each turn. Required a jump to be done in this turn.
+     * It updates the game scene each turn. Required a jump to be done in this turn.
      * @param newDiceValue
-     *     The new new dice value.
+     *     The new dice value.
      * @param finalPosition
-     *     The final position if the pawn stops on a snake/ladder
+     *     The final position of the pawn after a jump due to a snake/ladder
      */
     void updateInfo(int newDiceValue,  int finalPosition);
 
@@ -57,4 +60,20 @@ public interface View {
      *     The current value of the music volume
      */
     void setMusicVolume(float min, float max, float current);
+
+    /**
+     * It puts a new item in the GUI.
+     * @param pos
+     *     The position of the item represented as the box where the item must be put.
+     * @param type
+     *     The type of item to put in GUI
+     */
+    void putItem(int pos, TypesOfItem type);
+
+    /**
+     * It sets the statistics in the GUI.
+     * @param statistics
+     *     An object Statistic containing the statistics.
+     */
+    void setStatistics(Statistic statistics);
 }

@@ -1,7 +1,9 @@
 package view.scenes.game;
 
+import java.io.IOException;
+
 import javafx.stage.Stage;
-import utilities.Turn;
+import utilities.enumeration.Turn;
 import view.ViewImpl;
 import view.dialogboxes.SinglePlayerGameOver;
 import view.pawn.AvailableColor;
@@ -10,7 +12,7 @@ import view.pawn.PawnsColor;
 /**
  * This class creates and initializes the game scene for a player versus CPU game.
  */
-public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
+public final class SinglePlayerGame extends GameImpl {
 
     private static final int PLAYER_INDEX = 0;
     private static final int CPU_INDEX = 1;
@@ -19,7 +21,7 @@ public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
     private static SinglePlayerGame playScene = new SinglePlayerGame();
     private static Stage playStage;
 
-    private final SinglePlayerToolbar singleTool = new SinglePlayerToolbar();
+    private final Toolbar singleTool = new SinglePlayerToolbar();
 
     private SinglePlayerGame() {
         super();
@@ -34,6 +36,11 @@ public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
         } else {
             winner = Turn.CPU;
         }
+        try {
+            ViewImpl.getObserver().gameFinished(winner);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         new SinglePlayerGameOver(playStage, winner).show();
     }
 
@@ -44,7 +51,7 @@ public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
      * @return
      *     The game scene
      */
-    public static GameImpl<SinglePlayerToolbar> getScene(final Stage stage) {
+    public static GameImpl getScene(final Stage stage) {
         playStage = stage;
         SinglePlayerToolbar.setStage(stage);
         return playScene;
@@ -63,8 +70,17 @@ public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
     }
 
     @Override
-    public int getTag() {
+    public int getNumPlayers() {
         return N_PLAYERS;
+    }
+
+    /**
+     * Getter of the CPU index.
+     * @return
+     *     The CPU index
+     */
+    public static int getCPUIndex() {
+        return CPU_INDEX;
     }
 
     /**
@@ -72,9 +88,10 @@ public final class SinglePlayerGame extends GameImpl<SinglePlayerToolbar> {
      * @return
      *     The player index
      */
-    public static int getCPUIndex() {
-        return CPU_INDEX;
+    public static int getUserIndex() {
+        return PLAYER_INDEX;
     }
+
 
     @Override
     protected AvailableColor getColor(final int n) {

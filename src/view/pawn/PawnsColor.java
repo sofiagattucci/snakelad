@@ -1,12 +1,11 @@
 package view.pawn;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
- * It manages the colors of the pawns used in the game and permits to switch it.
+ * It manages the used colors of the pawns and permits to switch it.
  */
 public final class PawnsColor {
 
@@ -15,9 +14,12 @@ public final class PawnsColor {
     private final List<AvailableColor> multiColorAssigned = new ArrayList<>();
 
     private PawnsColor() {
-        this.singleColorAssigned.addAll(Arrays.asList(AvailableColor.RED, AvailableColor.LIGHTBLUE));
-        this.multiColorAssigned.addAll(Arrays.asList(AvailableColor.RED, AvailableColor.LIGHTBLUE,
-                AvailableColor.YELLOW, AvailableColor.GREEN, AvailableColor.FUCHSIA, AvailableColor.BLUE));
+
+        Stream.of(AvailableColor.RED, AvailableColor.LIGHTBLUE)
+              .forEach(this.singleColorAssigned:: add);
+        Stream.of(AvailableColor.RED, AvailableColor.LIGHTBLUE, AvailableColor.YELLOW, AvailableColor.GREEN,
+                  AvailableColor.FUCHSIA, AvailableColor.BLUE)
+              .forEach(this.multiColorAssigned:: add);
     }
 
     /**
@@ -49,24 +51,6 @@ public final class PawnsColor {
      */
     public AvailableColor getMultiColor(final int index) {
         return this.multiColorAssigned.get(index);
-    }
-
-    /**
-     * Getter of the (unmodifiable) list of the color used for each pawns (single player).
-     * @return
-     *     A list of the color used for each pawn
-     */
-    public List<AvailableColor> getSingleList() {
-        return Collections.unmodifiableList(this.singleColorAssigned);
-    }
-
-    /**
-     * Getter of the (unmodifiable) list of the color used for each pawns (player versus player).
-     * @return
-     *     A list of the color used for each pawn
-     */
-    public List<AvailableColor> getMultiList() {
-        return Collections.unmodifiableList(this.multiColorAssigned);
     }
 
     /**

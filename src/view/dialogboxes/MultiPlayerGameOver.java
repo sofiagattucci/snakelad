@@ -9,6 +9,7 @@ import view.LanguageStringMap;
  */
 public class MultiPlayerGameOver extends GameOver {
 
+    private static final String NEWLINE = "\n";
     private static final String PLAYER_KEY = "game.player";
 
     private final Label player = new Label(LanguageStringMap.get().getMap().get(PLAYER_KEY));
@@ -22,6 +23,6 @@ public class MultiPlayerGameOver extends GameOver {
      */
     public MultiPlayerGameOver(final Stage parentStage, final int winnerIndex) {
         super(parentStage);
-        this.getBox().setHeaderText(this.getMsg().getText() + this.player.getText() + winnerIndex + "\n" + this.getMsg2().getText());
+        this.getBox().setHeaderText(this.getMsg().getText() + this.player.getText() + winnerIndex + NEWLINE + this.getMsg2().getText());
     }
 }

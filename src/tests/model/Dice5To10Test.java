@@ -5,12 +5,13 @@ import static org.junit.Assert.fail;
 import java.util.Optional;
 import java.util.Random;
 import org.junit.Test;
-import model.Dice;
-import model.DiceFactoryImpl;
+
+import model.dice.Dice;
+import model.dice.DiceFactoryImpl;
 import utilities.ConsoleLog;
 
 /**
- * Junit test used in order to test Dice5To10 class inside Model.
+ * Junit test used in order to test Dice5To10 class.
  * This class has to achieve success in all its tests.
  */
 public final class Dice5To10Test {
@@ -59,7 +60,7 @@ public final class Dice5To10Test {
             assertEquals(number, dice.getLastNumberAppeared());
         }
 
-        //set random numbers as last number appreared on dice and check if everything works correctly
+        //set random numbers as last number appeared on dice and check if everything works correctly
         final Random rand = new Random();
         for (int i = 0; i < NUMBER_OF_ROLLS; i++) {
             final int value = rand.nextInt(NUMBER_OF_SIDES) + 1 + DELTA;

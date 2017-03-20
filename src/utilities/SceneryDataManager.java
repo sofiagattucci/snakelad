@@ -1,8 +1,8 @@
 package utilities;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -18,12 +18,13 @@ public final class SceneryDataManager implements FileManager {
     private static final int SEPARATOR = 0;
 
     // private constructor
-    private SceneryDataManager() { }
+    private SceneryDataManager() {
 
+    }
 
     /**
-     * Method which returns a DataManager unique instance.
-     * @return a DataManager unique instance.
+     * Method which returns the SceneryDataManager unique instance.
+     * @return the SceneryDataManager unique instance.
      */
     public static SceneryDataManager get() {
         return SINGLETON;
@@ -31,10 +32,9 @@ public final class SceneryDataManager implements FileManager {
 
     @Override
     public List<Integer> readFromFile(final String path) {
-
         final List<Integer> dataList = new LinkedList<>();
 
-        try (BufferedReader bf = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader bf = new BufferedReader(new InputStreamReader(System.class.getResourceAsStream(path)))) {
             Optional<String> line;
             line = Optional.ofNullable(bf.readLine());
             while (line.isPresent()) {
@@ -50,12 +50,13 @@ public final class SceneryDataManager implements FileManager {
             ConsoleLog.get().print("Error...Failed to read scenery from data file located at: " + path);
             exception.printStackTrace();
         }
+
         return dataList;
     }
 
     @Override
     public void writeToFile(final String path) {
-        //do nothing
+
     }
 
 }

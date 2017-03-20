@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import utilities.enumeration.Language;
+
 /**
  * This class load the language choose form user.
  * It's designed using Singleton pattern.
@@ -16,11 +18,13 @@ public final class LanguageLoader {
     private static final LanguageLoader SINGLETON = new LanguageLoader();
 
     // private constructor
-    private LanguageLoader() { }
+    private LanguageLoader() { 
+
+    }
 
     /**
-     * Static method which returns a LanguageLoader unique instance.
-     * @return a LanguageLoader unique instance.
+     * Static method which returns the LanguageLoader unique instance.
+     * @return the LanguageLoader unique instance.
      */
     public static LanguageLoader get() {
         return SINGLETON;
@@ -31,7 +35,7 @@ public final class LanguageLoader {
         final Map<String, String> map = new HashMap<>();
 
         final Locale locale = new Locale(lang);
-        final ResourceBundle strings = ResourceBundle.getBundle("LanguagesFiles.StringsBundle", locale);
+        final ResourceBundle strings = ResourceBundle.getBundle("languagesFiles.StringsBundle", locale);
         final Enumeration<String> bundleKeys = strings.getKeys();
 
         while (bundleKeys.hasMoreElements()) {
@@ -46,7 +50,7 @@ public final class LanguageLoader {
      * Loads and returns the language data required.
      * @param language
      *          the language chosen.
-     * @return a map which contains the language data loaded from the file with traductions in specified language.
+     * @return a map which contains the language data loaded from the file with translations in specified language.
      */
     public Map<String, String> getLanguage(final Language language) {
 

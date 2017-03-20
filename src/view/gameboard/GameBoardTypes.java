@@ -1,33 +1,34 @@
 package view.gameboard;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-import utilities.Difficulty;
 import utilities.Pair;
+import utilities.enumeration.Difficulty;
 
 /**
  * This class manages the different types of game boards (images) available in the game.
  */
 public final class GameBoardTypes {
 
-    private static final String STANDARD_BOARD_PATH = "./res/GameBoards/";
-    private static final String GAME_BOARD = "GameBoard";
+    private static final String STANDARD_BOARD_PATH = "gameBoards/";
+    private static final String GAME_BOARD = "gameBoard";
     private static final String ESCAPE = "/";
     private static final String MINI = "_mini";
     private static final String PNG = ".png";
-    private static final int NUM_SCENERY = 4;
+    private static final int NUM_SCENERY = Difficulty.values().length;
 
     private static final GameBoardTypes BOARD_TYPES = new GameBoardTypes();
-    private final Map<Difficulty, Pair<String, String>> boardMap = new HashMap<>();
+    private final Map<Difficulty, Pair<String, String>> boardMap;
 
     private GameBoardTypes() {
-
-        for (int i = 1; i <= NUM_SCENERY; i++) {
-        this.boardMap.put(this.calculateDifficulty(i), new Pair<>(
-                STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + PNG,
-                STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + MINI + PNG));
-        }
+ 
+        this.boardMap = IntStream.range(1, NUM_SCENERY + 1)
+                                 .boxed()
+                                 .collect(Collectors.toMap(i -> this.calculateDifficulty(i), i -> new Pair<String, String>(
+                                         STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + PNG,
+                                         STANDARD_BOARD_PATH + GAME_BOARD + i + ESCAPE + GAME_BOARD + i + MINI + PNG)));
     }
 
     private Difficulty calculateDifficulty(final int n) {
@@ -69,14 +70,5 @@ public final class GameBoardTypes {
      */
     public String getBoardMini(final Difficulty diff) {
         return this.boardMap.get(diff).getSecond();
-    }
-
-    /**
-     * Getter of the number of sceneries available in the game.
-     * @return
-     *     The number of sceneries available in the game
-     */
-    public static int getNumScenery() {
-        return NUM_SCENERY;
     }
 }

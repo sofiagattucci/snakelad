@@ -1,20 +1,18 @@
 package view.pawn;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
 import javafx.scene.image.ImageView;
 import utilities.ImageManager;
 import utilities.Pair;
 import view.Dimension;
 import view.scenes.game.Game;
-import view.scenes.game.Toolbar;
+import view.scenes.game.ToolbarImpl;
+
 /**
  * This class represents a pawn of the game.
  */
 public class PawnImpl implements Pawn {
 
-    private static final double PAWN_HEIGHT_PARAM = 2;
+    private static final double PAWN_HEIGHT_PARAM = 3;
 
     private final ImageView pawnIm;
     private Pair<Double, Double> pawnStartingPos;
@@ -22,7 +20,6 @@ public class PawnImpl implements Pawn {
     private int positionInRow;
     private int row;
     private final Game parentScene;
-    private final Executor executor = Executors.newSingleThreadExecutor();
 
     /**
      * Constructor of this class.
@@ -56,8 +53,9 @@ public class PawnImpl implements Pawn {
     @Override
     public final void resizePawn() {
         this.pawnIm.setFitHeight(Dimension.getPawnHeight());
-        pawnStartingPos = new Pair<>((Dimension.SCREEN_W - Toolbar.getBoxWidth() - Dimension.BOARD_H) / 2 
-                + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) / 2 - Dimension.getPawnHeight() / PAWN_HEIGHT_PARAM,
+        this.pawnStartingPos = new Pair<>((Dimension.SCREEN_W - ToolbarImpl.getBoxWidth() - Dimension.BOARD_H) / 2 
+                + (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow()) / 2 
+                - Dimension.getPawnHeight() / PAWN_HEIGHT_PARAM,
                 Dimension.BOARD_H + (Dimension.SCREEN_H - Dimension.BOARD_H) / 2 
                 - Dimension.getPawnHeight() - (Dimension.BOARD_H / this.parentScene.getBoard().getBoxesPerRow() 
                         - Dimension.getPawnHeight()) / 2);
@@ -66,13 +64,12 @@ public class PawnImpl implements Pawn {
 
     @Override
     public void movePawn(final int nMoves) {
-        this.executor.execute(new PawnAnimation(this, nMoves));
+        new Thread(new PawnAnimation(this, nMoves)).start();
     }
 
     @Override
     public void movePawnAndJump(final int nMoves, final int finalPos) {
-        final Thread th = new Thread(new PawnAnimation(this, nMoves, finalPos));
-        th.start();
+        new Thread(new PawnAnimation(this, nMoves, finalPos)).start();
     }
 
     @Override
