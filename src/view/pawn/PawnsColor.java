@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * It manages the colors of the pawns used in the game and permits to switch it.
+ * It manages the used colors of the pawns and permits to switch it.
  */
 public final class PawnsColor {
 

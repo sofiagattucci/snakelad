@@ -14,20 +14,19 @@ import view.item.Item;
 public interface Game {
 
     /**
-     * It resets the displayed values at the beginning of each game. Indeed at the beginning 
-     * there is no value shown in the GUI for the dice value. 
+     * It resets the elements of the game scene to their default value at the beginning of each game.
      */
     void firstTurn(); 
 
     /**
-     * It updates the game screen each turn.
+     * It updates the game screen each turn. No jump required.
      * @param newDiceValue
      *     The new value of the dice
      */
     void updateInfo(int newDiceValue);
 
     /**
-     * It updates the game screen each turn.
+     * It updates the game screen each turn. Required jump.
      * @param newDiceValue
      *     The new value of the dice
      * @param finalPosition
@@ -36,7 +35,7 @@ public interface Game {
     void updateInfo(int newDiceValue, int finalPosition);
 
     /**
-     * Updates the scenery and the dice used for the game.
+     * Updates the elements of the game scene used for the game.
      * @param newDiff
      *     The new difficulty
      * @param newDice
@@ -55,7 +54,7 @@ public interface Game {
     void gameOver();
 
     /**
-     * It manages the end of the turn, so it updates some informations.
+     * It manages the end of the current turn.
      */
     void endTurn();
 
@@ -72,11 +71,11 @@ public interface Game {
      void resizePawns();
 
      /**
-      * It puts a coin in the game scene.
+      * It puts an item in the game scene.
       * @param position
-      *     The position where the coin must be put
+      *     The position where the item must be put
       * @param type
-      *     The type of item  to put in the GUI
+      *     The type of item to put in the GUI
       */
      void putItem(int position, TypesOfItem type);
 

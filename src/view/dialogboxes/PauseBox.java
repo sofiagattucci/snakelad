@@ -8,7 +8,7 @@ import view.ViewImpl;
 import view.scenes.Menu;
 
 /**
- * This class represents the pause window.
+ * This class represents the pause window and manages its elements.
  */
 public class PauseBox extends BasicDialogBox {
 

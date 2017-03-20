@@ -9,7 +9,7 @@ import view.scenes.game.Game;
 import view.scenes.game.ToolbarImpl;
 
 /**
- * This class represents a coin in the GUI.
+ * This class represents an item shown in the GUI.
  */
 public class ItemImpl implements Item {
 

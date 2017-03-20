@@ -13,9 +13,9 @@ import view.ViewImpl;
 import view.dialogboxes.ClosureHandler;
 import view.scenes.settings.Settings;
 import view.scenes.setup.SetUpGame;
+
 /**
  * This class creates and initializes the main menu scene. 
- * It' s built using a Singleton pattern.
  */
 public final class Menu extends BasicScene {
 

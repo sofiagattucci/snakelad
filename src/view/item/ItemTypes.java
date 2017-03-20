@@ -8,7 +8,7 @@ import utilities.Pair;
 import utilities.enumeration.TypesOfItem;
 
 /**
- * It manages the different types of items available in the game.
+ * It manages the different types of items (images) available in the game.
  */
 public final class ItemTypes {
 

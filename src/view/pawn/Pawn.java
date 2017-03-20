@@ -17,7 +17,8 @@ public interface Pawn {
     void movePawn(int nMoves);
 
     /**
-     * It updates the position of the pawn in the board by moving it of the chosen number of boxes.
+     * It updates the position of the pawn in the board by moving it of the chosen number of boxes. Then it executes
+     * a jump to the specified position.
      * @param nMoves
      *     The number of boxes the pawn needs to go on
      * @param finalPos
@@ -26,7 +27,7 @@ public interface Pawn {
     void movePawnAndJump(int nMoves, int finalPos);
 
     /**
-     * It resets the raw counter of the pawn and puts it to 0 again, then the direction is set to the default one (RIGHT).
+     * It resets the row counter of the pawn and puts it to 0 again, then the direction is set to the default one (RIGHT).
      * In the end it puts the pawn to its starting position.
      */
     void reset();
@@ -39,7 +40,7 @@ public interface Pawn {
     ImageView getPawn();
 
     /**
-     * Getter of the movements direction of the pawn.
+     * Getter of the direction of the movements of the pawn.
      * @return
      *     An element of the enumeration Direction .
      */
@@ -53,14 +54,14 @@ public interface Pawn {
     int getPositionInRow();
 
     /**
-     * Getter of the row of the pawn.
+     * Getter of the row where the pawn is.
      * @return
      *     The row where the pawn is.
      */
     int getRow();
 
     /**
-     * Setter of the pawn.
+     * Setter of the pawn' s  position in the row.
      * @param newPos
      *     The new new position in the row.
      */
@@ -74,14 +75,14 @@ public interface Pawn {
     void setRow(int newRow);
 
     /**
-     * getter of the starting point of the pawn.
+     * Getter of the starting point of the pawn.
      * @return
      *     The X:Y coordinates where the pawn has its starting point
      */
     Pair<Double, Double> getIniPos();
 
     /**
-     * It changes the direction of the pawn' s movement.
+     * It changes the direction of the movements of the pawn.
      */
     void changeDirection();
 
@@ -93,7 +94,7 @@ public interface Pawn {
     void updateColor(String path);
 
     /**
-     * Getter of the parent scene of the pawn(the scene where the pawn is shown in the GUI).
+     * Getter of the parent scene of the pawn (the scene where the pawn is shown in the GUI).
      * @return
      *     The scene where the pawn is located in the GUI.
      */

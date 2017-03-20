@@ -24,7 +24,7 @@ import view.scenes.game.SinglePlayerGame;
 import view.scenes.setup.SetUpGame;
 
 /**
- * This class manages the elements of the GUI that allow to change the color the panels.
+ * This class manages the elements of the GUI that allow to change the color of the panels.
  */
 public class SkinSwitcher {
 

@@ -5,7 +5,7 @@ import utilities.enumeration.Turn;
 import view.ViewImpl;
 
 /**
- * It handles the end of the game.
+ * It handles the end of a single player game.
  */
 public class SinglePlayerGameOver extends GameOver {
 

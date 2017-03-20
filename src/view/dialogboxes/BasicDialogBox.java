@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import view.ViewImpl;
 
 /**
- * Basic implementation for a dialogue box.
+ * Basic implementation for a dialog box.
  */
 public abstract class BasicDialogBox {
 

@@ -6,6 +6,7 @@ import utilities.Pair;
 import view.Dimension;
 import view.scenes.game.Game;
 import view.scenes.game.ToolbarImpl;
+
 /**
  * This class represents a pawn of the game.
  */

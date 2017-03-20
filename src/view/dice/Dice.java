@@ -25,7 +25,7 @@ public interface Dice {
     Map<Integer, String> getDiceSides();
 
     /**
-     * It changes the dice currently used with the one specified.
+     * It changes the dice currently used dice with the one specified.
      * @param newDice
      *     The new dice to use
      */

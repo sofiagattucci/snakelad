@@ -7,7 +7,7 @@ import java.util.Map;
 import utilities.enumeration.Language;
 
 /**
- * This class hold a map with the different types of flags(Images) and their path.
+ * This class holds a map with the different types of flags (images) and their path.
  */
 public final class FlagsMap {
 

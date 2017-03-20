@@ -29,7 +29,7 @@ import view.pawn.PawnImpl;
 import view.pawn.PawnTypes;
 
 /**
- * It manages the tool bar in the game screen.
+ * It manages the tool bar shown in the game scene.
  */
 public abstract class ToolbarImpl implements Toolbar {
 

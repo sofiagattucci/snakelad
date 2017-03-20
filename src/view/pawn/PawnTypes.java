@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * This class manages the different types of pawns available in the game.
+ * This class manages the different types of pawns (images) available in the game.
  */
 public final class PawnTypes {
 

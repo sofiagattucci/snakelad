@@ -10,7 +10,7 @@ import view.dice.DiceTypes;
 
 /**
  * This class manages the choice of the dice and its elements in the GUI.
- * It implemented by using a circular list defined in the extended class CircularList.
+ * It implemented by using a circular list defined in the extended class ImagesCircularList.
  */
 public class DiceCircularList extends ImagesCircularList<TypesOfDice> {
 
